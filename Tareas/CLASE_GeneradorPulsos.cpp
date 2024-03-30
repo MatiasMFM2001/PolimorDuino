@@ -1,0 +1,65 @@
+#include "CLASE_GeneradorPulsos.h"
+#include "FuncionesGlobales.h"
+//#include "CLASE_WrapperPuntero"
+
+GeneradorPulsos::GeneradorPulsos
+    (Pulsable* pulsable, long msSemiCiclo, long numPulsos, Scheduler* planif)
+    : Task(msSemiCiclo, multiplicarNumIteraciones(numPulsos, 2), planif, false)
+    , pulsable(pulsable)
+{}
+
+void GeneradorPulsos::enableNumPulsos(long cant) {
+    LOG("EJECUTANDO GeneradorPulsos::enableNumPulsos(%ld)", cant);
+    Task::setIterations(multiplicarNumIteraciones(cant, 2));
+    Task::enable();
+}
+
+void GeneradorPulsos::enablePeriodo(long ms) {
+    LOG("EJECUTANDO GeneradorPulsos::enablePeriodo(%ld ms)", ms);
+    Task::setInterval(ms / 2);
+    Task::enable();
+}
+
+void GeneradorPulsos::enableFrecuencia(long hz) {
+    LOG("INICIO GeneradorPulsos::enableFrecuencia(%ld)", hz);
+        if (hz == 0) {
+            LOG("GeneradorPulsos::enableFrecuencia(%ld) - Saliendo porque hz == 0", hz);
+            Task::disable();
+            
+            return;
+        }
+        
+        this -> enablePeriodo(TASK_SECOND / hz);
+    LOG("FIN GeneradorPulsos::enableFrecuencia(%ld)", hz);
+}
+
+
+bool GeneradorPulsos::OnEnable() {
+    FLOGS("EJECUTANDO GeneradorPulsos::OnEnable()");
+    this -> pulsable -> apagar();
+    return true;
+}
+
+bool GeneradorPulsos::Callback() {
+    LOG("INICIO GeneradorPulsos::Callback(), iteración %d", Task::getRunCounter());
+        if (!esPar(Task::getRunCounter()))
+            this -> pulsable -> encender();
+        else
+            this -> pulsable -> apagar();
+    FLOGS("FIN GeneradorPulsos::Callback()");
+        
+    return true;
+}
+
+void GeneradorPulsos::OnDisable() {
+    FLOGS("EJECUTANDO GeneradorPulsos::OnDisable()");
+    this -> pulsable -> apagar();
+}
+
+size_t GeneradorPulsos::printTo(Print& impresora) const {
+    return (imprimirCabeceraJSON<>(impresora, F("GeneradorPulsos"))
+        + imprimirVariableJSON<>(impresora, F("msSemiCiclo"), Task::getInterval()) + impresora.print(JSON_SEPARADOR)
+        + imprimirVariableJSON<>(impresora, F("numPulsos"), Task::getIterations()) + impresora.print(JSON_SEPARADOR)
+        + imprimirVariableJSON<>(impresora, F("pulsable"), this -> pulsable) + impresora.print(JSON_CLAUSURA_OBJETO)
+    );
+}

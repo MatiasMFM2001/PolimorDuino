@@ -1,0 +1,29 @@
+#include "CLASE_PinSalida.h"
+#include "InclusionLog4Arduino.h"
+
+PinSalida::PinSalida(byte pin, bool invertir, bool estadoInicial)
+    : Pin(pin, invertir, OUTPUT)
+{
+    this -> setEstado(estadoInicial);
+}
+
+void PinSalida::setEstado(bool valor) {
+    LOG("INICIO PinSalida::setEstado(%d, %d)", this -> numPin, valor);
+        if (this -> pinValido) {
+            LOG("PinSalida::setEstado(%d, %d) - Ejecutando por pin válido", this -> numPin, valor);
+            digitalWrite(this -> numPin, valor ^ (this -> invertir));
+        }
+    LOG("FIN PinSalida::setEstado(%d, %d)", this -> numPin, valor);
+}
+
+void PinSalida::encender() {
+    this -> setEstado(true);
+}
+
+void PinSalida::apagar() {
+    this -> setEstado(false);
+}
+
+size_t PinSalida::printTo(Print& impresora) const {
+    return Pin::printTo(impresora);
+}
