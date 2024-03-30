@@ -36,7 +36,7 @@
              * @brief Escribe un byte en el buffer, si hay capacidad suficiente.
              * 
              * @param ingr El byte a escribir.
-             * @returns 1 si hay capacidad, 0 en caso contrario.
+             * @returns @code 1 si hay capacidad, @code 0 en caso contrario.
              */
             size_t write(byte ingr) override {
                 if (this -> datos.full()) {
