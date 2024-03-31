@@ -7,8 +7,14 @@ AutoFlusher::AutoFlusher(Print* impresora, long msEntreLlamados, Scheduler* plan
 {}
         
 bool AutoFlusher::Callback() {
-    //Serial.println("EJECUTANDO AutoFlusher::Callback()");
-    this -> impresora -> flush();
+    LOG("EJECUTANDO AutoFlusher::Callback()");
     
+    if (this -> impresora != nullptr) {
+        this -> impresora -> flush();
+    }
+    else {
+        LOG("AutoFlusher::Callback() - Saliendo porque this -> impresora == nullptr");
+    }
+
     return true;
 }
