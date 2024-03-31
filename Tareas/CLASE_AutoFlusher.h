@@ -28,6 +28,7 @@
         
 			/**
 			 * @brief Ejecuta la impresión periódica.
+			 * 
 			 * @returns @code true para indicar que la ejecución de la tarea fue
 			 *  "productiva".
 			 */
