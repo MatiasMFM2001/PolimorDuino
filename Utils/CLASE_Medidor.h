@@ -6,9 +6,10 @@
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
      *  realizando acciones con los valores medidos.
      * 
-     * @tparam T El tipo de dato que almacena el resultado de una medición.
+     * @tparam TResultado El tipo de dato que almacena el resultado de una
+     *  medición.
      */
-    template <typename T>
+    template <typename TResultado>
     class Medidor {
         protected:
             /**
@@ -17,7 +18,7 @@
              * 
              * @param ingr El valor medido.
              */
-            void ejecutarCallback(T ingr) {
+            void ejecutarCallback(TResultado ingr) {
                 FLOGS("MEDIDOR - Ejecutando ejecutarCallback()");
                 LOGS(ingr);
                 this -> Callback(ingr);
@@ -29,6 +30,6 @@
              * 
              * @param valor El valor medido.
              */
-            virtual void Callback(T valor) = 0;
+            virtual void Callback(TResultado valor) = 0;
     };
 #endif
