@@ -10,7 +10,5 @@
             void setEstado(bool valor);
             void encender() override;
             void apagar() override;
-        
-            size_t printTo(Print& impresora) const override;
     };
 #endif

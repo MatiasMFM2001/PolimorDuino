@@ -23,7 +23,3 @@ void PinSalida::encender() {
 void PinSalida::apagar() {
     this -> setEstado(false);
 }
-
-size_t PinSalida::printTo(Print& impresora) const {
-    return Pin::printTo(impresora);
-}
