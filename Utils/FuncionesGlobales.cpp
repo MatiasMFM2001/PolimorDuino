@@ -26,3 +26,20 @@ long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador) {
     
     return (numTerminos * multiplicador);
 }
+
+
+
+void notificarAlarma() {
+    FLOGS("EJECUTANDO FuncionesGlobales::notificarAlarma()");
+    alarma.notificar();
+}
+
+void activarAlarma() {
+    FLOGS("EJECUTANDO FuncionesGlobales::activarAlarma()");
+    alarma.activar();
+}
+
+void desactivarAlarma() {
+    FLOGS("EJECUTANDO FuncionesGlobales::desactivarAlarma()");
+    alarma.desactivar();
+}
