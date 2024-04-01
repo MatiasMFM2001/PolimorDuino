@@ -1,8 +1,8 @@
 #include "CLASE_PinSalida.h"
 #include "InclusionLog4Arduino.h"
 
-PinSalida::PinSalida(byte pin, bool invertir, bool estadoInicial)
-    : Pin(pin, invertir, OUTPUT)
+PinSalida::PinSalida(byte numPin, bool invertir, bool estadoInicial)
+    : Pin(numPin, invertir, OUTPUT)
 {
     this -> setEstado(estadoInicial);
 }
