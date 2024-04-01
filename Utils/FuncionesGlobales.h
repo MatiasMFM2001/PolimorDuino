@@ -12,7 +12,6 @@
   	//Scheduler* getNivel(Prioridad ingr);
   	bool esPar (short num);
     long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador);
-    void setColor(ListaLEDs ledSelec, ColorRGB color);
     
     void notificarAlarma();
     void activarAlarma();

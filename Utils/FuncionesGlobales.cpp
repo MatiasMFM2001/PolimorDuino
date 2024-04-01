@@ -27,12 +27,6 @@ long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador) {
     return (numTerminos * multiplicador);
 }
 
-void setColor(ListaLEDs ledSelec, ColorRGB color) {
-    //ultimoColor[ledSelec] = leds.getPixelColor(ledSelec);
-    leds.setPixelColor(ledSelec, color.rojo, color.verde, color.azul);
-    leds.show();  // Esto podría hacerse en una tarea aparte cada tanto
-}
-
 
 
 void notificarAlarma() {
