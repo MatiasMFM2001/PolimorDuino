@@ -29,9 +29,6 @@
              * 
              * @param valor El valor medido.
              */
-            virtual void Callback(T valor) {
-                FLOGS("MEDIDOR - Ejecutando Callback()");
-                LOGS(valor);
-            }
+            virtual void Callback(T valor) = 0;
     };
 #endif
