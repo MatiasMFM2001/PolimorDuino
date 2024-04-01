@@ -1,25 +1,30 @@
-#ifndef LISTA_COLORES
-#define LISTA_COLORES
+#ifndef COLORES_COMUNES
+#define COLORES_COMUNES
 
-#include "STRUCT_ColorRGB.h"
-    struct Colores {ColorRGB   // Parece un enum, pero en realidad todos los "valores" son campos de tipo ColorRGB
-        LED_APAGADO = {0, 0, 0},    // Está almacenado en RAM
+#include "STRUCT_ColorRGBW.h"
+	/**
+	 * @brief Estructura de datos que almacena una paleta de colores.
+	 * 
+	 * Parece una enumeración, pero en realidad todos los "valores" son campos
+	 *  de tipo ColorRGBW, y se puede usar la misma sintaxis de enumeración (por
+	 *  ejemplo, @code ColoresComunes::NEGRO).
+	 * 
+	 * Está almacenado en RAM?
+	 */
+    struct ColoresComunes {ColorRGBW
+        NEGRO = {0, 0, 0},
         
-        BOOT_SETUP = {255, 0, 0},
-        CALIB_PARTE1 = {255, 127, 0},
-        CALIB_PARTE2 = {255, 255, 0},
-        CALIB_PARTE3 = {127, 255, 0},
-        CALIB_PARTE4 = {0, 255, 0},
-        //BOOT_ = {0, 255, 127},
-        //BOOT_ = {0, 255, 255},
-        //BOOT_ = {0, 127, 255},
-        //BOOT_ = {0, 0, 255},
-        //BOOT_ = {127, 0, 255},
-        //BOOT_ = {255, 0, 255},
-        //BOOT_ = {255, 0, 127},
-        
-        VENT_FALLO = {255, 0, 0},
-        VENT_3PIN = {0, 255, 0},
-        VENT_4PIN = {0, 255, 255};
+        ROJO = {255, 0, 0},
+        NARANJA = {255, 127, 0},
+        AMARILLO = {255, 255, 0},
+        LIMA = {127, 255, 0},
+        VERDE = {0, 255, 0},
+        TURQUESA = {0, 255, 127},
+        CIAN = {0, 255, 255},
+        AZUR = {0, 127, 255},
+        AZUL = {0, 0, 255},
+        VIOLETA = {127, 0, 255},
+        MAGENTA = {255, 0, 255},
+        ROSA = {255, 0, 127},
     };
 #endif
