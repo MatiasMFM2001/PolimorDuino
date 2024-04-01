@@ -3,19 +3,39 @@
 
 #include "CLASE_Display7Segmentos.h"
 #include "CLASE_Contador.h"
+    /**
+     * @brief Permite mostrar números secuencialmente (en bucle infinito) en un
+     *  display de 7 segmentos de 1 dígito.
+     * 
+     * @tparam TNumNumeros La cantidad máxima de números a mostrar.
+     */
     template <size_t TNumNumeros>
-
     class MostradorDisplay : public Pulsable {
         private:
+            /** @brief Los números a mostrar. */
             Array<byte, TNumNumeros> numeros;
+            
+            /** @brief Instancia que mostrará cada número. */
             Display7Segmentos* display;
+            
+            /** @brief Cursor de posiciones sobre el array. */
             Contador<size_t> contPos;
         
         public:
+            /**
+             * @brief Construye un MostradorDisplay, con el display especificado.
+             * 
+             * @param display El display de 7 segmentos y 1 dígito especificado.
+             */
             MostradorDisplay(Display7Segmentos* display)
                 : numeros(Array<byte, TNumNumeros>()), display(display), contPos(Contador<size_t>(0))
             {}
             
+            /**
+             * @brief Establece un único número para mostrar.
+             * 
+             * @param ingr El número a mostrar.
+             */
             void setNumero(byte ingr) {
                 LOG("EJECUTANDO MostradorDisplay::setNumero(%d)", ingr);
                 this -> numeros.clear();
@@ -23,12 +43,21 @@
                 this -> contPos.reiniciar();
             }
             
+            /**
+             * @brief Establece múltiples números para mostrar.
+             * 
+             * @param ingr Los números a mostrar.
+             */
             void setNumeros(Array<byte, TNumNumeros> ingr) {
                 LOG("EJECUTANDO MostradorDisplay::setNumeros(%d)", ingr.size());
                 this -> numeros = ingr;
                 this -> contPos.reiniciar();
             }
             
+            /**
+             * @brief Reinicia el contador (de ser necesario), muestra el número
+             *  actual e incrementa el contador.
+             */
             void encender() override {
                 LOG("INICIO MostradorDisplay::encender(%d)", this -> numeros.at(this -> contPos.getValor()));
                     if (this -> contPos.getValor() >= this -> numeros.size()) {
@@ -46,11 +75,21 @@
                 FLOGS("FIN MostradorDisplay::encender()");
             }
             
+            /**
+             * @brief Apaga el display.
+             */
             void apagar() override {
                 LOG("EJECUTANDO MostradorDisplay::apagar(%d)", this -> numeros.at(this -> contPos.getValor()));
                 this -> display -> apagar();
             }
             
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             * 
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
             size_t printTo(Print& impresora) const override {
                 return (imprimirCabeceraJSON(impresora, F("MostradorDisplay"))
                     + imprimirVariableJSON(impresora, F("numeros"), this -> numeros) + impresora.print(JSON_SEPARADOR)
