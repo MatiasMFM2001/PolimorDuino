@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 	/**
-	 * @brief Permite encapsular en un objeto, un pin de E/S.
+	 * @brief Permite encapsular en un objeto, un pin de Entrada/Salida.
 	 */
     class Pin : virtual public Printable {
         protected:
