@@ -61,8 +61,4 @@
      *  @code TASK_FOREVER, el resultado de la multiplicación en caso contrario.
      */
     long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador);
-
-    void notificarAlarma();
-    void activarAlarma();
-    void desactivarAlarma();
 #endif
