@@ -1,18 +1,18 @@
 #ifndef MEDIDOR_TEMPORIZADO
 #define MEDIDOR_TEMPORIZADO
 
-#include "CLASE_Medidor.h"
+#include "CLASE_TareaMedidora.h"
     /**
      * @brief 
      * 
      * @tparam TResultado El tipo de dato que almacena el resultado de una
      *  medición.
      */
-    template <typename TResultado>
-    class MedidorTemporizado : public Medidor<TResultado> {
+    template <typename TResultado, void (*FLogger)(TResultado&)>
+    class MedidorTemporizado : public TareaMedidora<TResultado, FLogger> {
         public:
-            MedidorInstantaneo(const __FlashStringHelper *nombre)
-                : Medidor(nombre)
+            MedidorTemporizado(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, unsigned long msMedicion, Scheduler* planif)
+                : TareaMedidora(nombre, callback, msMedicion, planif)
             {}
     };
 #endif

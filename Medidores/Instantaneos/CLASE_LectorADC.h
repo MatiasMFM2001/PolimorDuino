@@ -3,13 +3,19 @@
 
 
 #include "CLASE_MedidorInstantaneo.h"
-    class LectorADC : MedidorInstantaneo {
+    template <typename TResultado, void (*FLogger)(TResultado&)>
+    class LectorADC : MedidorInstantaneo<TResultado, FLogger> {
         private:
             byte pin;
       
         public:
-            LectorADC(byte pin);
+            LectorADC(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
+                : MedidorInstantaneo(nombre, callback, planif)
+                , pin(pin)
+            {}
             
-            
+            virtual TResultado getResultado() override {
+                return analogRead(this -> pin);
+            }
     };
 #endif

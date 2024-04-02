@@ -1,18 +1,18 @@
 #ifndef MEDIDOR_INSTANTANEO
 #define MEDIDOR_INSTANTANEO
 
-#include "CLASE_Medidor.h"
+#include "CLASE_TareaMedidora.h"
     /**
      * @brief 
      * 
      * @tparam TResultado El tipo de dato que almacena el resultado de una
      *  medición.
      */
-    template <typename TResultado>
-    class MedidorInstantaneo : public Medidor<TResultado> {
+    template <typename TResultado, void (*FLogger)(TResultado&)>
+    class MedidorInstantaneo : public TareaMedidora<TResultado, FLogger> {
         public:
-            MedidorInstantaneo(const __FlashStringHelper *nombre)
-                : Medidor(nombre)
+            MedidorInstantaneo(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
+                : TareaMedidora(nombre, callback, TASK_MILLISECOND, planif)
             {}
         
             virtual void iniciarMedicion() override {
