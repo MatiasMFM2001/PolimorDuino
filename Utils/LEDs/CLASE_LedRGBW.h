@@ -20,6 +20,6 @@
             
             virtual void setEstado(bool valor, bool mostrar = true) override;
             
-            void mostrar() = 0;
+            virtual void mostrar() = 0;
     };
 #endif
