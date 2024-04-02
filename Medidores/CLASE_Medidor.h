@@ -10,10 +10,11 @@
      *  medición.
      * @tparam FLogger La función encargada de imprimir en logs el valor medido.
      */
-    template <typename TResultado, void (*FLogger)(T&)>
+    template <typename TResultado, void (*FLogger)(TResultado&)>
     class Medidor {
         protected:
             const __FlashStringHelper *nombre;
+            //TResultado resultado;
         
             /**
              * @brief Usa el valor medido para imprimirlo en el log, y ejecutar
@@ -31,6 +32,8 @@
             Medidor(const __FlashStringHelper *nombre)
                 : nombre(nombre)
             {}
+        
+            virtual void iniciarMedicion() = 0;
         
             /**
              * @brief Realiza acciones con el valor medido.
