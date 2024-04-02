@@ -8,8 +8,9 @@
      * 
      * @tparam TResultado El tipo de dato que almacena el resultado de una
      *  medición.
+     * @tparam FLogger La función encargada de imprimir en logs el valor medido.
      */
-    template <typename TResultado>
+    template <typename TResultado, void (*FLogger)(T&)>
     class Medidor {
         protected:
             /**
