@@ -2,15 +2,14 @@
 #define LECTOR_ADC
 
 
-#include "CLASE_Ventilador.h"
-    class LectorADC : public Task {
+#include "CLASE_MedidorInstantaneo.h"
+    class LectorADC : MedidorInstantaneo {
         private:
             byte pin;
-            Ventilador* vent;
       
         public:
-            LectorADC(byte pin, long msEntreLecturas, Ventilador* vent, Scheduler* planif);
-    
-            bool Callback() override;
+            LectorADC(byte pin);
+            
+            
     };
 #endif
