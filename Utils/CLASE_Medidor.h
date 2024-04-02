@@ -13,6 +13,8 @@
     template <typename TResultado, void (*FLogger)(T&)>
     class Medidor {
         protected:
+            const __FlashStringHelper *nombre;
+        
             /**
              * @brief Usa el valor medido para imprimirlo en el log, y ejecutar
              *  el @code Callback().
@@ -20,12 +22,16 @@
              * @param ingr El valor medido.
              */
             void ejecutarCallback(TResultado ingr) {
-                FLOGS("MEDIDOR - Ejecutando ejecutarCallback()");
-                LOGS(ingr);
+                LOG("MEDIDOR \"%S\" - Ejecutando Callback() con valor:", this -> nombre);
+                FLogger(ingr);
                 this -> Callback(ingr);
             }
         
         public:
+            Medidor(const __FlashStringHelper *nombre)
+                : nombre(nombre)
+            {}
+        
             /**
              * @brief Realiza acciones con el valor medido.
              * 
