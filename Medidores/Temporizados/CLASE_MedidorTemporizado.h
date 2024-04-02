@@ -9,7 +9,7 @@
      *  medición.
      */
     template <typename TResultado>
-    class MedidorTemporizado : public Medidor {
+    class MedidorTemporizado : public Medidor<TResultado> {
         protected:
             TResultado resultado;
         

@@ -9,7 +9,7 @@
      *  medición.
      */
     template <typename TResultado>
-    class MedidorInstantaneo : public Medidor {
+    class MedidorInstantaneo : public Medidor<TResultado> {
         public:
             MedidorInstantaneo(const __FlashStringHelper *nombre)
                 : Medidor(nombre)
