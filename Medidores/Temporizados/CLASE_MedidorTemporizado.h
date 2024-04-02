@@ -10,9 +10,6 @@
      */
     template <typename TResultado>
     class MedidorTemporizado : public Medidor<TResultado> {
-        protected:
-            TResultado resultado;
-        
         public:
             MedidorInstantaneo(const __FlashStringHelper *nombre)
                 : Medidor(nombre)

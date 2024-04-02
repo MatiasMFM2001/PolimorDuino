@@ -7,13 +7,10 @@
      * @brief Tarea que permite medir la frecuencia de una forma de onda
      *  periódica, a partir de la cantidad de flancos por segundo.
      */
-    class Frecuencimetro : public Task {
+    class Frecuencimetro : public Task, public MedidorTemporizado<unsigned short> {
         private:
 			/** @brief Contador de flancos transitados. */
             Contador<unsigned short> contFrec;
-            
-            /** @brief Último valor de frecuencia medido. */
-            unsigned short ultFrec;
     
         public:
             /**
@@ -21,8 +18,9 @@
              * 
              * @param planif El planificador de tareas especificado (que puede
              *  ser nulo).
+             * @param nombre El nombre del medidor (que no debería ser nulo).
              */
-            Frecuencimetro(Scheduler* planif);
+            Frecuencimetro(Scheduler* planif, const __FlashStringHelper *nombre);
 
             /**
              * @brief De forma periódica, finaliza la medición actual e inicia
@@ -36,7 +34,7 @@
             /**
              * @brief Reinicia el contador de flancos transitados.
              */
-            void reiniciar();
+            virtual void iniciarMedicion() override;
             
             /**
              * @brief Incrementa en 1 el contador de flancos transitados.
