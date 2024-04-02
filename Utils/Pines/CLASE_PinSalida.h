@@ -27,16 +27,6 @@
              * @param valor @code true para encenderlo, @code false para el caso
              *  contrario.
              */
-            void setEstado(bool valor);
-            
-            /**
-             * @brief Establece el estado actual del pin al de encendido.
-             */
-            void encender() override;
-            
-            /**
-             * @brief Establece el estado actual del pin al de apagado.
-             */
-            void apagar() override;
+            void setEstado(bool valor) override;
     };
 #endif

@@ -15,11 +15,3 @@ void PinSalida::setEstado(bool valor) {
         }
     LOG("FIN PinSalida::setEstado(%d, %d)", this -> numPin, valor);
 }
-
-void PinSalida::encender() {
-    this -> setEstado(true);
-}
-
-void PinSalida::apagar() {
-    this -> setEstado(false);
-}
