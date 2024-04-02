@@ -9,7 +9,7 @@
             byte pin;
       
         public:
-            LectorADC(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
+            LectorADC(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif, byte pin)
                 : MedidorInstantaneo(nombre, callback, planif)
                 , pin(pin)
             {}
