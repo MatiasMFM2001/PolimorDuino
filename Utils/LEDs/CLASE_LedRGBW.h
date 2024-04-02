@@ -18,6 +18,8 @@
             void setColorApagado(ColorRGBW ingr, bool mostrarSiApagado = true);
             void setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido = true);
             
+            virtual void setEstado(bool valor, bool mostrar = true) override;
+            
             void mostrar() = 0;
     };
 #endif

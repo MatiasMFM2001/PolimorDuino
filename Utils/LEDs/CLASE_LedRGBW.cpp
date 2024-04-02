@@ -47,3 +47,11 @@ void LedRGBW::setColorApagado(ColorRGBW ingr, bool mostrarSiApagado) {
 void LedRGBW::setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido) {
     this -> setColor(POS_ENCENDIDO, ingr, mostrarSiEncendido && (this -> getEstado()));
 }
+
+void LedRGBW::setEstado(bool valor, bool mostrar) {
+    this -> setEstadoActual(valor);
+    
+    if (mostrar) {
+        this -> mostrar();
+    }
+}
