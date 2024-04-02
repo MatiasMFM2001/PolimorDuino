@@ -13,7 +13,7 @@
              * @brief Construye un Pulsable, con el estado inicial especificado.
              * 
              * @param estadoInicial @code true para iniciar el programa con
-             *  el Pulsable encendido, @code false para el caso contrario.
+             *  el objeto encendido, @code false para el caso contrario.
              */
             Pulsable(bool estadoInicial);
             
