@@ -11,39 +11,39 @@ LedRGBW::LedRGBW(ColorRGBW colorApagado, ColorRGBW colorEncendido, bool estadoIn
     Pulsable::Pulsable(estadoInicial);
 }
 
+ColorRGBW &LedRGBW::getColor(byte indice) {
+    return this -> colores[indice];
+}
+
+void LedRGBW::setColor(byte indice, ColorRGBW ingr, bool ejecutarMostrar) {
+    this -> getColor(indice) = ingr;
+    
+    if (ejecutarMostrar) {
+        this -> mostrar();
+    }
+}
+
 ColorRGBW LedRGBW::getColorActual() {
-    return this -> colores[this -> getEstado()];
+    return this -> getColor(this -> getEstado());
 }
 
 ColorRGBW LedRGBW::getColorApagado() {
-    return this -> colores[POS_APAGADO];
+    return this -> getColor(POS_APAGADO);
 }
 
 ColorRGBW LedRGBW::getColorEncendido() {
-    return this -> colores[POS_ENCENDIDO];
+    return this -> getColor(POS_ENCENDIDO);
 }
 
 
 void LedRGBW::setColorActual(ColorRGBW ingr, bool mostrar) {
-    this -> colores[this -> getEstado()] = ingr;
-    
-    if (mostrar) {
-        this -> mostrar();
-    }
+    this -> setColor(this -> getEstado(), ingr, mostrar);
 }
 
 void LedRGBW::setColorApagado(ColorRGBW ingr, bool mostrarSiApagado) {
-    this -> colores[POS_APAGADO] = ingr;
-    
-    if (mostrarSiApagado && !(this -> getEstado())) {
-        this -> mostrar();
-    }
+    this -> setColor(POS_APAGADO, ingr, mostrarSiApagado && !(this -> getEstado()));
 }
 
 void LedRGBW::setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido) {
-    this -> colores[POS_ENCENDIDO] = ingr;
-    
-    if (mostrarSiEncendido && (this -> getEstado())) {
-        this -> mostrar();
-    }
+    this -> setColor(POS_ENCENDIDO, ingr, mostrarSiEncendido && (this -> getEstado()));
 }
