@@ -3,9 +3,8 @@
 
 PinSalida::PinSalida(byte numPin, bool invertir, bool estadoInicial)
     : Pin(numPin, invertir, OUTPUT)
-{
-    this -> setEstado(estadoInicial);
-}
+    , Pulsable(estadoInicial)
+{}
 
 void PinSalida::setEstado(bool valor) {
     LOG("INICIO PinSalida::setEstado(%d, %d)", this -> numPin, valor);
