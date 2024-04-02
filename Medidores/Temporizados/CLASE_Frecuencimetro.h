@@ -27,18 +27,6 @@
             {}
 
             /**
-             * @brief De forma periódica, finaliza la medición actual e inicia
-             *  una nueva.
-             * 
-             * @returns @code true para indicar que la ejecución de la tarea fue
-             *  "productiva".
-             */
-            bool Callback() override {
-                this -> finalizarMedicion(this -> getResultado());
-                return true;
-            }
-
-            /**
              * @brief Reinicia el contador de flancos transitados.
              */
             virtual void iniciarMedicion() override {

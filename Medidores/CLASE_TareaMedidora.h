@@ -22,6 +22,12 @@
             
             virtual TResultado getResultado() = 0;
             
+            /**
+             * @brief Obtiene el resultado y finaliza la medición actual.
+             * 
+             * @returns @code true para indicar que la ejecución de la tarea fue
+             *  "productiva".
+             */
             bool Callback() override {
                 this -> finalizarMedicion(this -> getResultado());
                 return true;
