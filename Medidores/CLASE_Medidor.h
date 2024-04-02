@@ -24,7 +24,7 @@
              * 
              * @param ingr El valor medido.
              */
-            void ejecutarCallback(TResultado ingr) {
+            void finalizarMedicion(TResultado ingr) {
                 LOG("MEDIDOR \"%S\" - Ejecutando callback.notificar() con valor:", this -> nombre);
                 FLogger(ingr);
                 this -> callback -> notificar(ingr);
@@ -36,6 +36,5 @@
             {}
         
             virtual void iniciarMedicion() = 0;
-            virtual void finalizarMedicion() = 0;
     };
 #endif
