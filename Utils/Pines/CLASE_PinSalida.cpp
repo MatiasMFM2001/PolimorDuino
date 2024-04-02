@@ -10,6 +10,7 @@ void PinSalida::setEstado(bool valor) {
     LOG("INICIO PinSalida::setEstado(%d, %d)", this -> numPin, valor);
         if (this -> pinValido) {
             LOG("PinSalida::setEstado(%d, %d) - Ejecutando por pin válido", this -> numPin, valor);
+            this -> setEstadoActual(valor);
             digitalWrite(this -> numPin, valor ^ (this -> invertir));
         }
     LOG("FIN PinSalida::setEstado(%d, %d)", this -> numPin, valor);

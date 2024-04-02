@@ -12,11 +12,21 @@ void Pulsable::apagar() {
     this -> setEstado(false);
 }
 
+void Pulsable::setEstadoActual(bool valor) {
+    this -> estadoActual = valor;
+}
+
 void Pulsable::setEstado(bool valor) {
+    this -> setEstadoActual(valor);
+    
     if (valor) {
         this -> encender();
     }
     else {
         this -> apagar();
     }
+}
+
+bool Pulsable::getEstado() {
+    return (this -> estadoActual);
 }

@@ -8,6 +8,12 @@
      *  @code encender() y @code apagar() para evitar una recursión infinita.
 	 */
     class Pulsable : virtual public Printable {
+        private:
+            bool estadoActual;
+        
+        protected:
+            void setEstadoActual(bool valor);
+        
         public:
             /**
              * @brief Construye un Pulsable, con el estado inicial especificado.
@@ -34,5 +40,7 @@
              *  contrario.
              */
             virtual void setEstado(bool valor);
+            
+            bool getEstado();
     };
 #endif
