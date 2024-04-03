@@ -9,10 +9,7 @@
         protected:
 			/** @brief El número identificatorio del pin en la placa. */
             byte numPin;
-            
-            /** @brief Si invertir el funcionamiento del pin o no. */
-            bool invertir;
-            
+
             /** @brief Si el número de pin es válido o no. */
             bool pinValido;
         
@@ -23,12 +20,12 @@
              *  válido, guardando el resultado.
              * 
              * @param numPin El número de pin especificado.
-             * @param invertir @code true para invertir el funcionamiento,
-             *  @code false para el caso contrario.
              * @param modoPin El número constante que establece cómo configurar
              *  el pin.
+             * @param totalPines La cantidad total de pines de este tipo en la
+             *  placa.
              */
-            Pin(byte numPin, bool invertir, byte modoPin);
+            Pin(byte numPin, byte modoPin, byte totalPines);
         
 			/**
              * @brief Imprime los valores de las variables de instancia a la
