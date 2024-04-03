@@ -6,7 +6,7 @@ AutoFlusher::AutoFlusher(Print* impresora, long msEntreLlamados, Scheduler* plan
     , impresora(impresora)
 {}
         
-bool AutoFlusher::Callback() {
+bool AutoFlusher::Callback(void) {
     LOG("EJECUTANDO AutoFlusher::Callback()");
     
     if (this -> impresora != nullptr) {

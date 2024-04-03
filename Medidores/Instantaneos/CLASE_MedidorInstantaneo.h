@@ -15,7 +15,7 @@
                 : TareaMedidora(nombre, callback, TASK_MILLISECOND, planif)
             {}
         
-            virtual void iniciarMedicion() override {
+            virtual void iniciarMedicion(void) override {
             }
     };
 #endif

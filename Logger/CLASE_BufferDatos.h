@@ -51,7 +51,7 @@
              * @brief Si la impresora no es nula, le envía todos los datos
              *  almacenados y vacía el buffer.
              */
-            void flush() override {
+            void flush(void) override {
                 if (this -> salida == nullptr) {
                     return;
                 }

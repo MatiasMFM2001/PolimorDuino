@@ -23,15 +23,15 @@ void LedRGBW::setColor(byte indice, ColorRGBW ingr, bool ejecutarMostrar) {
     }
 }
 
-ColorRGBW LedRGBW::getColorActual() {
+ColorRGBW LedRGBW::getColorActual(void) {
     return this -> getColor(this -> getEstado());
 }
 
-ColorRGBW LedRGBW::getColorApagado() {
+ColorRGBW LedRGBW::getColorApagado(void) {
     return this -> getColor(POS_APAGADO);
 }
 
-ColorRGBW LedRGBW::getColorEncendido() {
+ColorRGBW LedRGBW::getColorEncendido(void) {
     return this -> getColor(POS_ENCENDIDO);
 }
 

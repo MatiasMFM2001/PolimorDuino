@@ -16,7 +16,7 @@
                 , Task(msMedicion, TASK_ONCE, planif, false)
             {}
             
-            void OnEnable() override {
+            void OnEnable(void) override {
                 this -> iniciarMedicion();
             }
             
@@ -28,7 +28,7 @@
              * @returns @code true para indicar que la ejecución de la tarea fue
              *  "productiva".
              */
-            bool Callback() override {
+            bool Callback(void) override {
                 this -> finalizarMedicion(this -> getResultado());
                 return true;
             }

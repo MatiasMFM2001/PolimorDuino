@@ -58,7 +58,7 @@
              * @brief Reinicia el contador (de ser necesario), muestra el número
              *  actual e incrementa el contador.
              */
-            void encender() override {
+            void encender(void) override {
                 LOG("INICIO MostradorDisplay::encender(%d)", this -> numeros.at(this -> contPos.getValor()));
                     if (this -> contPos.getValor() >= this -> numeros.size()) {
                         this -> contPos.reiniciar();
@@ -78,7 +78,7 @@
             /**
              * @brief Apaga el display.
              */
-            void apagar() override {
+            void apagar(void) override {
                 LOG("EJECUTANDO MostradorDisplay::apagar(%d)", this -> numeros.at(this -> contPos.getValor()));
                 this -> display -> apagar();
             }

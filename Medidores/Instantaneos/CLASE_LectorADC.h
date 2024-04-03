@@ -14,7 +14,7 @@
                 , pin(pin)
             {}
             
-            virtual TResultado getResultado() override {
+            virtual TResultado getResultado(void) override {
                 return analogRead(this -> pin);
             }
     };

@@ -21,11 +21,11 @@ void Display7Segmentos::setNumero(byte valor) {
     LOG("FIN Display7Segmentos::setNumero(%#x)", valor);
 }
 
-void Display7Segmentos::encender() {
+void Display7Segmentos::encender(void) {
     this -> pinEnable.encender();
 }
 
-void Display7Segmentos::apagar() {
+void Display7Segmentos::apagar(void) {
     this -> pinEnable.apagar();
 }
 

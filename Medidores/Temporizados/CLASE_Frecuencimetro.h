@@ -29,14 +29,14 @@
             /**
              * @brief Reinicia el contador de flancos transitados.
              */
-            virtual void iniciarMedicion() override {
+            virtual void iniciarMedicion(void) override {
                 this -> contFrec.reiniciar();
             }
             
             /**
              * @brief Incrementa en 1 el contador de flancos transitados.
              */
-            void incrementar() {
+            void incrementar(void) {
                 if (!(this -> isEnabled())) {
                     return;
                 }
@@ -47,7 +47,7 @@
             /**
              * @returns El valor de la última medición realizada, en Hz.
              */
-            virtual TResultado getResultado() override {
+            virtual TResultado getResultado(void) override {
                 return (this -> contFrec.getValor());
             }
             
@@ -55,7 +55,7 @@
              * @returns @code true si el contador vale 0, @code false en caso
              *  contrario.
              */
-            bool estaEnCero() {
+            bool estaEnCero(void) {
                 return (this -> getResultado()) == 0;
             }
     };

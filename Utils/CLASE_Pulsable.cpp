@@ -4,11 +4,11 @@ Pulsable::Pulsable(bool estadoInicial) {
     this -> setEstado(estadoInicial);
 }
 
-void Pulsable::encender() {
+void Pulsable::encender(void) {
     this -> setEstado(true);
 }
 
-void Pulsable::apagar() {
+void Pulsable::apagar(void) {
     this -> setEstado(false);
 }
 
@@ -27,6 +27,6 @@ void Pulsable::setEstado(bool valor) {
     }
 }
 
-bool Pulsable::getEstado() {
+bool Pulsable::getEstado(void) {
     return (this -> estadoActual);
 }

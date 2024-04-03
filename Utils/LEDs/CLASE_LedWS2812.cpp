@@ -5,7 +5,7 @@ LedWS2812::LedWS2812(ColorRGBW colorApagado, ColorRGBW colorEncendido, Adafruit_
     , tiraRGBW(tiraRGBW), indiceTira(indiceTira)
 {}
 
-void LedWS2812::mostrar() {
+void LedWS2812::mostrar(void) {
     ColorRGBW color = this -> getColorActual();
     
     this -> tiraRGBW -> setPixelColor(this -> indiceTira, color.rojo, color.verde, color.azul, color.blanco);

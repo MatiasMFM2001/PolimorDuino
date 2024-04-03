@@ -50,14 +50,14 @@
             /**
              * @returns El valor actual.
              */
-            T getValor() {
+            T getValor(void) {
                 return (this -> valorActual);
             }
             
             /**
              * @brief Regresa el contador a su valor inicial.
              */
-            void reiniciar() {
+            void reiniciar(void) {
                 this -> valorActual = this -> valorInicial;
             }
             
@@ -65,7 +65,7 @@
              * @returns @code true si el valor actual del contador es igual al
              *  inicial, @code false en caso contrario.
              */
-            bool estaReiniciado() {
+            bool estaReiniciado(void) {
                 return (this -> valorActual == this -> valorInicial);
             }
             

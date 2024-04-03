@@ -28,7 +28,7 @@
             /**
              * @returns El puntero encapsulado.
              */
-            TTipoDato* getPuntero() const {
+            TTipoDato* getPuntero(void) const {
                 return (this -> puntero);
             }
             
@@ -36,7 +36,7 @@
              * @returns La referencia al dato apuntado por el puntero
              *  encapsulado.
              */
-            TTipoDato& getDato() const {
+            TTipoDato& getDato(void) const {
                 return *(this -> puntero);
             }
             
@@ -44,7 +44,7 @@
              * @returns @code true si el puntero es nulo, @code false en caso
              *  contrario.
              */
-            bool esNulo() const {
+            bool esNulo(void) const {
                 return ((this -> puntero) == nullptr);
             }
         
@@ -66,11 +66,11 @@
             /**
              * @returns El puntero encapsulado.
              */
-            operator TTipoDato*() const {
+            operator TTipoDato*(void) const {
                 return (this -> puntero);
             }
             
-            /*operator TTipoDato&() const {
+            /*operator TTipoDato&(void) const {
                 return *(this -> puntero);
             }*/
     };

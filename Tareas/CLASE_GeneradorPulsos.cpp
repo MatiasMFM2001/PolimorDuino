@@ -34,13 +34,13 @@ void GeneradorPulsos::enableFrecuencia(long hz) {
 }
 
 
-bool GeneradorPulsos::OnEnable() {
+bool GeneradorPulsos::OnEnable(void) {
     FLOGS("EJECUTANDO GeneradorPulsos::OnEnable()");
     this -> pulsable -> apagar();
     return true;
 }
 
-bool GeneradorPulsos::Callback() {
+bool GeneradorPulsos::Callback(void) {
     LOG("INICIO GeneradorPulsos::Callback(), iteración %d", Task::getRunCounter());
         if (!esPar(Task::getRunCounter()))
             this -> pulsable -> encender();
@@ -51,7 +51,7 @@ bool GeneradorPulsos::Callback() {
     return true;
 }
 
-void GeneradorPulsos::OnDisable() {
+void GeneradorPulsos::OnDisable(void) {
     FLOGS("EJECUTANDO GeneradorPulsos::OnDisable()");
     this -> pulsable -> apagar();
 }
