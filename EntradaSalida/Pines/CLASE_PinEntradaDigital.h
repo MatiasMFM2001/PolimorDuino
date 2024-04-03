@@ -7,7 +7,7 @@
 	 * @brief Permite encapsular en un objeto, un pin de Entrada digital. Además,
 	 *  simplifica el uso de la librería de interrupciones por flanco.
 	 */
-    class PinEntrada : public Pin {
+    class PinEntradaDigital : public Pin, public EntradaDigital {
         public:
 			/**
              * @brief Construye un PinSalida, con el número de pin,
@@ -19,19 +19,18 @@
              * @param estadoInicial @code true para iniciar el programa con
              *  el pin encendido, @code false para el caso contrario.
              */
-            PinEntrada(byte numPin = -1, bool invertir = false, bool habilitarPullUp = false);
+            PinEntradaDigital(byte numPin = -1, bool invertir = false, bool habilitarPullUp = false);
         
 			/**
-			 * @returns El valor leído del pin, invertido o no según lo
-			 *  configurado.
+			 * @returns El valor leído del pin, sin invertir.
 			 */
-            bool leer();
+            bool leerBajoNivel(void);
         
 			/**
 			 * @returns El número identificatorio de interrupción por flancos,
 			 *  según el número de pin.
 			 */
-            byte getNumPCINT();
+            byte getNumPCINT(void);
             
             /**
              * @brief Establece la función que será ejecutada cuando se detecte
@@ -47,16 +46,16 @@
              * @brief Desvincula la función establecida previamente, con las
              *  interrupciones por flanco emitidas por este pin.
              */
-            void desvincularFuncionPCINT();
+            void desvincularFuncionPCINT(void);
             
             /**
              * @brief Permite que este pin emita interrupciones por flanco.
              */
-            void habilitarInterrupcion();
+            void habilitarInterrupcion(void);
             
             /**
              * @brief Deniega que este pin emita interrupciones por flanco.
              */
-            void deshabilitarInterrupcion();
+            void deshabilitarInterrupcion(void);
     };
 #endif
