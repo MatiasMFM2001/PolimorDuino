@@ -1,5 +1,5 @@
-#ifndef PIN_ENTRADA
-#define PIN_ENTRADA
+#ifndef PIN_ENTRADA_DIGITAL
+#define PIN_ENTRADA_DIGITAL
 
 #include "CLASE_Pin.h"
 #include <PinChangeInterrupt.h>

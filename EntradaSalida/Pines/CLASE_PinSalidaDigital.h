@@ -1,5 +1,5 @@
-#ifndef PIN_SALIDA
-#define PIN_SALIDA
+#ifndef PIN_SALIDA_DIGITAL
+#define PIN_SALIDA_DIGITAL
 
 #include "CLASE_Pin.h"
 #include "INTERFAZ_Pulsable.h"
