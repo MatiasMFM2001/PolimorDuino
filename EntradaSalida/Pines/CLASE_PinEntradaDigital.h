@@ -24,7 +24,7 @@
 			/**
 			 * @returns El valor leído del pin, sin invertir.
 			 */
-            bool leerBajoNivel(void);
+            bool leerBajoNivel(void) override;
         
 			/**
 			 * @returns El número identificatorio de interrupción por flancos,
