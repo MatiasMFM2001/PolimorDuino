@@ -10,8 +10,8 @@
     class PinSalidaPWM : public Pin, public SalidaPWM<T, NumBits> {
         public:
 			/**
-             * @brief Construye un PinSalidaPWM, con el número de pin,
-             *  configuración de inversión y estado inicial especificados.
+             * @brief Construye un PinSalidaPWM, con el número de pin y
+             *  configuración de inversión especificados.
              * 
              * @param numPin El número de pin especificado.
              * @param invertir @code true para invertir el funcionamiento,
