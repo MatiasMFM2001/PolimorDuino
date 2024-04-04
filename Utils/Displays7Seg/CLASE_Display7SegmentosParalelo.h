@@ -2,22 +2,21 @@
 #define DISPLAY_7_SEGMENTOS_PARALELO
 
 #include <Array.h>
-#include "CLASE_PinSalida.h"
-#include "Constantes.h"
-    class Display7SegmentosParalelo : public Pulsable {
+#include "CLASE_Display7Segmentos.h"
+    template <byte NumPinesDatos>
+    class Display7SegmentosParalelo : public Display7Segmentos {
         private:
-            Array<PinSalida, NUM_PINES_DISPLAY> pinesDatos;
-            PinSalida pinEnable;
-            //byte numero;
+            Array<SalidaDigital*, NumPinesDatos> salidasDatos;
+            SalidaDigital *salidaEnable;
+        
+        protected:
+            virtual byte getBits(byte valor) = 0;
         
         public:
-            Display7SegmentosParalelo(Array<byte, NUM_PINES_DISPLAY> pinesDatos, byte pinEnable, bool invertirDatos, bool invertirEnable);
+            Display7SegmentosParalelo(Array<SalidaDigital*, NumPinesDatos> salidasDatos, SalidaDigital *salidaEnable);
         
-            virtual byte getBits(byte valor) = 0;
             void setNumero(byte valor);
-            
-            void encender();
-            void apagar();
+            void setEstado(bool valor) override;
         
             size_t printTo(Print& impresora) const override;
     };
