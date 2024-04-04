@@ -3,7 +3,7 @@
 
 #include "CLASE_SalidaContinua.h"
     template <typename T, byte NumBits>
-    class SalidaAnalogica : SalidaContinua<T, NumBits> {    
+    class SalidaAnalogica : public SalidaContinua<T, NumBits> {
         public:
             SalidaAnalogica(bool invertir)
                 : SalidaContinua(invertir)

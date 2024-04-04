@@ -3,7 +3,7 @@
 
 #include "CLASE_SalidaContinua.h"
     template <typename T, byte NumBits>
-    class SalidaPWM : SalidaContinua<T, NumBits> {    
+    class SalidaPWM : public SalidaContinua<T, NumBits> {
         public:
             SalidaPWM(bool invertir)
                 : SalidaContinua(invertir)

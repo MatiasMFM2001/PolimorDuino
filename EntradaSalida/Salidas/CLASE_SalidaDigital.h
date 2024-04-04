@@ -2,7 +2,7 @@
 #define SALIDA_DIGITAL
 
 #include "CLASE_Salida.h"
-    class SalidaDigital : Salida<bool, 1>, Pulsable {    
+    class SalidaDigital : public Salida<bool, 1>, public Pulsable {
         public:
             SalidaDigital(bool invertir, bool estadoInicial);
             

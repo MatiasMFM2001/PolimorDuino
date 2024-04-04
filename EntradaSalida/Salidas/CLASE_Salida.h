@@ -3,7 +3,7 @@
 
 #include "CLASE_EntradaSalida.h"
     template <typename T, byte NumBits>
-    class Salida : EntradaSalida<T, NumBits> {
+    class Salida : public EntradaSalida<T, NumBits> {
         protected:
             virtual void escribirBajoNivel(T valor) = 0;
             
