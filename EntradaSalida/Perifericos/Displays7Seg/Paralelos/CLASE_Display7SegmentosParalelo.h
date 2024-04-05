@@ -4,7 +4,7 @@
 #include <Array.h>
 #include "CLASE_Display7Segmentos.h"
     template <byte NumPinesDatos>
-    class Display7SegmentosParalelo : public Display7Segmentos {
+    class Display7SegmentosParalelo : public Display7Segmentos<byte> {
         private:
             Array<SalidaDigital*, NumPinesDatos> salidasDatos;
             SalidaDigital *salidaEnable;

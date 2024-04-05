@@ -9,14 +9,14 @@
      * 
      * @tparam TNumNumeros La cantidad máxima de números a mostrar.
      */
-    template <size_t TNumNumeros>
+    template <size_t TNumNumeros, TDisplay>
     class MostradorDisplayRotativo : public Pulsable {
         private:
             /** @brief Los números a mostrar. */
             Array<byte, TNumNumeros> numeros;
             
             /** @brief Instancia que mostrará cada número. */
-            Display7Segmentos* display;
+            Display7Segmentos<TDisplay> *display;
             
             /** @brief Cursor de posiciones sobre el array. */
             Contador<size_t> contPos;
@@ -27,7 +27,7 @@
              * 
              * @param display El display de 7 segmentos y 1 dígito especificado.
              */
-            MostradorDisplayRotativo(Display7Segmentos* display)
+            MostradorDisplayRotativo(Display7Segmentos<TDisplay> *display)
                 : numeros(Array<byte, TNumNumeros>()), display(display), contPos(Contador<size_t>(0))
             {}
             
