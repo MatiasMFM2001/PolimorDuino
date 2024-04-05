@@ -7,13 +7,16 @@
             bool invertir;
         
         protected:
+            T getMaxValorRepresentable(void) {
+                return (1 << NumBits) - 1;
+            }
+        
             T invertirValor(T ingr) {
                 if (!(this -> invertir)) {
                     return ingr;
                 }
                 
-                T maxValor = (1 << NumBits) - 1;
-                return maxValor - ingr;
+                return (this -> getMaxValorRepresentable()) - ingr;
             }
             
         public:
