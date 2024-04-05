@@ -4,7 +4,7 @@
 #include "CLASE_Display7Segmentos.h"
 #include <Array.h>
 #define CANT_NUMEROS_DISPLAY 16
-    class Display7SegmentosDirecto : public Display7SegmentosParalelo {
+    class Display7SegmentosDirecto : public Display7SegmentosParalelo<7> {
         private:
             Array<byte, CANT_NUMEROS_DISPLAY> bitsNumeros;
             
@@ -12,6 +12,6 @@
             virtual byte getBits(byte valor) override;
         
         public:
-            Display7SegmentosDirecto(Array<byte, NUM_PINES_DISPLAY> pinesDatos, byte pinEnable, bool esAnodoComun);
+            Display7SegmentosDirecto(Array<byte, 7> pinesDatos, byte pinEnable, bool esAnodoComun);
     };
 #endif
