@@ -13,7 +13,15 @@
             {}
             
             T leer() {
-                return this -> invertirValor(this -> leerBajoNivel());
+                T valor = this -> leerBajoNivel();
+                T maxValor = this -> getMaxValorRepresentable();
+                
+                if (valor > maxValor) {
+                    LOG("Entrada::leer() - Se leyo un valor %d mayor al maximo de %d", valor, maxValor);
+                    return this -> invertirValor(maxValor);
+                }
+                
+                return this -> invertirValor(valor);
             }
     };
 #endif

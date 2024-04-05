@@ -13,7 +13,15 @@
             {}
             
             void escribir(T valor) {
-                return this -> escribirBajoNivel(this -> invertirValor(valor));
+                T maxValor = this -> getMaxValorRepresentable();
+                
+                if (valor > maxValor) {
+                    LOG("Entrada::escribir() - Se escribio un valor %d mayor al maximo de %d", valor, maxValor);
+                    this -> escribirBajoNivel(this -> invertirValor(maxValor));
+                    return;
+                }
+                
+                this -> escribirBajoNivel(this -> invertirValor(valor));
             }
     };
 #endif
