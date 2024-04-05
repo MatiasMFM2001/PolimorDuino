@@ -1,7 +1,7 @@
 #include "CLASE_Display7SegmentosDirecto.h"
 
-Display7SegmentosDirecto::Display7SegmentosDirecto(Array<byte, NUM_PINES_DISPLAY> pinesDatos, byte pinEnable, bool esAnodoComun)
-    : Display7Segmentos(pinesDatos, pinEnable, esAnodoComun, esAnodoComun)
+Display7SegmentosDirecto::Display7SegmentosDirecto(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable)
+    : Display7SegmentosParalelo(numeroInicial, estadoInicial, salidasDatos, salidaEnable)
     , bitsNumeros(Array<byte, CANT_NUMEROS_DISPLAY>({
         0b0111111,  // 0
         0b0000110,  // 1

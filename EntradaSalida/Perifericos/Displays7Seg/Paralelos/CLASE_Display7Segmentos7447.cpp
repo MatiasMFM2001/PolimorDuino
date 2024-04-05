@@ -1,7 +1,7 @@
 #include "CLASE_Display7Segmentos7447.h"
 
-Display7Segmentos7447::Display7Segmentos7447(Array<byte, NUM_PINES_DISPLAY> pinesDatos, byte pinEnable)
-    : Display7Segmentos(pinesDatos, pinEnable, false, false)
+Display7Segmentos7447::Display7Segmentos7447(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable)
+    : Display7SegmentosParalelo(numeroInicial, estadoInicial, salidasDatos, salidaEnable)
 {}
 
 byte Display7Segmentos7447::getBits(byte valor) {

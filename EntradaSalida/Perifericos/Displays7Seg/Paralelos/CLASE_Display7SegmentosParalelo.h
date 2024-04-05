@@ -13,9 +13,9 @@
             virtual byte getBits(byte valor) = 0;
         
         public:
-            Display7SegmentosParalelo(Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable)
-                : salidasDatos(salidasDatos)
-                , salidaEnable(salidaEnable)
+            Display7SegmentosParalelo(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable)
+                : Display7Segmentos(numeroInicial, estadoInicial)
+                , salidasDatos(salidasDatos), salidaEnable(salidaEnable)
             {}
         
             void setNumero(byte valor) override {
