@@ -1,5 +1,5 @@
-#ifndef MOSTRADOR_DISPLAY
-#define MOSTRADOR_DISPLAY
+#ifndef MOSTRADOR_DISPLAY_ROTATIVO
+#define MOSTRADOR_DISPLAY_ROTATIVO
 
 #include "CLASE_Display7Segmentos.h"
 #include "CLASE_Contador.h"
@@ -10,7 +10,7 @@
      * @tparam TNumNumeros La cantidad máxima de números a mostrar.
      */
     template <size_t TNumNumeros>
-    class MostradorDisplay : public Pulsable {
+    class MostradorDisplayRotativo : public Pulsable {
         private:
             /** @brief Los números a mostrar. */
             Array<byte, TNumNumeros> numeros;
@@ -23,11 +23,11 @@
         
         public:
             /**
-             * @brief Construye un MostradorDisplay, con el display especificado.
+             * @brief Construye un MostradorDisplayRotativo, con el display especificado.
              * 
              * @param display El display de 7 segmentos y 1 dígito especificado.
              */
-            MostradorDisplay(Display7Segmentos* display)
+            MostradorDisplayRotativo(Display7Segmentos* display)
                 : numeros(Array<byte, TNumNumeros>()), display(display), contPos(Contador<size_t>(0))
             {}
             
@@ -37,7 +37,7 @@
              * @param ingr El número a mostrar.
              */
             void setNumero(byte ingr) {
-                LOG("EJECUTANDO MostradorDisplay::setNumero(%d)", ingr);
+                LOG("EJECUTANDO MostradorDisplayRotativo::setNumero(%d)", ingr);
                 this -> numeros.clear();
                 this -> numeros.push_back(ingr);
                 this -> contPos.reiniciar();
@@ -49,7 +49,7 @@
              * @param ingr Los números a mostrar.
              */
             void setNumeros(Array<byte, TNumNumeros> ingr) {
-                LOG("EJECUTANDO MostradorDisplay::setNumeros(%d)", ingr.size());
+                LOG("EJECUTANDO MostradorDisplayRotativo::setNumeros(%d)", ingr.size());
                 this -> numeros = ingr;
                 this -> contPos.reiniciar();
             }
@@ -59,7 +59,7 @@
              *  actual e incrementa el contador.
              */
             void encender(void) override {
-                LOG("INICIO MostradorDisplay::encender(%d)", this -> numeros.at(this -> contPos.getValor()));
+                LOG("INICIO MostradorDisplayRotativo::encender(%d)", this -> numeros.at(this -> contPos.getValor()));
                     if (this -> contPos.getValor() >= this -> numeros.size()) {
                         this -> contPos.reiniciar();
                     }
@@ -72,14 +72,14 @@
                     
                     this -> contPos.incrementar(1);
                     this -> display -> encender();
-                FLOGS("FIN MostradorDisplay::encender()");
+                FLOGS("FIN MostradorDisplayRotativo::encender()");
             }
             
             /**
              * @brief Apaga el display.
              */
             void apagar(void) override {
-                LOG("EJECUTANDO MostradorDisplay::apagar(%d)", this -> numeros.at(this -> contPos.getValor()));
+                LOG("EJECUTANDO MostradorDisplayRotativo::apagar(%d)", this -> numeros.at(this -> contPos.getValor()));
                 this -> display -> apagar();
             }
             
@@ -91,7 +91,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print& impresora) const override {
-                return (imprimirCabeceraJSON(impresora, F("MostradorDisplay"))
+                return (imprimirCabeceraJSON(impresora, F("MostradorDisplayRotativo"))
                     + imprimirVariableJSON(impresora, F("numeros"), this -> numeros) + impresora.print(JSON_SEPARADOR)
                     + imprimirVariableJSON(impresora, F("display"), WrapperPuntero<Display7Segmentos>(this -> display)) + impresora.print(JSON_SEPARADOR)
                     + imprimirVariableJSON(impresora, F("contPos"), this -> contPos) + impresora.print(JSON_CLAUSURA_OBJETO)
