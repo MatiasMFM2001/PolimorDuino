@@ -9,7 +9,7 @@
      * 
      * @tparam TNumNumeros La cantidad máxima de números a mostrar.
      */
-    template <size_t TNumNumeros, TDisplay>
+    template <size_t TNumNumeros, typename TDisplay>
     class MostradorDisplayRotativo : public Pulsable {
         private:
             /** @brief Los números a mostrar. */
