@@ -4,8 +4,8 @@
         private:
             Array<ColorRGBW, 2> colores;
 
-            ColorRGBW &getColor(byte indice);
-            void setColor(byte indice, ColorRGBW ingr, bool ejecutarMostrar);
+            ColorRGBW &getColor(size_t indice);
+            void setColor(size_t indice, ColorRGBW ingr, bool ejecutarMostrar);
             
         public:
             LedRGBW(ColorRGBW colorApagado, ColorRGBW colorEncendido, bool estadoInicial = false);

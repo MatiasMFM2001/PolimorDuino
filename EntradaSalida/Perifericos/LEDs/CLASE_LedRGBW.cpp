@@ -1,7 +1,7 @@
 #include "CLASE_LedRGBW.h" 
 
-#define POS_APAGADO
-#define POS_ENCENDIDO
+#define POS_APAGADO 0
+#define POS_ENCENDIDO 1
 
 LedRGBW::LedRGBW(ColorRGBW colorApagado, ColorRGBW colorEncendido, bool estadoInicial)
 {
@@ -11,11 +11,11 @@ LedRGBW::LedRGBW(ColorRGBW colorApagado, ColorRGBW colorEncendido, bool estadoIn
     Pulsable::Pulsable(estadoInicial);
 }
 
-ColorRGBW &LedRGBW::getColor(byte indice) {
+ColorRGBW &LedRGBW::getColor(size_t indice) {
     return this -> colores[indice];
 }
 
-void LedRGBW::setColor(byte indice, ColorRGBW ingr, bool ejecutarMostrar) {
+void LedRGBW::setColor(size_t indice, ColorRGBW ingr, bool ejecutarMostrar) {
     this -> getColor(indice) = ingr;
     
     if (ejecutarMostrar) {
