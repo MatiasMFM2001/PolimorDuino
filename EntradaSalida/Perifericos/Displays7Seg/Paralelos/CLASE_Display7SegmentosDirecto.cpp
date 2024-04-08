@@ -1,7 +1,7 @@
 #include "CLASE_Display7SegmentosDirecto.h"
 #include "DECLARACION_digitosHexa.h"
 
-Display7SegmentosDirecto::Display7SegmentosDirecto(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, 7> salidasDatos, SalidaDigital *salidaEnable)
+Display7SegmentosDirecto::Display7SegmentosDirecto(byte numeroInicial, bool estadoInicial, Array<SalidaDigital*, 7> salidasDatos, SalidaDigital *salidaEnable)
     : Display7SegmentosParalelo(numeroInicial, estadoInicial, salidasDatos, salidaEnable)
 {}
 

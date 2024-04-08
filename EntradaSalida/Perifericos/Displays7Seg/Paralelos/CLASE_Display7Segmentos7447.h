@@ -7,6 +7,6 @@
             virtual byte getBits(byte valor) override;
         
         public:
-            Display7Segmentos7447(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, 4> salidasDatos, SalidaDigital *salidaEnable);
+            Display7Segmentos7447(byte numeroInicial, bool estadoInicial, Array<SalidaDigital*, 4> salidasDatos, SalidaDigital *salidaEnable);
     };
 #endif

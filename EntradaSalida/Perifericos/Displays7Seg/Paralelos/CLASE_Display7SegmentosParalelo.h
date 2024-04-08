@@ -13,7 +13,7 @@
             virtual byte getBits(byte valor) = 0;
         
         public:
-            Display7SegmentosParalelo(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable)
+            Display7SegmentosParalelo(byte numeroInicial, bool estadoInicial, Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable)
                 : Display7Segmentos(numeroInicial, estadoInicial)
                 , salidasDatos(salidasDatos), salidaEnable(salidaEnable)
             {}
