@@ -12,6 +12,6 @@
             virtual byte getBits(byte valor) override;
         
         public:
-            Display7SegmentosDirecto(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, NumSalidasDatos> salidasDatos, SalidaDigital *salidaEnable);
+            Display7SegmentosDirecto(T numeroInicial, bool estadoInicial, Array<SalidaDigital*, 7> salidasDatos, SalidaDigital *salidaEnable);
     };
 #endif
