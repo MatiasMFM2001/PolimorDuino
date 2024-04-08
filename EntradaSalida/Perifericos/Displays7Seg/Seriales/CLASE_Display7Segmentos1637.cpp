@@ -6,5 +6,5 @@ Display7Segmentos1637::Display7Segmentos1637(byte numeroInicial, bool estadoInic
 {}
 
 void Display7Segmentos1637::setNumeroBajoNivel(byte valor) override {
-    this -> display -> setSegments(numeros[valor], 1, this -> indiceDisplay);
+    this -> display -> showNumberHexEx(valor % 16, 0, false, 1, this -> indiceDisplay);
 }
