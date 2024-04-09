@@ -4,5 +4,5 @@
     class CallbackResultado {
         public:
             virtual void notificar(T resultado) = 0;
-    }
+    };
 #endif

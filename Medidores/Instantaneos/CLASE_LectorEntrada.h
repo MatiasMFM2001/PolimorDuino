@@ -10,11 +10,11 @@
       
         public:
             LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif, Entrada<TResultado, NumBits> *entrada)
-                : MedidorInstantaneo(nombre, callback, planif)
+                : MedidorInstantaneo<TResultado, FLogger>(nombre, callback, planif)
                 , entrada(entrada)
             {}
             
-            virtual TResultado getResultado(void) override {
+            TResultado getResultado(void) override {
                 return this -> entrada -> leer();
             }
     };

@@ -1,7 +1,7 @@
 #ifndef SALIDA
 #define SALIDA
 
-#include "CLASE_EntradaSalida.h"
+#include "../CLASE_EntradaSalida.h"
     template <typename T, byte NumBits>
     class Salida : public EntradaSalida<T, NumBits> {
         protected:
@@ -9,7 +9,7 @@
             
         public:
             Salida(bool invertir)
-                : EntradaSalida(invertir)
+                : EntradaSalida<T, NumBits>(invertir)
             {}
             
             void escribir(T valor) {

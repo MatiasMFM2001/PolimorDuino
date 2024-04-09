@@ -2,7 +2,8 @@
 #define PIN_SALIDA_DIGITAL
 
 #include "CLASE_Pin.h"
-#include "INTERFAZ_Pulsable.h"
+#include "../../../Utils/CLASE_Pulsable.h"
+#include "../../Salidas/CLASE_SalidaDigital.h"
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Salida digital. Además,
 	 *  implementa la interfaz @code Pulsable.

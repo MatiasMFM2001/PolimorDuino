@@ -1,7 +1,7 @@
 #ifndef MEDIDOR_INSTANTANEO
 #define MEDIDOR_INSTANTANEO
 
-#include "CLASE_TareaMedidora.h"
+#include "../CLASE_TareaMedidora.h"
     /**
      * @brief 
      * 
@@ -12,7 +12,7 @@
     class MedidorInstantaneo : public TareaMedidora<TResultado, FLogger> {
         public:
             MedidorInstantaneo(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
-                : TareaMedidora(nombre, callback, TASK_MILLISECOND, planif)
+                : TareaMedidora<TResultado, FLogger>(nombre, callback, TASK_MILLISECOND, planif)
             {}
         
             virtual void iniciarMedicion(void) override {

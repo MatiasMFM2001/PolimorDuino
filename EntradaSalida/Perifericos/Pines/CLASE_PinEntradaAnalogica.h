@@ -2,7 +2,7 @@
 #define PIN_ENTRADA_ANALOGICA
 
 #include "CLASE_Pin.h"
-#include <PinChangeInterrupt.h>
+#include "../../Entradas/CLASE_EntradaAnalogica.h"
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Entrada analógica.
 	 */

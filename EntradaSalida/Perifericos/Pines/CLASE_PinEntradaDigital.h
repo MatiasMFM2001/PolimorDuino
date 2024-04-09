@@ -2,7 +2,6 @@
 #define PIN_ENTRADA_DIGITAL
 
 #include "CLASE_Pin.h"
-#include <PinChangeInterrupt.h>
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Entrada digital. Además,
 	 *  simplifica el uso de la librería de interrupciones por flanco.

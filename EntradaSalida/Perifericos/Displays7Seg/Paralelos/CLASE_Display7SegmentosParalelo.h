@@ -2,7 +2,7 @@
 #define DISPLAY_7_SEGMENTOS_PARALELO
 
 #include <Array.h>
-#include "CLASE_Display7Segmentos.h"
+#include "../CLASE_Display7Segmentos.h"
     template <size_t NumSalidasDatos>
     class Display7SegmentosParalelo : public Display7Segmentos<byte> {
         private:
@@ -34,10 +34,7 @@
             }
         
             size_t printTo(Print& impresora) const override {
-                return (imprimirCabeceraJSON(impresora, F("Display7SegmentosParalelo"))
-                    + imprimirVariableJSON(impresora, F("salidasDatos"), this -> salidasDatos) + impresora.print(JSON_SEPARADOR)
-                    + imprimirVariableJSON(impresora, F("salidaEnable"), this -> salidaEnable) + impresora.print(JSON_CLAUSURA_OBJETO)
-                );
+                return 0;
             }
     };
 #endif

@@ -6,7 +6,7 @@
     class EntradaAnalogica : public Entrada<T, NumBits> {
         public:
             EntradaAnalogica(bool invertir)
-                : Entrada(invertir)
+                : Entrada<T, NumBits>(invertir)
             {}
     };
 #endif
