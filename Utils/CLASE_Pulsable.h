@@ -21,7 +21,7 @@
              * @param estadoInicial @code true para iniciar el programa con
              *  el objeto encendido, @code false para el caso contrario.
              */
-            Pulsable(bool estadoInicial);
+            Pulsable(bool estadoInicial, bool settearEstado = true);
             
             /**
              * @brief Pone al objeto en estado "Encendido".

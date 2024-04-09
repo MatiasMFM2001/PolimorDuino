@@ -1,7 +1,9 @@
 #include "CLASE_Pulsable.h"
 
-Pulsable::Pulsable(bool estadoInicial) {
-    this -> setEstado(estadoInicial);
+Pulsable::Pulsable(bool estadoInicial, bool settearEstado) {
+    if (settearEstado) {
+        this -> setEstado(estadoInicial);
+    }
 }
 
 void Pulsable::encender(void) {
