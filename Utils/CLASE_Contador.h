@@ -1,7 +1,5 @@
 #ifndef CONTADOR_T
 #define CONTADOR_T
-
-#include "FuncionesJSON.h"
     /**
      * @brief Encapsula una variable a usar como contador, permitiendo
      *  imprimirla.
@@ -77,10 +75,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print& impresora) const override {
-                return (imprimirCabeceraJSON(impresora, F("Contador"))
-                    + imprimirVariableJSON(impresora, F("valorInicial"), this -> valorInicial) + impresora.print(JSON_SEPARADOR)
-                    + imprimirVariableJSON(impresora, F("valorActual"), this -> valorActual) + impresora.print(JSON_CLAUSURA_OBJETO)
-                );
+                return 0;
             }
     };
 #endif
