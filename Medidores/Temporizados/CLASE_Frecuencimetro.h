@@ -22,7 +22,7 @@
              * @param nombre El nombre del medidor (que no debería ser nulo).
              */
             Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
-                : MedidorTemporizado(nombre, callback, TASK_SECOND, planif)
+                : MedidorTemporizado<TResultado, FLogger>(nombre, callback, TASK_SECOND, planif)
                 , contFrec(Contador<TResultado>(0))
             {}
 

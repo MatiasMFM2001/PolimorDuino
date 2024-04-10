@@ -12,7 +12,7 @@
     class MedidorTemporizado : public TareaMedidora<TResultado, FLogger> {
         public:
             MedidorTemporizado(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, unsigned long msMedicion, Scheduler* planif)
-                : TareaMedidora(nombre, callback, msMedicion, planif)
+                : TareaMedidora<TResultado, FLogger>(nombre, callback, msMedicion, planif)
             {}
     };
 #endif
