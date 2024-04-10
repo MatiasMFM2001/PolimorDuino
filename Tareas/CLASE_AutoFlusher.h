@@ -1,7 +1,8 @@
 #ifndef CLASE_AUTO_FLUSHER
 #define CLASE_AUTO_FLUSHER
 
-#include "InclusionTaskSchedulerDeclarations.h"
+#define _TASK_OO_CALLBACKS
+#include <TaskSchedulerDeclarations.h>
 #include <Print.h>
     /**
      * @brief Tarea que permite forzar periódicamente la impresión de los datos
@@ -32,6 +33,6 @@
 			 * @returns @code true para indicar que la ejecución de la tarea fue
 			 *  "productiva".
 			 */
-            bool Callback() override;
+            bool Callback(void) override;
     };
 #endif

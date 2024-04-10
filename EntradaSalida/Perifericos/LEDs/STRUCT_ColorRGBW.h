@@ -1,7 +1,7 @@
 #ifndef COLOR_RGBW
 #define COLOR_RGBW
 
-#include "TIPO_Byte.h"
+#include <Arduino.h>
 	/**
 	 * @brief Almacena los brillos de los subpíxeles de un color RGBW.
 	 */
@@ -10,7 +10,7 @@
         byte rojo;
         
         /** @brief Brillo del subpíxel verde. */
-        byte verde
+        byte verde;
         
         /** @brief Brillo del subpíxel azul. */
         byte azul;

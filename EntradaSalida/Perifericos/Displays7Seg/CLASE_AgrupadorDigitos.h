@@ -1,5 +1,7 @@
 #ifndef AGRUPADOR_DIGITOS
 #define AGRUPADOR_DIGITOS
+
+#include "CLASE_Display7Segmentos.h"
     template <typename T, size_t NumDigitos>
     class AgrupadorDigitos : public Display7Segmentos<T> {
         private:

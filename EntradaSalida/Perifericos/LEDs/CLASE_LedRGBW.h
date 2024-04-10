@@ -1,5 +1,9 @@
 #ifndef LED_RGBW
 #define LED_RGBW
+
+#include "../../../Utils/CLASE_Pulsable.h"
+#include <Array.h>
+#include "STRUCT_ColorRGBW.h"
     class LedRGBW: public Pulsable {
         private:
             Array<ColorRGBW, 2> colores;
@@ -18,7 +22,7 @@
             void setColorApagado(ColorRGBW ingr, bool mostrarSiApagado = true);
             void setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido = true);
             
-            virtual void setEstado(bool valor, bool mostrar = true) override;
+            virtual void setEstado(bool valor) override;
             
             virtual void mostrar() = 0;
     };

@@ -2,6 +2,7 @@
 #define DISPLAY_7_SEGMENTOS
 
 #include "../../../Utils/CLASE_Pulsable.h"
+#include <log4arduino.h>
     template <typename T>
     class Display7Segmentos : public Pulsable {
         public:
@@ -14,7 +15,9 @@
                 }
             }
             
-            virtual void setNumero(T valor) = 0;
+            virtual void setNumero(T valor) {
+                LOG("Display7Segmentos::setNumero(%d) - METODO NO IMPLEMENTADO EN SUBCLASE", valor);
+            }
             
             size_t printTo(Print& p) const override {
                return 0;

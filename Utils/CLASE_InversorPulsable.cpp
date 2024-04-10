@@ -1,9 +1,10 @@
-#include "CLASE_InversorPusable.h"
+#include "CLASE_InversorPulsable.h"
 
 InversorPulsable::InversorPulsable(bool invertir, Pulsable *decorado)
-    : decorado(decorado)
+    : Pulsable(!invertir, false)
+    , decorado(decorado)
 {
-    Pulsable::Pulsable(!invertir);
+    this -> setEstado(!invertir);
 }
 
 void InversorPulsable::encender(void) {

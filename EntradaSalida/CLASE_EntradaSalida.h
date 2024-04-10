@@ -1,5 +1,7 @@
 #ifndef ENTRADA_SALIDA
 #define ENTRADA_SALIDA
+
+#include <Arduino.h>
     template <typename T, byte NumBits>
     class EntradaSalida {
         private:

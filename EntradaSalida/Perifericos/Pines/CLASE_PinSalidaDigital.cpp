@@ -1,5 +1,5 @@
 #include "CLASE_PinSalidaDigital.h"
-#include "InclusionLog4Arduino.h"
+#include <log4arduino.h>
 
 PinSalidaDigital::PinSalidaDigital(byte numPin, bool invertir, bool estadoInicial)
     : Pin(numPin, OUTPUT, NUM_DIGITAL_PINS)

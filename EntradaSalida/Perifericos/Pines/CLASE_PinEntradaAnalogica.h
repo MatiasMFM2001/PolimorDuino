@@ -17,13 +17,16 @@
              * @param invertir @code true para invertir el funcionamiento,
              *  @code false para el caso contrario.
              */
-            PinEntradaAnalogica(byte numPin = -1, bool invertir = false);
+            PinEntradaAnalogica(byte numPin = -1, bool invertir = false)
+                : Pin(numPin, INPUT, NUM_ANALOG_INPUTS)
+                , EntradaAnalogica<T, NumBits>(invertir)
+            {}
         
 			/**
 			 * @returns El valor leído del pin, sin invertir.
 			 */
             T leerBajoNivel(void) override {
-                return (this -> pinValido) * analogRead(this -> pin);
+                return (this -> pinValido) * analogRead(this -> numPin);
             }
     };
 #endif

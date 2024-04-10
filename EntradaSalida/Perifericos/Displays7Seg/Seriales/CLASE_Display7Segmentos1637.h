@@ -2,9 +2,11 @@
 #define DISPLAY_7_SEGMENTOS_1637
 
 #include "../CLASE_Display7SegmentosAlmacenado.h"
+#include <Arduino.h>
+#include <TM1637Display.h>
     class Display7Segmentos1637 : public Display7SegmentosAlmacenado<byte> {
         private:
-            byte indiceDigito;
+            size_t indiceDigito;
             TM1637Display *display;
         
         protected:

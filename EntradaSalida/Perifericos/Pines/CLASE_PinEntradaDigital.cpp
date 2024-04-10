@@ -1,5 +1,5 @@
 #include "CLASE_PinEntradaDigital.h"
-#include "InclusionLog4Arduino.h"
+#include <log4arduino.h>
 
 #ifdef __AVR__
     #include <PinChangeInterrupt.h>
@@ -23,7 +23,7 @@ byte PinEntradaDigital::getNumPCINT(void) {
         #endif
 }
 
-void PinEntradaDigital::vincularFuncionPCINT(callback funcion, byte modo) {
+void PinEntradaDigital::vincularFuncionPCINT(void(*funcion)(void), byte modo) {
     LOG("EJECUTANDO PinEntrada::vincularFuncionPCINT(%d, %p, %d)", this -> numPin, funcion, modo);
     
     #ifdef __AVR__

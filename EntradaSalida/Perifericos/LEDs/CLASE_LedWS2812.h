@@ -1,5 +1,8 @@
 #ifndef LED_WS2812
 #define LED_WS2812
+
+#include "CLASE_LedRGBW.h"
+#include <Adafruit_NeoPixel.h>
     class LedWS2812: public LedRGBW {
         private:
             Adafruit_NeoPixel *tiraRGBW;

@@ -2,6 +2,7 @@
 #define PIN_ENTRADA_DIGITAL
 
 #include "CLASE_Pin.h"
+#include "../../Entradas/CLASE_EntradaDigital.h"
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Entrada digital. Además,
 	 *  simplifica el uso de la librería de interrupciones por flanco.
@@ -39,7 +40,7 @@
              * @param funcion La función callback a ser ejecutada.
              * @param modo El modo de detección de flancos.
              */
-            void vincularFuncionPCINT(callback funcion, byte modo);
+            void vincularFuncionPCINT(void(*funcion)(void), byte modo);
             
             /**
              * @brief Desvincula la función establecida previamente, con las

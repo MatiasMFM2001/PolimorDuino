@@ -1,11 +1,5 @@
 #ifndef FUNCIONES_GLOBALES
 #define FUNCIONES_GLOBALES
-
-#include "InclusionTaskSchedulerDeclarations.h"
-#include "ENUM_Prioridad.h"
-#include "InclusionLog4Arduino.h"
-#include <Arduino.h>
-#include "DeclaracionVariablesGlobales.h"
 	/**
 	 * @brief Determina si el valor ingresado está dentro de los límites
 	 *  (inclusivos) especificados.

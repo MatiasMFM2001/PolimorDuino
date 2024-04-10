@@ -1,5 +1,6 @@
 #include "CLASE_GeneradorPulsos.h"
-#include "FuncionesGlobales.h"
+#include "../Utils/FuncionesGlobales.h"
+#include <log4arduino.h>
 //#include "CLASE_WrapperPuntero"
 
 GeneradorPulsos::GeneradorPulsos
@@ -57,9 +58,5 @@ void GeneradorPulsos::OnDisable(void) {
 }
 
 size_t GeneradorPulsos::printTo(Print& impresora) const {
-    return (imprimirCabeceraJSON<>(impresora, F("GeneradorPulsos"))
-        + imprimirVariableJSON<>(impresora, F("msSemiCiclo"), Task::getInterval()) + impresora.print(JSON_SEPARADOR)
-        + imprimirVariableJSON<>(impresora, F("numPulsos"), Task::getIterations()) + impresora.print(JSON_SEPARADOR)
-        + imprimirVariableJSON<>(impresora, F("pulsable"), this -> pulsable) + impresora.print(JSON_CLAUSURA_OBJETO)
-    );
+    return 0;
 }

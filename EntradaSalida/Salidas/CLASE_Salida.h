@@ -2,6 +2,7 @@
 #define SALIDA
 
 #include "../CLASE_EntradaSalida.h"
+#include <log4arduino.h>
     template <typename T, byte NumBits>
     class Salida : public EntradaSalida<T, NumBits> {
         protected:

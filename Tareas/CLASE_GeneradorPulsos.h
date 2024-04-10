@@ -1,8 +1,9 @@
 #ifndef GENERADOR_PULSOS
 #define GENERADOR_PULSOS
 
-#include "InclusionTaskSchedulerDeclarations.h"
-#include "INTERFAZ_Pulsable.h"
+#define _TASK_OO_CALLBACKS
+#include <TaskSchedulerDeclarations.h>
+#include "../Utils/CLASE_Pulsable.h"
 #include <Printable.h>
 	/**
      * @brief Tarea que permite generar una cantidad de pulsos determinada, a
@@ -59,7 +60,7 @@
              * @returns @code true para indicar que la tarea debería permanecer
              *  habilitada.
              */
-            bool OnEnable() override;
+            bool OnEnable(void) override;
 
             /**
              * @brief Ejecuta la oscilación periódica.
@@ -67,12 +68,12 @@
              * @returns @code true para indicar que la ejecución de la tarea fue
              *  "productiva".
              */
-            bool Callback() override;
+            bool Callback(void) override;
             
             /**
              * @brief Apaga el objeto pulsable.
              */
-            void OnDisable() override;
+            void OnDisable(void) override;
         
             /**
              * @brief Imprime los valores de las variables de instancia a la

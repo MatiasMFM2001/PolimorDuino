@@ -1,6 +1,6 @@
 #include "CLASE_LedWS2812.h" 
 
-LedWS2812::LedWS2812(ColorRGBW colorApagado, ColorRGBW colorEncendido, Adafruit_NeoPixel *tiraRGBW, size_t indiceTira, bool estadoInicial);
+LedWS2812::LedWS2812(ColorRGBW colorApagado, ColorRGBW colorEncendido, Adafruit_NeoPixel *tiraRGBW, size_t indiceTira, bool estadoInicial)
     : LedRGBW(colorApagado, colorEncendido, estadoInicial)
     , tiraRGBW(tiraRGBW), indiceTira(indiceTira)
 {}

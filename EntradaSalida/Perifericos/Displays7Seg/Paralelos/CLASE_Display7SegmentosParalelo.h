@@ -3,6 +3,7 @@
 
 #include <Array.h>
 #include "../CLASE_Display7Segmentos.h"
+#include "../../../Salidas/CLASE_SalidaDigital.h"
     template <size_t NumSalidasDatos>
     class Display7SegmentosParalelo : public Display7Segmentos<byte> {
         private:

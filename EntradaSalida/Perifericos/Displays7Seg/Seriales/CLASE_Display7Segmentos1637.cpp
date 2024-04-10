@@ -1,13 +1,15 @@
 #include "CLASE_Display7Segmentos1637.h" 
 
-Display7Segmentos1637::Display7Segmentos1637(byte numeroInicial, bool estadoInicial, byte indiceDigito, TM1637Display *display)
+Display7Segmentos1637::Display7Segmentos1637(byte numeroInicial, bool estadoInicial, size_t indiceDigito, TM1637Display *display, byte brillo)
     : Display7SegmentosAlmacenado(numeroInicial, estadoInicial)
     , indiceDigito(indiceDigito), display(display)
-{}
+{
+    this -> display -> setBrightness(brillo);
+}
 
-void Display7Segmentos1637::setNumeroBajoNivel(byte valor) override {
+void Display7Segmentos1637::setNumeroBajoNivel(byte valor) {
     if (this -> getEstado()) {
-        this -> display -> showNumberHexEx(valor % 16, 0, false, 1, this -> indiceDisplay);
+        this -> display -> showNumberHexEx(valor % 16, 0, false, 1, this -> indiceDigito);
     }
 }
 
@@ -17,5 +19,5 @@ void Display7Segmentos1637::encender(void) {
 
 void Display7Segmentos1637::apagar(void) {
     byte digito[] = {0};
-    this -> display -> setSegments(digito, 1, this -> indiceDisplay);
+    this -> display -> setSegments(digito, 1, this -> indiceDigito);
 }
