@@ -1,6 +1,11 @@
 #include "DECLARACION_digitosHexa.h"
 #include "../../../Utils/FuncionesGlobales.h"
-#include <avr/pgmspace.h>
+
+#if __AVR__
+    #include <avr/pgmspace.h>
+#else
+    #include <pgmspace.h>
+#endif
 
 byte getBitsDigito(byte hexa) {
     if (!enRango<byte>(hexa, 0, (sizeof(DIGITOS_HEXA) - 1))) {
