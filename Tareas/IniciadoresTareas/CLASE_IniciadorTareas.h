@@ -8,12 +8,11 @@
     class IniciadorTareas : public Task {
         private:
             Task *tarea;
-            Contador<size_t> contIteraciones;
         
         public:
-            IniciadorTareas(unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler* planif);
-            
-            bool OnEnable(void) override;
+            IniciadorTareas(unsigned long msEntreIniciaciones, unsigned long numIniciacionesInterno, Scheduler *planif, Task *tarea);
+
             bool Callback(void) override;
+            virtual bool deboFinalizar(void) = 0;
     };
 #endif
