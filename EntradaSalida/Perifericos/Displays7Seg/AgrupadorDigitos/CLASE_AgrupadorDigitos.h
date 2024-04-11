@@ -9,7 +9,7 @@
             byte baseNumerica;
             EstrategiaPadding<NumDigitos> *padding;
         
-            Array<byte, NumDigitos> getNumerosDigitos(T valor, bool invertirOrden) {
+            Array<byte, NumDigitos> getNumerosDigitos(T valor) {
                 Array<byte, NumDigitos> salida;
                 
                 for (Display7Segmentos<byte> *selec: this -> digitos) {
@@ -17,14 +17,12 @@
                     valor /= (this -> baseNumerica);
                 }
                 
-                if (invertirOrden) {
-                    for (size_t origen = 0; origen < (salida.size() / 2); ++origen) {
-                        size_t destino = salida.size() - origen + 1;
-                        
-                        byte selec = salida[origen];
-                        salida[origen] = salida[destino];
-                        salida[destino] = selec;
-                    }
+                for (size_t origen = 0; origen < (salida.size() / 2); ++origen) {
+                    size_t destino = salida.size() - origen + 1;
+                    
+                    byte selec = salida[origen];
+                    salida[origen] = salida[destino];
+                    salida[destino] = selec;
                 }
                 
                 return salida;
