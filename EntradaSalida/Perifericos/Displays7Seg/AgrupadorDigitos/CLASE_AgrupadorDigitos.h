@@ -7,6 +7,7 @@
         private:
             Array<Display7Segmentos<byte>*, NumDigitos> digitos; // Orden: Menos significativo a más significativo
             byte baseNumerica;
+            EstrategiaPadding<NumDigitos> *padding;
         
         protected:
             Array<byte, NumDigitos> getNumerosDigitos(T valor, byte base, bool invertirOrden) {
@@ -31,9 +32,9 @@
             }
         
         public:
-            AgrupadorDigitos(T numeroInicial, bool estadoInicial, Array<Display7Segmentos<byte>*, NumDigitos> digitos, byte base = DEC)
+            AgrupadorDigitos(T numeroInicial, bool estadoInicial, Array<Display7Segmentos<byte>*, NumDigitos> digitos, EstrategiaPadding<NumDigitos> *padding, byte base = DEC)
                 : Display7Segmentos<T>(numeroInicial, estadoInicial, false)
-                , digitos(digitos), baseNumerica(base)
+                , digitos(digitos), padding(padding) baseNumerica(base)
             {
                 this -> setNumero(numeroInicial);
                 this -> setEstado(estadoInicial);
