@@ -10,12 +10,12 @@
             EstrategiaPadding<NumDigitos> *padding;
         
         protected:
-            Array<byte, NumDigitos> getNumerosDigitos(T valor, byte base, bool invertirOrden) {
+            Array<byte, NumDigitos> getNumerosDigitos(T valor, bool invertirOrden) {
                 Array<byte, NumDigitos> salida;
                 
                 for (Display7Segmentos<byte> *selec: this -> digitos) {
-                    salida.push_back(valor % base);
-                    valor /= base;
+                    salida.push_back(valor % (this -> baseNumerica));
+                    valor /= (this -> baseNumerica);
                 }
                 
                 if (invertirOrden) {
