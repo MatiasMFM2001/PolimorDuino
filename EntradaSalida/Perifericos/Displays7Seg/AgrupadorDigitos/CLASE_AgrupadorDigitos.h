@@ -9,7 +9,6 @@
             byte baseNumerica;
             EstrategiaPadding<NumDigitos> *padding;
         
-        protected:
             Array<byte, NumDigitos> getNumerosDigitos(T valor, bool invertirOrden) {
                 Array<byte, NumDigitos> salida;
                 
