@@ -26,5 +26,8 @@
         VIOLETA = {127, 0, 255},
         MAGENTA = {255, 0, 255},
         ROSA = {255, 0, 127},
+        
+        BLANCO_RGB = {255, 255, 255},
+        BLANCO_RGBW = {0, 0, 0, 255},
     };
 #endif
