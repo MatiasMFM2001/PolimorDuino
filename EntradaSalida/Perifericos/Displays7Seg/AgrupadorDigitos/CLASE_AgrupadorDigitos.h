@@ -1,9 +1,9 @@
 #ifndef AGRUPADOR_DIGITOS
 #define AGRUPADOR_DIGITOS
 
-#define DISPLAY7SEG_APAGADO 16
 #include "CLASE_Display7Segmentos.h"
 #include "../../../../Utils/FuncionesGlobales.h"
+#include "INTERFAZ_EstrategiaPadding.h"
     template <typename T, size_t NumDigitos>
     class AgrupadorDigitos : public Display7Segmentos<T> {
         private:
