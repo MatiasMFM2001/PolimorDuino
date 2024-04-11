@@ -84,6 +84,13 @@
         }
     }
     
+    template <typename T, size_t S_ENTRADA, size_t S_SALIDA>
+    void agregarFinal(Array<T, S_ENTRADA> &entrada, Array<T, S_SALIDA> &salida) {
+        for (T selec: entrada) {
+            salida.push_back(selec);
+        }
+    }
+    
     /**
 	 * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
      *  es distinta a @code TASK_FOREVER) por otra cantidad.
