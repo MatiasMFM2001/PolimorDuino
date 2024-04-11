@@ -62,6 +62,28 @@
         return (num % 2) == 0;
     }
     
+    template <typename T, size_t S>
+    void permutar(Array<T, S> &array, size_t pos1, size_t pos2) {
+        T selec = array[pos1];
+        array[pos1] = array[pos2];
+        array[pos2] = selec;
+    }
+    
+    template <typename T, size_t S>
+    void invertirOrden(Array<T, S> &array) {
+        for (size_t origen = 0; origen < (array.size() / 2); ++origen) {
+            size_t destino = array.size() - origen - 1;
+            permutar(array, origen, destino);
+        }
+    }
+    
+    template <typename T, size_t S>
+    void completar(Array<T, S> &array, T valor, size_t maxIteraciones = -1) {
+        for (size_t cont = 0; (cont < maxIteraciones) && !array.full(); ++cont) {
+            array.push_back(valor);
+        }
+    }
+    
     /**
 	 * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
      *  es distinta a @code TASK_FOREVER) por otra cantidad.
