@@ -4,7 +4,7 @@
 #include "INTERFAZ_EstrategiaPadding.h"
 #include "../../../../Utils/FuncionesGlobales.h"
     template <size_t NumDigitos>
-    class Con0PaddingDerecha {
+    class Con0PaddingDerecha : public EstrategiaPadding<NumDigitos> {
         public:
             void aplicarPadding(Array<byte, NumDigitos> &digitos, Array<byte, NumDigitos> &salida) override {
                 completar(salida, 0, NumDigitos - digitos.size());
