@@ -43,10 +43,7 @@ bool GeneradorPulsos::OnEnable(void) {
 
 bool GeneradorPulsos::Callback(void) {
     LOG("INICIO GeneradorPulsos::Callback(), iteración %d", Task::getRunCounter());
-        if (!esPar(Task::getRunCounter()))
-            this -> pulsable -> encender();
-        else
-            this -> pulsable -> apagar();
+        this -> pulsable -> setEstado(!esPar(Task::getRunCounter()));
     FLOGS("FIN GeneradorPulsos::Callback()");
         
     return true;
