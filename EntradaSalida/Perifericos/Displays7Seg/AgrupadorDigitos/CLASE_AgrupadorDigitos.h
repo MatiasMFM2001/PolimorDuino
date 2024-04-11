@@ -14,7 +14,12 @@
             Array<byte, NumDigitos> getNumerosDigitos(T valor) {
                 Array<byte, NumDigitos> salida;
                 
-                for (Display7Segmentos<byte> *selec: this -> digitos) {
+                if (valor == 0) {
+                    salida.push_back(0);
+                    return salida;
+                }
+                
+                while ((valor > 0) && !salida.full()) {
                     salida.push_back(valor % (this -> baseNumerica));
                     valor /= (this -> baseNumerica);
                 }
