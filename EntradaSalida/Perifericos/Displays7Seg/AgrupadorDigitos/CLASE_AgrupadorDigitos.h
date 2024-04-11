@@ -38,17 +38,12 @@
                 Array<byte, NumDigitos> procesados;
                 this -> padding -> aplicarPadding(digitos, procesados);
                 
-                for (size_t cont = 0; cont < procesados.len(); ++cont) {
+                for (size_t cont = 0; cont < procesados.size(); ++cont) {
                     Display7Segmentos<byte>* digSelec = this -> digitos[cont];
                     byte numSelec = procesados[cont];
                     
-                    if (numSelec != DISPLAY7SEG_APAGADO) {
-                        digSelec -> setNumero(numSelec);
-                        digSelec -> encender();
-                    }
-                    else {
-                        digSelec -> apagar();
-                    }
+                    digSelec -> setNumero(numSelec);
+                    digSelec -> setEstado(numSelec != DISPLAY7SEG_APAGADO);
                 }
             }
             
