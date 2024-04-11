@@ -1,7 +1,9 @@
 #ifndef AGRUPADOR_DIGITOS
 #define AGRUPADOR_DIGITOS
 
+#define DISPLAY7SEG_APAGADO 16
 #include "CLASE_Display7Segmentos.h"
+#include "../../../../Utils/FuncionesGlobales.h"
     template <typename T, size_t NumDigitos>
     class AgrupadorDigitos : public Display7Segmentos<T> {
         private:
@@ -17,14 +19,7 @@
                     valor /= (this -> baseNumerica);
                 }
                 
-                for (size_t origen = 0; origen < (salida.size() / 2); ++origen) {
-                    size_t destino = salida.size() - origen + 1;
-                    
-                    byte selec = salida[origen];
-                    salida[origen] = salida[destino];
-                    salida[destino] = selec;
-                }
-                
+                invertirOrden(salida);
                 return salida;
             }
         
@@ -38,9 +33,22 @@
             }
             
             void setNumero(T valor) override {
-                for (Display7Segmentos<byte> *selec: this -> digitos) {
-                    selec -> setNumero(valor % (this -> baseNumerica));
-                    valor /= (this -> baseNumerica);
+                Array<byte, NumDigitos> digitos = this -> getNumerosDigitos(valor);
+                
+                Array<byte, NumDigitos> procesados;
+                this -> padding -> aplicarPadding(digitos, procesados);
+                
+                for (size_t cont = 0; cont < procesados.len(); ++cont) {
+                    Display7Segmentos<byte>* digSelec = this -> digitos[cont];
+                    byte numSelec = procesados[cont];
+                    
+                    if (numSelec != DISPLAY7SEG_APAGADO) {
+                        digSelec -> setNumero(numSelec);
+                        digSelec -> encender();
+                    }
+                    else {
+                        digSelec -> apagar();
+                    }
                 }
             }
             
