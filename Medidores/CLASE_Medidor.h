@@ -1,7 +1,7 @@
 #ifndef MEDIDOR
 #define MEDIDOR
 
-#include <log4arduino.h>
+#include "../Inclusiones/InclusionLog4Arduino.h"
     /**
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
      *  realizando acciones con los valores medidos.

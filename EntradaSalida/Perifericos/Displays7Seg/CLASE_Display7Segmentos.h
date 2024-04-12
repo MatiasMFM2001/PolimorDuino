@@ -2,7 +2,7 @@
 #define DISPLAY_7_SEGMENTOS
 
 #include "../../../Utils/CLASE_Pulsable.h"
-#include <log4arduino.h>
+#include "../../../Inclusiones/InclusionLog4Arduino.h"
     template <typename T>
     class Display7Segmentos : public Pulsable {
         public:

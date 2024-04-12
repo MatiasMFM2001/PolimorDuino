@@ -1,8 +1,7 @@
 #ifndef GENERADOR_PULSOS
 #define GENERADOR_PULSOS
 
-#define _TASK_OO_CALLBACKS
-#include <TaskSchedulerDeclarations.h>
+#include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include "../Utils/CLASE_Pulsable.h"
 #include <Printable.h>
 	/**

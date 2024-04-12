@@ -1,6 +1,6 @@
 #include "CLASE_GeneradorPulsos.h"
 #include "../Utils/FuncionesGlobales.h"
-#include <log4arduino.h>
+#include "../Inclusiones/InclusionLog4Arduino.h"
 //#include "CLASE_WrapperPuntero"
 
 GeneradorPulsos::GeneradorPulsos

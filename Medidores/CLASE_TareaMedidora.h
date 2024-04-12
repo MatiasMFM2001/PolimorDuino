@@ -2,7 +2,7 @@
 #define TAREA_MEDIDORA
 
 #include "CLASE_Medidor.h"
-#include <TaskScheduler.h>
+#include "../Inclusiones/InclusionTaskScheduler.h"
     /**
      * @brief 
      * 

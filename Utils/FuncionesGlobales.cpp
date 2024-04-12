@@ -1,6 +1,6 @@
 //#include "DeclaracionVariablesGlobales.h"
 #include "FuncionesGlobales.h"
-#include <TaskSchedulerDeclarations.h>
+#include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 
 long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador) {
     if (numTerminos == TASK_FOREVER) {

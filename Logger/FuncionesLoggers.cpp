@@ -1,5 +1,5 @@
 #include "FuncionesLoggers.h"
-#include <log4arduino.h>
+#include "../Inclusiones/InclusionLog4Arduino.h"
 
 void imprimir(unsigned short &valor) {
     LOG("%d", valor);

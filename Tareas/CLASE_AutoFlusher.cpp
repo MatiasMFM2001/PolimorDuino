@@ -1,6 +1,6 @@
 #include "CLASE_AutoFlusher.h"
 #include <Arduino.h>
-#include <log4arduino.h>
+#include "../Inclusiones/InclusionLog4Arduino.h"
 
 AutoFlusher::AutoFlusher(Print* impresora, long msEntreLlamados, Scheduler* planif)
     : Task(msEntreLlamados, TASK_FOREVER, planif, false)
