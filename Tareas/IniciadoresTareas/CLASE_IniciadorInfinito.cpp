@@ -1,4 +1,4 @@
-#include "CLASE_IniciadorTareas.h"
+#include "CLASE_IniciadorInfinito.h"
 
 IniciadorInfinito::IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea)
     : IniciadorTareas(msEntreIniciaciones, planif, tarea)

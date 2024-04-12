@@ -6,7 +6,7 @@
     class SalidaAnalogica : public SalidaContinua<T, NumBits> {
         public:
             SalidaAnalogica(bool invertir)
-                : SalidaContinua(invertir)
+                : SalidaContinua<T, NumBits>(invertir)
             {}
     };
 #endif

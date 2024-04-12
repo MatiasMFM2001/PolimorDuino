@@ -1,5 +1,7 @@
 #ifndef FUNCIONES_GLOBALES
 #define FUNCIONES_GLOBALES
+
+#include <Array.h>
 	/**
 	 * @brief Determina si el valor ingresado está dentro de los límites
 	 *  (inclusivos) especificados.

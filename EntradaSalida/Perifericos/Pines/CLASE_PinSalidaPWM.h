@@ -2,7 +2,7 @@
 #define PIN_SALIDA_PWM
 
 #include "CLASE_Pin.h"
-#include <PinChangeInterrupt.h>
+#include "../../Salidas/CLASE_SalidaPWM.h"
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Salida PWM.
 	 */
@@ -17,11 +17,14 @@
              * @param invertir @code true para invertir el funcionamiento,
              *  @code false para el caso contrario.
              */
-            PinSalidaPWM(byte numPin = -1, bool invertir = false);
+            PinSalidaPWM(byte numPin = -1, bool invertir = false)
+                : Pin(numPin, OUTPUT, NUM_DIGITAL_PINS)
+                , SalidaPWM<T, NumBits>(invertir)
+            {}
         
             void escribirBajoNivel(T valor) override {
                 if (this -> pinValido) {
-                    analogWrite(this -> pin);
+                    analogWrite(this -> numPin, valor);
                 }
             }
     };

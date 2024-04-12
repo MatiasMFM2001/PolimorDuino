@@ -51,3 +51,7 @@ void LedRGBW::setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido) {
 void LedRGBW::setEstado(bool valor) {
     this -> mostrar();
 }
+
+size_t LedRGBW::printTo(Print& p) const {
+    return 0;
+}

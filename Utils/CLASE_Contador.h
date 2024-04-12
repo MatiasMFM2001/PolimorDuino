@@ -1,5 +1,7 @@
 #ifndef CONTADOR_T
 #define CONTADOR_T
+
+#include <Printable.h>
     /**
      * @brief Encapsula una variable a usar como contador, permitiendo
      *  imprimirla.

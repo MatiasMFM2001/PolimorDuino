@@ -6,7 +6,7 @@
     class SalidaPWM : public SalidaContinua<T, NumBits> {
         public:
             SalidaPWM(bool invertir)
-                : SalidaContinua(invertir)
+                : SalidaContinua<T, NumBits>(invertir)
             {}
     };
 #endif

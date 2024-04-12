@@ -18,7 +18,7 @@
         /** @brief Brillo del subpíxel blanco. */
         byte blanco;
         
-        ColorRGBW(byte rojo, byte verde, byte azul, byte blanco = 0)
+        ColorRGBW(byte rojo = 0, byte verde = 0, byte azul = 0, byte blanco = 0)
             : rojo(rojo), verde(verde), azul(azul), blanco(blanco)
         {}
     };

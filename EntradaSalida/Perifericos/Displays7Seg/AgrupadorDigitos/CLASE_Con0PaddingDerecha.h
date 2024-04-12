@@ -7,7 +7,7 @@
     class Con0PaddingDerecha : public EstrategiaPadding<NumDigitos> {
         public:
             void aplicarPadding(Array<byte, NumDigitos> &digitos, Array<byte, NumDigitos> &salida) override {
-                completar(salida, 0, NumDigitos - digitos.size());
+                completar(salida, (byte) 0, NumDigitos - digitos.size());
                 agregarFinal(digitos, salida);
             }
     };

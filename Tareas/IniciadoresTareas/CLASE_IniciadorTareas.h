@@ -2,9 +2,7 @@
 #define INICIADOR_TAREAS
 
 #define _TASK_OO_CALLBACKS
-#include <TaskScheduler.h>
-
-#include "../Utils/CLASE_Contador.h"
+#include <TaskSchedulerDeclarations.h>
     class IniciadorTareas : public Task {
         private:
             Task *tarea;

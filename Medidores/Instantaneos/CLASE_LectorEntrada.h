@@ -4,7 +4,7 @@
 
 #include "CLASE_MedidorInstantaneo.h"
     template <typename TResultado, byte NumBits, void (*FLogger)(TResultado&)>
-    class LectorEntrada : MedidorInstantaneo<TResultado, FLogger> {
+    class LectorEntrada : public MedidorInstantaneo<TResultado, FLogger> {
         private:
             Entrada<TResultado, NumBits> *entrada;
       

@@ -1,7 +1,7 @@
 #ifndef AGRUPADOR_DIGITOS
 #define AGRUPADOR_DIGITOS
 
-#include "CLASE_Display7Segmentos.h"
+#include "../CLASE_Display7Segmentos.h"
 #include "../../../../Utils/FuncionesGlobales.h"
 #include "INTERFAZ_EstrategiaPadding.h"
     template <typename T, size_t NumDigitos>
@@ -31,7 +31,7 @@
         public:
             AgrupadorDigitos(T numeroInicial, bool estadoInicial, Array<Display7Segmentos<byte>*, NumDigitos> digitos, EstrategiaPadding<NumDigitos> *padding, byte base = DEC)
                 : Display7Segmentos<T>(numeroInicial, estadoInicial, false)
-                , digitos(digitos), padding(padding) baseNumerica(base)
+                , digitos(digitos), padding(padding), baseNumerica(base)
             {
                 this -> setNumero(numeroInicial);
                 this -> setEstado(estadoInicial);

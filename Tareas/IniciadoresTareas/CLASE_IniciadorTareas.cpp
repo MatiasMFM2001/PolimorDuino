@@ -1,8 +1,9 @@
 #include "CLASE_IniciadorTareas.h"
+#include <TaskScheduler.h>
 
 IniciadorTareas::IniciadorTareas(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea)
     : Task(msEntreIniciaciones, TASK_FOREVER, planif, false)
-    , tarea(tarea), contIteraciones(Contador<size_t>(numIniciaciones))
+    , tarea(tarea)
 {}
 
 bool IniciadorTareas::Callback(void) {

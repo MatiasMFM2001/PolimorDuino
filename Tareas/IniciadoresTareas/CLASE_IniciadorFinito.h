@@ -2,6 +2,7 @@
 #define INICIADOR_FINITO
 
 #include "CLASE_IniciadorTareas.h"
+#include "../../Utils/CLASE_Contador.h"
     class IniciadorFinito : public IniciadorTareas {
         private:
             Contador<size_t> contIteraciones;

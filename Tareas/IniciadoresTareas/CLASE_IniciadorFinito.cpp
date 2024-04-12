@@ -1,4 +1,4 @@
-#include "CLASE_IniciadorTareas.h"
+#include "CLASE_IniciadorFinito.h"
 
 IniciadorFinito::IniciadorFinito(unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler* planif, Task *tarea)
     : IniciadorTareas(msEntreIniciaciones, planif, tarea)
@@ -7,9 +7,10 @@ IniciadorFinito::IniciadorFinito(unsigned long msEntreIniciaciones, unsigned lon
 
 bool IniciadorFinito::OnEnable(void) {
     this -> contIteraciones.reiniciar();
+    return true;
 }
 
 bool IniciadorFinito::deboFinalizar(void) {
     this -> contIteraciones.decrementar(1);
-    return (this -> contIteraciones.getValor()) == 0);
+    return (this -> contIteraciones.getValor() == 0);
 }
