@@ -1,5 +1,5 @@
 #include "CLASE_IniciadorTareas.h"
-#include "../../Inclusiones/InclusionTaskScheduler.h"
+#include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 
 IniciadorTareas::IniciadorTareas(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea)
     : Task(msEntreIniciaciones, TASK_FOREVER, planif, false)

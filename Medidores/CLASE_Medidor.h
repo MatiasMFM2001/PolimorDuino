@@ -32,7 +32,7 @@
         
         public:
             Medidor(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback)
-                : nombre(nombre), callback(callback)
+                : callback(callback), nombre(nombre)
             {}
         
             virtual void iniciarMedicion() = 0;

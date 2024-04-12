@@ -31,7 +31,7 @@
         public:
             AgrupadorDigitos(T numeroInicial, bool estadoInicial, Array<Display7Segmentos<byte>*, NumDigitos> digitos, EstrategiaPadding<NumDigitos> *padding, byte base = DEC)
                 : Display7Segmentos<T>(numeroInicial, estadoInicial, false)
-                , digitos(digitos), padding(padding), baseNumerica(base)
+                , digitos(digitos), baseNumerica(base), padding(padding)
             {
                 this -> setNumero(numeroInicial);
                 this -> setEstado(estadoInicial);
