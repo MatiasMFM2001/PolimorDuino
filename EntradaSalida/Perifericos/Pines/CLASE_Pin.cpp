@@ -1,5 +1,6 @@
 #include "CLASE_Pin.h"
 #include "../../../Utils/FuncionesGlobales.h"
+#include "../Logger/FuncionesJSON.h"
 
 Pin::Pin(byte numPin, byte modoPin, byte totalPines)
     : numPin(numPin), pinValido(enRango<byte>(numPin, 0, totalPines - 1))
@@ -10,5 +11,5 @@ Pin::Pin(byte numPin, byte modoPin, byte totalPines)
 }
 
 size_t Pin::printTo(Print& impresora) const {
-    return 0;
+    return OBJETO_SIN_SUPER_A_JSON(impresora, "Pin", numPin, pinValido);
 }

@@ -3,6 +3,7 @@
 
 #include "CLASE_Display7Segmentos.h"
 #include "CLASE_Contador.h"
+#include "../Logger/FuncionesJSON.h"
     /**
      * @brief Permite mostrar números secuencialmente (en bucle infinito) en un
      *  display de 7 segmentos de 1 dígito.
@@ -91,11 +92,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print& impresora) const override {
-                return (imprimirCabeceraJSON(impresora, F("MostradorDisplayRotativo"))
-                    + imprimirVariableJSON(impresora, F("numeros"), this -> numeros) + impresora.print(JSON_SEPARADOR)
-                    + imprimirVariableJSON(impresora, F("display"), WrapperPuntero<Display7Segmentos>(this -> display)) + impresora.print(JSON_SEPARADOR)
-                    + imprimirVariableJSON(impresora, F("contPos"), this -> contPos) + impresora.print(JSON_CLAUSURA_OBJETO)
-                );
+                return OBJETO_A_JSON(impresora, "MostradorDisplayRotativo", numeros, display, contPos) + SUPERCLASES_A_JSON(impresora, Pulsable);
             }
     };
 #endif

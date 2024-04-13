@@ -4,6 +4,7 @@
 #include <Array.h>
 #include "../CLASE_Display7Segmentos.h"
 #include "../../../Salidas/CLASE_SalidaDigital.h"
+#include "../Logger/FuncionesJSON.h"
     template <size_t NumSalidasDatos>
     class Display7SegmentosParalelo : public Display7Segmentos<byte> {
         private:
@@ -35,7 +36,7 @@
             }
         
             size_t printTo(Print& impresora) const override {
-                return 0;
+                return OBJETO_A_JSON(impresora, "Display7SegmentosParalelo", salidasDatos, salidaEnable) + SUPERCLASES_A_JSON(impresora, Display7Segmentos<byte>);
             }
     };
 #endif

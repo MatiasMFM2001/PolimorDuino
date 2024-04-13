@@ -78,7 +78,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print& impresora) const override {
-                return OBJETO_A_JSON(impresora, "Contador", valorInicial, valorActual);
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "Contador", valorInicial, valorActual);
             }
     };
 #endif

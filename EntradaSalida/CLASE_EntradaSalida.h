@@ -2,8 +2,10 @@
 #define ENTRADA_SALIDA
 
 #include <Arduino.h>
+#include <Printable.h>
+#include "../Logger/FuncionesJSON.h"
     template <typename T, byte NumBits>
-    class EntradaSalida {
+    class EntradaSalida : public Printable {
         private:
             /** @brief Si invertir el funcionamiento del pin o no. */
             bool invertir;
@@ -25,5 +27,9 @@
             EntradaSalida(bool invertir)
                 : invertir(invertir)
             {}
+            
+            size_t printTo(Print& impresora) const override {
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "EntradaSalida", invertir);
+            }
     };
 #endif

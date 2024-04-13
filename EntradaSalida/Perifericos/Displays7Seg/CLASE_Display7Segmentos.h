@@ -3,6 +3,7 @@
 
 #include "../../../Utils/CLASE_Pulsable.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
+#include "../Logger/FuncionesJSON.h"
     template <typename T>
     class Display7Segmentos : public Pulsable {
         public:
@@ -14,13 +15,9 @@
                     this -> setEstado(estadoInicial);
                 }
             }
-            
+
             virtual void setNumero(T valor) {
                 LOG("Display7Segmentos::setNumero(%d) - METODO NO IMPLEMENTADO EN SUBCLASE", valor);
-            }
-            
-            size_t printTo(Print& p) const override {
-               return 0;
             }
     };
 #endif

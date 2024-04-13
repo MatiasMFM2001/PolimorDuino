@@ -1,6 +1,7 @@
 #include "CLASE_GeneradorPulsos.h"
 #include "../Utils/FuncionesGlobales.h"
 #include "../Inclusiones/InclusionLog4Arduino.h"
+#include "../Logger/FuncionesJSON.h"
 //#include "CLASE_WrapperPuntero"
 
 GeneradorPulsos::GeneradorPulsos
@@ -55,5 +56,5 @@ void GeneradorPulsos::OnDisable(void) {
 }
 
 size_t GeneradorPulsos::printTo(Print& impresora) const {
-    return 0;
+    return OBJETO_SIN_SUPER_A_JSON(impresora, "GeneradorPulsos", pulsable);
 }

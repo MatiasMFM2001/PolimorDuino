@@ -1,4 +1,5 @@
-#include "CLASE_LedRGBW.h" 
+#include "CLASE_LedRGBW.h"
+#include "../Logger/FuncionesJSON.h"
 
 #define POS_APAGADO 0
 #define POS_ENCENDIDO 1
@@ -52,6 +53,6 @@ void LedRGBW::setEstado(bool valor) {
     this -> mostrar();
 }
 
-size_t LedRGBW::printTo(Print& p) const {
-    return 0;
+size_t LedRGBW::printTo(Print& impresora) const {
+    return OBJETO_A_JSON(impresora, "LedRGBW", colores) + SUPERCLASES_A_JSON(impresora, Pulsable);
 }
