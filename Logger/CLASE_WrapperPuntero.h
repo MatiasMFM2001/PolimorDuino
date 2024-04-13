@@ -13,7 +13,7 @@
         private:
             /** @brief Puntero al dato. */
             TTipoDato* puntero;
-        
+
         public:
             /**
              * @brief Construye un WrapperPuntero, con el puntero especificado.
@@ -59,7 +59,7 @@
                     return impresora.print(JSON_NULL);
                 }
                 
-                return impresora.print(this -> getDato());
+                return imprimirDatoJSON(this -> getDato());
             }
             
             
