@@ -36,6 +36,7 @@
     #define IMPRIMIR_VARIABLE_JSON(impresora, nombreVariable, valor) (IMPRIMIR_NOMBRE_VARIABLE_JSON(impresora, nombreVariable) + imprimirDatoJSON(impresora, valor))
     #define IMPRIMIR_VARIABLE_INSTANCIA_JSON(impresora, variable) IMPRIMIR_VARIABLE_JSON(impresora, #variable, variable)
     #define IMPRIMIR_SUPERCLASE_JSON(impresora, nombreSuperclase) IMPRIMIR_VARIABLE_JSON(impresora, #nombreSuperclase, nombreSuperclase::printTo(impresora))
+    #define IMPRIMIR_CLAUSURA_OBJETO_JSON(impresora) impresora.print(JSON_CLAUSURA_OBJETO)
     
     template <typename TNombre>
     size_t imprimirCabeceraJSON(Print& impresora, const TNombre* nombreClase, bool objetoVacio = false) {
@@ -46,5 +47,5 @@
     }
     
     #define OBJETO_A_JSON(impresora, nombreClase, ...) (imprimirCabeceraJSON(impresora, nombreClase) + FOR_EACH_ACUMULANDO(IMPRIMIR_VARIABLE_INSTANCIA_JSON, impresora, __VA_ARGS__))
-    #define SUPERCLASES_A_JSON(impresora, ...) (FOR_EACH_ACUMULANDO(IMPRIMIR_SUPERCLASE_JSON, impresora, __VA_ARGS__) + impresora.print(JSON_CLAUSURA_OBJETO))
+    #define SUPERCLASES_A_JSON(impresora, ...) (FOR_EACH_ACUMULANDO(IMPRIMIR_SUPERCLASE_JSON, impresora, __VA_ARGS__) + IMPRIMIR_CLAUSURA_OBJETO_JSON(impresora))
 #endif
