@@ -2,7 +2,7 @@
 #define WRAPPER_PUNTERO
 
 #include <Printable.h>
-#define NULLPTR_TO_STRING "null"
+#include "FuncionesJSON.h"
     /**
      * @brief Encapsula un puntero crudo, permitiendo imprimirlo.
      * 
@@ -56,7 +56,7 @@
              */
             size_t printTo(Print& impresora) const override {
                 if (this -> esNulo()) {
-                    return impresora.print(NULLPTR_TO_STRING);
+                    return impresora.print(JSON_NULL);
                 }
                 
                 return impresora.print(this -> getDato());
