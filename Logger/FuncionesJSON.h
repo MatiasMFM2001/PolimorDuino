@@ -14,6 +14,7 @@
 #include <Print.h>
 #include "CLASE_WrapperPuntero.h"
 #include <avr/pgmspace.h>
+#include "MACRO_ForEachAcumulando.h"
     size_t imprimirCaracterJSON(Print& impresora, const char ingr);
     
     size_t imprimirDatoJSON(Print& impresora, const char* valor);
@@ -30,9 +31,10 @@
     size_t imprimirDatoJSON(Print& impresora, const TValor* valor) {
         return imprimirDatoJSON(impresora, WrapperPuntero<TValor>(valor));
     }
-    
+
     #define IMPRIMIR_NOMBRE_VARIABLE_JSON(impresora, nombreVariable) (imprimirDatoJSON(impresora, F(nombreVariable)) + impresora.print(JSON_VARIABLE))
     #define IMPRIMIR_VARIABLE_JSON(impresora, nombreVariable, valor) (IMPRIMIR_NOMBRE_VARIABLE_JSON(impresora, nombreVariable) + imprimirDatoJSON(impresora, valor))
+    #define IMPRIMIR_VARIABLE_INSTANCIA_JSON(impresora, variable) IMPRIMIR_VARIABLE_JSON(impresora, #variable, variable)
     
     template <typename TNombre>
     size_t imprimirCabeceraJSON(Print& impresora, const TNombre* nombreClase, bool objetoVacio = false) {
@@ -42,6 +44,5 @@
         );
     }
     
-    #define OBJETO_A_JSON_RECURSIVO(impresora, selec, ...) (IMPRIMIR_VARIABLE_JSON(impresora, #selec, selec) + OBJETO_A_JSON_RECURSIVO(impresora, ##__VA_ARGS__))
-    #define OBJETO_A_JSON(impresora, nombreClase, ...) (imprimirCabeceraJSON(impresora, nombreClase) + OBJETO_A_JSON_RECURSIVO(impresora, ##__VA_ARGS__) + impresora.print(JSON_CLAUSURA_OBJETO))
+    #define OBJETO_A_JSON(impresora, nombreClase, ...) (imprimirCabeceraJSON(impresora, nombreClase) + FOR_EACH_ACUMULANDO(IMPRIMIR_VARIABLE_INSTANCIA_JSON, impresora, __VA_ARGS__) + impresora.print(JSON_CLAUSURA_OBJETO))
 #endif
