@@ -11,5 +11,16 @@
                 agregarFinal(digitos, salida);
                 completar(salida, DISPLAY7SEG_APAGADO);
             }
+
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            virtual size_t printTo(Print& impresora) const override {
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "Sin0PaddingCentro");
+            }
     };
 #endif

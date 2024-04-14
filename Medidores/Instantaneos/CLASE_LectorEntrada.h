@@ -17,5 +17,16 @@
             TResultado getResultado(void) override {
                 return this -> entrada -> leer();
             }
+
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            virtual size_t printTo(Print& impresora) const override {
+                return OBJETO_A_JSON(impresora, "LectorEntrada", TResultado, NumBits, entrada) + SUPERCLASES_A_JSON(impresora, MedidorInstantaneo<TResultado, FLogger>);
+            }
     };
 #endif

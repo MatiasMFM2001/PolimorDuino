@@ -11,3 +11,7 @@ void LedWS2812::mostrar(void) {
     this -> tiraRGBW -> setPixelColor(this -> indiceTira, color.rojo, color.verde, color.azul, color.blanco);
     this -> tiraRGBW -> show();
 }
+
+size_t LedWS2812::printTo(Print& impresora) const {
+    return OBJETO_A_JSON(impresora, "LedWS2812", indiceTira) + SUPERCLASES_A_JSON(impresora, LedRGBW);
+}

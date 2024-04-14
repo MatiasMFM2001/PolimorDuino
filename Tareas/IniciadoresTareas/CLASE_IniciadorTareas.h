@@ -2,7 +2,8 @@
 #define INICIADOR_TAREAS
 
 #include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
-    class IniciadorTareas : public Task {
+#include <Printable.h>
+    class IniciadorTareas : public Task, public Printable {
         private:
             Task *tarea;
         

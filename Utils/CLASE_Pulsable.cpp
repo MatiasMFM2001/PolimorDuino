@@ -32,3 +32,7 @@ void Pulsable::setEstado(bool valor) {
 bool Pulsable::getEstado(void) {
     return (this -> estadoActual);
 }
+
+size_t Pulsable::printTo(Print& impresora) const {
+    return OBJETO_SIN_SUPER_A_JSON(impresora, "Pulsable", estadoActual);
+}

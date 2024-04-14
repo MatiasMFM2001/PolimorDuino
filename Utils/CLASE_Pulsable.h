@@ -7,7 +7,7 @@
 	 *  apagados, los cuales DEBEN sobreescribir o @code setEstado(), o
      *  @code encender() y @code apagar() para evitar una recursión infinita.
 	 */
-    class Pulsable : virtual public Printable {
+    class Pulsable : public Printable {
         private:
             bool estadoActual;
         
@@ -42,5 +42,14 @@
             virtual void setEstado(bool valor);
             
             bool getEstado();
+
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            virtual size_t printTo(Print& impresora) const override;
     };
 #endif

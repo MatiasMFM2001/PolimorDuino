@@ -11,7 +11,7 @@
      * @tparam FLogger La función encargada de imprimir en logs el valor medido.
      */
     template <typename TResultado, void (*FLogger)(TResultado&)>
-    class Medidor {
+    class Medidor : public Printable {
         private:
             CallbackResultado<TResultado> *callback;
             
@@ -36,5 +36,16 @@
             {}
         
             virtual void iniciarMedicion() = 0;
+
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            virtual size_t printTo(Print& impresora) const override {
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "Medidor", TResultado, callback, nombre);
+            }
     };
 #endif

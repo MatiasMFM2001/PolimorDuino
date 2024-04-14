@@ -14,3 +14,7 @@ bool IniciadorFinito::deboFinalizar(void) {
     this -> contIteraciones.decrementar(1);
     return (this -> contIteraciones.getValor() == 0);
 }
+
+size_t IniciadorFinito::printTo(Print& impresora) const {
+    return OBJETO_SIN_SUPER_A_JSON(impresora, "IniciadorFinito", contIteraciones);
+}

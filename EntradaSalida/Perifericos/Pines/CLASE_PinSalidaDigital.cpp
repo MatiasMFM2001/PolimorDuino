@@ -14,3 +14,7 @@ void PinSalidaDigital::escribirBajoNivel(bool valor) {
         }
     LOG("FIN PinSalidaDigital::escribirBajoNivel(%d, %d)", this -> numPin, valor);
 }
+
+size_t PinSalidaDigital::printTo(Print& impresora) const {
+    return OBJETO_A_JSON(impresora, "PinSalidaDigital", indiceTira) + SUPERCLASES_A_JSON(impresora, Pin, SalidaDigital);
+}

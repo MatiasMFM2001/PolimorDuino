@@ -36,7 +36,7 @@
             }
         
             size_t printTo(Print& impresora) const override {
-                return OBJETO_A_JSON(impresora, "Display7SegmentosParalelo", salidasDatos, salidaEnable) + SUPERCLASES_A_JSON(impresora, Display7Segmentos<byte>);
+                return OBJETO_A_JSON(impresora, "Display7SegmentosParalelo", NumSalidasDatos, salidasDatos, salidaEnable) + SUPERCLASES_A_JSON(impresora, Display7Segmentos<byte>);
             }
     };
 #endif

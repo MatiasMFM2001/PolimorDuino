@@ -14,3 +14,7 @@ void InversorPulsable::encender(void) {
 void InversorPulsable::apagar(void) {
     this -> decorado -> encender();
 } 
+
+size_t InversorPulsable::printTo(Print& impresora) const {
+    return OBJETO_SIN_SUPER_A_JSON(impresora, "InversorPulsable", decorado);
+}

@@ -11,5 +11,14 @@
 
             void encender(void) override;
             void apagar(void) override;
+
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            virtual size_t printTo(Print& impresora) const override;
     };
 #endif
