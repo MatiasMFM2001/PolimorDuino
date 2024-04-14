@@ -75,7 +75,7 @@
         );
     }
     
-    #define OBJETO_A_JSON(impresora, nombreClase, ...) (imprimirCabeceraJSON(impresora, nombreClase) + FOR_EACH_ACUMULANDO(IMPRIMIR_VARIABLE_INSTANCIA_JSON, impresora, __VA_ARGS__))
+    #define OBJETO_A_JSON(impresora, nombreClase, ...) (imprimirCabeceraJSON(impresora, F(nombreClase)) + FOR_EACH_ACUMULANDO(IMPRIMIR_VARIABLE_INSTANCIA_JSON, impresora, __VA_ARGS__))
     #define SUPERCLASES_A_JSON(impresora, ...) (FOR_EACH_ACUMULANDO(IMPRIMIR_SUPERCLASE_JSON, impresora, __VA_ARGS__) + IMPRIMIR_CLAUSURA_OBJETO_JSON(impresora))
     #define OBJETO_SIN_SUPER_A_JSON(impresora, nombreClase, ...) (OBJETO_A_JSON(impresora, nombreClase, __VA_ARGS__) + IMPRIMIR_CLAUSURA_OBJETO_JSON(impresora))
 #endif
