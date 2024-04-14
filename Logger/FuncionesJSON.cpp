@@ -51,6 +51,10 @@ size_t imprimirDatoJSON(Print& impresora, const bool valor) {
     return impresora.print(valor ? F("true") : F("false"));
 }
 
-size_t imprimirDatoJSON(Print& impresora, const Printable& valor) {
+size_t imprimirDatoJSON(Print& impresora, Printable& valor) {
     return impresora.print(valor);
+}
+
+size_t imprimirDatoJSON(Print& impresora, Printable *valor) {
+    return imprimirDatoJSON(impresora, WrapperPuntero<Printable>(valor));
 }

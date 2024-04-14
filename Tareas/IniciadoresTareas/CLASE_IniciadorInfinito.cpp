@@ -1,4 +1,5 @@
 #include "CLASE_IniciadorInfinito.h"
+#include "../../Logger/FuncionesJSON.h"
 
 IniciadorInfinito::IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea)
     : IniciadorTareas(msEntreIniciaciones, planif, tarea)

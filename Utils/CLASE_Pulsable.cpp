@@ -1,4 +1,5 @@
 #include "CLASE_Pulsable.h"
+#include "../Logger/FuncionesJSON.h"
 
 Pulsable::Pulsable(bool estadoInicial, bool settearEstado) {
     if (settearEstado) {

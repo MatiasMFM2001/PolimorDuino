@@ -23,5 +23,5 @@ void Display7Segmentos1637::apagar(void) {
 }
 
 size_t Display7Segmentos1637::printTo(Print& impresora) const {
-    return OBJETO_A_JSON(impresora, "Display7Segmentos1637", indiceDigito) + SUPERCLASES_A_JSON(impresora, Display7SegmentosAlmacenado<T>);
+    return OBJETO_A_JSON(impresora, "Display7Segmentos1637", indiceDigito) + SUPERCLASES_A_JSON(impresora, Display7SegmentosAlmacenado<byte>);
 }

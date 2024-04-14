@@ -7,7 +7,7 @@
 	 *  apagados, los cuales DEBEN sobreescribir o @code setEstado(), o
      *  @code encender() y @code apagar() para evitar una recursión infinita.
 	 */
-    class Pulsable : public Printable {
+    class Pulsable : virtual public Printable {
         private:
             bool estadoActual;
         

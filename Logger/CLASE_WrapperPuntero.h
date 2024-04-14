@@ -54,12 +54,12 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            size_t printTo(Print& impresora) const override {
+            virtual size_t printTo(Print& impresora) const override {
                 if (this -> esNulo()) {
                     return impresora.print(JSON_NULL);
                 }
                 
-                return imprimirDatoJSON(this -> getDato());
+                return imprimirDatoJSON(impresora, this -> getDato());
             }
             
             

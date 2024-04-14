@@ -62,5 +62,5 @@ void PinEntradaDigital::deshabilitarInterrupcion(void) {
 }
 
 size_t PinEntradaDigital::printTo(Print& impresora) const {
-    return OBJETO_A_JSON(impresora, "PinEntradaDigital", indiceTira) + SUPERCLASES_A_JSON(impresora, Pin, EntradaDigital);
+    return OBJETO_A_JSON(impresora, "PinEntradaDigital") + SUPERCLASES_A_JSON(impresora, Pin, EntradaDigital);
 }

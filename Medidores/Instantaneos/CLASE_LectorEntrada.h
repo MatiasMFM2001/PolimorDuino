@@ -26,7 +26,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print& impresora) const override {
-                return OBJETO_A_JSON(impresora, "LectorEntrada", TResultado, NumBits, entrada) + SUPERCLASES_A_JSON(impresora, MedidorInstantaneo<TResultado, FLogger>);
+                return OBJETO_A_JSON(impresora, "LectorEntrada", NumBits, entrada) + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<TResultado, FLogger>));
             }
     };
 #endif

@@ -23,7 +23,7 @@
             void setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido = true);
             
             virtual void setEstado(bool valor) override;
-            size_t printTo(Print& p) const override;
+            virtual size_t printTo(Print& p) const override;
             
             virtual void mostrar() = 0;
     };

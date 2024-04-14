@@ -1,5 +1,5 @@
 #include "CLASE_LedRGBW.h"
-#include "../Logger/FuncionesJSON.h"
+#include "../../../Logger/FuncionesJSON.h"
 
 #define POS_APAGADO 0
 #define POS_ENCENDIDO 1

@@ -3,7 +3,7 @@
 
 #include "../../../Utils/CLASE_Pulsable.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
-#include "../Logger/FuncionesJSON.h"
+#include "../../../Logger/FuncionesJSON.h"
     template <typename T>
     class Display7Segmentos : public Pulsable {
         public:

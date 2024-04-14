@@ -37,7 +37,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print& impresora) const override {
-                return OBJETO_A_JSON(impresora, "PinEntradaAnalogica", T, NumBits) + SUPERCLASES_A_JSON(impresora, Pin, EntradaAnalogica<T, NumBits>);
+                return OBJETO_A_JSON(impresora, "PinEntradaAnalogica") + SUPERCLASES_A_JSON(impresora, Pin, (EntradaAnalogica<T, NumBits>));
             }
     };
 #endif

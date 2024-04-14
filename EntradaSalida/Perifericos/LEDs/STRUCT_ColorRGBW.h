@@ -2,10 +2,12 @@
 #define COLOR_RGBW
 
 #include <Arduino.h>
+#include <Printable.h>
+#include "../../../Logger/FuncionesJSON.h"
 	/**
 	 * @brief Almacena los brillos de los subpíxeles de un color RGBW.
 	 */
-    struct ColorRGBW {
+    struct ColorRGBW : public Printable {
 		/** @brief Brillo del subpíxel rojo. */
         byte rojo;
         

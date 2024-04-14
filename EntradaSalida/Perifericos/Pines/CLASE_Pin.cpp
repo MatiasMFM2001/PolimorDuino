@@ -1,6 +1,6 @@
 #include "CLASE_Pin.h"
 #include "../../../Utils/FuncionesGlobales.h"
-#include "../Logger/FuncionesJSON.h"
+#include "../../../Logger/FuncionesJSON.h"
 
 Pin::Pin(byte numPin, byte modoPin, byte totalPines)
     : numPin(numPin), pinValido(enRango<byte>(numPin, 0, totalPines - 1))
