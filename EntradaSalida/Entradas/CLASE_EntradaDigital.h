@@ -2,7 +2,8 @@
 #define ENTRADA_DIGITAL
 
 #include "CLASE_Entrada.h"
-    class EntradaDigital : public Entrada<bool, 1> {
+#include "../TIPOS_EnterosAnalogicos.h"
+    class EntradaDigital : public Entrada<BOOL_1_BIT> {
         public:
             EntradaDigital(bool invertir);
     };

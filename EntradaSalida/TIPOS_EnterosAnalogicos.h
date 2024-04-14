@@ -1,3 +1,5 @@
+#define BOOL_1_BIT bool, 1
+
 #define BYTE_4_BIT byte, 4
 #define BYTE_6_BIT byte, 6
 #define BYTE_8_BIT byte, 8

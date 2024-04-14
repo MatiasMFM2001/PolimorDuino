@@ -3,7 +3,8 @@
 
 #include "CLASE_Salida.h"
 #include "../../Utils/CLASE_Pulsable.h"
-    class SalidaDigital : public Salida<bool, 1>, public Pulsable {
+#include "../TIPOS_EnterosAnalogicos.h"
+    class SalidaDigital : public Salida<BOOL_1_BIT>, public Pulsable {
         public:
             SalidaDigital(bool invertir, bool estadoInicial);
             

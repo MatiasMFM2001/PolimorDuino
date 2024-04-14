@@ -1,7 +1,7 @@
 #include "CLASE_SalidaDigital.h"
 
 SalidaDigital::SalidaDigital(bool invertir, bool estadoInicial)
-    : Salida<bool, 1>(invertir)
+    : Salida<BOOL_1_BIT>(invertir)
     , Pulsable(estadoInicial)
 {}
 
