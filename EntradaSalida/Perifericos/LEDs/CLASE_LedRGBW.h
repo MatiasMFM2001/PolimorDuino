@@ -3,7 +3,7 @@
 
 #include "../../../Utils/CLASE_Pulsable.h"
 #include <Array.h>
-#include "STRUCT_ColorRGBW.h"
+#include "CLASE_ColorRGBW.h"
     class LedRGBW: public Pulsable {
         private:
             Array<ColorRGBW, 2> colores;

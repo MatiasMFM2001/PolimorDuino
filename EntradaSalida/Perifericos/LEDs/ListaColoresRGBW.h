@@ -1,7 +1,7 @@
 #ifndef COLORES_COMUNES
 #define COLORES_COMUNES
 
-#include "STRUCT_ColorRGBW.h"
+#include "CLASE_ColorRGBW.h"
 
     #define NEGRO_RGB ColorRGBW(0, 0, 0)
     

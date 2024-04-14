@@ -1,4 +1,5 @@
-#include "CLASE_LedWS2812.h" 
+#include "CLASE_LedWS2812.h"
+#include "../../../Logger/FuncionesJSON.h"
 
 LedWS2812::LedWS2812(ColorRGBW colorApagado, ColorRGBW colorEncendido, Adafruit_NeoPixel *tiraRGBW, size_t indiceTira, bool estadoInicial)
     : LedRGBW(colorApagado, colorEncendido, estadoInicial)
@@ -8,7 +9,7 @@ LedWS2812::LedWS2812(ColorRGBW colorApagado, ColorRGBW colorEncendido, Adafruit_
 void LedWS2812::mostrar(void) {
     ColorRGBW color = this -> getColorActual();
     
-    this -> tiraRGBW -> setPixelColor(this -> indiceTira, color.rojo, color.verde, color.azul, color.blanco);
+    this -> tiraRGBW -> setPixelColor(this -> indiceTira, color.getRojo(), color.getVerde(), color.getAzul(), color.getBlanco());
     this -> tiraRGBW -> show();
 }
 
