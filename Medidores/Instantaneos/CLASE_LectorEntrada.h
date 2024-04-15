@@ -25,7 +25,7 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print &impresora) const override {
+            size_t printTo(Print &impresora) const override {
                 return OBJETO_A_JSON(impresora, "LectorEntrada", N_NUM_BITS, entrada) + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<T_RESULTADO, F_LOGGER>));
             }
     };

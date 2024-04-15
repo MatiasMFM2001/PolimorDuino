@@ -18,7 +18,7 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print &impresora) const override {
+            size_t printTo(Print &impresora) const override {
                 return OBJETO_SIN_SUPER_A_JSON(impresora, "Sin0PaddingDerecha");
             }
     };

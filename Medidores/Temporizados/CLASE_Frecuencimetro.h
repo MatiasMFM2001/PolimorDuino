@@ -66,7 +66,7 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print &impresora) const override {
+            size_t printTo(Print &impresora) const override {
                 return OBJETO_A_JSON(impresora, "Frecuencimetro", T_RESULTADO, contFrec) + SUPERCLASES_A_JSON(impresora, MedidorTemporizado<T_RESULTADO, F_LOGGER>);
             }
     };
