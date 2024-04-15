@@ -26,12 +26,12 @@
              */
             AutoFlusher(Print *impresora, long msEntreLlamados, Scheduler *planif);
         
-			/**
-			 * @brief Ejecuta la impresión periódica.
-			 * 
-			 * @returns @code true para indicar que la ejecución de la tarea fue
-			 *  "productiva".
-			 */
+            /**
+             * @brief Ejecuta la impresión periódica.
+             *
+             * @returns @code true para indicar que la ejecución de la tarea fue
+             *  "productiva".
+             */
             bool Callback(void) override;
     };
 #endif
