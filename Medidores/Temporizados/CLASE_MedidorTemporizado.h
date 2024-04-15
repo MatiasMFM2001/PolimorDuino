@@ -5,14 +5,14 @@
     /**
      * @brief 
      * 
-     * @tparam TResultado El tipo de dato que almacena el resultado de una
+     * @tparam T_RESULTADO El tipo de dato que almacena el resultado de una
      *  medición.
      */
-    template <typename TResultado, void (*FLogger)(TResultado&)>
-    class MedidorTemporizado : public TareaMedidora<TResultado, FLogger> {
+    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
+    class MedidorTemporizado : public TareaMedidora<T_RESULTADO, F_LOGGER> {
         public:
-            MedidorTemporizado(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, unsigned long msMedicion, Scheduler *planif)
-                : TareaMedidora<TResultado, FLogger>(nombre, callback, msMedicion, planif)
+            MedidorTemporizado(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, unsigned long msMedicion, Scheduler *planif)
+                : TareaMedidora<T_RESULTADO, F_LOGGER>(nombre, callback, msMedicion, planif)
             {}
     };
 #endif

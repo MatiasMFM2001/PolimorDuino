@@ -4,15 +4,15 @@
 #include "../CLASE_Display7Segmentos.h"
 #include "../../../../Utils/FuncionesGlobales.h"
 #include "INTERFAZ_EstrategiaPadding.h"
-    template <typename T, size_t NumDigitos>
+    template <typename T, size_t N_NUM_DIGITOS>
     class AgrupadorDigitos : public Display7Segmentos<T> {
         private:
-            Array<Display7Segmentos<byte>*, NumDigitos> digitos; // Orden: Menos significativo a más significativo
+            Array<Display7Segmentos<byte>*, N_NUM_DIGITOS> digitos; // Orden: Menos significativo a más significativo
             byte baseNumerica;
-            EstrategiaPadding<NumDigitos> *padding;
+            EstrategiaPadding<N_NUM_DIGITOS> *padding;
         
-            Array<byte, NumDigitos> getNumerosDigitos(T valor) {
-                Array<byte, NumDigitos> salida;
+            Array<byte, N_NUM_DIGITOS> getNumerosDigitos(T valor) {
+                Array<byte, N_NUM_DIGITOS> salida;
                 
                 if (valor == 0) {
                     salida.push_back(0);
@@ -29,7 +29,7 @@
             }
         
         public:
-            AgrupadorDigitos(T numeroInicial, bool estadoInicial, Array<Display7Segmentos<byte>*, NumDigitos> digitos, EstrategiaPadding<NumDigitos> *padding, byte base = DEC)
+            AgrupadorDigitos(T numeroInicial, bool estadoInicial, Array<Display7Segmentos<byte>*, N_NUM_DIGITOS> digitos, EstrategiaPadding<N_NUM_DIGITOS> *padding, byte base = DEC)
                 : Display7Segmentos<T>(numeroInicial, estadoInicial, false)
                 , digitos(digitos), baseNumerica(base), padding(padding)
             {
@@ -38,9 +38,9 @@
             }
             
             void setNumero(T valor) override {
-                Array<byte, NumDigitos> digitos = this -> getNumerosDigitos(valor);
+                Array<byte, N_NUM_DIGITOS> digitos = this -> getNumerosDigitos(valor);
                 
-                Array<byte, NumDigitos> procesados;
+                Array<byte, N_NUM_DIGITOS> procesados;
                 this -> padding -> aplicarPadding(digitos, procesados);
                 
                 for (size_t cont = 0; cont < procesados.size(); ++cont) {

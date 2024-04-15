@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Printable.h>
 #include "../Logger/FuncionesJSON.h"
-    template <typename T, byte NumBits>
+    template <typename T, byte N_NUM_BITS>
     class EntradaSalida : virtual public Printable {
         private:
             /** @brief Si invertir el funcionamiento del pin o no. */
@@ -12,7 +12,7 @@
         
         protected:
             T getMaxValorRepresentable(void) {
-                return (1 << NumBits) - 1;
+                return (1 << N_NUM_BITS) - 1;
             }
         
             T invertirValor(T ingr) {
@@ -36,7 +36,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "EntradaSalida", NumBits, invertir);
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "EntradaSalida", N_NUM_BITS, invertir);
             }
     };
 #endif

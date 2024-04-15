@@ -6,13 +6,13 @@
     /**
      * @brief Encapsula un puntero crudo, permitiendo imprimirlo.
      *
-     * @tparam TTipoDato El tipo de dato a apuntar.
+     * @tparam T El tipo de dato a apuntar.
      */
-    template <typename TTipoDato>
+    template <typename T>
     class WrapperPuntero : public Printable {
         private:
             /** @brief Puntero al dato. */
-            TTipoDato *puntero;
+            T *puntero;
 
         public:
             /**
@@ -20,7 +20,7 @@
              *
              * @param puntero El puntero especificado.
              */
-            WrapperPuntero(TTipoDato *puntero = nullptr)
+            WrapperPuntero(T *puntero = nullptr)
                 : puntero(puntero)
             {}
             
@@ -28,7 +28,7 @@
             /**
              * @returns El puntero encapsulado.
              */
-            TTipoDato *getPuntero(void) const {
+            T *getPuntero(void) const {
                 return (this -> puntero);
             }
             
@@ -36,7 +36,7 @@
              * @returns La referencia al dato apuntado por el puntero
              *  encapsulado.
              */
-            TTipoDato &getDato(void) const {
+            T &getDato(void) const {
                 return *(this -> puntero);
             }
             
@@ -66,11 +66,11 @@
             /**
              * @returns El puntero encapsulado.
              */
-            operator TTipoDato*(void) const {
+            operator T*(void) const {
                 return (this -> puntero);
             }
             
-            /*operator TTipoDato&(void) const {
+            /*operator T&(void) const {
                 return *(this -> puntero);
             }*/
     };

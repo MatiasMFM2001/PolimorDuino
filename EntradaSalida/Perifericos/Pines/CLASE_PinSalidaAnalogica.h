@@ -6,8 +6,8 @@
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Salida analógica.
 	 */
-    template <typename T, byte NumBits>
-    class PinSalidaAnalogica : public Pin, public SalidaAnalogica<T, NumBits> {
+    template <typename T, byte N_NUM_BITS>
+    class PinSalidaAnalogica : public Pin, public SalidaAnalogica<T, N_NUM_BITS> {
         public:
 			/**
              * @brief Construye un PinSalidaAnalogica, con el número de pin y
@@ -33,7 +33,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "PinSalidaAnalogica") + SUPERCLASES_A_JSON(impresora, Pin, (SalidaAnalogica<T, NumBits>));
+                return OBJETO_A_JSON(impresora, "PinSalidaAnalogica") + SUPERCLASES_A_JSON(impresora, Pin, (SalidaAnalogica<T, N_NUM_BITS>));
             }
     };
 #endif

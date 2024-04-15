@@ -9,13 +9,13 @@
 	 *  interrupciones activadas para funcionar, pero fueron desactivadas
 	 *  temporalmente.
 	 * 
-	 * @tparam TNumBytes La capacidad del buffer, en bytes.
+	 * @tparam N_NUM_BYTES La capacidad del buffer, en bytes.
 	 */
-    template <size_t TNumBytes> 
+    template <size_t N_NUM_BYTES>
     class BufferDatos: public Print {
         private:
             /** @brief Estructura que almacena los bytes del buffer. */
-            Array<byte, TNumBytes> datos;
+            Array<byte, N_NUM_BYTES> datos;
             
             /** @brief Instancia que imprimirá los bytes del buffer. */
             Print *salida;

@@ -7,11 +7,11 @@
      * @brief Tarea que permite medir la frecuencia de una forma de onda
      *  periódica, a partir de la cantidad de flancos por segundo.
      */
-    template <typename TResultado, void (*FLogger)(TResultado&)>
-    class Frecuencimetro : public MedidorTemporizado<TResultado, FLogger> {
+    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
+    class Frecuencimetro : public MedidorTemporizado<T_RESULTADO, F_LOGGER> {
         private:
 			/** @brief Contador de flancos transitados. */
-            Contador<TResultado> contFrec;
+            Contador<T_RESULTADO> contFrec;
     
         public:
             /**
@@ -21,9 +21,9 @@
              *  ser nulo).
              * @param nombre El nombre del medidor (que no debería ser nulo).
              */
-            Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler *planif)
-                : MedidorTemporizado<TResultado, FLogger>(nombre, callback, TASK_SECOND, planif)
-                , contFrec(Contador<TResultado>(0))
+            Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, Scheduler *planif)
+                : MedidorTemporizado<T_RESULTADO, F_LOGGER>(nombre, callback, TASK_SECOND, planif)
+                , contFrec(Contador<T_RESULTADO>(0))
             {}
 
             /**
@@ -47,7 +47,7 @@
             /**
              * @returns El valor de la última medición realizada, en Hz.
              */
-            virtual TResultado getResultado(void) override {
+            virtual T_RESULTADO getResultado(void) override {
                 return (this -> contFrec.getValor());
             }
             
@@ -67,7 +67,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "Frecuencimetro", TResultado, contFrec) + SUPERCLASES_A_JSON(impresora, MedidorTemporizado<TResultado, FLogger>);
+                return OBJETO_A_JSON(impresora, "Frecuencimetro", T_RESULTADO, contFrec) + SUPERCLASES_A_JSON(impresora, MedidorTemporizado<T_RESULTADO, F_LOGGER>);
             }
     };
 #endif

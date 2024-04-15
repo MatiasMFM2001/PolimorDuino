@@ -24,18 +24,18 @@
     size_t imprimirDatoJSON(Print &impresora, Printable &valor);
     size_t imprimirDatoJSON(Print &impresora, Printable *valor);
     
-    template <typename TValor>
-    size_t imprimirDatoJSON(Print &impresora, TValor &valor) {
+    template <typename T_VALOR>
+    size_t imprimirDatoJSON(Print &impresora, T_VALOR &valor) {
         return impresora.print(valor);
     }
     
-    template <typename TValor>
-    size_t imprimirDatoJSON(Print &impresora, TValor *valor) {
-        return imprimirDatoJSON(impresora, WrapperPuntero<TValor>(valor));
+    template <typename T_VALOR>
+    size_t imprimirDatoJSON(Print &impresora, T_VALOR *valor) {
+        return imprimirDatoJSON(impresora, WrapperPuntero<T_VALOR>(valor));
     }
     
-    template <typename TValor, size_t S>
-    size_t imprimirDatoJSON(Print &impresora, const Array<TValor, S> &array) {
+    template <typename T_VALOR, size_t S>
+    size_t imprimirDatoJSON(Print &impresora, const Array<T_VALOR, S> &array) {
         size_t salida = impresora.print(JSON_APERTURA_ARRAY);
         
         if (!array.empty()) {
@@ -67,8 +67,8 @@
     #define IMPRIMIR_SUPERCLASE_JSON(impresora, nombreSuperclase) IMPRIMIR_VARIABLE_JSON(impresora, #nombreSuperclase, LLAMAR_METODO(impresora, nombreSuperclase))
     #define IMPRIMIR_CLAUSURA_OBJETO_JSON(impresora) impresora.print(JSON_CLAUSURA_OBJETO)
     
-    template <typename TNombre>
-    size_t imprimirCabeceraJSON(Print &impresora, const TNombre *nombreClase, bool objetoVacio = false) {
+    template <typename T_NOMBRE>
+    size_t imprimirCabeceraJSON(Print &impresora, const T_NOMBRE *nombreClase, bool objetoVacio = false) {
         return (impresora.print(JSON_APERTURA_OBJETO)
             + IMPRIMIR_VARIABLE_JSON(impresora, "Clase", nombreClase)
             + impresora.print(objetoVacio ? JSON_CLAUSURA_OBJETO : JSON_SEPARADOR)

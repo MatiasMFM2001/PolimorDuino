@@ -3,14 +3,14 @@
 
 #include "../CLASE_EntradaSalida.h"
 #include "../../Inclusiones/InclusionLog4Arduino.h"
-    template <typename T, byte NumBits>
-    class Salida : public EntradaSalida<T, NumBits> {
+    template <typename T, byte N_NUM_BITS>
+    class Salida : public EntradaSalida<T, N_NUM_BITS> {
         protected:
             virtual void escribirBajoNivel(T valor) = 0;
             
         public:
             Salida(bool invertir)
-                : EntradaSalida<T, NumBits>(invertir)
+                : EntradaSalida<T, N_NUM_BITS>(invertir)
             {}
             
             void escribir(T valor) {

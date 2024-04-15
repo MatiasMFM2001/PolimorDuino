@@ -6,14 +6,14 @@
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
      *  realizando acciones con los valores medidos.
      * 
-     * @tparam TResultado El tipo de dato que almacena el resultado de una
+     * @tparam T_RESULTADO El tipo de dato que almacena el resultado de una
      *  medición.
-     * @tparam FLogger La función encargada de imprimir en logs el valor medido.
+     * @tparam F_LOGGER La función encargada de imprimir en logs el valor medido.
      */
-    template <typename TResultado, void (*FLogger)(TResultado&)>
+    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
     class Medidor : public Printable {
         private:
-            CallbackResultado<TResultado> *callback;
+            CallbackResultado<T_RESULTADO> *callback;
             
         protected:
             const __FlashStringHelper *nombre;
@@ -24,14 +24,14 @@
              * 
              * @param ingr El valor medido.
              */
-            void finalizarMedicion(TResultado ingr) {
+            void finalizarMedicion(T_RESULTADO ingr) {
                 LOG("MEDIDOR \"%S\" - Ejecutando callback.notificar() con valor:", this -> nombre);
-                FLogger(ingr);
+                F_LOGGER(ingr);
                 this -> callback -> notificar(ingr);
             }
         
         public:
-            Medidor(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback)
+            Medidor(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback)
                 : callback(callback), nombre(nombre)
             {}
         

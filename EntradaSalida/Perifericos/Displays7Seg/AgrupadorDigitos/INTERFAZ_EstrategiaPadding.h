@@ -5,9 +5,9 @@
 
 #include <Array.h>
 #include <Printable.h>
-    template <size_t NumDigitos>
+    template <size_t N_NUM_DIGITOS>
     class EstrategiaPadding : public Printable {
         public:
-            virtual void aplicarPadding(Array<byte, NumDigitos> &digitos, Array<byte, NumDigitos> &salida) = 0;
+            virtual void aplicarPadding(Array<byte, N_NUM_DIGITOS> &digitos, Array<byte, N_NUM_DIGITOS> &salida) = 0;
     };
 #endif

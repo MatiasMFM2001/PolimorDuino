@@ -3,11 +3,11 @@
 
 #include "INTERFAZ_EstrategiaPadding.h"
 #include "../../../../Utils/FuncionesGlobales.h"
-    template <size_t NumDigitos>
-    class Sin0PaddingCentro : public EstrategiaPadding<NumDigitos> {
+    template <size_t N_NUM_DIGITOS>
+    class Sin0PaddingCentro : public EstrategiaPadding<N_NUM_DIGITOS> {
         public:
-            void aplicarPadding(Array<byte, NumDigitos> &digitos, Array<byte, NumDigitos> &salida) override {
-                completar(salida, DISPLAY7SEG_APAGADO, (NumDigitos - digitos.size()) / 2);
+            void aplicarPadding(Array<byte, N_NUM_DIGITOS> &digitos, Array<byte, N_NUM_DIGITOS> &salida) override {
+                completar(salida, DISPLAY7SEG_APAGADO, (N_NUM_DIGITOS - digitos.size()) / 2);
                 agregarFinal(digitos, salida);
                 completar(salida, DISPLAY7SEG_APAGADO);
             }

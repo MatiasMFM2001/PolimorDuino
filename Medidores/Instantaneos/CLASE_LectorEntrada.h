@@ -3,18 +3,18 @@
 
 
 #include "CLASE_MedidorInstantaneo.h"
-    template <typename TResultado, byte NumBits, void (*FLogger)(TResultado&)>
-    class LectorEntrada : public MedidorInstantaneo<TResultado, FLogger> {
+    template <typename T_RESULTADO, byte N_NUM_BITS, void (*F_LOGGER)(T_RESULTADO&)>
+    class LectorEntrada : public MedidorInstantaneo<T_RESULTADO, F_LOGGER> {
         private:
-            Entrada<TResultado, NumBits> *entrada;
+            Entrada<T_RESULTADO, N_NUM_BITS> *entrada;
       
         public:
-            LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler *planif, Entrada<TResultado, NumBits> *entrada)
-                : MedidorInstantaneo<TResultado, FLogger>(nombre, callback, planif)
+            LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, Scheduler *planif, Entrada<T_RESULTADO, N_NUM_BITS> *entrada)
+                : MedidorInstantaneo<T_RESULTADO, F_LOGGER>(nombre, callback, planif)
                 , entrada(entrada)
             {}
             
-            TResultado getResultado(void) override {
+            T_RESULTADO getResultado(void) override {
                 return this -> entrada -> leer();
             }
 
@@ -26,7 +26,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "LectorEntrada", NumBits, entrada) + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<TResultado, FLogger>));
+                return OBJETO_A_JSON(impresora, "LectorEntrada", N_NUM_BITS, entrada) + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<T_RESULTADO, F_LOGGER>));
             }
     };
 #endif

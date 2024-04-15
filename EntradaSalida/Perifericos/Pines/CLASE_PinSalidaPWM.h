@@ -6,8 +6,8 @@
 	/**
 	 * @brief Permite encapsular en un objeto, un pin de Salida PWM.
 	 */
-    template <typename T, byte NumBits>
-    class PinSalidaPWM : public Pin, public SalidaPWM<T, NumBits> {
+    template <typename T, byte N_NUM_BITS>
+    class PinSalidaPWM : public Pin, public SalidaPWM<T, N_NUM_BITS> {
         public:
 			/**
              * @brief Construye un PinSalidaPWM, con el número de pin y
@@ -19,7 +19,7 @@
              */
             PinSalidaPWM(byte numPin = -1, bool invertir = false)
                 : Pin(numPin, OUTPUT, NUM_DIGITAL_PINS)
-                , SalidaPWM<T, NumBits>(invertir)
+                , SalidaPWM<T, N_NUM_BITS>(invertir)
             {}
         
             void escribirBajoNivel(T valor) override {
@@ -36,7 +36,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "PinSalidaPWM") + SUPERCLASES_A_JSON(impresora, Pin, (SalidaPWM<T, NumBits>));
+                return OBJETO_A_JSON(impresora, "PinSalidaPWM") + SUPERCLASES_A_JSON(impresora, Pin, (SalidaPWM<T, N_NUM_BITS>));
             }
     };
 #endif

@@ -8,16 +8,16 @@
      * @brief Permite mostrar números secuencialmente (en bucle infinito) en un
      *  display de 7 segmentos de 1 dígito.
      * 
-     * @tparam TNumNumeros La cantidad máxima de números a mostrar.
+     * @tparam N_NUM_NUMEROS La cantidad máxima de números a mostrar.
      */
-    template <size_t TNumNumeros, typename TDisplay>
+    template <size_t N_NUM_NUMEROS, typename T_DISPLAY>
     class MostradorDisplayRotativo : public Pulsable {
         private:
             /** @brief Los números a mostrar. */
-            Array<byte, TNumNumeros> numeros;
+            Array<byte, N_NUM_NUMEROS> numeros;
             
             /** @brief Instancia que mostrará cada número. */
-            Display7Segmentos<TDisplay> *display;
+            Display7Segmentos<T_DISPLAY> *display;
             
             /** @brief Cursor de posiciones sobre el array. */
             Contador<size_t> contPos;
@@ -28,8 +28,8 @@
              * 
              * @param display El display de 7 segmentos y 1 dígito especificado.
              */
-            MostradorDisplayRotativo(Display7Segmentos<TDisplay> *display)
-                : numeros(Array<byte, TNumNumeros>()), display(display), contPos(Contador<size_t>(0))
+            MostradorDisplayRotativo(Display7Segmentos<T_DISPLAY> *display)
+                : numeros(Array<byte, N_NUM_NUMEROS>()), display(display), contPos(Contador<size_t>(0))
             {}
             
             /**
@@ -49,7 +49,7 @@
              * 
              * @param ingr Los números a mostrar.
              */
-            void setNumeros(Array<byte, TNumNumeros> ingr) {
+            void setNumeros(Array<byte, N_NUM_NUMEROS> ingr) {
                 LOG("EJECUTANDO MostradorDisplayRotativo::setNumeros(%d)", ingr.size());
                 this -> numeros = ingr;
                 this -> contPos.reiniciar();
