@@ -4,7 +4,7 @@
 #include "CLASE_IniciadorTareas.h"
     class IniciadorInfinito : public IniciadorTareas {
         public:
-            IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea);
+            IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea);
             
             bool deboFinalizar(void) override;
 
@@ -15,6 +15,6 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override;
+            virtual size_t printTo(Print &impresora) const override;
     };
 #endif

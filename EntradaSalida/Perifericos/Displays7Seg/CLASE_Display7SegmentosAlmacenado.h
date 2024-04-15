@@ -31,7 +31,7 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override {
+            virtual size_t printTo(Print &impresora) const override {
                 return OBJETO_A_JSON(impresora, "Display7SegmentosAlmacenado", numeroActual) + SUPERCLASES_A_JSON(impresora, Display7Segmentos<T>);
             }
     };

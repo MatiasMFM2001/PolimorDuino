@@ -21,7 +21,7 @@
              *  ser nulo).
              * @param nombre El nombre del medidor (que no debería ser nulo).
              */
-            Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
+            Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler *planif)
                 : MedidorTemporizado<TResultado, FLogger>(nombre, callback, TASK_SECOND, planif)
                 , contFrec(Contador<TResultado>(0))
             {}
@@ -66,7 +66,7 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override {
+            virtual size_t printTo(Print &impresora) const override {
                 return OBJETO_A_JSON(impresora, "Frecuencimetro", TResultado, contFrec) + SUPERCLASES_A_JSON(impresora, MedidorTemporizado<TResultado, FLogger>);
             }
     };

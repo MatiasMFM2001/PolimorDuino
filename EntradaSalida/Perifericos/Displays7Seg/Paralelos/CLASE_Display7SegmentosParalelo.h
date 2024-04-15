@@ -34,7 +34,7 @@
                 this -> salidaEnable -> setEstado(valor);
             }
         
-            virtual size_t printTo(Print& impresora) const override {
+            virtual size_t printTo(Print &impresora) const override {
                 return OBJETO_SIN_SUPER_A_JSON(impresora, "Display7SegmentosParalelo", NumSalidasDatos, salidasDatos, salidaEnable);
             }
     };

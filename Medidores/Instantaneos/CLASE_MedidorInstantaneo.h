@@ -11,7 +11,7 @@
     template <typename TResultado, void (*FLogger)(TResultado&)>
     class MedidorInstantaneo : public TareaMedidora<TResultado, FLogger> {
         public:
-            MedidorInstantaneo(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif)
+            MedidorInstantaneo(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler *planif)
                 : TareaMedidora<TResultado, FLogger>(nombre, callback, TASK_MILLISECOND, planif)
             {}
         

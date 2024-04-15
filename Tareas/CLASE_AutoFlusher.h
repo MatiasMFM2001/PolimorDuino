@@ -10,7 +10,7 @@
     class AutoFlusher : public Task {
         private:
 			/** @brief Puntero a la impresora. */
-            Print* impresora;
+            Print *impresora;
         
         public:
             /**
@@ -24,7 +24,7 @@
              * @param planif El planificador de tareas especificado (que puede
              *  ser nulo).
              */
-            AutoFlusher(Print* impresora, long msEntreLlamados, Scheduler* planif);
+            AutoFlusher(Print *impresora, long msEntreLlamados, Scheduler *planif);
         
 			/**
 			 * @brief Ejecuta la impresión periódica.

@@ -12,7 +12,7 @@
     template <typename TResultado, void (*FLogger)(TResultado&)>
     class TareaMedidora : public Medidor<TResultado, FLogger>, public Task {
         public:
-            TareaMedidora(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, unsigned long msMedicion, Scheduler* planif)
+            TareaMedidora(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, unsigned long msMedicion, Scheduler *planif)
                 : Medidor<TResultado, FLogger>(nombre, callback)
                 , Task(msMedicion, TASK_ONCE, planif, false)
             {}

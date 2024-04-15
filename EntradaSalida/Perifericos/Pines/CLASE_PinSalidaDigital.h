@@ -36,6 +36,6 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override;
+            virtual size_t printTo(Print &impresora) const override;
     };
 #endif

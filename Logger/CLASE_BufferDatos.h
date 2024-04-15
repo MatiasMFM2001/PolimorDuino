@@ -18,7 +18,7 @@
             Array<byte, TNumBytes> datos;
             
             /** @brief Instancia que imprimirá los bytes del buffer. */
-            Print* salida;
+            Print *salida;
         
         public:
             /**
@@ -27,7 +27,7 @@
              * 
              * @param salida La impresora especificada (que puede ser nula).
              */
-            BufferDatos(Print* salida = nullptr)
+            BufferDatos(Print *salida = nullptr)
                 : Print()
                 , salida(salida)
             {}

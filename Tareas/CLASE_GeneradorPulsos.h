@@ -10,11 +10,11 @@
      */
     class GeneradorPulsos : public Task, public Printable {
         private:
-			/** @brief Puntero al objeto encendible y apagable. */
-            Pulsable* pulsable;
+            /** @brief Puntero al objeto encendible y apagable. */
+            Pulsable *pulsable;
     
         public:
-			/**
+            /**
              * @brief Construye un GeneradorPulsos, con el objeto pulsable,
              *  el período de un semiciclo, la cantidad de pulsos, y el
              *  scheduler especificados.
@@ -26,7 +26,7 @@
              * @param planif El planificador de tareas especificado (que puede
              *  ser nulo).
              */
-            GeneradorPulsos(Pulsable* pulsable, long msSemiCiclo, long numPulsos, Scheduler* planif);
+            GeneradorPulsos(Pulsable *pulsable, long msSemiCiclo, long numPulsos, Scheduler *planif);
     
             /**
              * @brief Habilita la tarea para su ejecución, estableciendo la
@@ -81,6 +81,6 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override;
+            virtual size_t printTo(Print &impresora) const override;
     };
 #endif

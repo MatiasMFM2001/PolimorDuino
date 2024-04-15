@@ -8,7 +8,7 @@
             Contador<size_t> contIteraciones;
         
         public:
-            IniciadorFinito(unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler* planif, Task *tarea);
+            IniciadorFinito(unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler *planif, Task *tarea);
             
             bool OnEnable(void) override;
             bool deboFinalizar(void) override;
@@ -20,6 +20,6 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override;
+            virtual size_t printTo(Print &impresora) const override;
     };
 #endif

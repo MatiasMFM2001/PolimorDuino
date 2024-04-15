@@ -9,7 +9,7 @@
             Entrada<TResultado, NumBits> *entrada;
       
         public:
-            LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler* planif, Entrada<TResultado, NumBits> *entrada)
+            LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<TResultado> *callback, Scheduler *planif, Entrada<TResultado, NumBits> *entrada)
                 : MedidorInstantaneo<TResultado, FLogger>(nombre, callback, planif)
                 , entrada(entrada)
             {}
@@ -25,7 +25,7 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            virtual size_t printTo(Print& impresora) const override {
+            virtual size_t printTo(Print &impresora) const override {
                 return OBJETO_A_JSON(impresora, "LectorEntrada", NumBits, entrada) + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<TResultado, FLogger>));
             }
     };
