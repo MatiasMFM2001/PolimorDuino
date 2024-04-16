@@ -1,10 +1,23 @@
 // Robado de https://stackoverflow.com/a/1872506
 
+/**
+ * @brief Convierte a String el token de pre-preprocesador especificado.
+ * @param arg El token a convertir
+ * @returns El token convertido a un string-literal de C
+ */
 #define STRINGIZE(arg)  STRINGIZE1(arg)
+
 #define STRINGIZE1(arg) STRINGIZE2(arg)
 #define STRINGIZE2(arg) #arg
 
+/**
+ * @brief Concatena ambos tokens de pre-preprocesador especificados.
+ * @param arg1 El primer token a convertir
+ * @param arg2 El segundo token a convertir
+ * @returns Un nuevo token, creado concatenando los otros dos tokens
+ */
 #define CONCATENATE(arg1, arg2)   CONCATENATE1(arg1, arg2)
+
 #define CONCATENATE1(arg1, arg2)  CONCATENATE2(arg1, arg2)
 #define CONCATENATE2(arg1, arg2)  arg1##arg2
 
@@ -46,4 +59,10 @@
 #define FOR_EACH_RSEQ_N() 8, 7, 6, 5, 4, 3, 2, 1, 0
 
 #define FOR_EACH_(N, what, ...) CONCATENATE(FOR_EACH_, N)(what, __VA_ARGS__)
+
+/**
+ * @brief Ejecuta la función/macro especificada sobre todos los argumentos especificados.
+ * @param what La función/macro especificada
+ * @param ... La lista de elementos a procesar individualmente
+ */
 #define FOR_EACH(what, ...) FOR_EACH_(FOR_EACH_NARG(__VA_ARGS__), what, __VA_ARGS__)
