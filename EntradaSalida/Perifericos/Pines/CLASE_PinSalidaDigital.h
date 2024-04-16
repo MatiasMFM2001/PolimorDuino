@@ -3,13 +3,13 @@
 
 #include "CLASE_Pin.h"
 #include "../../Salidas/CLASE_SalidaDigital.h"
-	/**
-	 * @brief Permite encapsular en un objeto, un pin de Salida digital. Además,
-	 *  implementa la interfaz @c Pulsable.
-	 */
+    /**
+     * @brief Permite encapsular en un objeto, un pin de Salida digital. Además,
+     *  implementa la interfaz @c Pulsable.
+     */
     class PinSalidaDigital : public Pin, public SalidaDigital {
         public:
-			/**
+            /**
              * @brief Construye un PinSalida, con el número de pin,
              *  configuración de inversión y estado inicial especificados.
              * 
@@ -21,7 +21,7 @@
              */
             PinSalidaDigital(byte numPin = -1, bool invertir = false, bool estadoInicial = false);
         
-			/**
+            /**
              * @brief Establece el valor actual del pin al especificado.
              * 
              * @param valor @c true para encenderlo, @c false para el caso

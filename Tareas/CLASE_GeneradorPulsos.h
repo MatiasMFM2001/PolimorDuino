@@ -4,9 +4,9 @@
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include "../Utils/CLASE_Pulsable.h"
 #include <Printable.h>
-	/**
+    /**
      * @brief Tarea que permite generar una cantidad de pulsos determinada, a
-     * 	una determinada frecuencia, con ~50% de ancho de pulso.
+     *  una determinada frecuencia, con ~50% de ancho de pulso.
      */
     class GeneradorPulsos : public Task, public Printable {
         private:

@@ -2,9 +2,9 @@
 #define FUNCIONES_GLOBALES
 
 #include <Array.h>
-	/**
-	 * @brief Determina si el valor ingresado está dentro de los límites
-	 *  (inclusivos) especificados.
+    /**
+     * @brief Determina si el valor ingresado está dentro de los límites
+     *  (inclusivos) especificados.
      * 
      * @tparam T El tipo de dato de los valores a procesar.
      * @param valor El valor ingresado.
@@ -19,8 +19,8 @@
     }
     
     /**
-	 * @brief Se asegura que el valor ingresado esté dentro de los límites
-	 *  (inclusivos) especificados.
+     * @brief Se asegura que el valor ingresado esté dentro de los límites
+     *  (inclusivos) especificados.
      * 
      * @tparam T El tipo de dato de los valores a procesar y retornar.
      * @param valor El valor ingresado.
@@ -31,12 +31,12 @@
      *  al ingresado.
      */
     template <typename T>
-  	T limitarRango(T valor, T min, T max) {
+    T limitarRango(T valor, T min, T max) {
         return constrain(valor, min, max);
     }
     
     /**
-	 * @brief Determina si dos números son cercanos entre sí, teniendo en cuenta
+     * @brief Determina si dos números son cercanos entre sí, teniendo en cuenta
      *  el valor de tolerancia máximo.
      * 
      * @tparam T El tipo de dato de los valores a procesar.
@@ -47,25 +47,25 @@
      *  la tolerancia máxima, @c false en caso contrario.
      */
     template <typename T>
-  	bool iguales(T num1, T num2, T difMax) {
+    bool iguales(T num1, T num2, T difMax) {
         T dif = (num1 - num2);
         return (abs(dif) < difMax);
     }
-  	
+
     /**
-	 * @brief Determina si el número ingresado es par.
+     * @brief Determina si el número ingresado es par.
      * 
      * @tparam T El tipo de dato del valor a procesar.
      * @param num El número a verificar.
      * @returns @c true si el número es par, @c false en caso contrario.
      */
-  	template <typename T>
+    template <typename T>
     bool esPar(T num) {
         return (num % 2) == 0;
     }
     
     /**
-	 * @brief Intercambia los elementos del array de las posiciones
+     * @brief Intercambia los elementos del array de las posiciones
      *  especificadas.
      *
      * @tparam T El tipo de dato de los valores almacenados en el array.
@@ -82,7 +82,7 @@
     }
     
     /**
-	 * @brief Invierte el orden de los elementos del array especificado.
+     * @brief Invierte el orden de los elementos del array especificado.
      *
      * @tparam T El tipo de dato de los valores almacenados en el array.
      * @tparam S La cantidad máxima de elementos del array a procesar.
@@ -97,7 +97,7 @@
     }
     
     /**
-	 * @brief Agrega el valor especificado al array múltiples veces, según la
+     * @brief Agrega el valor especificado al array múltiples veces, según la
      *  capacidad restante y la cantidad máxima especificada.
      *
      * @tparam T El tipo de dato de los valores almacenados en el array.
@@ -115,7 +115,7 @@
     }
     
     /**
-	 * @brief Agrega todos los elementos del array de entrada, al final del de
+     * @brief Agrega todos los elementos del array de entrada, al final del de
      *  salida.
      *
      * @tparam T El tipo de dato de los valores almacenados en ambos arrays.
@@ -132,7 +132,7 @@
     }
     
     /**
-	 * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
+     * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
      *  es distinta a @c TASK_FOREVER) por otra cantidad.
      * 
      * @param numTerminos La cantidad de iteraciones de la tarea.

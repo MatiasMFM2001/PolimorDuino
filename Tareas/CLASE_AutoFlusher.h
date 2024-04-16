@@ -5,11 +5,11 @@
 #include <Print.h>
     /**
      * @brief Tarea que permite forzar periódicamente la impresión de los datos
-     * 	encolados en la impresora especificada.
+     *  encolados en la impresora especificada.
      */
     class AutoFlusher : public Task {
         private:
-			/** @brief Puntero a la impresora. */
+            /** @brief Puntero a la impresora. */
             Print *impresora;
         
         public:

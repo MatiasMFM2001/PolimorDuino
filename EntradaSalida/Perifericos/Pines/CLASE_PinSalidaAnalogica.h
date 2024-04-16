@@ -3,13 +3,13 @@
 
 #include "CLASE_Pin.h"
 #include <PinChangeInterrupt.h>
-	/**
-	 * @brief Permite encapsular en un objeto, un pin de Salida analógica.
-	 */
+    /**
+     * @brief Permite encapsular en un objeto, un pin de Salida analógica.
+     */
     template <typename T, byte N_NUM_BITS>
     class PinSalidaAnalogica : public Pin, public SalidaAnalogica<T, N_NUM_BITS> {
         public:
-			/**
+            /**
              * @brief Construye un PinSalidaAnalogica, con el número de pin y
              *  configuración de inversión especificados.
              * 

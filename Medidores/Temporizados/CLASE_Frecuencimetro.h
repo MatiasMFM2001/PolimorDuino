@@ -3,14 +3,14 @@
 
 #include "InclusionTaskSchedulerDeclarations.h"
 #include "CLASE_Contador.h"
-	/**
+    /**
      * @brief Tarea que permite medir la frecuencia de una forma de onda
      *  periódica, a partir de la cantidad de flancos por segundo.
      */
     template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
     class Frecuencimetro : public MedidorTemporizado<T_RESULTADO, F_LOGGER> {
         private:
-			/** @brief Contador de flancos transitados. */
+            /** @brief Contador de flancos transitados. */
             Contador<T_RESULTADO> contFrec;
     
         public:

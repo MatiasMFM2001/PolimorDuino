@@ -2,11 +2,11 @@
 #define PULSABLE
 
 #include <Printable.h>
-	/**
-	 * @brief Define métodos para los objetos que puedan ser encendidos y
-	 *  apagados, los cuales DEBEN sobreescribir o @c setEstado(), o
+    /**
+     * @brief Define métodos para los objetos que puedan ser encendidos y
+     *  apagados, los cuales DEBEN sobreescribir o @c setEstado(), o
      *  @c encender() y @c apagar() para evitar una recursión infinita.
-	 */
+     */
     class Pulsable : virtual public Printable {
         private:
             /** @brief El estado actual del objeto. */

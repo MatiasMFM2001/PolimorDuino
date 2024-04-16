@@ -3,14 +3,14 @@
 
 #include <Print.h>
 #include <Array.h>
-	/**
-	 * @brief Permite almacenar temporalmente los bytes que serán impresos por
-	 *  una instancia de @c Print, cuando ésta requiere tener las
-	 *  interrupciones activadas para funcionar, pero fueron desactivadas
-	 *  temporalmente.
-	 * 
-	 * @tparam N_NUM_BYTES La capacidad del buffer, en bytes.
-	 */
+    /**
+     * @brief Permite almacenar temporalmente los bytes que serán impresos por
+     *  una instancia de @c Print, cuando ésta requiere tener las
+     *  interrupciones activadas para funcionar, pero fueron desactivadas
+     *  temporalmente.
+     *
+     * @tparam N_NUM_BYTES La capacidad del buffer, en bytes.
+     */
     template <size_t N_NUM_BYTES>
     class BufferDatos: public Print {
         private:

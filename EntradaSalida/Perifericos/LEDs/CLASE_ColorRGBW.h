@@ -3,9 +3,9 @@
 
 #include <Arduino.h>
 #include <Printable.h>
-	/**
-	 * @brief Almacena los brillos de los subpíxeles de un color RGBW.
-	 */
+    /**
+     * @brief Almacena los brillos de los subpíxeles de un color RGBW.
+     */
     class ColorRGBW : public Printable {
         private:
             /** @brief Brillo del subpíxel rojo. */

@@ -3,13 +3,13 @@
 
 #include "CLASE_Pin.h"
 #include "../../Salidas/CLASE_SalidaPWM.h"
-	/**
-	 * @brief Permite encapsular en un objeto, un pin de Salida PWM.
-	 */
+    /**
+     * @brief Permite encapsular en un objeto, un pin de Salida PWM.
+     */
     template <typename T, byte N_NUM_BITS>
     class PinSalidaPWM : public Pin, public SalidaPWM<T, N_NUM_BITS> {
         public:
-			/**
+            /**
              * @brief Construye un PinSalidaPWM, con el número de pin y
              *  configuración de inversión especificados.
              * 
