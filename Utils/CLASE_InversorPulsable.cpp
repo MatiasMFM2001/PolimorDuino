@@ -1,11 +1,11 @@
 #include "CLASE_InversorPulsable.h"
 #include "../Logger/FuncionesJSON.h"
 
-InversorPulsable::InversorPulsable(bool invertir, Pulsable *decorado)
-    : Pulsable(!invertir, false)
+InversorPulsable::InversorPulsable(bool estadoInicial, Pulsable *decorado)
+    : Pulsable(!estadoInicial, false)
     , decorado(decorado)
 {
-    this -> setEstado(!invertir);
+    this -> setEstado(!estadoInicial);
 }
 
 void InversorPulsable::encender(void) {
