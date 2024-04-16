@@ -8,6 +8,8 @@
 #define CONCATENATE1(arg1, arg2)  CONCATENATE2(arg1, arg2)
 #define CONCATENATE2(arg1, arg2)  arg1##arg2
 
+#define FOR_EACH_0(what, x, ...)
+
 #define FOR_EACH_1(what, x, ...) what(x)
 
 #define FOR_EACH_2(what, x, ...)\
@@ -43,5 +45,5 @@
 #define FOR_EACH_ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, N, ...) N // Retorna la cantidad de parámetros enviados a FOR_EACH()
 #define FOR_EACH_RSEQ_N() 8, 7, 6, 5, 4, 3, 2, 1, 0
 
-#define FOR_EACH_(N, what, x, ...) CONCATENATE(FOR_EACH_, N)(what, x, __VA_ARGS__)
-#define FOR_EACH(what, x, ...) FOR_EACH_(FOR_EACH_NARG(x, __VA_ARGS__), what, x, __VA_ARGS__)
+#define FOR_EACH_(N, what, ...) CONCATENATE(FOR_EACH_, N)(what, __VA_ARGS__)
+#define FOR_EACH(what, ...) FOR_EACH_(FOR_EACH_NARG(__VA_ARGS__), what, __VA_ARGS__)
