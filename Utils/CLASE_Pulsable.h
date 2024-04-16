@@ -9,9 +9,16 @@
 	 */
     class Pulsable : virtual public Printable {
         private:
+            /** @brief El estado actual del objeto. */
             bool estadoActual;
         
         protected:
+            /**
+             * @brief Establece el valor de la variable de instancia
+             *  @c estadoActual.
+             *
+             * @param valor El valor a asignar.
+             */
             void setEstadoActual(bool valor);
         
         public:
@@ -41,7 +48,10 @@
              */
             virtual void setEstado(bool valor);
             
-            bool getEstado();
+            /**
+             * @returns El estado actual del objeto.
+             */
+            bool getEstado(void);
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
