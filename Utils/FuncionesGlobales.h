@@ -64,6 +64,16 @@
         return (num % 2) == 0;
     }
     
+    /**
+	 * @brief Intercambia los elementos del array de las posiciones
+     *  especificadas.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en el array.
+     * @tparam S La cantidad máxima de elementos del array a procesar.
+     * @param array El array a procesar.
+     * @param pos1 La primera posición a intercambiar.
+     * @param pos2 La segunda posición a intercambiar.
+     */
     template <typename T, size_t S>
     void permutar(Array<T, S> &array, size_t pos1, size_t pos2) {
         T selec = array[pos1];
@@ -71,6 +81,13 @@
         array[pos2] = selec;
     }
     
+    /**
+	 * @brief Invierte el orden de los elementos del array especificado.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en el array.
+     * @tparam S La cantidad máxima de elementos del array a procesar.
+     * @param array El array a procesar.
+     */
     template <typename T, size_t S>
     void invertirOrden(Array<T, S> &array) {
         for (size_t origen = 0; origen < (array.size() / 2); ++origen) {
@@ -79,6 +96,17 @@
         }
     }
     
+    /**
+	 * @brief Agrega el valor especificado al array múltiples veces, según la
+     *  capacidad restante y la cantidad máxima especificada.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en el array.
+     * @tparam S La cantidad máxima de elementos del array a procesar.
+     * @param array El array a procesar.
+     * @param valor El valor a agregar al array.
+     * @param maxIteraciones La cantidad máxima de elementos a agregar, aunque
+     *  el array tenga mayor capacidad disponible.
+     */
     template <typename T, size_t S>
     void completar(Array<T, S> &array, T valor, size_t maxIteraciones = -1) {
         for (size_t cont = 0; (cont < maxIteraciones) && !array.full(); ++cont) {
@@ -86,6 +114,16 @@
         }
     }
     
+    /**
+	 * @brief Agrega todos los elementos del array de entrada, al final del de
+     *  salida.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en ambos arrays.
+     * @tparam S_ENTRADA La cantidad máxima de elementos del array de entrada.
+     * @tparam S_SALIDA La cantidad máxima de elementos del array de salida.
+     * @param entrada El array origen.
+     * @param salida El array destino.
+     */
     template <typename T, size_t S_ENTRADA, size_t S_SALIDA>
     void agregarFinal(Array<T, S_ENTRADA> &entrada, Array<T, S_SALIDA> &salida) {
         for (T selec: entrada) {
