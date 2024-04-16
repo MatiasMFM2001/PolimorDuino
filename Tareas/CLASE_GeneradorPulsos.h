@@ -56,7 +56,7 @@
             /**
              * @brief Apaga el objeto pulsable.
              * 
-             * @returns @code true para indicar que la tarea debería permanecer
+             * @returns @c true para indicar que la tarea debería permanecer
              *  habilitada.
              */
             bool OnEnable(void) override;
@@ -64,7 +64,7 @@
             /**
              * @brief Ejecuta la oscilación periódica.
              * 
-             * @returns @code true para indicar que la ejecución de la tarea fue
+             * @returns @c true para indicar que la ejecución de la tarea fue
              *  "productiva".
              */
             bool Callback(void) override;

@@ -27,7 +27,7 @@
             /**
              * @brief Obtiene el resultado y finaliza la medición actual.
              * 
-             * @returns @code true para indicar que la ejecución de la tarea fue
+             * @returns @c true para indicar que la ejecución de la tarea fue
              *  "productiva".
              */
             bool Callback(void) override {

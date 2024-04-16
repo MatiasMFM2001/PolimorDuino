@@ -52,7 +52,7 @@
             }
             
             /**
-             * @returns @code true si el contador vale 0, @code false en caso
+             * @returns @c true si el contador vale 0, @c false en caso
              *  contrario.
              */
             bool estaEnCero(void) {

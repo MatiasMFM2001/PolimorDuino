@@ -4,8 +4,8 @@
 #include <Printable.h>
 	/**
 	 * @brief Define métodos para los objetos que puedan ser encendidos y
-	 *  apagados, los cuales DEBEN sobreescribir o @code setEstado(), o
-     *  @code encender() y @code apagar() para evitar una recursión infinita.
+	 *  apagados, los cuales DEBEN sobreescribir o @c setEstado(), o
+     *  @c encender() y @c apagar() para evitar una recursión infinita.
 	 */
     class Pulsable : virtual public Printable {
         private:
@@ -18,8 +18,8 @@
             /**
              * @brief Construye un Pulsable, con el estado inicial especificado.
              * 
-             * @param estadoInicial @code true para iniciar el programa con
-             *  el objeto encendido, @code false para el caso contrario.
+             * @param estadoInicial @c true para iniciar el programa con
+             *  el objeto encendido, @c false para el caso contrario.
              */
             Pulsable(bool estadoInicial, bool settearEstado = true);
             
@@ -36,7 +36,7 @@
             /**
              * @brief Establece el estado actual del objeto al especificado.
              * 
-             * @param valor @code true para encenderlo, @code false para el caso
+             * @param valor @c true para encenderlo, @c false para el caso
              *  contrario.
              */
             virtual void setEstado(bool valor);

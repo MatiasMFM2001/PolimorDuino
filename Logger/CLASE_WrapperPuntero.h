@@ -41,7 +41,7 @@
             }
             
             /**
-             * @returns @code true si el puntero es nulo, @code false en caso
+             * @returns @c true si el puntero es nulo, @c false en caso
              *  contrario.
              */
             bool esNulo(void) const {

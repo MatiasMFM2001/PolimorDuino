@@ -14,8 +14,8 @@
              *  configuración de inversión especificados.
              * 
              * @param numPin El número de pin especificado.
-             * @param invertir @code true para invertir el funcionamiento,
-             *  @code false para el caso contrario.
+             * @param invertir @c true para invertir el funcionamiento,
+             *  @c false para el caso contrario.
              */
             PinSalidaAnalogica(byte numPin = -1, bool invertir = false);
         

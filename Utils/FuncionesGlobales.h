@@ -10,7 +10,7 @@
      * @param valor El valor ingresado.
      * @param min El valor mínimo del rango especificado.
      * @param max El valor máximo del rango especificado.
-     * @returns @code true si el valor está dentro de los límites, @code false
+     * @returns @c true si el valor está dentro de los límites, @c false
      *  en caso contrario.
      */
     template <typename T>
@@ -43,8 +43,8 @@
      * @param num1 El primer número a comparar.
      * @param num2 El segundo número a comparar.
      * @param max La tolerancia/distancia máxima a contemplar.
-     * @returns @code true si la diferencia entre los números es menor o igual a
-     *  la tolerancia máxima, @code false en caso contrario.
+     * @returns @c true si la diferencia entre los números es menor o igual a
+     *  la tolerancia máxima, @c false en caso contrario.
      */
     template <typename T>
   	bool iguales(T num1, T num2, T difMax) {
@@ -57,7 +57,7 @@
      * 
      * @tparam T El tipo de dato del valor a procesar.
      * @param num El número a verificar.
-     * @returns @code true si el número es par, @code false en caso contrario.
+     * @returns @c true si el número es par, @c false en caso contrario.
      */
   	template <typename T>
     bool esPar(T num) {
@@ -95,12 +95,12 @@
     
     /**
 	 * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
-     *  es distinta a @code TASK_FOREVER) por otra cantidad.
+     *  es distinta a @c TASK_FOREVER) por otra cantidad.
      * 
      * @param numTerminos La cantidad de iteraciones de la tarea.
      * @param multiplicador La cantidad que multiplicará al número anterior.
-     * @returns @code TASK_FOREVER si la cantidad de iteraciones es igual a
-     *  @code TASK_FOREVER, el resultado de la multiplicación en caso contrario.
+     * @returns @c TASK_FOREVER si la cantidad de iteraciones es igual a
+     *  @c TASK_FOREVER, el resultado de la multiplicación en caso contrario.
      */
     long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador);
 #endif

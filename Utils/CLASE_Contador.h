@@ -63,8 +63,8 @@
             }
             
             /**
-             * @returns @code true si el valor actual del contador es igual al
-             *  inicial, @code false en caso contrario.
+             * @returns @c true si el valor actual del contador es igual al
+             *  inicial, @c false en caso contrario.
              */
             bool estaReiniciado(void) {
                 return (this -> valorActual == this -> valorInicial);

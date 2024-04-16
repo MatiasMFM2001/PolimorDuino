@@ -14,10 +14,10 @@
              *  configuración de inversión y estado inicial especificados.
              * 
              * @param numPin El número de pin especificado.
-             * @param invertir @code true para invertir el funcionamiento,
-             *  @code false para el caso contrario.
-             * @param estadoInicial @code true para iniciar el programa con
-             *  el pin encendido, @code false para el caso contrario.
+             * @param invertir @c true para invertir el funcionamiento,
+             *  @c false para el caso contrario.
+             * @param estadoInicial @c true para iniciar el programa con
+             *  el pin encendido, @c false para el caso contrario.
              */
             PinEntradaDigital(byte numPin = -1, bool invertir = false, bool habilitarPullUp = false);
         

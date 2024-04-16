@@ -20,7 +20,7 @@
         
             /**
              * @brief Usa el valor medido para imprimirlo en el log, y ejecutar
-             *  el @code callback.
+             *  el @c callback.
              * 
              * @param ingr El valor medido.
              */

@@ -5,7 +5,7 @@
 #include <Array.h>
 	/**
 	 * @brief Permite almacenar temporalmente los bytes que serán impresos por
-	 *  una instancia de @code Print, cuando ésta requiere tener las
+	 *  una instancia de @c Print, cuando ésta requiere tener las
 	 *  interrupciones activadas para funcionar, pero fueron desactivadas
 	 *  temporalmente.
 	 * 
@@ -36,7 +36,7 @@
              * @brief Escribe un byte en el buffer, si hay capacidad suficiente.
              * 
              * @param ingr El byte a escribir.
-             * @returns @code 1 si hay capacidad, @code 0 en caso contrario.
+             * @returns @c 1 si hay capacidad, @c 0 en caso contrario.
              */
             size_t write(byte ingr) override {
                 if (this -> datos.full()) {
