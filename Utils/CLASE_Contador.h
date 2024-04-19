@@ -63,11 +63,22 @@
             }
             
             /**
+             * @brief Comprueba si el contador está en el valor especificado.
+             * 
+             * @param valor El valor especificado.
+             * @returns @c true si el valor actual del contador es igual al
+             *  especificado, @c false en caso contrario.
+             */
+            bool estaEn(T valor) {
+                return ((this -> valorActual) == valor);
+            }
+            
+            /**
              * @returns @c true si el valor actual del contador es igual al
              *  inicial, @c false en caso contrario.
              */
             bool estaReiniciado(void) {
-                return (this -> valorActual == this -> valorInicial);
+                return this -> estaEn(this -> valorInicial);
             }
             
             /**

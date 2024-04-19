@@ -56,7 +56,7 @@
              *  contrario.
              */
             bool estaEnCero(void) {
-                return (this -> getResultado()) == 0;
+                return (this -> contFrec.estaEn(0));
             }
 
             /**
