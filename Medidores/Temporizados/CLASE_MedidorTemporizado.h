@@ -1,7 +1,7 @@
 #ifndef MEDIDOR_TEMPORIZADO
 #define MEDIDOR_TEMPORIZADO
 
-#include "CLASE_TareaMedidora.h"
+#include "../CLASE_TareaMedidora.h"
     /**
      * @brief 
      * 

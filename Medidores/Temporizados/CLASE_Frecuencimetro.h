@@ -1,8 +1,8 @@
 #ifndef FRECUENCIMETRO
 #define FRECUENCIMETRO
 
-#include "InclusionTaskSchedulerDeclarations.h"
-#include "CLASE_Contador.h"
+#include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
+#include "../../Utils/CLASE_Contador.h"
     /**
      * @brief Tarea que permite medir la frecuencia de una forma de onda
      *  periódica, a partir de la cantidad de flancos por segundo.
