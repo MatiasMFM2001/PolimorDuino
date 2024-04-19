@@ -35,6 +35,10 @@
                 : callback(callback), nombre(nombre)
             {}
         
+            void setCallback(CallbackResultado<T_RESULTADO> *ingr) {
+                this -> callback = ingr;
+            }
+        
             virtual void iniciarMedicion() = 0;
 
             /**
