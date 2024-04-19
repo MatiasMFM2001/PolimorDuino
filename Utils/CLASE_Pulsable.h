@@ -33,12 +33,12 @@
             /**
              * @brief Pone al objeto en estado "Encendido".
              */
-            virtual void encender();
+            virtual void encender(void);
             
             /**
              * @brief Pone al objeto en estado "Apagado".
              */
-            virtual void apagar();
+            virtual void apagar(void);
             
             /**
              * @brief Establece el estado actual del objeto al especificado.
@@ -52,6 +52,11 @@
              * @returns El estado actual del objeto.
              */
             bool getEstado(void);
+            
+            /**
+             * @brief Pone al objeto en el estado opuesto al actual.
+             */
+            void invertirEstado(void);
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
