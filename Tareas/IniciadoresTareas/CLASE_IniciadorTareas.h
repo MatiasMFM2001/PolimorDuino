@@ -26,7 +26,7 @@
             IniciadorTareas(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea);
 
             /**
-             * @brief Si la tarea ya estaba activada y @c deboFinalizar(),
+             * @brief Si la tarea no estaba activada y @c deboFinalizar(),
              *  se deshabilita.
              *
              * @returns @c true para indicar que la ejecución de la tarea fue
