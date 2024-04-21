@@ -17,12 +17,16 @@
         
         public:
             /**
-             * @brief Construye un PinEntradaAnalogica, con el número de pin,
-             *  configuración de inversión y estado inicial especificados.
+             * @brief Construye un IniciadorFinito, con el tiempo entre
+             *  iniciaciones, cantidad de iniciaciones, scheduler y tarea
+             *  especificados.
              *
-             * @param numPin El número de pin especificado.
-             * @param invertir @c true para invertir el funcionamiento,
-             *  @c false para el caso contrario.
+             * @param msEntreIniciaciones La cantidad de milisegundos entre
+             *  una iniciación de tarea y la siguiente.
+             * @param numIniciaciones La cantidad de iniciaciones a realizar.
+             * @param planif El planificador de tareas especificado (que puede
+             *  ser nulo).
+             * @param tarea La tarea especificada (que no debería ser nula).
              */
             IniciadorFinito(unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler *planif, Task *tarea);
             
