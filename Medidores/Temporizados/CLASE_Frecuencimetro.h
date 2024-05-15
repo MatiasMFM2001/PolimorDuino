@@ -3,6 +3,7 @@
 
 #include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include "../../Utils/CLASE_Contador.h"
+#include "CLASE_MedidorTemporizado.h"
     /**
      * @brief Tarea que permite medir la frecuencia de una forma de onda
      *  periódica, a partir de la cantidad de flancos por segundo.
@@ -67,7 +68,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "Frecuencimetro", T_RESULTADO, contFrec) + SUPERCLASES_A_JSON(impresora, MedidorTemporizado<T_RESULTADO, F_LOGGER>);
+                return OBJETO_A_JSON(impresora, "Frecuencimetro", contFrec) + SUPERCLASES_A_JSON(impresora, (MedidorTemporizado<T_RESULTADO, F_LOGGER>));
             }
     };
 #endif
