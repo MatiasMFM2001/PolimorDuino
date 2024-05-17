@@ -3,11 +3,17 @@
 
 #include "CLASE_Pin.h"
 #include "../../Entradas/CLASE_EntradaDigital.h"
+
+#if !(defined(ARDUINO_ARCH_RP2040) && !defined(__MBED__))
+    typedef void(*voidFuncPtr)(void);
+    typedef byte PinStatus;
+#endif
     /**
      * @brief Permite encapsular en un objeto, un pin de Entrada digital. Además,
      *  simplifica el uso de la librería de interrupciones por flanco.
      */
-    class PinEntradaDigital : public Pin, public EntradaDigital {
+    template <byte MODO_PIN = INPUT>
+    class PinEntradaDigital : public Pin<MODO_PIN>, public EntradaDigital {
         public:
             /**
              * @brief Construye un PinSalida, con el número de pin,
@@ -19,18 +25,30 @@
              * @param estadoInicial @c true para iniciar el programa con
              *  el pin encendido, @c false para el caso contrario.
              */
-            PinEntradaDigital(byte numPin = -1, bool invertir = false, bool habilitarPullUp = false);
-        
+            PinEntradaDigital(pin_size_t numPin = -1, bool invertir = false)
+                : Pin(numPin, NUM_DIGITAL_PINS)
+                , EntradaDigital(invertir)
+            {}
+
             /**
              * @returns El valor leído del pin, sin invertir.
              */
-            bool leerBajoNivel(void) override;
+            bool leerBajoNivel(void) override {
+                return (this -> pinValido) && (digitalRead(this -> numPin) == HIGH);
+            }
         
             /**
              * @returns El número identificatorio de interrupción por flancos,
              *  según el número de pin.
              */
-            byte getNumPCINT(void);
+            byte getNumPCINT(void) {
+                return (this -> pinValido) ?
+                    #ifdef __AVR__
+                        digitalPinToPinChangeInterrupt(this -> numPin) : NOT_AN_INTERRUPT;
+                    #else
+                        digitalPinToInterrupt(this -> numPin) : -1;
+                    #endif
+            }
             
             /**
              * @brief Establece la función que será ejecutada cuando se detecte
@@ -40,23 +58,53 @@
              * @param funcion La función callback a ser ejecutada.
              * @param modo El modo de detección de flancos.
              */
-            void vincularFuncionPCINT(void(*funcion)(void), byte modo);
+            void vincularFuncionPCINT(voidFuncPtr funcion, PinStatus modo) {
+                LOG("EJECUTANDO PinEntrada::vincularFuncionPCINT(%d, %p, %d)", this -> numPin, funcion, modo);
+
+                #ifdef __AVR__
+                    attachPinChangeInterrupt
+                #else
+                    attachInterrupt
+                #endif
+                    (this -> getNumPCINT(), funcion, modo);
+            }
             
             /**
              * @brief Desvincula la función establecida previamente, con las
              *  interrupciones por flanco emitidas por este pin.
              */
-            void desvincularFuncionPCINT(void);
+            void desvincularFuncionPCINT(void) {
+                LOG("EJECUTANDO PinEntrada::desvincularFuncionPCINT(%d)", this -> numPin);
+
+                #ifdef __AVR__
+                    detachPinChangeInterrupt
+                #else
+                    detachInterrupt
+                #endif
+                    (this -> getNumPCINT());
+            }
             
             /**
              * @brief Permite que este pin emita interrupciones por flanco.
              */
-            void habilitarInterrupcion(void);
+            void habilitarInterrupcion(void) {
+                LOG("EJECUTANDO PinEntrada::habilitarInterrupcion(%d)", this -> numPin);
+
+                #ifdef __AVR__
+                    enablePinChangeInterrupt(this -> getNumPCINT());
+                #endif
+            }
             
             /**
              * @brief Deniega que este pin emita interrupciones por flanco.
              */
-            void deshabilitarInterrupcion(void);
+            void deshabilitarInterrupcion(void) {
+                LOG("EJECUTANDO PinEntrada::deshabilitarInterrupcion(%d)", this -> numPin);
+
+                #ifdef __AVR__
+                    disablePinChangeInterrupt(this -> getNumPCINT());
+                #endif
+            }
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
@@ -65,6 +113,8 @@
              * @param impresora Referencia a la impresora especificada.
              * @returns La cantidad de bytes escritos a la impresora.
              */
-            size_t printTo(Print &impresora) const override;
+            size_t printTo(Print &impresora) const override {
+                return OBJETO_A_JSON(impresora, "PinEntradaDigital") + SUPERCLASES_A_JSON(impresora, Pin<MODO_PIN>, EntradaDigital);
+            }
     };
 #endif

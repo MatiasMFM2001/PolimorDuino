@@ -7,7 +7,7 @@
      * @brief Permite encapsular en un objeto, un pin de Salida digital. Además,
      *  implementa la interfaz @c Pulsable.
      */
-    class PinSalidaDigital : public Pin, public SalidaDigital {
+    class PinSalidaDigital : public Pin<OUTPUT>, public SalidaDigital {
         public:
             /**
              * @brief Construye un PinSalida, con el número de pin,
@@ -19,7 +19,7 @@
              * @param estadoInicial @c true para iniciar el programa con
              *  el pin encendido, @c false para el caso contrario.
              */
-            PinSalidaDigital(byte numPin = -1, bool invertir = false, bool estadoInicial = false);
+            PinSalidaDigital(pin_size_t numPin = -1, bool invertir = false, bool estadoInicial = false);
         
             /**
              * @brief Establece el valor actual del pin al especificado.
@@ -37,5 +37,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override;
+
+            void inicializar(void);
     };
 #endif

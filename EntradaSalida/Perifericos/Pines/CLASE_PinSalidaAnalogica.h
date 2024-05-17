@@ -7,7 +7,7 @@
      * @brief Permite encapsular en un objeto, un pin de Salida analógica.
      */
     template <typename T, byte N_NUM_BITS>
-    class PinSalidaAnalogica : public Pin, public SalidaAnalogica<T, N_NUM_BITS> {
+    class PinSalidaAnalogica : public Pin<OUTPUT>, public SalidaAnalogica<T, N_NUM_BITS> {
         public:
             /**
              * @brief Construye un PinSalidaAnalogica, con el número de pin y
@@ -17,7 +17,10 @@
              * @param invertir @c true para invertir el funcionamiento,
              *  @c false para el caso contrario.
              */
-            PinSalidaAnalogica(byte numPin = -1, bool invertir = false);
+            PinSalidaAnalogica(pin_size_t numPin = -1, bool invertir = false)
+                : Pin(numPin, NUM_ANALOG_INPUTS)
+                , SalidaAnalogica<T, N_NUM_BITS>(invertir)
+            {}
         
             void escribirBajoNivel(T valor) override {
                 if (this -> pinValido) {

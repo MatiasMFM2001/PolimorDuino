@@ -7,7 +7,7 @@
      * @brief Permite encapsular en un objeto, un pin de Salida PWM.
      */
     template <typename T, byte N_NUM_BITS>
-    class PinSalidaPWM : public Pin, public SalidaPWM<T, N_NUM_BITS> {
+    class PinSalidaPWM : public Pin<OUTPUT>, public SalidaPWM<T, N_NUM_BITS> {
         public:
             /**
              * @brief Construye un PinSalidaPWM, con el número de pin y
@@ -17,8 +17,8 @@
              * @param invertir @c true para invertir el funcionamiento,
              *  @c false para el caso contrario.
              */
-            PinSalidaPWM(byte numPin = -1, bool invertir = false)
-                : Pin(numPin, OUTPUT, NUM_DIGITAL_PINS)
+            PinSalidaPWM(pin_size_t numPin = -1, bool invertir = false)
+                : Pin(numPin, NUM_DIGITAL_PINS)
                 , SalidaPWM<T, N_NUM_BITS>(invertir)
             {}
         

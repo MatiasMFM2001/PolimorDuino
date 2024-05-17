@@ -1,10 +1,12 @@
 #include "CLASE_PinSalidaDigital.h"
 #include <log4arduino.h>
 
-PinSalidaDigital::PinSalidaDigital(byte numPin, bool invertir, bool estadoInicial)
-    : Pin(numPin, OUTPUT, NUM_DIGITAL_PINS)
-    , SalidaDigital(invertir, estadoInicial)
-{}
+PinSalidaDigital::PinSalidaDigital(pin_size_t numPin, bool invertir, bool estadoInicial)
+    : Pin(numPin, NUM_DIGITAL_PINS)
+    , SalidaDigital(invertir, estadoInicial, false)
+{
+    this -> setEstadoActual(estadoInicial);
+}
 
 void PinSalidaDigital::escribirBajoNivel(bool valor) {
     LOG("INICIO PinSalidaDigital::escribirBajoNivel(%d, %d)", this -> numPin, valor);
@@ -17,4 +19,10 @@ void PinSalidaDigital::escribirBajoNivel(bool valor) {
 
 size_t PinSalidaDigital::printTo(Print& impresora) const {
     return OBJETO_A_JSON(impresora, "PinSalidaDigital") + SUPERCLASES_A_JSON(impresora, Pin, SalidaDigital);
+}
+
+void PinSalidaDigital::inicializar(void) {
+    Pin::inicializar();
+
+    this -> setEstado(this -> getEstado());
 }
