@@ -2,6 +2,7 @@
 #define PULSABLE
 
 #include <Printable.h>
+#include <Print.h>
     /**
      * @brief Define métodos para los objetos que puedan ser encendidos y
      *  apagados, los cuales DEBEN sobreescribir o @c setEstado(), o

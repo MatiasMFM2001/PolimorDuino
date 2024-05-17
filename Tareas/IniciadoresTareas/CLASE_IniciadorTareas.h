@@ -3,6 +3,7 @@
 
 #include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include <Printable.h>
+#include <Print.h>
     /**
      * @brief Tarea que permite iniciar la ejecución de otra tarea, cada cierta
      *  cantidad de tiempo.
