@@ -12,7 +12,6 @@
 
 #include <Arduino.h>
 #include <Print.h>
-#include "CLASE_WrapperPuntero.h"
 #include <avr/pgmspace.h>
 #include "MACRO_ForEachAcumulando.h"
 #include <Array.h>
@@ -22,13 +21,13 @@
     size_t imprimirDatoJSON(Print &impresora, const __FlashStringHelper *valor);
     size_t imprimirDatoJSON(Print &impresora, const bool valor);
     size_t imprimirDatoJSON(Print &impresora, Printable &valor);
-    size_t imprimirDatoJSON(Print &impresora, Printable *valor);
     
     template <typename T_VALOR>
     size_t imprimirDatoJSON(Print &impresora, T_VALOR &valor) {
         return impresora.print(valor);
     }
-    
+
+#include "CLASE_WrapperPuntero.h"
     template <typename T_VALOR>
     size_t imprimirDatoJSON(Print &impresora, T_VALOR *valor) {
         return imprimirDatoJSON(impresora, WrapperPuntero<T_VALOR>(valor));
