@@ -6,7 +6,7 @@
 #include "../TIPOS_EnterosAnalogicos.h"
     class SalidaDigital : public Salida<BOOL_1_BIT>, public Pulsable {
         public:
-            SalidaDigital(bool invertir, bool estadoInicial);
+            SalidaDigital(bool invertir, bool estadoInicial, bool settearEstado = true);
             
             void setEstado(bool valor) override;
             
