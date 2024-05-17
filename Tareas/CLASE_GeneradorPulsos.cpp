@@ -44,13 +44,13 @@ void GeneradorPulsos::enableFrecuencia(long hz) {
 
 bool GeneradorPulsos::OnEnable(void) {
     FLOGS("EJECUTANDO GeneradorPulsos::OnEnable()");
-    this -> pulsable -> apagar();
+    this -> pulsable -> encender();
     return true;
 }
 
 bool GeneradorPulsos::Callback(void) {
     LOG("INICIO GeneradorPulsos::Callback(), iteración %d", Task::getRunCounter());
-        this -> pulsable -> setEstado(!esPar(Task::getRunCounter()));
+        this -> pulsable -> setEstado(esPar(Task::getRunCounter()) && !Task::isLastIteration());
     FLOGS("FIN GeneradorPulsos::Callback()");
         
     return true;
