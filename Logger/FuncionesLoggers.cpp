@@ -10,3 +10,8 @@
 void imprimir(unsigned short &valor) {
     LOG("%d", valor);
 } 
+
+void imprimir(arduino::Printable &valor) {
+    log4arduino_print_head();
+    _log4arduino_target -> println(valor);
+}

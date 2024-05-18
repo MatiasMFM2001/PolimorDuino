@@ -6,5 +6,8 @@
 
 #ifndef FUNCIONES_LOGGERS
 #define FUNCIONES_LOGGERS
+
+#include <Printable.h>
     void imprimir(unsigned short &valor);
+    void imprimir(arduino::Printable &valor);
 #endif
