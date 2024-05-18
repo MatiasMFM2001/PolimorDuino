@@ -8,6 +8,7 @@
 #define MEDIDOR
 
 #include "../Inclusiones/InclusionLog4Arduino.h"
+#include "INTERFAZ_CallbackResultado.h"
     /**
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
      *  realizando acciones con los valores medidos.
