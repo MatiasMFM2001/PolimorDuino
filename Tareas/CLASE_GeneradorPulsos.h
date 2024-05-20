@@ -8,7 +8,7 @@
 #define GENERADOR_PULSOS
 
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
-#include "../Utils/CLASE_Pulsable.h"
+#include "../Utils/Pulsables/CLASE_Pulsable.h"
 #include <Printable.h>
     /**
      * @brief Tarea que permite generar una cantidad de pulsos determinada, a

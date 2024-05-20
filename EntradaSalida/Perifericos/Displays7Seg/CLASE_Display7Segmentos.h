@@ -7,7 +7,7 @@
 #ifndef DISPLAY_7_SEGMENTOS 
 #define DISPLAY_7_SEGMENTOS
 
-#include "../../../Utils/CLASE_Pulsable.h"
+#include "../../../Utils/Pulsables/CLASE_Pulsable.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
 #include "../../../Logger/FuncionesJSON.h"
     template <typename T>

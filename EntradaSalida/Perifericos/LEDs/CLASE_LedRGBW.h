@@ -7,7 +7,7 @@
 #ifndef LED_RGBW
 #define LED_RGBW
 
-#include "../../../Utils/CLASE_Pulsable.h"
+#include "../../../Utils/Pulsables/CLASE_Pulsable.h"
 #include <Array.h>
 #include "CLASE_ColorRGBW.h"
     class LedRGBW: public Pulsable {
