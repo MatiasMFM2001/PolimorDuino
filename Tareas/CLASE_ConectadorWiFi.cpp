@@ -9,7 +9,7 @@
 #include "../Inclusiones/InclusionLog4Arduino.h"
 #include <WiFi.h>
 
-ConectadorWiFi::ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa, char *nombreRed, char *contrasenia);
+ConectadorWiFi::ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa);
     : Task(msEntreLlamados, TASK_FOREVER, planif, false)
     , notificadorConexionExitosa(notificadorConexionExitosa)
 {}
