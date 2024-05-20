@@ -27,9 +27,10 @@
              * @param planif El planificador de tareas especificado (que puede
              *  ser nulo).
              */
-            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa, char *nombreRed, char *contrasenia);
+            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa);
         
             void inicializar(void) override;
+            void setCredenciales(char *nombreRed, char *contrasenia);
         
             /**
              * @brief Ejecuta la impresión periódica.

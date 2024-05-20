@@ -11,12 +11,17 @@
 
 ConectadorWiFi::ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa, char *nombreRed, char *contrasenia);
     : Task(msEntreLlamados, TASK_FOREVER, planif, false)
-    , notificadorConexionExitosa(notificadorConexionExitosa), nombreRed(nombreRed), contrasenia(contrasenia)
+    , notificadorConexionExitosa(notificadorConexionExitosa)
 {}
 
 void ConectadorWiFi::inicializar(void) {
     Task::enable();
     WiFi.begin(this -> nombreRed, this -> contrasenia);
+}
+
+void ConectadorWiFi::setCredenciales(char *nombreRed, char *contrasenia) {
+    this -> nombreRed = nombreRed;
+    this -> contrasenia = contrasenia;
 }
 
 bool ConectadorWiFi::Callback(void) {
