@@ -5,7 +5,7 @@
  */
 
 #include "CLASE_InversorPulsable.h"
-#include "../Logger/FuncionesJSON.h"
+#include "../../Logger/FuncionesJSON.h"
 
 InversorPulsable::InversorPulsable(bool estadoInicial, Pulsable *decorado)
     : Pulsable(!estadoInicial, false)
