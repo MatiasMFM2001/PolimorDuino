@@ -18,6 +18,7 @@
             EEPROMClass *eeprom;
             StaticJsonDocument<CAPACIDAD_JSON> documento;
             bool leerAlInicializar;
+            bool estaCorrupta;
             
             class AdaptadorEEPROM {
                 private:
@@ -111,7 +112,7 @@
             
         public:
             BaseDatosEEPROM(EEPROMClass *eeprom, bool leerAlInicializar = false)
-                : eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>()), leerAlInicializar(leerAlInicializar)
+                : eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>()), leerAlInicializar(leerAlInicializar), estaCorrupta(false)
             {}
             
             void inicializar(void) override {
@@ -125,21 +126,68 @@
                 this -> eeprom -> get(DIRECCION_NUM_BYTES, numBytesUsados);
                 
                 LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom);
-                DeserializationError salida = deserializeMsgPack(this -> documento, lector);
+                DeserializationError retorno = deserializeMsgPack(this -> documento, lector);
+                
+                if (retorno == DeserializationError::Ok) {
+                    return;
+                }
+                
+                LOG("ERROR: Deserializar el MessagePack de la EEPROM falló con el error %d", retorno);
+                this -> estaCorrupta = true;
+            }
+            
+            size_t medirSerializado(void) {
+                return measureMsgPack(this -> documento);
             }
             
             template <typename T>
             T getValorSetteando(char *clave, T valorPredeterminado) {
-                if (!(this -> documento -> containsKey(clave))) {
+                if (this -> estaCorrupta) {
+                    LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValorSetteando('%s') con la BD corrupta. Se retornará el valor predeterminado", clave);
+                    return valorPredeterminado;
+                }
+                
+                if (!(this -> documento.containsKey(clave))) {
+                    this -> documento.garbageCollect();
                     this -> documento[clave] = valorPredeterminado;
+                    
+                    if (this -> documento.overflowed()) {
+                        LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON);
+                        this -> estaCorrupta = true;
+                    }
+                    
+                    size_t tamanioSerializado = this -> medirSerializado();
+                    size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1);
+                    
+                    if (tamanioSerializado > tamanioEEPROM) {
+                        LOG("ADVERTENCIA: Tras insertar la clave '%s', el documento serializado queda de tamaño %d y no entra en la EEPROM (de capacidad %d)", clave, tamanioSerializado, tamanioEEPROM);
+                        this -> estaCorrupta = true;
+                    }
+                }
+                
+                if (this -> estaCorrupta) {
+                    LOG("ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatosEEPROM::getValorSetteando('%s')", clave);
+                    
+                    if (!(this -> documento.containsKey(clave))) {
+                        FLOGS("ADVERTENCIA: Se retornará el valor predeterminado");
+                        return valorPredeterminado;
+                    }
                 }
                 
                 return this -> documento[clave];
             }
             
-            void guardar(void) {
+            bool guardar(void) {
+                if (this -> estaCorrupta) {
+                    FLOGS("ADVERTENCIA: Se accedió a BaseDatosEEPROM::guardar() con la BD corrupta");
+                    return false;
+                }
+                
                 EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);
-                serializeMsgPack(this -> documento, escritor);
+                size_t tamanioEscrito serializeMsgPack(this -> documento, escritor);
+                
+                this -> eeprom -> put(DIRECCION_NUM_BYTES, tamanioEscrito);
+                return true;
             }
     };
 #endif
