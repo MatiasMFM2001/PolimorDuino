@@ -14,16 +14,16 @@
 #include "FuncionesGlobales.h"
 #include "CLASE_LectorEEPROM.h"
 #include "CLASE_EscritorEEPROM.h"
-    template <size_t CAPACIDAD_EEPROM, size_t CAPACIDAD_JSON>
+    template <typename T_EEPROM, size_t CAPACIDAD_EEPROM, size_t CAPACIDAD_JSON>
     class BaseDatosEEPROM : public Inicializable {
         private:
-            EEPROMClass *eeprom;
+            T_EEPROM *eeprom;
             StaticJsonDocument<CAPACIDAD_JSON> documento;
             bool leerAlInicializar;
             bool estaCorrupta;
             
         public:
-            BaseDatosEEPROM(EEPROMClass *eeprom, bool leerAlInicializar = false)
+            BaseDatosEEPROM(T_EEPROM *eeprom, bool leerAlInicializar = false)
                 : eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>()), leerAlInicializar(leerAlInicializar), estaCorrupta(false)
             {}
             
@@ -37,7 +37,7 @@
                 size_t numBytesUsados;
                 this -> eeprom -> get(DIRECCION_NUM_BYTES, numBytesUsados);
                 
-                LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom);
+                LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom, numBytesUsados);
                 DeserializationError retorno = deserializeMsgPack(this -> documento, lector);
                 
                 if (retorno == DeserializationError::Ok) {

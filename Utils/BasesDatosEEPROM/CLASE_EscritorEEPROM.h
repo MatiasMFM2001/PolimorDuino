@@ -8,15 +8,16 @@
 #define ESCRITOR_EEPROM
 
 #include "CLASE_AdaptadorEEPROM.h"
+    template <typename T_EEPROM>
     class EscritorEEPROM : public AdaptadorEEPROM {
         private:
             template <typename T>
             void escribirByteAvanzando(T valor) {
                 this -> eeprom -> write(this -> posActual++, valor);
             }
-            
+        
         public:
-            EscritorEEPROM(size_t posInicial, EEPROMClass *eeprom)
+            EscritorEEPROM(size_t posInicial, T_EEPROM *eeprom)
                 : AdaptadorEEPROM(posInicial, eeprom)
             {}
             
@@ -33,7 +34,7 @@
                     return 0;
                 }
                 
-                size_t maxIteraciones = this -> getMaxIteraciones(longitud);
+                size_t maxIteraciones = this -> getIteracionesRestantes(longitud);
                 
                 for (size_t cont = 0; cont < maxIteraciones; ++cont) {
                     this -> escribirByteAvanzando(buffer[cont]);

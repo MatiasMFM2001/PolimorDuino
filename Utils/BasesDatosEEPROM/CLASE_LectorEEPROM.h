@@ -8,16 +8,25 @@
 #define LECTOR_EEPROM
 
 #include "CLASE_AdaptadorEEPROM.h"
+    template <typename T_EEPROM>
     class LectorEEPROM : public AdaptadorEEPROM {
         private:
+            size_t numBytesUsados;
+        
             template <typename T>
             T leerByteAvanzando(void) {
                 return this -> eeprom -> read(this -> posActual++);
             }
-            
+        
+        protected:
+            size_t getUltimaPosicion(void) override {
+                return (this -> numBytesUsados - 1);
+            }
+        
         public:
-            LectorEEPROM(size_t posInicial, EEPROMClass *eeprom)
+            LectorEEPROM(size_t posInicial, T_EEPROM *eeprom, size_t numBytesUsados)
                 : AdaptadorEEPROM(posInicial, eeprom)
+                , numBytesUsados(numBytesUsados)
             {}
             
             int read(void) override {
@@ -33,7 +42,7 @@
                     return 0;
                 }
                 
-                size_t maxIteraciones = this -> getMaxIteraciones(longitud);
+                size_t maxIteraciones = this -> getIteracionesRestantes(longitud);
                 
                 for (size_t cont = 0; cont < maxIteraciones; ++cont) {
                     buffer[cont] = this -> leerByteAvanzando();
