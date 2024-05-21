@@ -9,6 +9,8 @@
 
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include "../Utils/INTERFAZ_Inicializable.h"
+#include <WiFi.h>
+#include "../Medidores/INTERFAZ_CallbackResultado.h"
     class ConectadorWiFi : public Task, public Inicializable {
         private:
             CallbackResultado<WiFiClass &> *notificadorConexionExitosa;
@@ -17,17 +19,9 @@
         
         public:
             /**
-             * @brief Construye un AutoFlusher, con la impresora, tiempo de
-             *  espera y scheduler especificados.
-             * 
-             * @param impresora La impresora especificada (que no debería ser
-             *  nula).
-             * @param msEntreLlamados La cantidad mínima de milisegundos a
-             *  esperar entre una impresión y la siguiente.
-             * @param planif El planificador de tareas especificado (que puede
-             *  ser nulo).
+             * @brief Construye un ConectadorWiFi...
              */
-            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa);
+            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<WiFiClass &> *notificadorConexionExitosa);
         
             void inicializar(void) override;
             void setCredenciales(char *nombreRed, char *contrasenia);

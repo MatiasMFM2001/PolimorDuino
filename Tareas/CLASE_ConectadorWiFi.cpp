@@ -7,9 +7,8 @@
 #include "CLASE_ConectadorWiFi.h"
 #include <Arduino.h>
 #include "../Inclusiones/InclusionLog4Arduino.h"
-#include <WiFi.h>
 
-ConectadorWiFi::ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<void *> *notificadorConexionExitosa);
+ConectadorWiFi::ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<WiFiClass &> *notificadorConexionExitosa)
     : Task(msEntreLlamados, TASK_FOREVER, planif, false)
     , notificadorConexionExitosa(notificadorConexionExitosa)
 {}
