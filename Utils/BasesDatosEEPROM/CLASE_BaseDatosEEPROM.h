@@ -12,6 +12,8 @@
 
 #include <ArduinoJson.h>
 #include "FuncionesGlobales.h"
+#include "CLASE_LectorEEPROM.h"
+#include "CLASE_EscritorEEPROM.h"
     template <size_t CAPACIDAD_EEPROM, size_t CAPACIDAD_JSON>
     class BaseDatosEEPROM : public Inicializable {
         private:
@@ -19,96 +21,6 @@
             StaticJsonDocument<CAPACIDAD_JSON> documento;
             bool leerAlInicializar;
             bool estaCorrupta;
-            
-            class AdaptadorEEPROM {
-                private:
-                    size_t posActual;
-                    EEPROMClass *eeprom;
-                
-                protected:
-                    bool posEnRango(void) {
-                        return enRango(this -> posActual, 0, (this -> eeprom -> longitud()) - 1);
-                    }
-                    
-                    size_t getMaxIteraciones(size_t longitud) {
-                        return min(longitud, (this -> eeprom -> longitud()) - (this -> posActual));
-                    }
-                    
-                public:
-                    AdaptadorEEPROM(size_t posInicial, EEPROMClass *eeprom)
-                        : posActual(posInicial), eeprom(eeprom)
-                    {}
-            };
-            
-            class LectorEEPROM : public AdaptadorEEPROM {
-                private:
-                    template <typename T>
-                    T leerByteAvanzando(void) {
-                        return this -> eeprom -> read(this -> posActual++);
-                    }
-                    
-                public:
-                    LectorEEPROM(size_t posInicial, EEPROMClass *eeprom)
-                        : AdaptadorEEPROM(posInicial, eeprom)
-                    {}
-                    
-                    int read(void) override {
-                        if (!(this -> posEnRango())) {
-                            return -1;
-                        }
-                        
-                        return this -> leerByteAvanzando();
-                    }
-                    
-                    size_t readBytes(char* buffer, size_t longitud) override {
-                        if (!buffer || !(this -> posEnRango())) {
-                            return 0;
-                        }
-                        
-                        size_t maxIteraciones = this -> getMaxIteraciones(longitud);
-                        
-                        for (size_t cont = 0; cont < maxIteraciones; ++cont) {
-                            buffer[cont] = this -> leerByteAvanzando();
-                        }
-                        
-                        return maxIteraciones;
-                    }
-            };
-            
-            class EscritorEEPROM : public AdaptadorEEPROM {
-                private:
-                    template <typename T>
-                    void escribirByteAvanzando(T valor) {
-                        this -> eeprom -> write(this -> posActual++, valor);
-                    }
-                    
-                public:
-                    EscritorEEPROM(size_t posInicial, EEPROMClass *eeprom)
-                        : AdaptadorEEPROM(posInicial, eeprom)
-                    {}
-                    
-                    size_t write(uint8_t caracter) override {
-                        if (!(this -> posEnRango())) {
-                            return 0;
-                        }
-                        
-                        return this -> leerByteAvanzando();
-                    }
-                    
-                    size_t readBytes(char* buffer, size_t longitud) override {
-                        if (!buffer || !(this -> posEnRango())) {
-                            return 0;
-                        }
-                        
-                        size_t maxIteraciones = this -> getMaxIteraciones(longitud);
-                        
-                        for (size_t cont = 0; cont < maxIteraciones; ++cont) {
-                            this -> escribirByteAvanzando(buffer[cont]);
-                        }
-                        
-                        return maxIteraciones;
-                    }
-            };
             
         public:
             BaseDatosEEPROM(EEPROMClass *eeprom, bool leerAlInicializar = false)
