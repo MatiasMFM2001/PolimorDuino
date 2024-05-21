@@ -11,10 +11,11 @@
 #define DIRECCION_DOCUMENTO (DIRECCION_NUM_BYTES + sizeof(size_t))
 
 #include <ArduinoJson.h>
-#include "FuncionesGlobales.h"
+#include "../FuncionesGlobales.h"
 #include "CLASE_LectorEEPROM.h"
 #include "CLASE_EscritorEEPROM.h"
-    template <typename T_EEPROM, size_t CAPACIDAD_EEPROM, size_t CAPACIDAD_JSON>
+#include <EEPROM.h>
+    template <size_t CAPACIDAD_JSON, typename T_EEPROM = EEPROMClass>
     class BaseDatosEEPROM : public Inicializable {
         private:
             T_EEPROM *eeprom;
@@ -28,8 +29,6 @@
             {}
             
             void inicializar(void) override {
-                this -> eeprom -> begin(CAPACIDAD_EEPROM);
-                
                 if (!(this -> leerAlInicializar)) {
                     return;
                 }
@@ -53,7 +52,7 @@
             }
             
             template <typename T>
-            T getValorSetteando(char *clave, T valorPredeterminado) {
+            const T getValorSetteando(const char *clave, const T valorPredeterminado) {
                 if (this -> estaCorrupta) {
                     LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValorSetteando('%s') con la BD corrupta. Se retornará el valor predeterminado", clave);
                     return valorPredeterminado;
@@ -96,7 +95,7 @@
                 }
                 
                 EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);
-                size_t tamanioEscrito serializeMsgPack(this -> documento, escritor);
+                size_t tamanioEscrito = serializeMsgPack(this -> documento, escritor);
                 
                 this -> eeprom -> put(DIRECCION_NUM_BYTES, tamanioEscrito);
                 return true;

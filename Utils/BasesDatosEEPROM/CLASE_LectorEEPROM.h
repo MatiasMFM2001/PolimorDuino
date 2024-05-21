@@ -9,7 +9,7 @@
 
 #include "CLASE_AdaptadorEEPROM.h"
     template <typename T_EEPROM>
-    class LectorEEPROM : public AdaptadorEEPROM {
+    class LectorEEPROM : public AdaptadorEEPROM<T_EEPROM> {
         private:
             size_t numBytesUsados;
         
@@ -25,19 +25,19 @@
         
         public:
             LectorEEPROM(size_t posInicial, T_EEPROM *eeprom, size_t numBytesUsados)
-                : AdaptadorEEPROM(posInicial, eeprom)
+                : AdaptadorEEPROM<T_EEPROM>(posInicial, eeprom)
                 , numBytesUsados(numBytesUsados)
             {}
             
-            int read(void) override {
+            int read(void) {
                 if (!(this -> posEnRango())) {
                     return -1;
                 }
                 
-                return this -> leerByteAvanzando();
+                return this -> leerByteAvanzando<int>();
             }
             
-            size_t readBytes(char* buffer, size_t longitud) override {
+            size_t readBytes(char* buffer, size_t longitud) {
                 if (!buffer || !(this -> posEnRango())) {
                     return 0;
                 }
@@ -45,7 +45,7 @@
                 size_t maxIteraciones = this -> getIteracionesRestantes(longitud);
                 
                 for (size_t cont = 0; cont < maxIteraciones; ++cont) {
-                    buffer[cont] = this -> leerByteAvanzando();
+                    buffer[cont] = this -> leerByteAvanzando<int>();
                 }
                 
                 return maxIteraciones;

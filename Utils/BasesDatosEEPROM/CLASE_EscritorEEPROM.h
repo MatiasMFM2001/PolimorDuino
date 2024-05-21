@@ -9,7 +9,7 @@
 
 #include "CLASE_AdaptadorEEPROM.h"
     template <typename T_EEPROM>
-    class EscritorEEPROM : public AdaptadorEEPROM {
+    class EscritorEEPROM : public AdaptadorEEPROM<T_EEPROM> {
         private:
             template <typename T>
             void escribirByteAvanzando(T valor) {
@@ -18,10 +18,10 @@
         
         public:
             EscritorEEPROM(size_t posInicial, T_EEPROM *eeprom)
-                : AdaptadorEEPROM(posInicial, eeprom)
+                : AdaptadorEEPROM<T_EEPROM>(posInicial, eeprom)
             {}
             
-            size_t write(uint8_t caracter) override {
+            size_t write(uint8_t caracter) {
                 if (!(this -> posEnRango())) {
                     return 0;
                 }
@@ -29,7 +29,7 @@
                 return this -> leerByteAvanzando();
             }
             
-            size_t readBytes(char* buffer, size_t longitud) override {
+            size_t readBytes(char* buffer, size_t longitud) {
                 if (!buffer || !(this -> posEnRango())) {
                     return 0;
                 }

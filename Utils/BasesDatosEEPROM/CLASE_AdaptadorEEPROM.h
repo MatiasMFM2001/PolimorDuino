@@ -11,10 +11,10 @@
     template <typename T_EEPROM>
     class AdaptadorEEPROM {
         private:
-            size_t posActual;
             size_t posInicial;
         
         protected:
+            size_t posActual;
             T_EEPROM *eeprom;
         
             virtual size_t getUltimaPosicion(void) {
@@ -26,12 +26,12 @@
             }
 
             size_t getIteracionesRestantes(size_t longitud) {
-                return min(longitud, (this -> eeprom -> longitud()) - (this -> posActual));
+                return min(longitud, (this -> getUltimaPosicion() + 1) - (this -> posActual));
             }
             
         public:
             AdaptadorEEPROM(size_t posInicial, T_EEPROM *eeprom)
-                : posActual(posInicial), eeprom(eeprom), posInicial(posInicial)
+                : posInicial(posInicial), posActual(posInicial), eeprom(eeprom)
             {}
     };
 #endif
