@@ -138,6 +138,43 @@
     }
     
     /**
+     * @brief Agrega todos los elementos del array de entrada (cuyo fin se
+     *  alcanza al procesar el elemento igual al @c valorFinal), al final del de
+     *  salida.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en ambos arrays.
+     * @tparam S_SALIDA La cantidad máxima de elementos del array de salida.
+     * @param entrada El array origen.
+     * @param salida El array destino.
+     * @param valorFinal El valor que indica el fin del array.
+     * @param agregarValorFinal @c true para agregar el @c valorFinal al final
+     *  del array, @c false para el caso contrario.
+     */
+    template <typename T, size_t S_SALIDA>
+    void agregarFinalArrayTerminado(const T *entrada, Array<T, S_SALIDA> &salida, T valorFinal, bool agregarValorFinal) {
+        if (!entrada) {
+            return;
+        }
+        
+        T selec = *entrada;
+        
+        while (selec != valorFinal) {
+            salida.push_back(selec);
+            selec = *(entrada++);
+        }
+        
+        if (!agregarValorFinal) {
+            return;
+        }
+        
+        if (salida.full()) {
+            salida.pop_back();
+        }
+        
+        salida.push_back(valorFinal);
+    }
+    
+    /**
      * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
      *  es distinta a @c TASK_FOREVER) por otra cantidad.
      * 
