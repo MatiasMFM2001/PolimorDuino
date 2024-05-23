@@ -33,7 +33,14 @@
              */
             void finalizarMedicion(T_RESULTADO &ingr) {
                 LOG("MEDIDOR \"%S\" - Ejecutando callback.notificar() con valor:", this -> nombre);
-                F_LOGGER(ingr);
+                
+                if (F_LOGGER) {
+                    F_LOGGER(ingr);
+                }
+                else {
+                    LOG("MEDIDOR \"%S\" - Valor no mostrado por F_LOGGER nulo.", this -> nombre);
+                }
+                
                 this -> callback -> notificar(ingr);
             }
         

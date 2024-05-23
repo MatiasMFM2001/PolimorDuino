@@ -4,9 +4,8 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef LECTOR_Entrada
-#define LECTOR_Entrada
-
+#ifndef LECTOR_ENTRADA
+#define LECTOR_ENTRADA
 
 #include "CLASE_MedidorInstantaneo.h"
     template <typename T_RESULTADO, byte N_NUM_BITS, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
