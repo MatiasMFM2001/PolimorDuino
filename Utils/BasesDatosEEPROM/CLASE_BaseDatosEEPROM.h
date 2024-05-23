@@ -10,11 +10,14 @@
 #define DIRECCION_NUM_BYTES (0)
 #define DIRECCION_DOCUMENTO (DIRECCION_NUM_BYTES + sizeof(size_t))
 
+#define CLAVE_VERSION "VERSION"
+
 #include <ArduinoJson.h>
 #include "../FuncionesGlobales.h"
 #include "CLASE_LectorEEPROM.h"
 #include "CLASE_EscritorEEPROM.h"
 #include <EEPROM.h>
+#include "../../Medidores/INTERFAZ_CallbackResultado.h"
     template <size_t CAPACIDAD_JSON, typename T_EEPROM = EEPROMClass>
     class BaseDatosEEPROM : public Inicializable {
         private:
@@ -22,10 +25,12 @@
             StaticJsonDocument<CAPACIDAD_JSON> documento;
             bool leerAlInicializar;
             bool estaCorrupta;
+            size_t version;
+            CallbackResultado<T_EEPROM &> *migrador;
             
         public:
-            BaseDatosEEPROM(T_EEPROM *eeprom, bool leerAlInicializar = false)
-                : eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>()), leerAlInicializar(leerAlInicializar), estaCorrupta(false)
+            BaseDatosEEPROM(T_EEPROM *eeprom, size_t version, CallbackResultado<T_EEPROM &> *migrador, bool leerAlInicializar = false)
+                : eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>()), leerAlInicializar(leerAlInicializar), estaCorrupta(false), version(version), migrador(migrador)
             {}
             
             void inicializar(void) override {
@@ -39,12 +44,22 @@
                 LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom, numBytesUsados);
                 DeserializationError retorno = deserializeMsgPack(this -> documento, lector);
                 
-                if (retorno == DeserializationError::Ok) {
+                if (retorno != DeserializationError::Ok) {
+                    LOG("ERROR: Deserializar el MessagePack de la EEPROM falló con el error %d", retorno);
+                    this -> estaCorrupta = true;
+                    
                     return;
                 }
                 
-                LOG("ERROR: Deserializar el MessagePack de la EEPROM falló con el error %d", retorno);
-                this -> estaCorrupta = true;
+                size_t versionDocumento = this -> documento[CLAVE_VERSION];
+                
+                if (versionDocumento >= (this -> version) || !(this -> migrador)) {
+                    return;
+                }
+                
+                this -> migrador -> notificar(this -> documento);
+                this -> documento[CLAVE_VERSION] = (this -> version);
+                this -> guardar();
             }
             
             size_t medirSerializado(void) {
