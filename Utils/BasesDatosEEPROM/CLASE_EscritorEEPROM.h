@@ -26,10 +26,11 @@
                     return 0;
                 }
                 
-                return this -> leerByteAvanzando();
+                this -> escribirByteAvanzando(caracter);
+                return 1;
             }
             
-            size_t readBytes(char* buffer, size_t longitud) {
+            size_t write(const uint8_t* buffer, size_t longitud) {
                 if (!buffer || !(this -> posEnRango())) {
                     return 0;
                 }
