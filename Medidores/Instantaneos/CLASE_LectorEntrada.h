@@ -9,7 +9,7 @@
 
 
 #include "CLASE_MedidorInstantaneo.h"
-    template <typename T_RESULTADO, byte N_NUM_BITS, void (*F_LOGGER)(T_RESULTADO&)>
+    template <typename T_RESULTADO, byte N_NUM_BITS, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
     class LectorEntrada : public MedidorInstantaneo<T_RESULTADO, F_LOGGER> {
         private:
             Entrada<T_RESULTADO, N_NUM_BITS> *entrada;

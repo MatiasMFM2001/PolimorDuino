@@ -5,7 +5,7 @@
  */
 
 #include "CLASE_PinSalidaDigital.h"
-#include <log4arduino.h>
+#include "../../../Inclusiones/InclusionLog4Arduino.h"
 
 PinSalidaDigital::PinSalidaDigital(pin_size_t numPin, bool invertir, bool estadoInicial)
     : Pin(numPin, NUM_DIGITAL_PINS)

@@ -7,7 +7,7 @@
 #ifndef MEDIDOR
 #define MEDIDOR
 
-#include "../Inclusiones/InclusionLog4Arduino.h"
+#include "../Logger/FuncionesLoggers.h"
 #include "INTERFAZ_CallbackResultado.h"
     /**
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
@@ -17,7 +17,7 @@
      *  medición.
      * @tparam F_LOGGER La función encargada de imprimir en logs el valor medido.
      */
-    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
+    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
     class Medidor : public Printable {
         private:
             CallbackResultado<T_RESULTADO> *callback;
@@ -31,7 +31,7 @@
              * 
              * @param ingr El valor medido.
              */
-            void finalizarMedicion(T_RESULTADO ingr) {
+            void finalizarMedicion(T_RESULTADO &ingr) {
                 LOG("MEDIDOR \"%S\" - Ejecutando callback.notificar() con valor:", this -> nombre);
                 F_LOGGER(ingr);
                 this -> callback -> notificar(ingr);

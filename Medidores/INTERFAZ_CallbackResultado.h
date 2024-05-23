@@ -11,6 +11,6 @@
     template <typename T>
     class CallbackResultado : public Printable {
         public:
-            virtual void notificar(T resultado) = 0;
+            virtual void notificar(T &resultado) = 0;
     };
 #endif

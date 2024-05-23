@@ -14,7 +14,7 @@
      * @brief Tarea que permite medir la frecuencia de una forma de onda
      *  periódica, a partir de la cantidad de flancos por segundo.
      */
-    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
+    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
     class Frecuencimetro : public MedidorTemporizado<T_RESULTADO, F_LOGGER> {
         private:
             /** @brief Contador de flancos transitados. */

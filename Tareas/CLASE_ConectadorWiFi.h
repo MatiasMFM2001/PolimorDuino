@@ -15,7 +15,7 @@
     template <size_t TAMANIO_NOMBRE = 32, size_t TAMANIO_CONTRASENIA = 32>
     class ConectadorWiFi : public Task, public Inicializable {
         private:
-            CallbackResultado<WiFiClass &> *notificadorConexionExitosa;
+            CallbackResultado<WiFiClass> *notificadorConexionExitosa;
             Array<char, TAMANIO_NOMBRE + 1> nombreRed;
             Array<char, TAMANIO_CONTRASENIA + 1> contrasenia;
         
@@ -23,7 +23,7 @@
             /**
              * @brief Construye un ConectadorWiFi...
              */
-            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<WiFiClass &> *notificadorConexionExitosa)
+            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<WiFiClass> *notificadorConexionExitosa)
                 : Task(msEntreLlamados, TASK_FOREVER, planif, false)
                 , notificadorConexionExitosa(notificadorConexionExitosa), nombreRed(Array<char, TAMANIO_NOMBRE + 1>()), contrasenia(Array<char, TAMANIO_CONTRASENIA + 1>())
             {}

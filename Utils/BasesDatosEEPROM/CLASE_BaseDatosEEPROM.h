@@ -57,10 +57,10 @@
             bool leerAlInicializar;
             bool estaCorrupta;
             size_t version;
-            CallbackResultado<JsonDocument &> *migrador;
+            CallbackResultado<JsonDocument> *migrador;
             
         public:
-            BaseDatosEEPROM(T_EEPROM *eeprom, size_t version, CallbackResultado<JsonDocument &> *migrador, bool leerAlInicializar = false)
+            BaseDatosEEPROM(T_EEPROM *eeprom, size_t version, CallbackResultado<JsonDocument> *migrador, bool leerAlInicializar = false)
                 : eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>()), leerAlInicializar(leerAlInicializar), estaCorrupta(false), version(version), migrador(migrador)
             {}
             

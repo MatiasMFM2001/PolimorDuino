@@ -15,7 +15,7 @@
      * @tparam T_RESULTADO El tipo de dato que almacena el resultado de una
      *  medición.
      */
-    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&)>
+    template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
     class TareaMedidora : public Medidor<T_RESULTADO, F_LOGGER>, public Task {
         public:
             TareaMedidora(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, unsigned long msMedicion, Scheduler *planif)
@@ -37,7 +37,9 @@
              *  "productiva".
              */
             bool Callback(void) override {
-                this -> finalizarMedicion(this -> getResultado());
+                T_RESULTADO resultado = this -> getResultado();
+                this -> finalizarMedicion(resultado);
+                
                 return true;
             }
     };

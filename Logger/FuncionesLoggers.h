@@ -8,9 +8,12 @@
 #define FUNCIONES_LOGGERS
 
 #include <Printable.h>
+#include "../Inclusiones/InclusionLog4Arduino.h"
     template <typename T>
     void imprimir(T &valor) {
-        log4arduino_print_head();
-        _log4arduino_target -> println(valor);
+        #ifdef ENABLE_LOG4ARDUINO
+            log4arduino_print_head();
+            _log4arduino_target -> println(valor);
+        #endif
     }
 #endif
