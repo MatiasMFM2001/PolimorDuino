@@ -12,6 +12,37 @@
 
 #define CLAVE_VERSION "VERSION"
 
+#define GET_VALOR(clave) \
+    if (this -> estaCorrupta) { \
+        LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValor('%s') con la BD corrupta. Se retornará el valor indeterminado", clave); \
+ \
+        if (this -> documento.containsKey(clave)) { \
+            FLOGS("ADVERTENCIA: Se retornará el valor previamente almacenado en esa clave."); \
+        } \
+        else { \
+            FLOGS("ADVERTENCIA: Se retornará el valor predeterminado para ese tipo de datos."); \
+        } \
+    }
+
+#define GET_VALOR_SETTEANDO(clave, valorPredeterminado) \
+    if (this -> estaCorrupta) { \
+        LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValorSetteando('%s') con la BD corrupta. Se retornará el valor predeterminado", clave); \
+        return valorPredeterminado; \
+    } \
+ \
+    if (!(this -> documento.containsKey(clave))) { \
+        this -> setValor(clave, valorPredeterminado); \
+    } \
+ \
+    if (this -> estaCorrupta) { \
+        LOG("ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatosEEPROM::getValorSetteando('%s')", clave); \
+ \
+        if (!(this -> documento.containsKey(clave))) { \
+            FLOGS("ADVERTENCIA: Se retornará el valor predeterminado"); \
+            return valorPredeterminado; \
+        } \
+    }
+
 #include <ArduinoJson.h>
 #include "../FuncionesGlobales.h"
 #include "CLASE_LectorEEPROM.h"
@@ -67,39 +98,55 @@
             }
             
             template <typename T>
-            const T getValorSetteando(const char *clave, const T valorPredeterminado) {
+            T &getValor(const char *clave) {
+                GET_VALOR(clave);
+                return this -> documento[clave];
+            }
+            
+            template <typename T>
+            const T &getValor(const char *clave) const {
+                GET_VALOR(clave);
+                return this -> documento[clave];
+            }
+            
+            template <typename T>
+            bool setValor(const char *clave, const T valor) {
                 if (this -> estaCorrupta) {
-                    LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValorSetteando('%s') con la BD corrupta. Se retornará el valor predeterminado", clave);
-                    return valorPredeterminado;
+                    LOG("ADVERTENCIA: Se accedió a BaseDatosEEPROM::setValor('%s') con la BD corrupta", clave);
+                    return false;
                 }
                 
-                if (!(this -> documento.containsKey(clave))) {
-                    this -> documento.garbageCollect();
-                    this -> documento[clave] = valorPredeterminado;
-                    
-                    if (this -> documento.overflowed()) {
-                        LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON);
-                        this -> estaCorrupta = true;
-                    }
-                    
-                    size_t tamanioSerializado = this -> medirSerializado();
-                    size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1);
-                    
-                    if (tamanioSerializado > tamanioEEPROM) {
-                        LOG("ADVERTENCIA: Tras insertar la clave '%s', el documento serializado queda de tamaño %d y no entra en la EEPROM (de capacidad %d)", clave, tamanioSerializado, tamanioEEPROM);
-                        this -> estaCorrupta = true;
-                    }
+                this -> documento.garbageCollect();
+                this -> documento[clave] = valor;
+                
+                if (this -> documento.overflowed()) {
+                    LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON);
+                    this -> estaCorrupta = true;
+                    return false;
                 }
                 
-                if (this -> estaCorrupta) {
-                    LOG("ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatosEEPROM::getValorSetteando('%s')", clave);
-                    
-                    if (!(this -> documento.containsKey(clave))) {
-                        FLOGS("ADVERTENCIA: Se retornará el valor predeterminado");
-                        return valorPredeterminado;
-                    }
+                size_t tamanioSerializado = this -> medirSerializado();
+                size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1);
+                
+                if (tamanioSerializado > tamanioEEPROM) {
+                    LOG("ADVERTENCIA: Tras insertar la clave '%s', el documento serializado queda de tamaño %d y no entra en la EEPROM (de capacidad %d)", clave, tamanioSerializado, tamanioEEPROM);
+                    this -> estaCorrupta = true;
+                    return false;
                 }
                 
+                LOG("BaseDatosEEPROM::setValor('%s') finalizó correctamente", clave);
+                return true;
+            }
+            
+            template <typename T>
+            const T getValorSetteando(const char *clave, const T valorPredeterminado) const {
+                GET_VALOR_SETTEANDO(clave, valorPredeterminado);
+                return this -> documento[clave];
+            }
+            
+            template <typename T>
+            T getValorSetteando(const char *clave, T valorPredeterminado) {
+                GET_VALOR_SETTEANDO(clave, valorPredeterminado);
                 return this -> documento[clave];
             }
             
