@@ -28,8 +28,8 @@
              *  ser nulo).
              * @param nombre El nombre del medidor (que no debería ser nulo).
              */
-            Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, Scheduler *planif)
-                : MedidorTemporizado<T_RESULTADO, F_LOGGER>(nombre, callback, TASK_SECOND, planif)
+            Frecuencimetro(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, Scheduler *planif, CondicionResultado<T_RESULTADO> *verificador = nullptr)
+                : MedidorTemporizado<T_RESULTADO, F_LOGGER>(nombre, callback, TASK_SECOND, planif, verificador)
                 , contFrec(Contador<T_RESULTADO>(0))
             {}
 

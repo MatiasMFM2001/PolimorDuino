@@ -18,8 +18,8 @@
             DHT *sensor;
             
         public:
-            TermometroHumedometroDHT(const __FlashStringHelper *nombre, CallbackResultado<TemperaturaHumedad> *callback, Scheduler *planif, DHT *sensor)
-                : MedidorTemporizado<TemperaturaHumedad, F_LOGGER>(nombre, callback, 2 * TASK_SECOND, planif)
+            TermometroHumedometroDHT(const __FlashStringHelper *nombre, CallbackResultado<TemperaturaHumedad> *callback, Scheduler *planif, DHT *sensor, CondicionResultado<TemperaturaHumedad> *verificador = nullptr)
+                : MedidorTemporizado<TemperaturaHumedad, F_LOGGER>(nombre, callback, 2 * TASK_SECOND, planif, verificador)
                 , sensor(sensor)
             {}
 

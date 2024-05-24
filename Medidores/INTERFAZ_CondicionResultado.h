@@ -4,13 +4,13 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef CALLBACK_RESULTADO
-#define CALLBACK_RESULTADO
+#ifndef CONDICION_RESULTADO
+#define CONDICION_RESULTADO
 
 #include <Printable.h>
     template <typename T>
-    class CallbackResultado : virtual public Printable {
+    class CondicionResultado : virtual public Printable {
         public:
-            virtual void notificar(T &resultado) = 0;
+            virtual bool esValido(T &resultado) = 0;
     };
 #endif

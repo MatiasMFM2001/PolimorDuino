@@ -17,8 +17,8 @@
     template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
     class MedidorTemporizado : public TareaMedidora<T_RESULTADO, F_LOGGER> {
         public:
-            MedidorTemporizado(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, unsigned long msMedicion, Scheduler *planif)
-                : TareaMedidora<T_RESULTADO, F_LOGGER>(nombre, callback, msMedicion, planif)
+            MedidorTemporizado(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, unsigned long msMedicion, Scheduler *planif, CondicionResultado<T_RESULTADO> *verificador)
+                : TareaMedidora<T_RESULTADO, F_LOGGER>(nombre, callback, msMedicion, planif, verificador)
             {}
     };
 #endif

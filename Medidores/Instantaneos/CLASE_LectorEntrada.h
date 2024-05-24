@@ -14,8 +14,8 @@
             Entrada<T_RESULTADO, N_NUM_BITS> *entrada;
       
         public:
-            LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, Scheduler *planif, Entrada<T_RESULTADO, N_NUM_BITS> *entrada)
-                : MedidorInstantaneo<T_RESULTADO, F_LOGGER>(nombre, callback, planif)
+            LectorEntrada(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, Scheduler *planif, Entrada<T_RESULTADO, N_NUM_BITS> *entrada, CondicionResultado<T_RESULTADO> *verificador = nullptr)
+                : MedidorInstantaneo<T_RESULTADO, F_LOGGER>(nombre, callback, planif, verificador)
                 , entrada(entrada)
             {}
             
