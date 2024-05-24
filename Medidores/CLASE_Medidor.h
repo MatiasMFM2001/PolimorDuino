@@ -53,7 +53,7 @@
                 this -> callback = ingr;
             }
         
-            virtual void iniciarMedicion() = 0;
+            virtual void iniciarMedicion(void) = 0;
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
