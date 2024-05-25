@@ -10,6 +10,7 @@
 #include "../Logger/FuncionesLoggers.h"
 #include "INTERFAZ_CallbackResultado.h"
 #include "INTERFAZ_CondicionResultado.h"
+#include "../Logger/FuncionesJSON.h"
     /**
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
      *  realizando acciones con los valores medidos.
@@ -19,7 +20,7 @@
      * @tparam F_LOGGER La función encargada de imprimir en logs el valor medido.
      */
     template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
-    class Medidor : public Printable {
+    class Medidor : virtual public Printable {
         private:
             CallbackResultado<T_RESULTADO> *callback;
             CondicionResultado<T_RESULTADO> *verificador;
@@ -54,7 +55,7 @@
         
         public:
             Medidor(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, CondicionResultado<T_RESULTADO> *verificador)
-                : callback(callback), nombre(nombre), verificador(verificador)
+                : callback(callback), verificador(verificador), nombre(nombre)
             {}
         
             void setCallback(CallbackResultado<T_RESULTADO> *ingr) {
@@ -71,7 +72,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "Medidor", callback, nombre);
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "Medidor", callback, verificador, nombre);
             }
     };
 #endif

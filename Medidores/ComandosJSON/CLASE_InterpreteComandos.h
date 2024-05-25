@@ -4,22 +4,21 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef TAREA_MEDIDORA
-#define TAREA_MEDIDORA
+#ifndef INTERPRETE_COMANDOS
+#define INTERPRETE_COMANDOS
 
 #define CLAVE_COMANDO "COMANDO"
 #define CLAVE_ARGS "ARGS"
 
-#include "CLASE_Medidor.h"
+#include "../CLASE_Medidor.h"
     /**
      * @brief 
      */
-    template <typename T_RESULTADO, size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, void (*F_LOGGER)(JsonDocument&) = imprimir>
+    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, void (*F_LOGGER)(JsonDocument&) = nullptr>
     class InterpreteComandos : public Medidor<JsonDocument, F_LOGGER>, public CallbackResultado<WrapperPuntero<Stream>> {
         public:
-            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<T_RESULTADO> *verificador)
+            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<JsonDocument> *verificador)
                 : Medidor<JsonDocument, F_LOGGER>(nombre, callback, verificador)
-                , Task(msMedicion, TASK_ONCE, planif, false)
             {}
             
             void iniciarMedicion(void) override {
@@ -27,7 +26,7 @@
             
             void notificar(WrapperPuntero<Stream> &resultado) override {
                 StaticJsonDocument<CAPACIDAD_JSON_FINAL> documentoFinal;
-                Stream stream = resultado.getDato();
+                Stream &stream = resultado.getDato();
                 
                 while (true) {
                     switch (stream.peek()) {
@@ -53,12 +52,12 @@
                         return;
                     }
                     
-                    if (!documentoIntermedio.is<char *>()) {
+                    if (!documentoIntermedio.template is<const char *>()) {
                         FLOGS("ERROR: El comando deserializado no es una String.");
                         return;
                     }
                     
-                    documentoFinal[CLAVE_COMANDO] = documentoIntermedio.as<char *>();
+                    documentoFinal[CLAVE_COMANDO] = documentoIntermedio.template as<const char *>();
                     JsonArray array = documentoFinal.createNestedArray(CLAVE_ARGS);
                     
                     while ((retorno == DeserializationError::Ok) && !(documentoFinal.overflowed())) {
@@ -73,6 +72,17 @@
                     }
                 
                     this -> finalizarMedicion(documentoFinal);
+            }
+            
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            size_t printTo(Print &impresora) const override {
+                return OBJETO_A_JSON(impresora, "InterpreteComandos") + SUPERCLASES_A_JSON(impresora, (Medidor<JsonDocument, F_LOGGER>));
             }
     };
 #endif

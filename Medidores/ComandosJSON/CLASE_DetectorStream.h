@@ -7,9 +7,9 @@
 #ifndef DETECTOR_STREAM
 #define DETECTOR_STREAM
 
-#include "CLASE_MedidorInstantaneo.h"
+#include "../Instantaneos/CLASE_MedidorInstantaneo.h"
 #include <Stream.h>
-#include "../../../Logger/CLASE_WrapperPuntero.h"
+#include "../../Logger/CLASE_WrapperPuntero.h"
     template <void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
     class DetectorStream : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
         private:
