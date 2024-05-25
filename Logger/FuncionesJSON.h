@@ -33,10 +33,10 @@
         return impresora.print(valor);
     }
 
-#include "CLASE_WrapperPuntero.h"
+#include "CLASE_WrapperPunteroPrintable.h"
     template <typename T_VALOR>
     size_t imprimirDatoJSON(Print &impresora, T_VALOR *valor) {
-        return imprimirDatoJSON(impresora, WrapperPuntero<T_VALOR>(valor));
+        return imprimirDatoJSON(impresora, WrapperPunteroPrintable<T_VALOR>(valor));
     }
     
     template <typename T_VALOR, size_t S>

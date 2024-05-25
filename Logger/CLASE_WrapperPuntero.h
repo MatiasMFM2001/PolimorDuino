@@ -6,16 +6,13 @@
 
 #ifndef WRAPPER_PUNTERO
 #define WRAPPER_PUNTERO
-
-#include <Printable.h>
-#include "FuncionesJSON.h"
     /**
-     * @brief Encapsula un puntero crudo, permitiendo imprimirlo.
+     * @brief Encapsula un puntero crudo.
      *
      * @tparam T El tipo de dato a apuntar.
      */
     template <typename T>
-    class WrapperPuntero : public Printable {
+    class WrapperPuntero {
         private:
             /** @brief Puntero al dato. */
             T *puntero;
@@ -53,21 +50,6 @@
             bool esNulo(void) const {
                 return ((this -> puntero) == nullptr);
             }
-        
-            /**
-             * @brief Imprime el dato apuntado a la impresora especificada.
-             *
-             * @param impresora Referencia a la impresora especificada.
-             * @returns La cantidad de bytes escritos a la impresora.
-             */
-            size_t printTo(Print &impresora) const override {
-                if (this -> esNulo()) {
-                    return impresora.print(JSON_NULL);
-                }
-                
-                return imprimirDatoJSON(impresora, this -> getDato());
-            }
-            
             
             /**
              * @returns El puntero encapsulado.
