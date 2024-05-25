@@ -9,6 +9,7 @@
 
 #include "../Logger/FuncionesLoggers.h"
 #include "INTERFAZ_CallbackResultado.h"
+#include "INTERFAZ_CondicionResultado.h"
     /**
      * @brief Define una interfaz para los objetos que puedan medir parámetros,
      *  realizando acciones con los valores medidos.
@@ -21,6 +22,7 @@
     class Medidor : public Printable {
         private:
             CallbackResultado<T_RESULTADO> *callback;
+            CondicionResultado<T_RESULTADO> *verificador;
             
         protected:
             const __FlashStringHelper *nombre;
@@ -41,12 +43,18 @@
                     LOG("MEDIDOR \"%S\" - Valor no mostrado por F_LOGGER nulo.", this -> nombre);
                 }
                 
+                if ((this -> verificador) && !(this -> verificador -> esValido(ingr))) {
+                    LOG("MEDIDOR \"%S\" - Callback no ejecutado por resultado inválido.", this -> nombre);
+                    return;
+                }
+                
+                LOG("MEDIDOR \"%S\" - Callback ejecutado por resultado válido.", this -> nombre);
                 this -> callback -> notificar(ingr);
             }
         
         public:
-            Medidor(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback)
-                : callback(callback), nombre(nombre)
+            Medidor(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, CondicionResultado<T_RESULTADO> *verificador)
+                : callback(callback), nombre(nombre), verificador(verificador)
             {}
         
             void setCallback(CallbackResultado<T_RESULTADO> *ingr) {

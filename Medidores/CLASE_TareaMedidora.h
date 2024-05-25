@@ -9,7 +9,6 @@
 
 #include "CLASE_Medidor.h"
 #include "../Inclusiones/InclusionTaskScheduler.h"
-#include "INTERFAZ_CondicionResultado.h"
     /**
      * @brief 
      * 
@@ -18,13 +17,10 @@
      */
     template <typename T_RESULTADO, void (*F_LOGGER)(T_RESULTADO&) = imprimir>
     class TareaMedidora : public Medidor<T_RESULTADO, F_LOGGER>, public Task {
-        private:
-            CondicionResultado<T_RESULTADO> *verificador;
-        
         public:
             TareaMedidora(const __FlashStringHelper *nombre, CallbackResultado<T_RESULTADO> *callback, unsigned long msMedicion, Scheduler *planif, CondicionResultado<T_RESULTADO> *verificador)
-                : Medidor<T_RESULTADO, F_LOGGER>(nombre, callback)
-                , Task(msMedicion, TASK_ONCE, planif, false), verificador(verificador)
+                : Medidor<T_RESULTADO, F_LOGGER>(nombre, callback, verificador)
+                , Task(msMedicion, TASK_ONCE, planif, false)
             {}
             
             bool OnEnable(void) override {
@@ -42,10 +38,7 @@
              */
             bool Callback(void) override {
                 T_RESULTADO resultado = this -> getResultado();
-                
-                if (!(this -> verificador) || (this -> verificador -> esValido(resultado))) {
-                    this -> finalizarMedicion(resultado);
-                }
+                this -> finalizarMedicion(resultado);
                 
                 return true;
             }

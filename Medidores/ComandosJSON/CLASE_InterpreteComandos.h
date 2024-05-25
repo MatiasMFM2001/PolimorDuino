@@ -14,12 +14,12 @@
     /**
      * @brief 
      */
-    template <typename T_RESULTADO, size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, void (*F_LOGGER)(JsonDocument&) = nullptr>
+    template <typename T_RESULTADO, size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, void (*F_LOGGER)(JsonDocument&) = imprimir>
     class InterpreteComandos : public Medidor<JsonDocument, F_LOGGER>, public CallbackResultado<WrapperPuntero<Stream>> {
         public:
-            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback)
-                : Medidor<JsonDocument, F_LOGGER>(nombre, callback)
-                , Task(msMedicion, TASK_ONCE, planif, false), verificador(verificador)
+            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<T_RESULTADO> *verificador)
+                : Medidor<JsonDocument, F_LOGGER>(nombre, callback, verificador)
+                , Task(msMedicion, TASK_ONCE, planif, false)
             {}
             
             void iniciarMedicion(void) override {
