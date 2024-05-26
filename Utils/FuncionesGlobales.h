@@ -175,6 +175,28 @@
     }
     
     /**
+     * @brief Agrega el valor especificado al array múltiples veces, según la
+     *  capacidad restante y la cantidad máxima especificada.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en el array.
+     * @tparam S La cantidad máxima de elementos del array a procesar.
+     * @param array El array a procesar.
+     * @param valor El valor a buscar en el array.
+     * @returns @c true si el @c array contiene el @c valor, @c false en el caso
+     *  contrario.
+     */
+    template <typename T, size_t S>
+    bool contiene(Array<T, S> &array, T valor) {
+        for (T &selec: array) {
+            if (selec == valor) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
      * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
      *  es distinta a @c TASK_FOREVER) por otra cantidad.
      * 
