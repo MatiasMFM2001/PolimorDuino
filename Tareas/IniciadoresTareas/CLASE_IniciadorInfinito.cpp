@@ -7,14 +7,15 @@
 #include "CLASE_IniciadorInfinito.h"
 #include "../../Logger/FuncionesJSON.h"
 
-IniciadorInfinito::IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea)
+IniciadorInfinito::IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea, CondicionResultado<> *condicionFin)
     : IniciadorTareas(msEntreIniciaciones, planif, tarea)
+    , condicionFin(condicionFin)
 {}
 
 bool IniciadorInfinito::deboFinalizar(void) {
-    return false;
+    return ((this -> condicionFin) && (this -> condicionFin -> esValido()));
 }
 
 size_t IniciadorInfinito::printTo(Print& impresora) const {
-    return OBJETO_SIN_SUPER_A_JSON(impresora, "IniciadorInfinito");
+    return OBJETO_SIN_SUPER_A_JSON(impresora, "IniciadorInfinito", condicionFin);
 }

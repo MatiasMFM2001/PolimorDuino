@@ -8,11 +8,16 @@
 #define INICIADOR_INFINITO
 
 #include "CLASE_IniciadorTareas.h"
+#include "../../Medidores/INTERFAZ_CondicionResultado.h"
     /**
      * @brief Tarea que permite iniciar la ejecución de otra tarea, cada cierta
-     *  cantidad de tiempo, una cantidad infinita de veces.
+     *  cantidad de tiempo, una cantidad infinita de veces (o, si se especificó
+     *  una condición, mientras ésta sea falsa).
      */
     class IniciadorInfinito : public IniciadorTareas {
+        private:
+            CondicionResultado<> *condicionFin;
+        
         public:
             /**
              * @brief Construye un IniciadorInfinito, con el tiempo entre
@@ -23,8 +28,9 @@
              * @param planif El planificador de tareas especificado (que puede
              *  ser nulo).
              * @param tarea La tarea especificada (que no debería ser nula).
+             * @param condicionFin La condición a verificar (que puede ser nula).
              */
-            IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea);
+            IniciadorInfinito(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea, CondicionResultado<> *condicionFin = nullptr);
             
             /**
              * @returns @c false para mantener la iniciación infinita.
