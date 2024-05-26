@@ -12,7 +12,7 @@
      * @brief 
      */
     template <void (*F_LOGGER)(WrapperPuntero<AsyncTelegram2>&) = nullptr>
-    class ConectadorTelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<AsyncTelegram2>, F_LOGGER>, public CondicionResultado<WrapperPuntero<AsyncTelegram2>> {
+    class ConectadorTelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<AsyncTelegram2>, F_LOGGER>, public CondicionResultado<WrapperPuntero<AsyncTelegram2>>, public CondicionResultado<> {
         private:
             AsyncTelegram2 *bot;
         
@@ -28,6 +28,10 @@
             
             bool esValido(WrapperPuntero<AsyncTelegram2> &resultado) override {
                 return resultado.getDato().begin();
+            }
+            
+            bool esValido() override {
+                return this -> bot -> checkConnection();
             }
             
             /**
