@@ -8,9 +8,9 @@
 #define CONDICION_RESULTADO
 
 #include <Printable.h>
-    template <typename T>
+    template <typename... T>
     class CondicionResultado : virtual public Printable {
         public:
-            virtual bool esValido(T &resultado) = 0;
+            virtual bool esValido(T&... resultado) = 0;
     };
 #endif
