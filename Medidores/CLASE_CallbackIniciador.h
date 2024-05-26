@@ -12,14 +12,19 @@
     class CallbackIniciador: public CallbackResultado<T...> {
         private:
             Task *tarea;
+            CallbackResultado<T...> *accionesAdicionales;
         
         public:
-            CallbackIniciador(Task *tarea)
-                : tarea(tarea)
+            CallbackIniciador(Task *tarea, CallbackResultado<T...> *accionesAdicionales = nullptr)
+                : tarea(tarea), accionesAdicionales(accionesAdicionales)
             {}
             
             void notificar(T&... resultado) override {
                 this -> tarea -> enableIfNot();
+                
+                if (this -> accionesAdicionales) {
+                    this -> accionesAdicionales -> notificar(resultado...);
+                }
             }
             
             /**
@@ -30,7 +35,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "CallbackIniciador");
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "CallbackIniciador", accionesAdicionales);
             }
     };
 #endif
