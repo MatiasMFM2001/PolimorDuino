@@ -30,6 +30,12 @@
         
             void inicializar(void) override {
                 Task::enable();
+                
+            #ifdef ESP8266
+                WiFi.setAutoConnect(true);
+            #endif
+            
+                WiFi.mode(WIFI_STA);
                 WiFi.begin(this -> nombreRed.data(), this -> contrasenia.data());
             }
             
