@@ -12,7 +12,7 @@
      * @brief 
      */
     template <void (*F_LOGGER)(WrapperPuntero<AsyncTelegram2>&) = nullptr>
-    class ConectadorTelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<AsyncTelegram2>, F_LOGGER>, public CallbackResultado<WiFiClass>, public CondicionResultado<WrapperPuntero<AsyncTelegram2>> {
+    class ConectadorTelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<AsyncTelegram2>, F_LOGGER>, public CondicionResultado<WrapperPuntero<AsyncTelegram2>> {
         private:
             AsyncTelegram2 *bot;
         
@@ -24,10 +24,6 @@
             
             WrapperPuntero<AsyncTelegram2> getResultado(void) override {
                 return WrapperPuntero(this -> bot);
-            }
-            
-            void notificar(WiFiClass &resultado) override {
-                Task::enable();
             }
             
             bool esValido(WrapperPuntero<AsyncTelegram2> &resultado) override {

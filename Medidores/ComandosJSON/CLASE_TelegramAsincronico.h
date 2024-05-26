@@ -13,7 +13,7 @@
 #include <LoopbackStream.h>
 #include "../../Utils/FuncionesGlobales.h"
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
-    class TelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>>, public CallbackResultado<WrapperPuntero<AsyncTelegram2>> {
+    class TelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
         private:
             AsyncTelegram2 *bot;
             LoopbackStream stream;
@@ -54,11 +54,6 @@
             
             bool esValido(WrapperPuntero<Stream> &resultado) override {
                 return (!resultado.esNulo() && resultado.getDato().available() > 0);
-            }
-            
-            void notificar(WrapperPuntero<AsyncTelegram2> &resultado) override {
-                LOG("Dispositivo conectado al bot de Telegram de username '%s'", resultado.getDato().getBotName());
-                Task::enable();
             }
 
             /**
