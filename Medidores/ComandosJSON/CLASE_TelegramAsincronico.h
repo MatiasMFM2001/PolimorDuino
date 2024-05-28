@@ -30,6 +30,7 @@
                 MessageType tipoMensaje = this -> bot -> getNewMessage(mensaje);
                 
                 if (tipoMensaje != MessageType::MessageText) {
+                    LOG("ADVERTENCIA: Se descartó el mensaje recibido, de tipo %d", tipoMensaje);
                     return WrapperPuntero<Stream>();
                 }
                 
