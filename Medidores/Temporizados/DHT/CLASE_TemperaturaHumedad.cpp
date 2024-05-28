@@ -7,8 +7,8 @@
 #include "CLASE_TemperaturaHumedad.h"
 #include "../../../Logger/FuncionesJSON.h"
 
-TemperaturaHumedad::TemperaturaHumedad(void)
-    : temperatura(NO_DEFINIDA), humedad(NO_DEFINIDA)
+TemperaturaHumedad::TemperaturaHumedad(float temperatura, float humedad)
+    : temperatura(temperatura), humedad(humedad)
 {}
 
 void TemperaturaHumedad::setTemperatura(float ingr) {

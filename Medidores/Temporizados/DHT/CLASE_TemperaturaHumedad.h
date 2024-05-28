@@ -18,7 +18,7 @@
             float humedad;
         
         public:
-            TemperaturaHumedad(void);
+            TemperaturaHumedad(float temperatura = NO_DEFINIDA, float humedad = NO_DEFINIDA);
             
             void setTemperatura(float ingr);
             float getTemperatura(void);
