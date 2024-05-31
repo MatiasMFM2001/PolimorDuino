@@ -68,7 +68,7 @@
 
     #define IMPRIMIR_NOMBRE_VARIABLE_JSON(impresora, nombreVariable) (imprimirDatoJSON(impresora, F(nombreVariable)) + impresora.print(JSON_VARIABLE))
     #define IMPRIMIR_VARIABLE_JSON(impresora, nombreVariable, valor) (IMPRIMIR_NOMBRE_VARIABLE_JSON(impresora, nombreVariable) + imprimirDatoJSON(impresora, valor))
-    #define IMPRIMIR_VARIABLE_INSTANCIA_JSON(impresora, variable) IMPRIMIR_VARIABLE_JSON(impresora, #variable, variable)
+    #define IMPRIMIR_VARIABLE_INSTANCIA_JSON(impresora, variable) IMPRIMIR_VARIABLE_JSON(impresora, #variable, variable) + impresora.print(',')
     #define IMPRIMIR_SUPERCLASE_JSON(impresora, nombreSuperclase) IMPRIMIR_VARIABLE_JSON(impresora, #nombreSuperclase, LLAMAR_METODO(impresora, nombreSuperclase))
     #define IMPRIMIR_CLAUSURA_OBJETO_JSON(impresora) impresora.print(JSON_CLAUSURA_OBJETO)
     
