@@ -24,7 +24,9 @@
             {}
             
             bool OnEnable(void) override {
+                LOG("TareaMedidora::OnEnable('%s')", this -> nombre);
                 this -> iniciarMedicion();
+                
                 return true;
             }
             
@@ -37,10 +39,15 @@
              *  "productiva".
              */
             bool Callback(void) override {
+                LOG("TareaMedidora::Callback('%s', %d)", this -> nombre, Task::getRunCounter());
                 T_RESULTADO resultado = this -> getResultado();
                 this -> finalizarMedicion(resultado);
                 
                 return true;
+            }
+            
+            void OnDisable(void) override {
+                LOG("TareaMedidora::OnDisable('%s')", this -> nombre);
             }
     };
 #endif

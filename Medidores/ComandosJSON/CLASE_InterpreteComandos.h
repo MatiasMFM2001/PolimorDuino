@@ -25,6 +25,8 @@
             }
             
             void notificar(WrapperPuntero<Stream> &resultado) override {
+                this -> printTo(*_log4arduino_target);
+                
                 StaticJsonDocument<CAPACIDAD_JSON_FINAL> documentoFinal;
                 Stream &stream = resultado.getDato();
                 
@@ -35,7 +37,7 @@
                         case '\n':
                         case -1:
                         case '/':
-                            stream.read();
+                            LOG("Caracter salteado = %c", stream.read());
                             break;
                             
                         default:
@@ -44,8 +46,12 @@
                 }
                 
                 procesar:
+                    FLOGS("Parseando JSON de comando...");
                     StaticJsonDocument<CAPACIDAD_JSON_INTERMEDIO> documentoIntermedio;
                     DeserializationError retorno = deserializeJson(documentoIntermedio, stream);
+                    
+                    LOG("JSON inicial parseado con retorno %d", retorno);
+                    serializeJsonPretty(documentoIntermedio, *_log4arduino_target);
                     
                     if (retorno != DeserializationError::Ok) {
                         LOG("ERROR: Deserializar el comando del stream falló con el error %d.", retorno);
@@ -63,6 +69,9 @@
                     while ((retorno == DeserializationError::Ok) && !(documentoFinal.overflowed())) {
                         retorno = deserializeJson(documentoIntermedio, stream);
                         
+                        LOG("JSON argumento parseado con retorno %d", retorno);
+                        serializeJsonPretty(documentoIntermedio, *_log4arduino_target);
+                        
                         if (retorno != DeserializationError::Ok) {
                             LOG("ERROR: Deserializar un argumento del stream falló con el error %d.", retorno);
                             continue;
@@ -71,6 +80,8 @@
                         array.add(documentoIntermedio);
                     }
                 
+                    FLOGS("DOCUMENTO FINAL:");
+                    serializeJsonPretty(documentoFinal, *_log4arduino_target);
                     this -> finalizarMedicion(documentoFinal);
             }
             

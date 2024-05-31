@@ -22,10 +22,12 @@
             {}
             
             WrapperPuntero<Stream> getResultado(void) override {
+                FLOGS("Ejecutando DetectorStream::getResultado()");
                 return WrapperPuntero(this -> entrada);
             }
             
             bool esValido(WrapperPuntero<Stream> &resultado) override {
+                LOG("stream.getDato().available() = %d", resultado.getDato().available());
                 return (resultado.getDato().available() > 0);
             }
 

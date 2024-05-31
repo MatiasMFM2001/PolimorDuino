@@ -42,6 +42,8 @@
                     salida.setTemperatura(this -> sensor -> readTemperature(false));
                 }
                 
+                LOG("Temperatura medida:");
+                imprimir(salida);
                 return salida;
             }
             
