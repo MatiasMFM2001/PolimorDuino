@@ -34,7 +34,7 @@
              *  ser nulo).
              * @param tarea La tarea especificada (que no debería ser nula).
              */
-            IniciadorFinito(unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler *planif, Task *tarea);
+            IniciadorFinito(const char *nombre, unsigned long msEntreIniciaciones, unsigned long numIniciaciones, Scheduler *planif, Task *tarea);
             
             /**
              * @brief Reinicia el contador de iteraciones.

@@ -6,16 +6,30 @@
 
 #include "CLASE_IniciadorTareas.h"
 #include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
+#include "../../Inclusiones/InclusionLog4Arduino.h"
 
-IniciadorTareas::IniciadorTareas(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea)
+IniciadorTareas::IniciadorTareas(const char *nombre, unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea)
     : Task(msEntreIniciaciones, TASK_FOREVER, planif, false)
-    , tarea(tarea)
+    , tarea(tarea), nombre(nombre)
 {}
 
 bool IniciadorTareas::Callback(void) {
-    if ((this -> tarea -> enableIfNot()) && (this -> deboFinalizar())) {
-        this -> disable();
+    LOG("INICIO IniciadorTareas::Callback('%s')", this -> nombre);
+
+    if (!(this -> tarea -> isEnabled())) {
+        if (this -> deboFinalizar()) {
+            LOG("IniciadorTareas::Callback('%s') - Me deshabilito", this -> nombre);
+            this -> disable();
+        }
+        else {
+            LOG("IniciadorTareas::Callback('%s') - Habilito mi tarea", this -> nombre);
+            this -> tarea -> restart();
+        }
+    }
+    else {
+        LOG("IniciadorTareas::Callback('%s') - No hago nada, la tarea ya estaba habilitada", this -> nombre);
     }
     
+    LOG("FIN IniciadorTareas::Callback('%s')", this -> nombre);
     return true;
 }

@@ -18,6 +18,7 @@
         private:
             /** @brief La tarea a iniciar periódicamente. */
             Task *tarea;
+            const char *nombre;
         
         public:
             /**
@@ -30,7 +31,7 @@
              *  ser nulo).
              * @param tarea La tarea especificada (que no debería ser nula).
              */
-            IniciadorTareas(unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea);
+            IniciadorTareas(const char *nombre, unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea);
 
             /**
              * @brief Si la tarea no estaba activada y @c deboFinalizar(),
