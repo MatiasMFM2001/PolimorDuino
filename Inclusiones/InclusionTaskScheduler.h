@@ -7,6 +7,10 @@
 #ifndef INCLUSION_TASK_SCHEDULER
 #define INCLUSION_TASK_SCHEDULER
 
+#ifdef INC_FREERTOS_H
+    #define _TASK_THREAD_SAFE
+#endif
+
 #define _TASK_OO_CALLBACKS
 #include <TaskScheduler.h>
 
