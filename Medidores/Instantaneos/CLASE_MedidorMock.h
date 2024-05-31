@@ -19,6 +19,10 @@
                 , salida(salida)
             {}
             
+            void setResultado(T_RESULTADO ingr) {
+                this -> salida = ingr;
+            }
+            
             T_RESULTADO getResultado(void) override {
                 return this -> salida;
             }
