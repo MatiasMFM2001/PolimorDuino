@@ -49,8 +49,10 @@
 #include "CLASE_EscritorEEPROM.h"
 #include <EEPROM.h>
 #include "../../Medidores/INTERFAZ_CallbackResultado.h"
+#include "../../Medidores/INTERFAZ_CallbackResultado.h"
+#include <Printable.h>
     template <size_t CAPACIDAD_JSON, typename T_EEPROM = EEPROMClass>
-    class BaseDatosEEPROM : public Inicializable {
+    class BaseDatosEEPROM : public Inicializable, public Printable {
         private:
             T_EEPROM *eeprom;
             StaticJsonDocument<CAPACIDAD_JSON> documento;
@@ -161,6 +163,18 @@
                 
                 this -> eeprom -> put(DIRECCION_NUM_BYTES, tamanioEscrito);
                 return true;
+            }
+            
+            /**
+             * @brief Imprime el dato apuntado a la impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            size_t printTo(Print &impresora) const override {
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "BaseDatosEEPROM", leerAlInicializar, estaCorrupta, version, migrador)
+                    + impresora.println()
+                    + serializeJsonPretty(this -> documento, impresora);
             }
     };
 #endif
