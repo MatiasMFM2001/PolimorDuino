@@ -35,13 +35,14 @@
                         case 0xFE:
                         case 0xFF:
                         case '\n':
-                        case -1:
-                        case '/':
                             LOG("Caracter salteado = %c", stream.read());
                             break;
-                            
-                        default:
+                        
+                        case '/':
                             goto procesar;
+                        
+                        case -1:
+                            return;
                     }
                 }
                 
