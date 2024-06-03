@@ -32,17 +32,15 @@
                 
                 while (true) {
                     switch (stream.peek()) {
-                        case 0xFE:
-                        case 0xFF:
-                        case '\n':
-                            LOG("Caracter salteado = %c", stream.read());
-                            break;
-                        
                         case '/':
                             goto procesar;
                         
                         case -1:
                             return;
+                        
+                        default:
+                            LOG("Caracter salteado = %c", stream.read());
+                            break;
                     }
                 }
                 
