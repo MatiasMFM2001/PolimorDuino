@@ -48,9 +48,20 @@
                     FLOGS("Parseando comando...");
                     
                     char bufferComando[CAPACIDAD_STRING_COMANDO + 1];
-                    size_t retornoComando = stream.readBytesUntil(' ', bufferComando, CAPACIDAD_STRING_COMANDO);
+                    size_t numLeidos = 0;
+                    int datoLeido = stream.read();
                     
-                    size_t numLeidos = (retornoComando > 0) ? retornoComando : strnlen(bufferComando, CAPACIDAD_STRING_COMANDO);
+                    while ((numLeidos < CAPACIDAD_STRING_COMANDO) && (datoLeido != -1)) {
+                        char caracterLeido = (char) datoLeido;
+                        
+                        if (isSpace(caracterLeido)) {
+                            break;
+                        }
+                        
+                        bufferComando[numLeidos++] = caracterLeido;
+                        datoLeido = stream.read();
+                    }
+                    
                     bufferComando[numLeidos] = '\0';
                     
                     LOG("Comando parseado = '%s'", bufferComando);
