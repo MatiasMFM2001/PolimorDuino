@@ -160,7 +160,7 @@
         
         while (selec != valorFinal) {
             salida.push_back(selec);
-            selec = *(entrada++);
+            selec = *(++entrada);
         }
         
         if (!agregarValorFinal) {
