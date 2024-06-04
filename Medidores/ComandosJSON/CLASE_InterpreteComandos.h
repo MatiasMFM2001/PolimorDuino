@@ -14,7 +14,7 @@
     /**
      * @brief 
      */
-    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, void (*F_LOGGER)(JsonDocument&) = nullptr>
+    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, void (*F_LOGGER)(JsonDocument&) = nullptr>
     class InterpreteComandos : public Medidor<JsonDocument, F_LOGGER>, public CallbackResultado<WrapperPuntero<Stream>> {
         public:
             InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<JsonDocument> *verificador = nullptr)
@@ -45,24 +45,19 @@
                 }
                 
                 procesar:
-                    FLOGS("Parseando JSON de comando...");
+                    FLOGS("Parseando comando...");
+                    
+                    char bufferComando[CAPACIDAD_STRING_COMANDO + 1];
+                    size_t retornoComando = stream.readBytesUntil(' ', bufferComando, CAPACIDAD_STRING_COMANDO);
+                    
+                    size_t numLeidos = (retornoComando > 0) ? retornoComando : strnlen(bufferComando, CAPACIDAD_STRING_COMANDO);
+                    bufferComando[numLeidos] = '\0';
+                    
+                    LOG("Comando parseado = '%s'", bufferComando);
+                    documentoFinal[CLAVE_COMANDO] = bufferComando;
+                    
                     StaticJsonDocument<CAPACIDAD_JSON_INTERMEDIO> documentoIntermedio;
-                    DeserializationError retorno = deserializeJson(documentoIntermedio, stream);
-                    
-                    LOG("JSON inicial parseado con retorno %d", retorno);
-                    serializeJsonPretty(documentoIntermedio, *_log4arduino_target);
-                    
-                    if (retorno != DeserializationError::Ok) {
-                        LOG("ERROR: Deserializar el comando del stream falló con el error %d.", retorno);
-                        return;
-                    }
-                    
-                    if (!documentoIntermedio.template is<const char *>()) {
-                        FLOGS("ERROR: El comando deserializado no es una String.");
-                        return;
-                    }
-                    
-                    documentoFinal[CLAVE_COMANDO] = documentoIntermedio.template as<const char *>();
+                    DeserializationError retorno;
                     JsonArray array = documentoFinal.createNestedArray(CLAVE_ARGS);
                     
                     while ((retorno == DeserializationError::Ok) && !(documentoFinal.overflowed())) {
