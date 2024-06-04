@@ -68,21 +68,21 @@
                     documentoFinal[CLAVE_COMANDO] = bufferComando;
                     
                     StaticJsonDocument<CAPACIDAD_JSON_INTERMEDIO> documentoIntermedio;
-                    DeserializationError retorno;
+                    DeserializationError retorno = deserializeJson(documentoIntermedio, stream);
                     JsonArray array = documentoFinal.createNestedArray(CLAVE_ARGS);
                     
                     while ((retorno == DeserializationError::Ok) && !(documentoFinal.overflowed())) {
+                        array.add(documentoIntermedio);
+                        
+                        serializeJsonPretty(documentoIntermedio, *_log4arduino_target);
+                        FLOGS("");
+                        FLOGS("^ DOCUMENTO INTERMEDIO");
+                        
                         retorno = deserializeJson(documentoIntermedio, stream);
                         
-                        LOG("JSON argumento parseado con retorno %d", retorno);
-                        serializeJsonPretty(documentoIntermedio, *_log4arduino_target);
-                        
                         if (retorno != DeserializationError::Ok) {
-                            LOG("ERROR: Deserializar un argumento del stream falló con el error %d.", retorno);
-                            continue;
+                            LOG("ERROR: Deserializar un argumento del stream falló con el error %s.", retorno.c_str());
                         }
-                        
-                        array.add(documentoIntermedio);
                     }
                 
                     FLOGS("DOCUMENTO FINAL:");
