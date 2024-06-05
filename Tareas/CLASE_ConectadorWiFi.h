@@ -39,9 +39,13 @@
                 Task::enable();
             }
             
-            void setCredenciales(const char *nombreRed, const char *contrasenia) {
+            void setCredenciales(const char *nombreRed, const char *contrasenia, bool inicializarSiValido = true) {
                 agregarFinalArrayTerminado(nombreRed, this -> nombreRed, '\0', true);
                 agregarFinalArrayTerminado(contrasenia, this -> contrasenia, '\0', true);
+                
+                if (inicializarSiValido && (this -> nombreRed.size() > 1) && (this -> contrasenia.size() > 1)) {
+                    this -> inicializar();
+                }
             }
         
             /**
