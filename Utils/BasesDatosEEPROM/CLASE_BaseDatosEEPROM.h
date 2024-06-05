@@ -43,6 +43,35 @@
         } \
     }
 
+#define SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS) \
+    if (this -> estaCorrupta) { \
+        LOG("ADVERTENCIA: Se accedió a BaseDatosEEPROM::setValor('%s') con la BD corrupta", clave); \
+        return false; \
+    } \
+ \
+    StringEstatica<CAPACIDAD_STRINGS> copiaClave(clave); \
+ \
+    this -> documento.garbageCollect(); \
+    this -> documento[copiaClave.getContenido()] = copiaValor; \
+ \
+    if (this -> documento.overflowed()) { \
+        LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON); \
+        this -> estaCorrupta = true; \
+        return false; \
+    } \
+ \
+    size_t tamanioSerializado = this -> medirSerializado(); \
+    size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1); \
+ \
+    if (tamanioSerializado > tamanioEEPROM) { \
+        LOG("ADVERTENCIA: Tras insertar la clave '%s', el documento serializado queda de tamaño %d y no entra en la EEPROM (de capacidad %d)", clave, tamanioSerializado, tamanioEEPROM); \
+        this -> estaCorrupta = true; \
+        return false; \
+    } \
+ \
+    LOG("BaseDatosEEPROM::setValor('%s') finalizó correctamente", clave); \
+    return true; \
+
 #include <ArduinoJson.h>
 #include "../FuncionesGlobales.h"
 #include "CLASE_LectorEEPROM.h"
@@ -52,7 +81,7 @@
 #include "../../Medidores/INTERFAZ_CallbackResultado.h"
 #include <Printable.h>
 #include "../CLASE_StringEstatica.h"
-    template <size_t CAPACIDAD_JSON, size_t CAPACIDAD_CLAVES, typename T_EEPROM = EEPROMClass>
+    template <size_t CAPACIDAD_JSON, size_t CAPACIDAD_STRINGS, typename T_EEPROM = EEPROMClass>
     class BaseDatosEEPROM : public Inicializable, public Printable {
         private:
             T_EEPROM *eeprom;
@@ -114,34 +143,13 @@
             
             template <typename T>
             bool setValor(const char *clave, const T valor) {
-                if (this -> estaCorrupta) {
-                    LOG("ADVERTENCIA: Se accedió a BaseDatosEEPROM::setValor('%s') con la BD corrupta", clave);
-                    return false;
-                }
-                
-                StringEstatica<CAPACIDAD_CLAVES> copiaClave(clave);
                 T copiaValor = valor;
-                
-                this -> documento.garbageCollect();
-                this -> documento[copiaClave.getContenido()] = copiaValor;
-                
-                if (this -> documento.overflowed()) {
-                    LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON);
-                    this -> estaCorrupta = true;
-                    return false;
-                }
-                
-                size_t tamanioSerializado = this -> medirSerializado();
-                size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1);
-                
-                if (tamanioSerializado > tamanioEEPROM) {
-                    LOG("ADVERTENCIA: Tras insertar la clave '%s', el documento serializado queda de tamaño %d y no entra en la EEPROM (de capacidad %d)", clave, tamanioSerializado, tamanioEEPROM);
-                    this -> estaCorrupta = true;
-                    return false;
-                }
-                
-                LOG("BaseDatosEEPROM::setValor('%s') finalizó correctamente", clave);
-                return true;
+                SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS);
+            }
+            
+            bool setValor(const char *clave, const char *valor) {
+                StringEstatica<CAPACIDAD_STRINGS> copiaValor(valor);
+                SET_VALOR(clave, copiaValor.getContenido(), CAPACIDAD_STRINGS);
             }
             
             template <typename T>
