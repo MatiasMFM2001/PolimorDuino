@@ -12,12 +12,13 @@
 #include <WiFi.h>
 #include "../Medidores/INTERFAZ_CallbackResultado.h"
 #include "../Utils/FuncionesGlobales.h"
+#include "../Utils/CLASE_StringEstatica.h"
     template <size_t TAMANIO_NOMBRE = 32, size_t TAMANIO_CONTRASENIA = 32>
     class ConectadorWiFi : public Task, public Inicializable {
         private:
             CallbackResultado<WiFiClass> *notificadorConexionExitosa;
-            Array<char, TAMANIO_NOMBRE + 1> nombreRed;
-            Array<char, TAMANIO_CONTRASENIA + 1> contrasenia;
+            StringEstatica<TAMANIO_NOMBRE> nombreRed;
+            StringEstatica<TAMANIO_CONTRASENIA> contrasenia;
         
         public:
             /**
@@ -25,7 +26,7 @@
              */
             ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<WiFiClass> *notificadorConexionExitosa)
                 : Task(msEntreLlamados, TASK_FOREVER, planif, false)
-                , notificadorConexionExitosa(notificadorConexionExitosa), nombreRed(Array<char, TAMANIO_NOMBRE + 1>()), contrasenia(Array<char, TAMANIO_CONTRASENIA + 1>())
+                , notificadorConexionExitosa(notificadorConexionExitosa), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>())
             {}
         
             void inicializar(void) override {
@@ -34,16 +35,16 @@
                 #endif
             
                 WiFi.mode(WIFI_STA);
-                WiFi.begin(this -> nombreRed.data(), this -> contrasenia.data());
+                WiFi.begin(this -> nombreRed.getContenido(), this -> contrasenia.getContenido());
                 
                 Task::enable();
             }
             
             void setCredenciales(const char *nombreRed, const char *contrasenia, bool inicializarSiValido = true) {
-                agregarFinalArrayTerminado(nombreRed, this -> nombreRed, '\0', true);
-                agregarFinalArrayTerminado(contrasenia, this -> contrasenia, '\0', true);
+                this -> nombreRed.agregarFinal(nombreRed);
+                this -> contrasenia.agregarFinal(contrasenia);
                 
-                if (inicializarSiValido && (this -> nombreRed.size() > 1) && (this -> contrasenia.size() > 1)) {
+                if (inicializarSiValido && !(this -> nombreRed.estaVacia()) && !(this -> contrasenia.estaVacia())) {
                     this -> inicializar();
                 }
             }
