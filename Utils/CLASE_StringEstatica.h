@@ -10,7 +10,7 @@
 #include <Printable.h>
 #include <Array.h>
     template <size_t MAX_CAPACIDAD>
-    class StringEstatica {
+    class StringEstatica : public Printable {
         private:
             Array<char, MAX_CAPACIDAD + 1> contenido;
         
@@ -43,7 +43,7 @@
                 return this -> contenido.data();
             }
             
-            const char *getContenidoConstante(void) {
+            const char *getContenidoConstante(void) const {
                 return this -> contenido.data();
             }
             
@@ -61,6 +61,16 @@
                 
                 this -> contenido.push_back('\0');
                 return (*ingr == '\0');
+            }
+            
+            /**
+             * @brief Imprime el dato apuntado a la impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            size_t printTo(Print &impresora) const override {
+                return imprimirDatoJSON(impresora, this -> getContenidoConstante());
             }
     };
 #endif
