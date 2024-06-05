@@ -51,6 +51,7 @@
 #include "../../Medidores/INTERFAZ_CallbackResultado.h"
 #include "../../Medidores/INTERFAZ_CallbackResultado.h"
 #include <Printable.h>
+#include "../CLASE_StringEstatica.h"
     template <size_t CAPACIDAD_JSON, size_t CAPACIDAD_CLAVES, typename T_EEPROM = EEPROMClass>
     class BaseDatosEEPROM : public Inicializable, public Printable {
         private:
@@ -118,13 +119,11 @@
                     return false;
                 }
                 
-                Array<char, CAPACIDAD_CLAVES + 1> clave2;
-                agregarFinalArrayTerminado(clave, clave2, '\0', true);
-                
-                T valor2 = valor;
+                StringEstatica<CAPACIDAD_CLAVES> copiaClave(clave);
+                T copiaValor = valor;
                 
                 this -> documento.garbageCollect();
-                this -> documento[clave2.data()] = valor2;
+                this -> documento[copiaClave.getContenido()] = copiaValor;
                 
                 if (this -> documento.overflowed()) {
                     LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON);
