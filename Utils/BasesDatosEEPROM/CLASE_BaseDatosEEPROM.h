@@ -121,11 +121,10 @@
                 Array<char, CAPACIDAD_CLAVES + 1> clave2;
                 agregarFinalArrayTerminado(clave, clave2, '\0', true);
                 
-                Array<T, 1> valor2;
-                valor2.push_back(valor);
+                T valor2 = valor;
                 
                 this -> documento.garbageCollect();
-                this -> documento[clave2.data()] = valor2[0];
+                this -> documento[clave2.data()] = valor2;
                 
                 if (this -> documento.overflowed()) {
                     LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON);
