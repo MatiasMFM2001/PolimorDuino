@@ -55,7 +55,7 @@ void LedRGBW::setColorEncendido(ColorRGBW ingr, bool mostrarSiEncendido) {
     this -> setColor(POS_ENCENDIDO, ingr, mostrarSiEncendido && (this -> getEstado()));
 }
 
-void LedRGBW::setEstado(bool valor) {
+void LedRGBW::setEstado([[maybe_unused]] bool valor) {
     this -> mostrar();
 }
 
