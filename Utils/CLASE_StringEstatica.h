@@ -52,9 +52,6 @@
                     return true;
                 }
                 
-                /*if (this -> contenido[this -> contenido.size() - 1] == '\0') {
-                    this -> contenido.pop_back();
-                }*/
                 this -> contenido.pop_back();
                 
                 while ((*ingr != '\0') && !(this -> estaLlena())) {
@@ -62,10 +59,8 @@
                     ++ingr;
                 }
                 
-                bool salida = (this -> estaLlena());
                 this -> contenido.push_back('\0');
-                
-                return salida;
+                return (*ingr == '\0');
             }
     };
 #endif
