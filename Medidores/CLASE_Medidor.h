@@ -37,6 +37,7 @@
             void finalizarMedicion(T_RESULTADO &ingr) {
                 LOG("MEDIDOR \"%S\" - Ejecutando callback.notificar() con valor:", this -> nombre);
                 
+                #pragma GCC diagnostic ignored "-Waddress"
                 if (F_LOGGER) {
                     F_LOGGER(ingr);
                 }
