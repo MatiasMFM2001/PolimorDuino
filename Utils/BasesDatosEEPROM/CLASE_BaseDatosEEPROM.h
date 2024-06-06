@@ -51,6 +51,7 @@
  \
     StringEstatica<CAPACIDAD_STRINGS> copiaClave(clave); \
  \
+    LOG("Escribiendo BaseDatosEEPROM::setValor('%s') = %s", clave, copiaClave.getContenido()); \
     this -> documento.garbageCollect(); \
     this -> documento[copiaClave.getContenido()] = copiaValor; \
  \
@@ -149,6 +150,7 @@
             
             bool setValor(const char *clave, const char *valor) {
                 StringEstatica<CAPACIDAD_STRINGS> copiaValor(valor);
+                LOG("Escribiendo BaseDatosEEPROM::setValor('%s', '%s') = %s", clave, valor, copiaValor.getContenido()); \
                 SET_VALOR(clave, copiaValor.getContenido(), CAPACIDAD_STRINGS);
             }
             
