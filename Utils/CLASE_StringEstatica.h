@@ -9,6 +9,7 @@
 
 #include <Printable.h>
 #include <Array.h>
+#include "../Logger/FuncionesLoggers.h"
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public Printable {
         private:
@@ -16,18 +17,24 @@
         
         public:
             StringEstatica(const char *contenidoInicial = nullptr)
-                : contenido(Array<char, MAX_CAPACIDAD + 1>({'\0'}))
+                : contenido(Array<char, MAX_CAPACIDAD + 1>())
             {
+                this -> contenido.push_back('\0');
                 this -> agregarFinal(contenidoInicial);
             }
             
             StringEstatica(char *contenidoInicial)
-                : contenido(Array<char, MAX_CAPACIDAD + 1>({'\0'}))
+                : contenido(Array<char, MAX_CAPACIDAD + 1>())
             {
+                this -> contenido.push_back('\0');
                 this -> agregarFinal(contenidoInicial);
             }
             
             size_t getLongitud(void) {
+                if (this -> contenido.empty()) {
+                    return 0;
+                }
+                
                 return (this -> contenido.size() - 1);
             }
             
