@@ -176,6 +176,7 @@
                 size_t tamanioEscrito = serializeMsgPack(this -> documento, escritor);
                 
                 this -> eeprom -> put(DIRECCION_NUM_BYTES, tamanioEscrito);
+                LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
                 return true;
             }
             
