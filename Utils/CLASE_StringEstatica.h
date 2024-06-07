@@ -70,6 +70,11 @@
                 return (*ingr == '\0');
             }
             
+            bool agregarFinal(const char ingr) {
+                char buffer[2] = {ingr, '\0'};
+                return this -> agregarFinal(buffer);
+            }
+            
             /**
              * @brief Imprime el dato apuntado a la impresora especificada.
              *
