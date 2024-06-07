@@ -79,9 +79,9 @@
 #include "CLASE_EscritorEEPROM.h"
 #include <EEPROM.h>
 #include "../../Medidores/INTERFAZ_CallbackResultado.h"
-#include "../../Medidores/INTERFAZ_CallbackResultado.h"
 #include <Printable.h>
 #include "../CLASE_StringEstatica.h"
+#include "../../Logger/FuncionesLoggers.h"
     template <size_t CAPACIDAD_JSON, size_t CAPACIDAD_STRINGS, typename T_EEPROM = EEPROMClass>
     class BaseDatosEEPROM : public Inicializable, public Printable {
         private:
@@ -105,6 +105,8 @@
                 size_t numBytesUsados;
                 this -> eeprom -> get(DIRECCION_NUM_BYTES, numBytesUsados);
                 
+                LOG("BaseDatosEEPROM::inicializar() - numBytesUsados = %d", numBytesUsados);
+                
                 LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom, numBytesUsados);
                 DeserializationError retorno = deserializeMsgPack(this -> documento, lector);
                 
@@ -115,7 +117,9 @@
                     return;
                 }
                 
-                size_t versionDocumento = this -> documento[CLAVE_VERSION];
+                size_t versionDocumento = this -> getValorSetteando(CLAVE_VERSION, 1);
+                LOG("BaseDatosEEPROM::inicializar() - MessagePack deserializado correctamente, de versión = %d", versionDocumento);
+                imprimir(this -> documento);
                 
                 if (versionDocumento >= (this -> version) || !(this -> migrador)) {
                     return;

@@ -14,7 +14,7 @@
     /**
      * @brief 
      */
-    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, void (*F_LOGGER)(JsonDocument&) = nullptr>
+    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, void (*F_LOGGER)(JsonDocument&) = imprimir>
     class InterpreteComandos : public Medidor<JsonDocument, F_LOGGER>, public CallbackResultado<WrapperPuntero<Stream>> {
         public:
             InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<JsonDocument> *verificador = nullptr)
@@ -25,7 +25,7 @@
             }
             
             void notificar(WrapperPuntero<Stream> &resultado) override {
-                this -> printTo(*_log4arduino_target);
+                CLOG("InterpreteComandos - ESTADO ACTUAL = ", *this);
                 
                 StaticJsonDocument<CAPACIDAD_JSON_FINAL> documentoFinal;
                 Stream &stream = resultado.getDato();
@@ -71,9 +71,8 @@
                     while ((retorno == DeserializationError::Ok) && !(documentoFinal.overflowed())) {
                         array.add(documentoIntermedio);
                         
-                        serializeJsonPretty(documentoIntermedio, *_log4arduino_target);
-                        FLOGS("");
-                        FLOGS("^ DOCUMENTO INTERMEDIO");
+                        CLOG("DOCUMENTO INTERMEDIO:");
+                        imprimir(documentoIntermedio);
                         
                         retorno = deserializeJson(documentoIntermedio, stream);
                         
@@ -82,8 +81,8 @@
                         }
                     }
                 
-                    FLOGS("DOCUMENTO FINAL:");
-                    serializeJsonPretty(documentoFinal, *_log4arduino_target);
+                    CLOG("DOCUMENTO FINAL:");
+                    imprimir(documentoFinal);
                     this -> finalizarMedicion(documentoFinal);
             }
             
