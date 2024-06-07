@@ -47,25 +47,22 @@
                 procesar:
                     FLOGS("Parseando comando...");
                     
-                    char bufferComando[CAPACIDAD_STRING_COMANDO + 1];
-                    size_t numLeidos = 0;
+                    StringEstatica<CAPACIDAD_STRING_COMANDO> bufferComando;
                     int datoLeido = stream.read();
                     
-                    while ((numLeidos < CAPACIDAD_STRING_COMANDO) && (datoLeido != -1)) {
+                    while (!bufferComando.estaLlena() && (datoLeido != -1)) {
                         char caracterLeido = (char) datoLeido;
                         
                         if (isSpace(caracterLeido)) {
                             break;
                         }
                         
-                        bufferComando[numLeidos++] = caracterLeido;
+                        bufferComando.agregarFinal(caracterLeido);
                         datoLeido = stream.read();
                     }
                     
-                    bufferComando[numLeidos] = '\0';
-                    
-                    LOG("Comando parseado = '%s'", bufferComando);
-                    documentoFinal[CLAVE_COMANDO] = bufferComando;
+                    LOG("Comando parseado = '%s'", bufferComando.getContenido());
+                    documentoFinal[CLAVE_COMANDO] = bufferComando.getContenido();
                     
                     StaticJsonDocument<CAPACIDAD_JSON_INTERMEDIO> documentoIntermedio;
                     DeserializationError retorno = deserializeJson(documentoIntermedio, stream);
