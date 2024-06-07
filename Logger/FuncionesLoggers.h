@@ -15,7 +15,7 @@
     #define CLOG_PUNTERO_IMPRESORA(impresora, ...) if (impresora) {CLOG_REFERENCIA_IMPRESORA(*impresora, __VA_ARGS__)}
     
     #ifdef ENABLE_LOG4ARDUINO
-        #define CLOG(...) log4arduino_print_head(); CLOG_PUNTERO_IMPRESORA(_log4arduino_target);
+        #define CLOG(...) log4arduino_print_head(); CLOG_PUNTERO_IMPRESORA(_log4arduino_target, __VA_ARGS__);
     #else
         #define CLOG(...)
     #endif
