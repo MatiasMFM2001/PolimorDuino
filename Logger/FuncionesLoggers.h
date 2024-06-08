@@ -23,6 +23,7 @@
     
     template <typename T>
     void imprimir(T &valor) {
+        #pragma GCC diagnostic ignored "-Wunused-value"
         CLOG(valor);
     }
     
