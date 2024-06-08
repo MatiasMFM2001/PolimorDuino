@@ -10,6 +10,7 @@
 #include <Printable.h>
 #include <Array.h>
 #include "../Logger/FuncionesLoggers.h"
+#include "../Medidores/Condiciones/CLASE_CompuertaNO.h"
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public Printable {
         private:
@@ -92,6 +93,11 @@
                 }
                 
                 return (this -> getLongitud()) - longitudInicial;
+            }
+            
+            size_t agregarCaracteresHasta(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) {
+                CompuertaNO<int> negador(&condicion);
+                return this -> agregarCaracteresMientras(stream, negador, terminarSiCaracterInvalido);
             }
             
             /**
