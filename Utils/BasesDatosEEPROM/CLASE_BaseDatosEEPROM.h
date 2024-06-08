@@ -78,7 +78,7 @@
 #include "CLASE_LectorEEPROM.h"
 #include "CLASE_EscritorEEPROM.h"
 #include <EEPROM.h>
-#include "../../Medidores/INTERFAZ_CallbackResultado.h"
+#include "../../Medidores/Callbacks/INTERFAZ_CallbackResultado.h"
 #include <Printable.h>
 #include "../CLASE_StringEstatica.h"
 #include "../../Logger/FuncionesLoggers.h"

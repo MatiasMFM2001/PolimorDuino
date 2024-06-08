@@ -8,8 +8,8 @@
 #define MEDIDOR
 
 #include "../Logger/FuncionesLoggers.h"
-#include "INTERFAZ_CallbackResultado.h"
-#include "INTERFAZ_CondicionResultado.h"
+#include "Callbacks/INTERFAZ_CallbackResultado.h"
+#include "Condiciones/INTERFAZ_CondicionResultado.h"
 #include "../Logger/FuncionesJSON.h"
     /**
      * @brief Define una interfaz para los objetos que puedan medir parámetros,

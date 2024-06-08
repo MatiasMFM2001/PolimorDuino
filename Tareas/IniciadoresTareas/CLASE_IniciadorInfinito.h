@@ -8,7 +8,7 @@
 #define INICIADOR_INFINITO
 
 #include "CLASE_IniciadorTareas.h"
-#include "../../Medidores/INTERFAZ_CondicionResultado.h"
+#include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
     /**
      * @brief Tarea que permite iniciar la ejecución de otra tarea, cada cierta
      *  cantidad de tiempo, una cantidad infinita de veces (o, si se especificó
