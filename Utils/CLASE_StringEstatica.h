@@ -75,17 +75,14 @@
                 return this -> agregarFinal(buffer);
             }
             
-            size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<char> &condicion, bool terminarSiCaracterInvalido = true) {
+            size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) {
                 size_t longitudInicial = (this -> getLongitud());
                 
                 int datoLeido = stream.read();
-                char caracterLeido;
                     
                 while (!(this -> estaLlena()) && (datoLeido != -1)) {
-                    char caracterLeido = (char) datoLeido;
-                    
-                    if (condicion.esValido(caracterLeido)) {
-                        this -> agregarFinal(caracterLeido);
+                    if (condicion.esValido(datoLeido)) {
+                        this -> agregarFinal((char) datoLeido);
                     }
                     else if (terminarSiCaracterInvalido) {
                         break;
