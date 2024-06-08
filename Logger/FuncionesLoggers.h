@@ -39,16 +39,12 @@
         #define IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor)
     #endif
     
-    void imprimir(JsonDocument &valor) {
-        IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor);
-    }
+    void imprimir(JsonDocument &valor);
     
     template <size_t CAPACIDAD_JSON>
     void imprimir(StaticJsonDocument<CAPACIDAD_JSON> &valor) {
         IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor);
     }
     
-    void imprimir(DynamicJsonDocument &valor) {
-        IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor);
-    }
+    void imprimir(DynamicJsonDocument &valor);
 #endif
