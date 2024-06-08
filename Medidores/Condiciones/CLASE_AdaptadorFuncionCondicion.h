@@ -8,6 +8,7 @@
 #define ADAPTADOR_FUNCION_CONDICION
 
 #include "INTERFAZ_CondicionResultado.h"
+#include "../../Logger/FuncionesJSON.h"
     template <typename... T>
     class AdaptadorFuncionCondicion : public CondicionResultado<T...> {
         private:
