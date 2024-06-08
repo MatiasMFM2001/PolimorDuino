@@ -11,6 +11,7 @@
 #define CLAVE_ARGS "ARGS"
 
 #include "../CLASE_Medidor.h"
+#include "../Condiciones/CLASE_AdaptadorFuncionCondicion.h"
     /**
      * @brief 
      */
@@ -48,18 +49,8 @@
                     FLOGS("Parseando comando...");
                     
                     StringEstatica<CAPACIDAD_STRING_COMANDO> bufferComando;
-                    int datoLeido = stream.read();
-                    
-                    while (!bufferComando.estaLlena() && (datoLeido != -1)) {
-                        char caracterLeido = (char) datoLeido;
-                        
-                        if (isSpace(caracterLeido)) {
-                            break;
-                        }
-                        
-                        bufferComando.agregarFinal(caracterLeido);
-                        datoLeido = stream.read();
-                    }
+                    AdaptadorFuncionCondicion<int> detectorBlanco(&isSpace);
+                    bufferComando.agregarCaracteresHasta(stream, detectorBlanco);
                     
                     LOG("Comando parseado = '%s'", bufferComando.getContenido());
                     documentoFinal[CLAVE_COMANDO] = bufferComando.getContenido();
