@@ -75,6 +75,28 @@
                 return this -> agregarFinal(buffer);
             }
             
+            size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<char> &condicion, bool terminarSiCaracterInvalido = true) {
+                size_t longitudInicial = (this -> getLongitud());
+                
+                int datoLeido = stream.read();
+                char caracterLeido;
+                    
+                while (!(this -> estaLlena()) && (datoLeido != -1)) {
+                    char caracterLeido = (char) datoLeido;
+                    
+                    if (condicion.esValido(caracterLeido)) {
+                        this -> agregarFinal(caracterLeido);
+                    }
+                    else if (terminarSiCaracterInvalido) {
+                        break;
+                    }
+                    
+                    datoLeido = stream.read();
+                }
+                
+                return (this -> getLongitud()) - longitudInicial;
+            }
+            
             /**
              * @brief Imprime el dato apuntado a la impresora especificada.
              *
