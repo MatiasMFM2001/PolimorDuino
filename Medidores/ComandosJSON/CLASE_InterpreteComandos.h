@@ -15,7 +15,7 @@
     /**
      * @brief 
      */
-    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, void (*F_LOGGER)(JsonDocument&) = imprimir>
+    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, size_t CAPACIDAD_STRING_NUMERO, void (*F_LOGGER)(JsonDocument&) = imprimir>
     class InterpreteComandos : public Medidor<JsonDocument, F_LOGGER>, public CallbackResultado<WrapperPuntero<Stream>> {
         public:
             InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<JsonDocument> *verificador = nullptr)
@@ -40,7 +40,7 @@
                             return;
                         
                         default:
-                            LOG("Caracter salteado = %c", stream.read());
+                            LOG("Caracter salteado = '%c'", stream.read());
                             break;
                     }
                 }
@@ -56,20 +56,13 @@
                     documentoFinal[CLAVE_COMANDO] = bufferComando.getContenido();
                     
                     StaticJsonDocument<CAPACIDAD_JSON_INTERMEDIO> documentoIntermedio;
-                    DeserializationError retorno = deserializeJson(documentoIntermedio, stream);
                     JsonArray array = documentoFinal.createNestedArray(CLAVE_ARGS);
                     
-                    while ((retorno == DeserializationError::Ok) && !(documentoFinal.overflowed())) {
+                    bool parseadoCorrectamente = parsearArgumento<CAPACIDAD_STRING_NUMERO>(stream, documentoIntermedio);
+                    
+                    while (parseadoCorrectamente && !(documentoFinal.overflowed())) {
                         array.add(documentoIntermedio);
-                        
-                        CLOG("DOCUMENTO INTERMEDIO:");
-                        imprimir(documentoIntermedio);
-                        
-                        retorno = deserializeJson(documentoIntermedio, stream);
-                        
-                        if (retorno != DeserializationError::Ok) {
-                            LOG("ERROR: Deserializar un argumento del stream falló con el error %s.", retorno.c_str());
-                        }
+                        parseadoCorrectamente = parsearArgumento<CAPACIDAD_STRING_NUMERO>(stream, documentoIntermedio);
                     }
                 
                     CLOG("DOCUMENTO FINAL:");
