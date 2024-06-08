@@ -8,6 +8,8 @@
 #define FUNCIONES_GLOBALES
 
 #include <Array.h>
+#include "../Medidores/Condiciones/CLASE_AdaptadorFuncionCondicion.h"
+#include "CLASE_StringEstatica.h"
     /**
      * @brief Determina si el valor ingresado está dentro de los límites
      *  (inclusivos) especificados.
@@ -206,4 +208,57 @@
      *  @c TASK_FOREVER, el resultado de la multiplicación en caso contrario.
      */
     long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador);
+    
+    template <size_t CAPACIDAD_STRING_NUMERO>
+    bool parsearNumero(Stream &entrada, JsonDocument &salida) {
+        while (isSpace(entrada.peek())) {
+            entrada.read();
+        }
+        
+        int datoLeido = entrada.peek();
+        
+        if (!isDigit(datoLeido) && (datoLeido != '.')) {
+            return false;
+        }
+
+        StringEstatica<CAPACIDAD_STRING_NUMERO> bufferNumero;
+        AdaptadorFuncionCondicion<int> detectorBlanco(&isSpace);
+        bufferNumero.agregarCaracteresHasta(entrada, detectorBlanco);
+
+        char *posBufferFinal;
+        long entero = strtol(bufferNumero.getContenido(), &posBufferFinal, 0);
+
+        if (*posBufferFinal == '\0') {
+            salida.set(entero);
+            return true;
+        }
+
+        double real = strtod(bufferNumero.getContenido(), &posBufferFinal);
+
+        if (*posBufferFinal == '\0') {
+            salida.set(real);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    template <size_t CAPACIDAD_STRING_NUMERO>
+    bool parsearArgumento(Stream &entrada, JsonDocument &salida) {
+        if (parsearNumero<CAPACIDAD_STRING_NUMERO>(entrada, salida)) {
+            return true;
+        }
+        
+        DeserializationError retorno = deserializeJson(salida, entrada);
+        
+        if (retorno != DeserializationError::Ok) {
+            LOG("ERROR: Deserializar un argumento del stream falló con el error %s.", retorno.c_str());
+            return false;
+        }
+        
+        FLOGS("DOCUMENTO INTERMEDIO:");
+        imprimir(salida);
+        
+        return true;
+    }
 #endif
