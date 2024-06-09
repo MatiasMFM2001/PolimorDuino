@@ -216,8 +216,9 @@
         }
         
         int datoLeido = entrada.peek();
+        Array<int, 3> caracteresPermitidos({'.', '+', '-'});
         
-        if (!isDigit(datoLeido) && (datoLeido != '.')) {
+        if (!isDigit(datoLeido) && !contiene(caracteresPermitidos, datoLeido)) {
             return false;
         }
 
