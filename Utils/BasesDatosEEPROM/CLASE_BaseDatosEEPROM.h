@@ -82,6 +82,7 @@
 #include <Printable.h>
 #include "../CLASE_StringEstatica.h"
 #include "../../Logger/FuncionesLoggers.h"
+#include <StreamUtils.h>
     template <size_t CAPACIDAD_JSON, size_t CAPACIDAD_STRINGS, typename T_EEPROM = EEPROMClass>
     class BaseDatosEEPROM : public Inicializable, public Printable {
         private:
@@ -114,7 +115,8 @@
                     return;
                 }
                 
-                LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom, numBytesUsados);
+                //LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom, numBytesUsados);
+                EepromStream lector(DIRECCION_DOCUMENTO, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
                 DeserializationError retorno = deserializeMsgPack(this -> documento, lector);
                 
                 if (retorno != DeserializationError::Ok) {
@@ -124,8 +126,13 @@
                     return;
                 }
                 
+                if (!(this -> documento.template is<JsonObject>())) {
+                    FLOGS("ADVERTENCIA: Reiniciando documento leído porque no es un objeto JSON");
+                    this -> documento.clear();
+                }
+                
                 size_t versionDocumento = this -> getValorSetteando(CLAVE_VERSION, 1);
-                FLOGS("BaseDatosEEPROM::inicializar() - MessagePack deserializado correctamente, de versión = %d", versionDocumento);
+                LOG("BaseDatosEEPROM::inicializar() - MessagePack deserializado correctamente, de versión = %d", versionDocumento);
                 imprimir(this -> documento);
                 
                 if (versionDocumento >= (this -> version) || !(this -> migrador)) {
@@ -183,25 +190,45 @@
                     return false;
                 }
                 
-                EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);
+                //EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);
+                LOG("DIRECCION_DOCUMENTO = %d, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1 = %d", DIRECCION_DOCUMENTO, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
+                EepromStream escritor(DIRECCION_DOCUMENTO, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
                 size_t tamanioEscrito = serializeMsgPack(this -> documento, escritor);
                 
                 this -> eeprom -> put(DIRECCION_NUM_BYTES, tamanioEscrito);
+                escritor.flush();
                 
-                #if (defined(ARDUINO_ARCH_RP2040) && !defined(__MBED__))
-                    bool retorno = this -> eeprom -> commit();
-                #else
-                    bool retorno = true;
-                #endif
+                StaticJsonDocument<CAPACIDAD_JSON> documentoReleido;
+                size_t numBytesUsadosReleido;
+                this -> eeprom -> get(DIRECCION_NUM_BYTES, numBytesUsadosReleido);
                 
-                if (retorno) {
-                    LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
+                LOG("BaseDatosEEPROM::guardar() - numBytesUsadosReleido = %d", numBytesUsadosReleido);
+                
+                if (numBytesUsadosReleido > (this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1)) {
+                    LOG("ERROR: La cantidad de bytes releidos es mayor a la posible de almacenar en la EEPROM");
+                    this -> estaCorrupta = true;
+                    
+                    return false;
                 }
-                else {
-                    LOG("BaseDatosEEPROM::guardar() - Error al guardar %d/%d bytes en la EEPROM", tamanioEscrito, this -> eeprom -> length());
+
+                DeserializationError retorno = deserializeMsgPack(this -> documento, escritor);
+                
+                if (retorno != DeserializationError::Ok) {
+                    LOG("ERROR: Re-deserializar el MessagePack de la EEPROM falló con el error %d", retorno);
+                    this -> estaCorrupta = true;
+                    
+                    return false;
                 }
                 
-                return retorno;
+                if (!(this -> documento.template is<JsonObject>())) {
+                    FLOGS("ERROR: El documento releido no es un objeto JSON");
+                    this -> estaCorrupta = true;
+                    
+                    return false;
+                }
+                
+                LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
+                return true;
             }
             
             /**
