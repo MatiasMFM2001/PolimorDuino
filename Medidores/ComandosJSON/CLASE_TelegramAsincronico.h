@@ -54,7 +54,7 @@
             }
             
             bool esValido(WrapperPuntero<Stream> &resultado) override {
-                return (!resultado.esNulo() && resultado.getDato().available() > 0);
+                return (!resultado.esNulo() && (resultado.getDato().available() > 0));
             }
             
             void setCanalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &ingr) {
