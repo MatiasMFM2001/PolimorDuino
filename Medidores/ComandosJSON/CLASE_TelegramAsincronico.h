@@ -20,9 +20,9 @@
             Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> canalesPermitidos;
             
         public:
-            TelegramAsincronico(const __FlashStringHelper *nombre, CallbackResultado<WrapperPuntero<Stream>> *callback, Scheduler *planif, AsyncTelegram2 *bot, Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &canalesPermitidos, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
+            TelegramAsincronico(const __FlashStringHelper *nombre, CallbackResultado<WrapperPuntero<Stream>> *callback, Scheduler *planif, AsyncTelegram2 *bot, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
                 : MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>(nombre, callback, planif, this)
-                , bot(bot), stream(LoopbackStream(capacidadBuffer)), canalesPermitidos(canalesPermitidos)
+                , bot(bot), stream(LoopbackStream(capacidadBuffer)), canalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS>())
             {}
             
             WrapperPuntero<Stream> getResultado(void) override {
@@ -55,6 +55,10 @@
             
             bool esValido(WrapperPuntero<Stream> &resultado) override {
                 return (!resultado.esNulo() && resultado.getDato().available() > 0);
+            }
+            
+            void setCanalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &ingr) {
+                this -> canalesPermitidos = ingr;
             }
 
             /**
