@@ -149,7 +149,7 @@
             }
             
             template <typename T>
-            T &getValor(const char *clave) {
+            T getValor(const char *clave) {
                 GET_VALOR(clave);
                 return this -> documento[clave];
             }
@@ -229,6 +229,11 @@
                 
                 LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
                 return true;
+            }
+            
+            template <typename T_VALOR>
+            bool contieneClave(const char *ingr) {
+                return (this -> documento.containsKey(ingr)) && (this -> documento[ingr].template is<T_VALOR>());
             }
             
             /**
