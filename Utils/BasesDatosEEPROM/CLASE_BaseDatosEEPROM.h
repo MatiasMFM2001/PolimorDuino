@@ -107,6 +107,13 @@
                 
                 LOG("BaseDatosEEPROM::inicializar() - numBytesUsados = %d", numBytesUsados);
                 
+                if (numBytesUsados > (this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1)) {
+                    LOG("ERROR: La cantidad de bytes leidos es mayor a la posible de almacenar en la EEPROM");
+                    this -> estaCorrupta = true;
+                    
+                    return;
+                }
+                
                 LectorEEPROM lector(DIRECCION_DOCUMENTO, this -> eeprom, numBytesUsados);
                 DeserializationError retorno = deserializeMsgPack(this -> documento, lector);
                 
@@ -118,7 +125,7 @@
                 }
                 
                 size_t versionDocumento = this -> getValorSetteando(CLAVE_VERSION, 1);
-                LOG("BaseDatosEEPROM::inicializar() - MessagePack deserializado correctamente, de versión = %d", versionDocumento);
+                FLOGS("BaseDatosEEPROM::inicializar() - MessagePack deserializado correctamente, de versión = %d", versionDocumento);
                 imprimir(this -> documento);
                 
                 if (versionDocumento >= (this -> version) || !(this -> migrador)) {
@@ -180,8 +187,21 @@
                 size_t tamanioEscrito = serializeMsgPack(this -> documento, escritor);
                 
                 this -> eeprom -> put(DIRECCION_NUM_BYTES, tamanioEscrito);
-                LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
-                return true;
+                
+                #if (defined(ARDUINO_ARCH_RP2040) && !defined(__MBED__))
+                    bool retorno = this -> eeprom -> commit();
+                #else
+                    bool retorno = true;
+                #endif
+                
+                if (retorno) {
+                    LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
+                }
+                else {
+                    LOG("BaseDatosEEPROM::guardar() - Error al guardar %d/%d bytes en la EEPROM", tamanioEscrito, this -> eeprom -> length());
+                }
+                
+                return retorno;
             }
             
             /**
