@@ -59,6 +59,10 @@
                 LOG("EJECUTANDO ConectadorWiFi::Callback()");
                 
                 if (WiFi.status() == WL_CONNECTED) {
+                    LOG("ConectadorWiFi::Callback() - Conexión exitosa, con IP:");
+                    IPAddress direccion = WiFi.localIP();
+                    imprimir(direccion);
+                    
                     this -> notificadorConexionExitosa -> notificar(WiFi);
                     Task::disable();
                 }

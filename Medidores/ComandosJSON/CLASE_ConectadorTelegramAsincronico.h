@@ -27,10 +27,14 @@
             }
             
             bool esValido(WrapperPuntero<AsyncTelegram2> &resultado) override {
-                return resultado.getDato().begin();
+                bool retorno = resultado.getDato().begin();
+                LOG("ESTADO DE INICIACIÓN = %s", retorno ? "true" : "false");
+                
+                return retorno;
             }
             
             bool esValido() override {
+                LOG("ESTADO DE CONEXION = %s", this -> bot -> checkConnection() ? "true" : "false");
                 return this -> bot -> checkConnection();
             }
             
