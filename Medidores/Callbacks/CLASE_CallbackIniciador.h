@@ -20,7 +20,11 @@
             {}
             
             void notificar(T&... resultado) override {
-                this -> tarea -> enableIfNot();
+                if (this -> tarea -> isEnabled()) {
+                    return;
+                }
+                
+                this -> tarea -> restart();
                 
                 if (this -> accionesAdicionales) {
                     this -> accionesAdicionales -> notificar(resultado...);
