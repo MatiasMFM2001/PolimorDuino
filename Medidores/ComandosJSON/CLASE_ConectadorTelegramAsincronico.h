@@ -8,6 +8,7 @@
 #define CONECTADOR_TELEGRAM_ASINCRONICO
 
 #include "../Instantaneos/CLASE_MedidorInstantaneo.h"
+#include "../../Inclusiones/InclusionAsyncTelegram2.h"
     /**
      * @brief 
      */
@@ -27,15 +28,17 @@
             }
             
             bool esValido(WrapperPuntero<AsyncTelegram2> &resultado) override {
-                bool retorno = resultado.getDato().begin();
+                bool retorno = resultado.getDato().checkConnection();
                 LOG("ESTADO DE INICIACIÓN = %s", retorno ? "true" : "false");
                 
                 return retorno;
             }
             
             bool esValido() override {
-                LOG("ESTADO DE CONEXION = %s", this -> bot -> checkConnection() ? "true" : "false");
-                return this -> bot -> checkConnection();
+                bool retorno = this -> bot -> begin();
+                
+                LOG("ESTADO DE CONEXION = %s", retorno ? "true" : "false");
+                return retorno;
             }
             
             /**
