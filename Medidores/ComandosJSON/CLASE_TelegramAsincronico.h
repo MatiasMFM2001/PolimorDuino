@@ -12,6 +12,7 @@
 #include "../../Logger/CLASE_WrapperPuntero.h"
 #include <LoopbackStream.h>
 #include "../../Utils/FuncionesGlobales.h"
+#include "../../Inclusiones/InclusionAsyncTelegram2.h"
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
     class TelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
         private:
