@@ -18,7 +18,7 @@
                 : EntradaSalida<T, N_NUM_BITS>(invertir)
             {}
             
-            T leer() {
+            T leer(void) {
                 T valor = this -> leerBajoNivel();
                 T maxValor = this -> getMaxValorRepresentable();
                 

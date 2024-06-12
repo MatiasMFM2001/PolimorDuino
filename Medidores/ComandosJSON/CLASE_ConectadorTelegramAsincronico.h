@@ -34,7 +34,7 @@
                 return retorno;
             }
             
-            bool esValido() override {
+            bool esValido(void) override {
                 bool retorno = this -> bot -> begin();
                 
                 LOG("ESTADO DE CONEXION = %s", retorno ? "true" : "false");
