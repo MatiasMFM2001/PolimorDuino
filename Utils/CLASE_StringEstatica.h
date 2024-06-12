@@ -55,6 +55,10 @@
                 return this -> contenido.data();
             }
             
+            void vaciarContenido(void) {
+                this -> contenido.clear();
+            }
+            
             bool agregarFinal(const char *ingr) {
                 if (!ingr || (*ingr == '\0')) {
                     return true;
