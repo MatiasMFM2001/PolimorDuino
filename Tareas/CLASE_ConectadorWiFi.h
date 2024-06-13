@@ -40,7 +40,7 @@
                 Task::enable();
             }
             
-            void setCredenciales(const char *nombreRed, const char *contrasenia, bool inicializarSiValido = true) {
+            void setCredenciales(const char *nombreRed, const char *contrasenia, bool inicializarSiValido = false) {
                 this -> nombreRed.agregarFinal(nombreRed);
                 this -> contrasenia.agregarFinal(contrasenia);
                 
