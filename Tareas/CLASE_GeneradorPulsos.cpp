@@ -10,8 +10,7 @@
 #include "../Logger/FuncionesJSON.h"
 //#include "CLASE_WrapperPuntero"
 
-GeneradorPulsos::GeneradorPulsos
-    (Pulsable* pulsable, long msSemiCiclo, long numPulsos, Scheduler* planif)
+GeneradorPulsos::GeneradorPulsos(Pulsable* pulsable, long msSemiCiclo, long numPulsos, Scheduler* planif)
     : Task(msSemiCiclo, multiplicarNumIteraciones(numPulsos, 2), planif, false)
     , pulsable(pulsable)
 {}
@@ -45,6 +44,7 @@ void GeneradorPulsos::enableFrecuencia(long hz) {
 bool GeneradorPulsos::OnEnable(void) {
     FLOGS("EJECUTANDO GeneradorPulsos::OnEnable()");
     this -> pulsable -> encender();
+    
     return true;
 }
 
