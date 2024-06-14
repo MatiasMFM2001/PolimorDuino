@@ -7,12 +7,12 @@
 #ifndef TELEGRAM_UNIVERSAL
 #define TELEGRAM_UNIVERSAL
 
-#include "../Instantaneos/CLASE_MedidorInstantaneo.h"
+#include "../../Instantaneos/CLASE_MedidorInstantaneo.h"
 #include <Stream.h>
-#include "../../Logger/CLASE_WrapperPuntero.h"
+#include "../../../Logger/CLASE_WrapperPuntero.h"
 #include <LoopbackStream.h>
-#include "../../Utils/FuncionesGlobales.h"
-#include "../../Utils/CLASE_Contador.h"
+#include "../../../Utils/FuncionesGlobales.h"
+#include "../../../Utils/CLASE_Contador.h"
 #include <UniversalTelegramBot.h>
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
     class TelegramUniversal : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {

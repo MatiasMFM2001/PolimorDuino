@@ -7,12 +7,12 @@
 #ifndef TELEGRAM_ASINCRONICO
 #define TELEGRAM_ASINCRONICO
 
-#include "../Instantaneos/CLASE_MedidorInstantaneo.h"
+#include "../../Instantaneos/CLASE_MedidorInstantaneo.h"
 #include <Stream.h>
-#include "../../Logger/CLASE_WrapperPuntero.h"
+#include "../../../Logger/CLASE_WrapperPuntero.h"
 #include <LoopbackStream.h>
-#include "../../Utils/FuncionesGlobales.h"
-#include "../../Inclusiones/InclusionAsyncTelegram2.h"
+#include "../../../Utils/FuncionesGlobales.h"
+#include "../../../Inclusiones/InclusionAsyncTelegram2.h"
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
     class TelegramAsincronico : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
         private:

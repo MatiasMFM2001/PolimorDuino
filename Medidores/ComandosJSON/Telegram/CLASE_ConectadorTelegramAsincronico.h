@@ -7,8 +7,8 @@
 #ifndef CONECTADOR_TELEGRAM_ASINCRONICO
 #define CONECTADOR_TELEGRAM_ASINCRONICO
 
-#include "../Instantaneos/CLASE_MedidorInstantaneo.h"
-#include "../../Inclusiones/InclusionAsyncTelegram2.h"
+#include "../../Instantaneos/CLASE_MedidorInstantaneo.h"
+#include "../../../Inclusiones/InclusionAsyncTelegram2.h"
     /**
      * @brief 
      */
