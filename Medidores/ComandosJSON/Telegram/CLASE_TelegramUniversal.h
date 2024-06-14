@@ -7,86 +7,60 @@
 #ifndef TELEGRAM_UNIVERSAL
 #define TELEGRAM_UNIVERSAL
 
-#include "../../Instantaneos/CLASE_MedidorInstantaneo.h"
-#include <Stream.h>
-#include "../../../Logger/CLASE_WrapperPuntero.h"
-#include <LoopbackStream.h>
-#include "../../../Utils/FuncionesGlobales.h"
 #include "../../../Utils/CLASE_Contador.h"
 #include <UniversalTelegramBot.h>
-    template <size_t CAPACIDAD_CANALES_PERMITIDOS, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
-    class TelegramUniversal : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
+#include "CLASE_ClienteTelegram.h"
+    template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
+    class TelegramUniversal : public ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER> {
         private:
             UniversalTelegramBot *bot;
-            LoopbackStream stream;
-            Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> canalesPermitidos;
             Contador<size_t> posArrayMensajes;
             size_t numMensajesRecibidos;
             
         public:
             TelegramUniversal(const __FlashStringHelper *nombre, CallbackResultado<WrapperPuntero<Stream>> *callback, Scheduler *planif, UniversalTelegramBot *bot, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
-                : MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>(nombre, callback, planif, this)
-                , bot(bot), stream(LoopbackStream(capacidadBuffer)), canalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS>()), posArrayMensajes(Contador<size_t>(0)), numMensajesRecibidos(0)
+                : ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(nombre, callback, planif, capacidadBuffer)
+                , bot(bot), posArrayMensajes(Contador<size_t>(0)), numMensajesRecibidos(0)
             {}
             
-            WrapperPuntero<Stream> getResultado(void) override {
-                FLOGS("INICIO TelegramUniversal::getResultado()");
+            MensajeTelegram<CAPACIDAD_MENSAJE> recibirMensaje(void) override {
+                FLOGS("INICIO TelegramUniversal::recibirMensaje()");
                 
                 if ((this -> posArrayMensajes.getValor()) >= (this -> numMensajesRecibidos)) {
-                    LOG("TelegramUniversal::getResultado() - Obteniendo nuevos mensajes desde la posición %d", this -> bot -> last_message_received + 1);
+                    LOG("TelegramUniversal::recibirMensaje() - Obteniendo nuevos mensajes desde la posición %d", this -> bot -> last_message_received + 1);
                     this -> numMensajesRecibidos = this -> bot -> getUpdates(this -> bot -> last_message_received + 1);
                     this -> posArrayMensajes.reiniciar();
                 }
                 
                 if ((this -> numMensajesRecibidos) == 0) {
-                    FLOGS("TelegramUniversal::getResultado() - Saliendo porque no se recibieron mensajes nuevos");
-                    return WrapperPuntero<Stream>();
+                    FLOGS("TelegramUniversal::recibirMensaje() - Saliendo porque no se recibieron mensajes nuevos");
+                    return MensajeTelegram<CAPACIDAD_MENSAJE>();
                 }
                 
-                LOG("TelegramUniversal::getResultado() - Obteniendo al mensaje de la posición %d", this -> posArrayMensajes.getValor());
+                LOG("TelegramUniversal::recibirMensaje() - Obteniendo al mensaje de la posición %d", this -> posArrayMensajes.getValor());
                 telegramMessage &mensaje = this -> bot -> messages[this -> posArrayMensajes.getValor()];
                 this -> posArrayMensajes.incrementar(1);
-                
-                this -> bot -> sendMessage(mensaje.chat_id, mensaje.text, "");
-                
-                if (mensaje.type != "message") {
-                    LOG("ADVERTENCIA: Se descartó el mensaje recibido, de tipo %s", mensaje.type.c_str());
-                    return WrapperPuntero<Stream>();
-                }
                 
                 char *posBufferFinal;
                 int64_t idCanal = strtol(mensaje.chat_id.c_str(), &posBufferFinal, 0);
                 
                 if (*posBufferFinal != '\0') {
                     LOG("ERROR: La ID de mensaje '%s' no es un entero válido", mensaje.chat_id.c_str());
-                    return WrapperPuntero<Stream>();
+                    return MensajeTelegram<CAPACIDAD_MENSAJE>();
                 }
                 
-                if (!contiene(this -> canalesPermitidos, idCanal)) {
-                    return WrapperPuntero<Stream>();
-                }
-                
-                this -> stream.clear();
-                String &texto = mensaje.text;
-                
-                size_t tamanioTexto = texto.length();
-                size_t tamanioBuffer = (this -> stream.availableForWrite());
-                
-                if (tamanioTexto > tamanioBuffer) {
-                    LOG("ERROR: La cadena leida (de %d caracteres) no entra en el LoopbackStream de %d caracteres", tamanioTexto, tamanioBuffer);
-                    return WrapperPuntero<Stream>();
-                }
-                
-                this -> stream.print(texto);
-                return WrapperPuntero<Stream>(&(this -> stream));
+                return MensajeTelegram<CAPACIDAD_MENSAJE>(mensaje.text.c_str(), idCanal, (mensaje.type == "message"));
             }
             
-            bool esValido(WrapperPuntero<Stream> &resultado) override {
-                return (!resultado.esNulo() && (resultado.getDato().available() > 0));
+            bool enviarMensaje(MensajeTelegram<CAPACIDAD_MENSAJE> &ingr) override {
+                StringEstatica<32> idCanal;
+                snprintf(idCanal.getContenido(), idCanal.getMaxLongitud(), "%lld", ingr.getIDCanal());
+                
+                return (this -> bot -> sendMessage(idCanal.getContenidoConstante(), ingr.getContenido().getContenidoConstante(), ""));
             }
             
-            void setCanalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &ingr) {
-                this -> canalesPermitidos = ingr;
+            bool conectarseATelegram(void) override {
+                return true;
             }
 
             /**
@@ -97,7 +71,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "TelegramUniversal") + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>));
+                return OBJETO_A_JSON(impresora, "TelegramUniversal") + SUPERCLASES_A_JSON(impresora, (ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>));
             }
     };
 #endif
