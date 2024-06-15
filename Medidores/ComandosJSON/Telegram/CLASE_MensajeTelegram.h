@@ -37,6 +37,22 @@
                 return (this -> esMsjTexto);
             }
             
+            size_t getCapacidadRestante(void) {
+                return this -> contenido.getLongitudRestante();
+            }
+            
+            bool estaLleno(void) {
+                return this -> contenido.estaLlena();
+            }
+            
+            void vaciarContenido(void) {
+                this -> contenido.vaciarContenido();
+            }
+            
+            bool agregarFinal(const char ingr) {
+                return this -> contenido.agregarFinal(ingr);
+            }
+            
             /**
              * @brief Imprime los valores de las variables de instancia a la
              *  impresora especificada.
