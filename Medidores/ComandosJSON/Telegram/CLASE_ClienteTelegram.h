@@ -9,45 +9,48 @@
 
 #include "../../Instantaneos/CLASE_MedidorInstantaneo.h"
 #include <Stream.h>
-#include "../../../Logger/CLASE_WrapperPuntero.h"
+#include "../STRUCT_CanalBidireccional.h"
 #include "../../../Utils/FuncionesGlobales.h"
-#include "../../../Inclusiones/InclusionAsyncTelegram2.h"
 #include "CLASE_MensajeTelegram.h"
 #include <LoopbackStream.h>
-    template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
-    class ClienteTelegram : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
+#include <DEVNULL.h>
+#include "CLASE_ImpresoraTelegram.h"
+    template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER)(CanalBidireccional<Stream, Print>&) = nullptr>
+    class ClienteTelegram : public MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>, public CondicionResultado<CanalBidireccional<Stream, Print>> {
         private:
             Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> canalesPermitidos;
             LoopbackStream stream;
+            ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER> impresora;
+            DEVNULL streamNulo;
             
         public:
-            ClienteTelegram(const __FlashStringHelper *nombre, CallbackResultado<WrapperPuntero<Stream>> *callback, Scheduler *planif, size_t capacidadBuffer)
-                : MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>(nombre, callback, planif, this)
-                , canalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS>()), stream(LoopbackStream(capacidadBuffer))
+            ClienteTelegram(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, size_t capacidadBuffer)
+                : MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>(nombre, callback, planif, this)
+                , canalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS>()), stream(LoopbackStream(capacidadBuffer)), impresora(ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(this, 0))
             {}
             
             virtual MensajeTelegram<CAPACIDAD_MENSAJE> recibirMensaje(void) = 0;
             virtual bool enviarMensaje(MensajeTelegram<CAPACIDAD_MENSAJE> &ingr) = 0;
             virtual bool conectarseATelegram(void) = 0;
             
-            WrapperPuntero<Stream> getResultado(void) override {
+            CanalBidireccional<Stream, Print> getResultado(void) override {
                 MensajeTelegram mensaje = this -> recibirMensaje();
                 
                 if (!mensaje.esValido()) {
                     FLOGS("ADVERTENCIA: Se descartó el mensaje recibido, porque no es válido (o está vacío)");
-                    return WrapperPuntero<Stream>();
+                    return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 if (!mensaje.esMensajeTexto()) {
                     FLOGS("ADVERTENCIA: Se descartó el mensaje recibido, porque no es de texto");
-                    return WrapperPuntero<Stream>();
+                    return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 int64_t idCanal = mensaje.getIDCanal();
                 
                 if (!contiene(this -> canalesPermitidos, idCanal)) {
                     LOG("ADVERTENCIA: Se descartó el mensaje recibido, porque el canal %d no está en el conjunto de canales permitidos", idCanal);
-                    return WrapperPuntero<Stream>();
+                    return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 this -> stream.clear();
@@ -58,15 +61,20 @@
                 
                 if (tamanioTexto > tamanioBuffer) {
                     LOG("ERROR: La cadena leida (de %d caracteres) no entra en el LoopbackStream de %d caracteres", tamanioTexto, tamanioBuffer);
-                    return WrapperPuntero<Stream>();
+                    return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 this -> stream.print(texto.getContenidoConstante());
-                return WrapperPuntero<Stream>(&(this -> stream));
+                this -> impresora.setIDCanal(idCanal);
+                
+                return {this -> stream, this -> impresora};
             }
             
-            bool esValido(WrapperPuntero<Stream> &resultado) override {
-                return (!resultado.esNulo() && (resultado.getDato().available() > 0));
+            bool esValido(CanalBidireccional<Stream, Print> &resultado) override {
+                int numBytesDisponibles = resultado.entrada.available();
+                LOG("resultado.entrada.available() = %d", numBytesDisponibles);
+
+                return (numBytesDisponibles > 0);
             }
             
             void setCanalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &ingr) {
@@ -81,7 +89,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "ClienteTelegram") + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>));
+                return OBJETO_A_JSON(impresora, "ClienteTelegram") + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>));
             }
     };
 #endif

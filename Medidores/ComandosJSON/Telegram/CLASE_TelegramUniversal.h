@@ -10,7 +10,7 @@
 #include "../../../Utils/CLASE_Contador.h"
 #include <UniversalTelegramBot.h>
 #include "CLASE_ClienteTelegram.h"
-    template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
+    template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER)(CanalBidireccional<Stream, Print>&) = nullptr>
     class TelegramUniversal : public ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER> {
         private:
             UniversalTelegramBot *bot;
@@ -18,7 +18,7 @@
             size_t numMensajesRecibidos;
             
         public:
-            TelegramUniversal(const __FlashStringHelper *nombre, CallbackResultado<WrapperPuntero<Stream>> *callback, Scheduler *planif, UniversalTelegramBot *bot, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
+            TelegramUniversal(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, UniversalTelegramBot *bot, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
                 : ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(nombre, callback, planif, capacidadBuffer)
                 , bot(bot), posArrayMensajes(Contador<size_t>(0)), numMensajesRecibidos(0)
             {}

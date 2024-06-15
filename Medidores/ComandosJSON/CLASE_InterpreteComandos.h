@@ -12,24 +12,25 @@
 
 #include "../CLASE_Medidor.h"
 #include "../Condiciones/CLASE_AdaptadorFuncionCondicion.h"
+#include "STRUCT_CanalBidireccional.h"
     /**
      * @brief 
      */
-    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, size_t CAPACIDAD_STRING_NUMERO, void (*F_LOGGER)(JsonDocument&) = imprimir>
-    class InterpreteComandos : public Medidor<JsonDocument, F_LOGGER>, public CallbackResultado<WrapperPuntero<Stream>> {
+    template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, size_t CAPACIDAD_STRING_NUMERO, void (*F_LOGGER)(CanalBidireccional<JsonDocument, Print>&) = nullptr>
+    class InterpreteComandos : public Medidor<CanalBidireccional<JsonDocument, Print>, F_LOGGER>, public CallbackResultado<CanalBidireccional<Stream, Print>> {
         public:
-            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<JsonDocument> *callback, CondicionResultado<JsonDocument> *verificador = nullptr)
-                : Medidor<JsonDocument, F_LOGGER>(nombre, callback, verificador)
+            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<JsonDocument, Print>> *callback, CondicionResultado<CanalBidireccional<JsonDocument, Print>> *verificador = nullptr)
+                : Medidor<CanalBidireccional<JsonDocument, Print>, F_LOGGER>(nombre, callback, verificador)
             {}
             
             void iniciarMedicion(void) override {
             }
             
-            void notificar(WrapperPuntero<Stream> &resultado) override {
+            void notificar(CanalBidireccional<Stream, Print> &resultado) override {
                 CLOG("InterpreteComandos - ESTADO ACTUAL = ", *this);
                 
                 StaticJsonDocument<CAPACIDAD_JSON_FINAL> documentoFinal;
-                Stream &stream = resultado.getDato();
+                Stream &stream = resultado.entrada;
                 
                 while (true) {
                     switch (stream.peek()) {
@@ -67,7 +68,9 @@
                 
                     CLOG("DOCUMENTO FINAL:");
                     imprimir(documentoFinal);
-                    this -> finalizarMedicion(documentoFinal);
+                    
+                    CanalBidireccional<JsonDocument, Print> salida = {documentoFinal, resultado.salida};
+                    this -> finalizarMedicion(salida);
             }
             
             /**
@@ -78,7 +81,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "InterpreteComandos") + SUPERCLASES_A_JSON(impresora, (Medidor<JsonDocument, F_LOGGER>));
+                return OBJETO_A_JSON(impresora, "InterpreteComandos") + SUPERCLASES_A_JSON(impresora, (Medidor<CanalBidireccional<JsonDocument, Print>, F_LOGGER>));
             }
     };
 #endif

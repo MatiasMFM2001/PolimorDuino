@@ -9,26 +9,28 @@
 
 #include "../Instantaneos/CLASE_MedidorInstantaneo.h"
 #include <Stream.h>
-#include "../../Logger/CLASE_WrapperPuntero.h"
-    template <void (*F_LOGGER)(WrapperPuntero<Stream>&) = nullptr>
-    class DetectorStream : public MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>, public CondicionResultado<WrapperPuntero<Stream>> {
+#include "STRUCT_CanalBidireccional.h"
+    template <void (*F_LOGGER)(CanalBidireccional<Stream, Print>&) = nullptr>
+    class DetectorStream : public MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>, public CondicionResultado<CanalBidireccional<Stream, Print>> {
         private:
             Stream *entrada;
             
         public:
-            DetectorStream(const __FlashStringHelper *nombre, CallbackResultado<WrapperPuntero<Stream>> *callback, Scheduler *planif, Stream *entrada)
-                : MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>(nombre, callback, planif, this)
+            DetectorStream(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, Stream *entrada)
+                : MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>(nombre, callback, planif, this)
                 , entrada(entrada)
             {}
             
-            WrapperPuntero<Stream> getResultado(void) override {
+            CanalBidireccional<Stream, Print> getResultado(void) override {
                 FLOGS("Ejecutando DetectorStream::getResultado()");
-                return WrapperPuntero(this -> entrada);
+                return {*(this -> entrada), *(this -> entrada)};
             }
             
-            bool esValido(WrapperPuntero<Stream> &resultado) override {
-                LOG("stream.getDato().available() = %d", resultado.getDato().available());
-                return (resultado.getDato().available() > 0);
+            bool esValido(CanalBidireccional<Stream, Print> &resultado) override {
+                int numBytesDisponibles = resultado.entrada.available();
+                LOG("resultado.entrada.available() = %d", numBytesDisponibles);
+
+                return (numBytesDisponibles > 0);
             }
 
             /**
@@ -39,7 +41,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "DetectorStream") + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<WrapperPuntero<Stream>, F_LOGGER>));
+                return OBJETO_A_JSON(impresora, "DetectorStream") + SUPERCLASES_A_JSON(impresora, (MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>));
             }
     };
 #endif
