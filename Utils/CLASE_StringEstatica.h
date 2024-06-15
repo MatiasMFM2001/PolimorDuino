@@ -43,6 +43,10 @@
                 return MAX_CAPACIDAD;
             }
             
+            size_t getLongitudRestante(void) {
+                return (MAX_CAPACIDAD - (this -> getLongitud()));
+            }
+            
             bool estaLlena(void) {
                 return (this -> getLongitud() == MAX_CAPACIDAD);
             }
