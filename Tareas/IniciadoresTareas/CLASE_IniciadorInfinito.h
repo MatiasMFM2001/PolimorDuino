@@ -16,7 +16,7 @@
      */
     class IniciadorInfinito : public IniciadorTareas {
         private:
-            CondicionResultado<> *condicionFin;
+            CondicionResultado<IniciadorTareas> *condicionFin;
         
         public:
             /**
@@ -30,7 +30,7 @@
              * @param tarea La tarea especificada (que no debería ser nula).
              * @param condicionFin La condición a verificar (que puede ser nula).
              */
-            IniciadorInfinito(const char *nombre, unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea, CondicionResultado<> *condicionFin = nullptr);
+            IniciadorInfinito(const char *nombre, unsigned long msEntreIniciaciones, Scheduler *planif, Task *tarea, CondicionResultado<IniciadorTareas> *condicionFin = nullptr);
             
             /**
              * @returns @c false para mantener la iniciación infinita.

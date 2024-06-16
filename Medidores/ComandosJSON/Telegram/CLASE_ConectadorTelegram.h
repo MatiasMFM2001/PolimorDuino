@@ -13,7 +13,7 @@
      * @brief 
      */
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER_CLIENTE)(CanalBidireccional<Stream, Print>&) = nullptr, void (*F_LOGGER)(WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>&) = nullptr>
-    class ConectadorTelegram : public MedidorInstantaneo<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>, F_LOGGER>, public CondicionResultado<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>>, public CondicionResultado<> {
+    class ConectadorTelegram : public MedidorInstantaneo<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>, F_LOGGER>, public CondicionResultado<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>>, public CondicionResultado<IniciadorTareas> {
         private:
             ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE> *bot;
         
@@ -34,8 +34,8 @@
                 return retorno;
             }
             
-            bool esValido(void) override {
-                bool retorno = this -> bot -> conectarseATelegram();
+            bool esValido(IniciadorTareas &resultado) override {
+                bool retorno = (resultado.getRunCounter() > 1) && (this -> bot -> conectarseATelegram());
                 
                 LOG("ESTADO DE CONEXION = %s", retorno ? "true" : "false");
                 return retorno;
