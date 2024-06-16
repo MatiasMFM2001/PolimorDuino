@@ -38,7 +38,7 @@
                 TBMessage mensaje;
                 mensaje.chatId = ingr.getIDCanal();
                 
-                return (this -> bot -> sendMessage(mensaje, ingr.getContenido().getContenidoConstante(), ""));
+                return (this -> bot -> sendMessage(mensaje, ingr.getContenido().getContenidoConstante()));
             }
             
             bool conectarseATelegram(void) override {
