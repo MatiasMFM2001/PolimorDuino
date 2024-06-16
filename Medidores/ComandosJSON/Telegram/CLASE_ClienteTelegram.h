@@ -32,6 +32,7 @@
             virtual MensajeTelegram<CAPACIDAD_MENSAJE> recibirMensaje(void) = 0;
             virtual bool enviarMensaje(MensajeTelegram<CAPACIDAD_MENSAJE> &ingr) = 0;
             virtual bool conectarseATelegram(void) = 0;
+            virtual StringEstatica<32> getNombreUsuario(void) = 0;
             
             CanalBidireccional<Stream, Print> getResultado(void) override {
                 MensajeTelegram mensaje = this -> recibirMensaje();
