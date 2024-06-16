@@ -66,7 +66,7 @@
                 }
                 
                 this -> stream.print(texto.getContenidoConstante());
-                this -> impresora.setIDCanal(idCanal);
+                this -> impresora.reiniciarBuffer(idCanal);
                 
                 return {this -> stream, this -> impresora};
             }

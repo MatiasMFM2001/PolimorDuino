@@ -32,7 +32,7 @@ class ClienteTelegram;
                 : Print()
                 , cliente(cliente)
             {
-                this -> setIDCanal(idCanal);
+                this -> reiniciarBuffer(idCanal);
             }
         
             /**
@@ -68,8 +68,8 @@ class ClienteTelegram;
                 return this -> buffer.getCapacidadRestante();
             }
             
-            void setIDCanal(int64_t ingr) {
-                this -> buffer = MensajeTelegram<CAPACIDAD_MENSAJE>(nullptr, ingr, true);
+            void reiniciarBuffer(int64_t idCanal) {
+                this -> buffer = MensajeTelegram<CAPACIDAD_MENSAJE>(nullptr, idCanal, true);
             }
     };
 #endif
