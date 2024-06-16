@@ -38,7 +38,7 @@
                 MensajeTelegram mensaje = this -> recibirMensaje();
                 
                 if (!mensaje.esValido()) {
-                    CLOG_REFERENCIA_IMPRESORA(Serial, "ADVERTENCIA: Se descartó el mensaje recibido, porque no es válido (o está vacío)");
+                    FLOGS("ADVERTENCIA: Se descartó el mensaje recibido, porque no es válido (o está vacío)");
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
