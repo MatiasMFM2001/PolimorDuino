@@ -35,6 +35,11 @@
                 #endif
             
                 WiFi.mode(WIFI_STA);
+                
+                #if (defined(ARDUINO_ARCH_RP2040) && !defined(__MBED__))
+                    cyw43_wifi_pm(&cyw43_state, CYW43_PERFORMANCE_PM);
+                #endif
+                
                 WiFi.begin(this -> nombreRed.getContenido(), this -> contrasenia.getContenido());
                 
                 Task::enable();
