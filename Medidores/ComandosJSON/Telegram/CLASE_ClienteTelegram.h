@@ -37,19 +37,19 @@
                 MensajeTelegram mensaje = this -> recibirMensaje();
                 
                 if (!mensaje.esValido()) {
-                    FLOGS("ADVERTENCIA: Se descartó el mensaje recibido, porque no es válido (o está vacío)");
+                    CLOG_REFERENCIA_IMPRESORA(Serial, "ADVERTENCIA: Se descartó el mensaje recibido, porque no es válido (o está vacío)");
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 if (!mensaje.esMensajeTexto()) {
-                    FLOGS("ADVERTENCIA: Se descartó el mensaje recibido, porque no es de texto");
+                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, "ADVERTENCIA: Se descartó el mensaje recibido, porque no es de texto");
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 int64_t idCanal = mensaje.getIDCanal();
                 
                 if (!contiene(this -> canalesPermitidos, idCanal)) {
-                    LOG("ADVERTENCIA: Se descartó el mensaje recibido, porque el canal %d no está en el conjunto de canales permitidos", idCanal);
+                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, "ADVERTENCIA: Se descartó el mensaje recibido, porque el canal", idCanal, "no está en el conjunto de canales permitidos");
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
@@ -60,7 +60,7 @@
                 size_t tamanioBuffer = (this -> stream.availableForWrite());
                 
                 if (tamanioTexto > tamanioBuffer) {
-                    LOG("ERROR: La cadena leida (de %d caracteres) no entra en el LoopbackStream de %d caracteres", tamanioTexto, tamanioBuffer);
+                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, "ERROR: La cadena leida (de", tamanioTexto, "caracteres) no entra en el LoopbackStream de", tamanioBuffer, "caracteres");
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
