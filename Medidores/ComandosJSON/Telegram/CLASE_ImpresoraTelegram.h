@@ -71,5 +71,9 @@ class ClienteTelegram;
             void reiniciarBuffer(int64_t idCanal) {
                 this -> buffer = MensajeTelegram<CAPACIDAD_MENSAJE>(nullptr, idCanal, true);
             }
+            
+            void setIDCanal(int64_t ingr) {
+                this -> buffer.setIDCanal(ingr);
+            }
     };
 #endif

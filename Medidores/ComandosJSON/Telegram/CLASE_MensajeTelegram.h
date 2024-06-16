@@ -33,6 +33,10 @@
                 return (this -> idCanal);
             }
             
+            void setIDCanal(int64_t ingr) {
+                this -> idCanal = ingr;
+            }
+            
             bool esMensajeTexto(void) {
                 return (this -> esMsjTexto);
             }
