@@ -44,6 +44,10 @@
             bool conectarseATelegram(void) override {
                 return (this -> bot -> begin());
             }
+            
+            StringEstatica<32> getNombreUsuario(void) override {
+                return StringEstatica<32>(this -> bot -> getBotName());
+            }
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
