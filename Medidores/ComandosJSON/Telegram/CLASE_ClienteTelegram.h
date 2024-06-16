@@ -81,6 +81,10 @@
             void setCanalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &ingr) {
                 this -> canalesPermitidos = ingr;
             }
+            
+            Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &getCanalesPermitidos(void) {
+                return (this -> canalesPermitidos);
+            }
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
