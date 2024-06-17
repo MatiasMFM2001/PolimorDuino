@@ -75,5 +75,9 @@ class ClienteTelegram;
             void setIDCanal(int64_t ingr) {
                 this -> buffer.setIDCanal(ingr);
             }
+            
+            int64_t getIDCanal(void) {
+                return (this -> buffer.getIDCanal());
+            }
     };
 #endif

@@ -85,6 +85,14 @@
             Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS> &getCanalesPermitidos(void) {
                 return (this -> canalesPermitidos);
             }
+            
+            template <typename... T_ARGUMENTOS>
+            void enviarMensajeCanalesPermitidos(CallbackResultado<ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>, T_ARGUMENTOS...> &enviador, T_ARGUMENTOS&... argumentos) {
+                for (int64_t selec: this -> canalesPermitidos) {
+                    ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER> impresora(this, selec);
+                    enviador.notificar(impresora, argumentos...);
+                }
+            }
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
