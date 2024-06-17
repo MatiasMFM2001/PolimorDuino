@@ -11,6 +11,10 @@ TemperaturaHumedad::TemperaturaHumedad(float temperatura, float humedad)
     : temperatura(temperatura), humedad(humedad)
 {}
 
+bool TemperaturaHumedad::esValida(float ingr) {
+    return ((ingr != NO_DEFINIDA) && !isinf(ingr) && !isnan(ingr));
+}
+
 void TemperaturaHumedad::setTemperatura(float ingr) {
     this -> temperatura = ingr;
 }
@@ -20,7 +24,7 @@ float TemperaturaHumedad::getTemperatura(void) {
 }
 
 bool TemperaturaHumedad::tieneTemperatura(void) {
-    return (this -> temperatura) != NO_DEFINIDA;
+    return (this -> esValida(this -> temperatura));
 }
 
 void TemperaturaHumedad::setHumedad(float ingr) {
@@ -32,7 +36,7 @@ float TemperaturaHumedad::getHumedad(void) {
 }
 
 bool TemperaturaHumedad::tieneHumedad(void) {
-    return (this -> humedad) != NO_DEFINIDA;
+    return (this -> esValida(this -> humedad));
 }
 
 size_t TemperaturaHumedad::printTo(Print &impresora) const {
