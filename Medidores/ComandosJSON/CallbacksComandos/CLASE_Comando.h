@@ -9,16 +9,16 @@
 
 #include "../../../Utils/CLASE_StringEstatica.h"
 #include "../../../Utils/FuncionesGlobales.h"
-    template<size_t CAPACIDAD_NOMBRE, size_t CAPACIDAD_MENSAJE_ERROR>
+    template<size_t CAPACIDAD_NOMBRE>
     class Comando : public Printable {
         private:
             StringEstatica<CAPACIDAD_NOMBRE> nombre;
-            StringEstatica<CAPACIDAD_MENSAJE_ERROR> (*manejador)(JsonArray &, size_t, Print &);
+            void (*manejador)(const JsonArray &, size_t, Print &);
             size_t minNumArgumentos;
             size_t maxNumArgumentos;
 
         public:
-            Comando(StringEstatica<CAPACIDAD_NOMBRE> nombre, StringEstatica<CAPACIDAD_MENSAJE_ERROR> (*manejador)(JsonArray&, size_t, Print &), size_t minNumArgumentos, size_t maxNumArgumentos)
+            Comando(StringEstatica<CAPACIDAD_NOMBRE> nombre = StringEstatica<CAPACIDAD_NOMBRE>(), void (*manejador)(const JsonArray&, size_t, Print &) = nullptr, size_t minNumArgumentos = 0, size_t maxNumArgumentos = -1)
                 : nombre(nombre), manejador(manejador), minNumArgumentos(minNumArgumentos), maxNumArgumentos(maxNumArgumentos)
             {}
 
@@ -38,12 +38,12 @@
                 return enRango(this -> minNumArgumentos, this -> maxNumArgumentos, ingr);
             }
             
-            StringEstatica<CAPACIDAD_MENSAJE_ERROR> invocar(JsonArray &args, size_t numArgs, Print &salida) {
+            void invocar(const JsonArray &args, size_t numArgs, Print &salida) {
                 if (!(this -> manejador)) {
-                    return StringEstatica<CAPACIDAD_MENSAJE_ERROR>();
+                    return;
                 }
                 
-                return this -> manejador(args, numArgs, salida);
+                this -> manejador(args, numArgs, salida);
             }
 
             /**

@@ -9,18 +9,18 @@
 
 #include "../../Callbacks/INTERFAZ_CallbackResultado.h"
 #include "CLASE_Comando.h"
-    template<size_t CAPACIDAD_COMANDOS, size_t CAPACIDAD_NOMBRE_COMANDOS, size_t CAPACIDAD_MENSAJE_ERROR_COMANDOS>
+    template<size_t CAPACIDAD_COMANDOS, size_t CAPACIDAD_NOMBRE_COMANDOS>
     class InvocadorCallbacks : public CallbackResultado<CanalBidireccional<JsonDocument, Print>> {
         private:
-            Array<Comando<CAPACIDAD_NOMBRE_COMANDOS, CAPACIDAD_MENSAJE_ERROR_COMANDOS>, CAPACIDAD_COMANDOS> comandos;
+            Array<Comando<CAPACIDAD_NOMBRE_COMANDOS>, CAPACIDAD_COMANDOS> comandos;
 
         public:
-            InvocadorCallbacks(Array<Comando<CAPACIDAD_NOMBRE_COMANDOS, CAPACIDAD_MENSAJE_ERROR_COMANDOS>, CAPACIDAD_COMANDOS> comandos)
+            InvocadorCallbacks(Array<Comando<CAPACIDAD_NOMBRE_COMANDOS>, CAPACIDAD_COMANDOS> comandos)
                 : comandos(comandos)
             {}
             
-            InvocadorCallbacks(Comando<CAPACIDAD_NOMBRE_COMANDOS, CAPACIDAD_MENSAJE_ERROR_COMANDOS> comandos[CAPACIDAD_COMANDOS])
-                : InvocadorCallbacks(Array<Comando<CAPACIDAD_NOMBRE_COMANDOS, CAPACIDAD_MENSAJE_ERROR_COMANDOS>, CAPACIDAD_COMANDOS>(comandos))
+            InvocadorCallbacks(const Comando<CAPACIDAD_NOMBRE_COMANDOS> comandos[CAPACIDAD_COMANDOS])
+                : InvocadorCallbacks(Array<Comando<CAPACIDAD_NOMBRE_COMANDOS>, CAPACIDAD_COMANDOS>(comandos))
             {}
 
             void notificar(CanalBidireccional<JsonDocument, Print> &resultado) override {
@@ -32,7 +32,7 @@
                 const JsonArray &argumentos = documento[CLAVE_ARGS];
                 const size_t numArgs = argumentos.size();
 
-                for (Comando<CAPACIDAD_NOMBRE_COMANDOS, CAPACIDAD_MENSAJE_ERROR_COMANDOS> &selec: this -> comandos) {
+                for (Comando<CAPACIDAD_NOMBRE_COMANDOS> &selec: this -> comandos) {
                     if (!selec.tieneNombre(nombreComando)) {
                         continue;
                     }

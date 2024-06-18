@@ -15,7 +15,7 @@
         } \
 
     #define NOMBRE_CALLBACK(nombreComando) callbackComando_ ## nombreComando
-    #define DECLARAR_CALLBACK(capacidadError, nombreComando, args, numArgs, salida) StringEstatica<capacidadError> NOMBRE_CALLBACK(nombreComando) (JsonArray &args, size_t numArgs, Print &salida)
-    #define DEFINIR_CALLBACK(capacidadError, nombreComando) DECLARAR_CALLBACK(capacidadError, nombreComando, args, numArgs, salida)
-    #define CREAR_COMANDO(capacidadNombre, capacidadError, nombreComando, minArgs, maxArgs) Comando<capacidadNombre, capacidadError>(#nombreComando, &NOMBRE_CALLBACK(nombreComando), minArgs, maxArgs)
+    #define DECLARAR_CALLBACK(nombreComando, args, numArgs, salida) void NOMBRE_CALLBACK(nombreComando) ([[maybe_unused]] const JsonArray &args, [[maybe_unused]] size_t numArgs, Print &salida)
+    #define DEFINIR_CALLBACK(nombreComando) DECLARAR_CALLBACK(nombreComando, args, numArgs, salida)
+    #define CREAR_COMANDO(capacidadNombre, nombreComando, minArgs, maxArgs) Comando<capacidadNombre>(#nombreComando, &NOMBRE_CALLBACK(nombreComando), minArgs, maxArgs)
 #endif
