@@ -48,6 +48,11 @@
                 }
                 
                 CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Comando inválido:", comando);
+                CLOG_REFERENCIA_IMPRESORA(salida, "Los comandos disponibles son:");
+                
+                for (Comando<CAPACIDAD_NOMBRE_COMANDOS> &selec: this -> comandos) {
+                    CLOG_REFERENCIA_IMPRESORA(salida, '-', selec.getNombre().getContenidoConstante());
+                }
             }
 
             /**
