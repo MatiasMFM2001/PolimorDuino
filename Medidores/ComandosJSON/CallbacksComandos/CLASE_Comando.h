@@ -22,6 +22,10 @@
                 : nombre(nombre), manejador(manejador), minNumArgumentos(minNumArgumentos), maxNumArgumentos(maxNumArgumentos)
             {}
 
+            StringEstatica<CAPACIDAD_NOMBRE> &getNombre(void) {
+                return (this -> nombre);
+            }
+
             size_t getMinArgumentos(void) {
                 return (this -> minNumArgumentos);
             }
