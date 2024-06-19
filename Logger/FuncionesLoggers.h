@@ -22,7 +22,7 @@
     #endif
     
     template <typename T>
-    void imprimir(T &valor) {
+    void imprimir([[maybe_unused]] T &valor) {
         #pragma GCC diagnostic ignored "-Wunused-value"
         CLOG(valor);
     }
@@ -42,7 +42,7 @@
     void imprimir(JsonDocument &valor);
     
     template <size_t CAPACIDAD_JSON>
-    void imprimir(StaticJsonDocument<CAPACIDAD_JSON> &valor) {
+    void imprimir([[maybe_unused]] StaticJsonDocument<CAPACIDAD_JSON> &valor) {
         IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor);
     }
     

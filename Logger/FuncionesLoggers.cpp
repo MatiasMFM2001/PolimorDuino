@@ -6,10 +6,10 @@
 
 #include "FuncionesLoggers.h"
 
-void imprimir(JsonDocument &valor) {
+void imprimir([[maybe_unused]] JsonDocument &valor) {
     IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor);
 }
 
-void imprimir(DynamicJsonDocument &valor) {
+void imprimir([[maybe_unused]] DynamicJsonDocument &valor) {
     IMPRIMIR_DOCUMENTO_ARDUINO_JSON(valor);
 }
