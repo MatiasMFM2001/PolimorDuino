@@ -52,8 +52,10 @@
     StringEstatica<CAPACIDAD_STRINGS> copiaClave(clave); \
  \
     LOG("Escribiendo BaseDatosEEPROM::setValor('%s') = %s", clave, copiaClave.getContenido()); \
+ \
     this -> documento.garbageCollect(); \
     this -> documento[copiaClave.getContenido()] = copiaValor; \
+    this -> documento.garbageCollect(); \
  \
     if (this -> documento.overflowed()) { \
         LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON); \
