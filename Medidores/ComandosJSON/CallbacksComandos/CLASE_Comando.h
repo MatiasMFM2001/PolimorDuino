@@ -39,7 +39,7 @@
             }
             
             bool recibeNumArgumentos(size_t ingr) {
-                return enRango(this -> minNumArgumentos, this -> maxNumArgumentos, ingr);
+                return enRango(ingr, this -> minNumArgumentos, this -> maxNumArgumentos);
             }
             
             void invocar(const JsonArray &args, size_t numArgs, Print &salida) {
