@@ -18,7 +18,6 @@
 
 #include <Arduino.h>
 #include <Print.h>
-#include <avr/pgmspace.h>
 #include "MACRO_ForEachAcumulando.h"
 #include <Array.h>
     size_t imprimirCaracterJSON(Print &impresora, const char ingr);
