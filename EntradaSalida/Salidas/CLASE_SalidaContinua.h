@@ -14,8 +14,5 @@
             SalidaContinua(bool invertir)
                 : Salida<T, N_NUM_BITS>(invertir)
             {}
-            
-            virtual void setResolucion(byte numBits) override {
-            }
     };
 #endif

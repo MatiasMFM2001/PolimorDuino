@@ -29,9 +29,6 @@
                 return (this -> getMaxValorRepresentable()) - ingr;
             }
             
-            virtual void setResolucion(byte numBits) {
-            }
-            
         public:
             EntradaSalida(bool invertir)
                 : invertir(invertir)

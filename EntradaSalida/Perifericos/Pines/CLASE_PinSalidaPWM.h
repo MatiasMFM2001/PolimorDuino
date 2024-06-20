@@ -33,12 +33,6 @@
                     analogWrite(this -> numPin, valor);
                 }
             }
-            
-#if (defined(ARDUINO_ARCH_RP2040) && !defined(__MBED__)) || defined(ESP32) || defined(ESP8266)
-            virtual void setResolucion(byte numBits) override {
-                analogWriteResolution(numBits);
-            }
-#endif
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
