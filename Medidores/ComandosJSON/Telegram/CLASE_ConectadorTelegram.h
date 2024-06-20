@@ -24,7 +24,7 @@
             {}
             
             WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>> getResultado(void) override {
-                return WrapperPuntero(this -> bot);
+                return WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>(this -> bot);
             }
             
             bool esValido(WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>> &resultado) override {

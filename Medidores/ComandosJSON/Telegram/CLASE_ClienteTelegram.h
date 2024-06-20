@@ -35,7 +35,7 @@
             virtual StringEstatica<32> getNombreUsuario(void) = 0;
             
             CanalBidireccional<Stream, Print> getResultado(void) override {
-                MensajeTelegram mensaje = this -> recibirMensaje();
+                MensajeTelegram<CAPACIDAD_MENSAJE> mensaje = this -> recibirMensaje();
                 
                 if (!mensaje.esValido()) {
                     FLOGS("ADVERTENCIA: Se descartó el mensaje recibido, porque no es válido (o está vacío)");
