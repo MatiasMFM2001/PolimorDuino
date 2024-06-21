@@ -48,7 +48,7 @@
             }
             
             bool estaLlena(void) {
-                return (this -> getLongitud() == MAX_CAPACIDAD);
+                return (this -> getLongitud() >= MAX_CAPACIDAD);
             }
             
             bool estaVacia(void) {
