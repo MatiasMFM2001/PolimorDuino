@@ -9,6 +9,7 @@
 
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include <Print.h>
+#include <ArduinoJson.h>
     template <size_t (*serializador)(const JsonDocument&, Print&)>
     class EmisorDocumento : public Task {
         private:
