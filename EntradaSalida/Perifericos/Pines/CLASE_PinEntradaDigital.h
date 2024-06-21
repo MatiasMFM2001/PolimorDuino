@@ -32,7 +32,7 @@
              *  el pin encendido, @c false para el caso contrario.
              */
             PinEntradaDigital(pin_size_t numPin = -1, bool invertir = false)
-                : Pin(numPin, NUM_DIGITAL_PINS)
+                : Pin<MODO_PIN>(numPin, NUM_DIGITAL_PINS)
                 , EntradaDigital(invertir)
             {}
 

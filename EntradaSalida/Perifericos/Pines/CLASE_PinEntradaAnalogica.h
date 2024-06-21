@@ -24,7 +24,7 @@
              *  @c false para el caso contrario.
              */
             PinEntradaAnalogica(pin_size_t numPin = -1, bool invertir = false)
-                : Pin(numPin, NUM_ANALOG_INPUTS)
+                : Pin<INPUT>(numPin, NUM_ANALOG_INPUTS)
                 , EntradaAnalogica<T, N_NUM_BITS>(invertir)
             {}
         
@@ -43,7 +43,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "PinEntradaAnalogica") + SUPERCLASES_A_JSON(impresora, Pin, (EntradaAnalogica<T, N_NUM_BITS>));
+                return OBJETO_A_JSON(impresora, "PinEntradaAnalogica") + SUPERCLASES_A_JSON(impresora, Pin<INPUT>, (EntradaAnalogica<T, N_NUM_BITS>));
             }
     };
 #endif

@@ -24,7 +24,7 @@
              *  @c false para el caso contrario.
              */
             PinSalidaPWM(pin_size_t numPin = -1, bool invertir = false)
-                : Pin(numPin, NUM_DIGITAL_PINS)
+                : Pin<OUTPUT>(numPin, NUM_DIGITAL_PINS)
                 , SalidaPWM<T, N_NUM_BITS>(invertir)
             {}
         
@@ -42,7 +42,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "PinSalidaPWM") + SUPERCLASES_A_JSON(impresora, Pin, (SalidaPWM<T, N_NUM_BITS>));
+                return OBJETO_A_JSON(impresora, "PinSalidaPWM") + SUPERCLASES_A_JSON(impresora, Pin<OUTPUT>, (SalidaPWM<T, N_NUM_BITS>));
             }
     };
 #endif
