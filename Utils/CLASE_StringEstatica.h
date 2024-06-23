@@ -11,6 +11,7 @@
 #include <Array.h>
 #include "../Logger/FuncionesLoggers.h"
 #include "../Medidores/Condiciones/CLASE_CompuertaNO.h"
+#include "../Logger/FuncionesJSON.h"
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public Printable {
         private:
