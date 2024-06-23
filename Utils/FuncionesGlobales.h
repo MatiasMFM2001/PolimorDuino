@@ -199,6 +199,32 @@
     }
     
     /**
+     * @brief Compara los dos arrays especificados.
+     *
+     * @tparam T El tipo de dato de los valores almacenados en el array.
+     * @tparam S_ARRAY_1 La cantidad máxima de elementos del array 1.
+     * @tparam S_ARRAY_2 La cantidad máxima de elementos del array 2.
+     * @param array El array a procesar.
+     * @param valor El valor a buscar en el array.
+     * @returns @c true si los dos arrays son iguales, @c false en el caso
+     *  contrario.
+     */
+    template <typename T, size_t S_ARRAY_1, size_t S_ARRAY_2>
+    bool iguales(Array<T, S_ARRAY_1> &array1, Array<T, S_ARRAY_2> &array2) {
+        if (array1.size() != array2.size()) {
+            return false;
+        }
+        
+        for (size_t cont = 0; cont < array1.size(); ++cont) {
+            if (array1[cont] != array2[cont]) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
      * @brief Permite multiplicar una cantidad de iteraciones de una tarea (si
      *  es distinta a @c TASK_FOREVER) por otra cantidad.
      * 
