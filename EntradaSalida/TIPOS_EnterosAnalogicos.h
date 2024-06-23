@@ -14,3 +14,6 @@
 #define USHORT_12_BIT unsigned short, 12
 #define USHORT_14_BIT unsigned short, 14
 #define USHORT_16_BIT unsigned short, 16
+
+#define GET_TIPO(t, numBits) t
+#define GET_NUM_BITS(t, numBits) numBits
