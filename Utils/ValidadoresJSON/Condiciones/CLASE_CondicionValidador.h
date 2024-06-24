@@ -4,15 +4,29 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef VALIDADOR_PRIMITIVO
-#define VALIDADOR_PRIMITIVO
+#ifndef CONDICION_VALIDADOR
+#define CONDICION_VALIDADOR
 
 #include "../CLASE_ValidadorJSON.h"
+#include "../../../Logger/FuncionesJSON.h"
+#include "../../../Inclusiones/InclusionLog4Arduino.h"
     template <typename T>
-    class ValidadorPrimitivo : public ValidadorJSON {
+    class CondicionValidador : public CondicionResultado<JsonVariant> {
+        private:
+            ValidadorJSON *hijo;
+
         public:
+            CondicionValidador(ValidadorJSON *hijo)
+                : hijo(hijo)
+            {}
+
+            virtual bool puedeValidar(const T ingr) {
+                LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::puedeValidar(const T)");
+                return false;
+            };
+
             bool esValido(JsonVariant &variante) override {
-                return variante.is<T>();
+                return (this -> hijo -> esValido(variante));
             }
 
             /**
@@ -23,7 +37,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "ValidadorPrimitivo");
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "CondicionValidador", hijo);
             }
     };
 #endif

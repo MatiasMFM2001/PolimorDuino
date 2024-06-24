@@ -4,15 +4,19 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef VALIDADOR_PRIMITIVO
-#define VALIDADOR_PRIMITIVO
+#ifndef CONDICION_HOMOGENEO
+#define CONDICION_HOMOGENEO
 
-#include "../CLASE_ValidadorJSON.h"
+#include "CLASE_CondicionValidador.h"
     template <typename T>
-    class ValidadorPrimitivo : public ValidadorJSON {
+    class CondicionHomogeneo : public CondicionValidador<T> {
         public:
-            bool esValido(JsonVariant &variante) override {
-                return variante.is<T>();
+            CondicionHomogeneo(ValidadorJSON *hijo)
+                : CondicionValidador<T>(hijo)
+            {}
+        
+            bool puedeValidar(const T ingr) override {
+                return true;
             }
 
             /**
@@ -23,7 +27,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "ValidadorPrimitivo");
+                return OBJETO_A_JSON(impresora, "CondicionValidador") + SUPERCLASES_A_JSON(impresora, CondicionValidador<T>);
             }
     };
 #endif

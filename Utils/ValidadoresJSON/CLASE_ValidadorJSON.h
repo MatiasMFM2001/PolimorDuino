@@ -12,5 +12,7 @@
     class ValidadorJSON : public CondicionResultado<JsonVariant> {
         public:
             bool esValido(JsonDocument &documento);
+
+            using CondicionResultado<JsonVariant>::esValido;
     };
 #endif

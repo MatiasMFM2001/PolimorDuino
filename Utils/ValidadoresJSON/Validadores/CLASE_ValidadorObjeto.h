@@ -1,0 +1,49 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+#ifndef VALIDADOR_OBJETO
+#define VALIDADOR_OBJETO
+
+#include "CLASE_ValidadorCompuesto.h"
+    template <size_t CAPACIDAD_CONDICIONES>
+    class ValidadorObjeto : public ValidadorCompuesto<const char *, CAPACIDAD_CONDICIONES> {
+        public:
+            ValidadorObjeto(Array<CondicionValidador<const char *> *, CAPACIDAD_CONDICIONES> condiciones)
+                : ValidadorCompuesto<const char *, CAPACIDAD_CONDICIONES>(condiciones)
+            {}
+            
+            bool esValido(JsonVariant &variante) override {
+                if (!variante.is<JsonObject>()) {
+                    return false;
+                }
+                
+                JsonObject objeto = variante.as<JsonObject>();
+                
+                for (JsonPair selec: objeto) {
+                    JsonVariant valor = selec.value();
+
+                    if (!(this -> esValido(valor, selec.key().c_str(), "la clave"))) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+
+            /**
+             * @brief Imprime los valores de las variables de instancia a la
+             *  impresora especificada.
+             *
+             * @param impresora Referencia a la impresora especificada.
+             * @returns La cantidad de bytes escritos a la impresora.
+             */
+            virtual size_t printTo(Print &impresora) const override {
+                return OBJETO_A_JSON(impresora, "ValidadorObjeto") + SUPERCLASES_A_JSON(impresora, (ValidadorCompuesto<const char *, CAPACIDAD_CONDICIONES>));
+            }
+
+            using ValidadorCompuesto<const char *, CAPACIDAD_CONDICIONES>::esValido;
+    };
+#endif
