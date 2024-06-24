@@ -59,6 +59,21 @@
         T dif = (num1 - num2);
         return (abs(dif) < difMax);
     }
+    
+    /**
+     * @brief Determina si dos valores son iguales entre sí.
+     * 
+     * @tparam T El tipo de dato de los valores a procesar.
+     * @param valor1 El primer valor a comparar.
+     * @param valor2 El segundo valor a comparar.
+     * @returns @c true si los valores son iguales, @c false en caso contrario.
+     */
+    template <typename T>
+    bool iguales(const T &valor1, const T &valor2) {
+        return (valor1 == valor2);
+    }
+    
+    bool iguales(const char *valor1, const char *valor2);
 
     /**
      * @brief Determina si el número ingresado es par.
@@ -188,9 +203,9 @@
      *  contrario.
      */
     template <typename T, size_t S>
-    bool contiene(Array<T, S> &array, T valor) {
+    bool contiene(Array<T, S> &array, T valor, bool (*comparador)(const T &, const T &) = &iguales) {
         for (T &selec: array) {
-            if (selec == valor) {
+            if (comparador(selec, valor)) {
                 return true;
             }
         }
@@ -210,13 +225,13 @@
      *  contrario.
      */
     template <typename T, size_t S_ARRAY_1, size_t S_ARRAY_2>
-    bool iguales(Array<T, S_ARRAY_1> &array1, Array<T, S_ARRAY_2> &array2) {
+    bool iguales(Array<T, S_ARRAY_1> &array1, Array<T, S_ARRAY_2> &array2, bool (*comparador)(const T &, const T &) = &iguales) {
         if (array1.size() != array2.size()) {
             return false;
         }
         
         for (size_t cont = 0; cont < array1.size(); ++cont) {
-            if (array1[cont] != array2[cont]) {
+            if (!comparador(array1[cont], array2[cont])) {
                 return false;
             }
         }

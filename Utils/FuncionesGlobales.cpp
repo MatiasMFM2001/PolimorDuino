@@ -15,3 +15,7 @@ long multiplicarNumIteraciones(long numTerminos, unsigned long multiplicador) {
     
     return (numTerminos * multiplicador);
 }
+
+bool iguales(const char *valor1, const char *valor2) {
+    return (strcmp(valor1, valor2) == 0);
+}
