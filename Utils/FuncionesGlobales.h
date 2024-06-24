@@ -73,7 +73,7 @@
         return (valor1 == valor2);
     }
     
-    bool iguales(const char *valor1, const char *valor2);
+    bool cadenasIguales(const char* const &valor1, const char* const &valor2);
 
     /**
      * @brief Determina si el número ingresado es par.
@@ -203,8 +203,8 @@
      *  contrario.
      */
     template <typename T, size_t S>
-    bool contiene(Array<T, S> &array, T valor, bool (*comparador)(const T &, const T &) = &iguales) {
-        for (T &selec: array) {
+    bool contiene(const Array<T, S> &array, const T valor, bool (*comparador)(const T &, const T &) = &iguales) {
+        for (const T &selec: array) {
             if (comparador(selec, valor)) {
                 return true;
             }
