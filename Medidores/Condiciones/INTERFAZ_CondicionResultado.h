@@ -8,6 +8,7 @@
 #define CONDICION_RESULTADO
 
 #include <Printable.h>
+#include <Print.h>
     template <typename... T>
     class CondicionResultado : virtual public Printable {
         public:
