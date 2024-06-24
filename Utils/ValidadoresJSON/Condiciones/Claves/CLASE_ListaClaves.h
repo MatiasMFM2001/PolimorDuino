@@ -21,8 +21,8 @@
                 , lista(lista)
             {}
             
-            bool puedeValidar(const char * ingr) {
-                return contiene(this -> lista, ingr);
+            bool puedeValidar(const char *ingr) {
+                return contiene<const char *, CAPACIDAD_LISTA>(this -> lista, ingr, &cadenasIguales);
             }
 
             /**
