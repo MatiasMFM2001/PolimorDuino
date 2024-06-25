@@ -38,9 +38,6 @@
             }
             
             bool varianteContieneTodas(const JsonObject &ingr) override {
-                CLOG("OBJETO:");
-                serializeJsonPretty(ingr, Serial);
-                
                 for (const char *selec: this -> lista) {
                     if (!(this -> objetoContieneClave(ingr, selec))) {
                         CLOG("El objeto no contiene esta clave:", selec);

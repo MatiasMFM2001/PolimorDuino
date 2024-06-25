@@ -28,9 +28,6 @@
             }
         
             bool esValido(JsonVariant &variante, const T_CONDICION ingr, const char *nombreIngr) {
-                CLOG("VARIANTE:");
-                serializeJsonPretty(variante, Serial);
-                
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> puedeValidar(ingr))) {
                         continue;

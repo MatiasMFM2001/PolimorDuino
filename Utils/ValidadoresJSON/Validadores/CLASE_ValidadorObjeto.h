@@ -20,9 +20,6 @@
                     return false;
                 }
                 
-                CLOG("VARIANTE DE VALIDADOR:");
-                serializeJsonPretty(variante, Serial);
-                
                 JsonObject objeto = variante.as<JsonObject>();
                 
                 if (!(this -> contieneTodas(objeto))) {
@@ -32,9 +29,6 @@
                 
                 for (JsonPair selec: objeto) {
                     JsonVariant valor = selec.value();
-
-                    CLOG("BAJO LA CLAVE", selec.key().c_str(), "SE ENCUENTRA EL VALOR:");
-                    serializeJsonPretty(valor, Serial);
 
                     if (!(this -> esValido(valor, selec.key().c_str(), "la clave"))) {
                         return false;
