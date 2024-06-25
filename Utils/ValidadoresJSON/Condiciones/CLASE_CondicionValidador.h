@@ -10,7 +10,7 @@
 #include "../CLASE_ValidadorJSON.h"
 #include "../../../Logger/FuncionesJSON.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
-    template <typename T>
+    template <typename T_IDENTIFICADOR, typename T_VARIANTE>
     class CondicionValidador : public CondicionResultado<JsonVariant> {
         private:
             ValidadorJSON *hijo;
@@ -20,8 +20,13 @@
                 : hijo(hijo)
             {}
 
-            virtual bool puedeValidar(const T ingr) {
-                LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::puedeValidar(const T)");
+            virtual bool puedeValidar(const T_IDENTIFICADOR ingr) {
+                LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::puedeValidar(const T_IDENTIFICADOR)");
+                return false;
+            };
+            
+            virtual bool varianteContieneTodas(const T_VARIANTE &ingr) {
+                LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::varianteContieneTodas(const T_VARIANTE)");
                 return false;
             };
 

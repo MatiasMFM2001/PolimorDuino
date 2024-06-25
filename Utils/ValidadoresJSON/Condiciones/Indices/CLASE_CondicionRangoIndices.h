@@ -7,9 +7,11 @@
 #ifndef CONDICION_RANGO_INDICES
 #define CONDICION_RANGO_INDICES
 
+#define EXTREMO_INFINITO (-1)
+
 #include "../CLASE_CondicionValidador.h"
 #include "../../../FuncionesGlobales.h"
-    class CondicionRangoIndices : public CondicionValidador<size_t> {
+    class CondicionRangoIndices : public CondicionValidador<size_t, JsonArray> {
         size_t indiceMin;
         size_t indiceMax;
         
@@ -18,6 +20,7 @@
             CondicionRangoIndices(ValidadorJSON *hijo, size_t indice);
         
             bool puedeValidar(const size_t ingr);
+            bool varianteContieneTodas(const JsonArray &ingr);
 
             /**
              * @brief Imprime los valores de las variables de instancia a la

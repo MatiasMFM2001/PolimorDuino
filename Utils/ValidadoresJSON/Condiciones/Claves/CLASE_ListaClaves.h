@@ -15,6 +15,18 @@
         private:
             Array<const char *, CAPACIDAD_LISTA> lista;
         
+            bool objetoContieneClave(const JsonObject &ingr, const char *clave) {
+                for (JsonPair selec: ingr) {
+                    CLOG("COMPARANDO CLAVE", selec.key().c_str(), "Y", clave);
+                    if (cadenasIguales(selec.key().c_str(), clave)) {
+                        CLOG("Son iguales");
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
         public:
             ListaClaves(ValidadorJSON *hijo, Array<const char *, CAPACIDAD_LISTA> lista)
                 : CondicionClaves(hijo)
@@ -23,6 +35,20 @@
             
             bool puedeValidar(const char *ingr) {
                 return contiene<const char *, CAPACIDAD_LISTA>(this -> lista, ingr, &cadenasIguales);
+            }
+            
+            bool varianteContieneTodas(const JsonObject &ingr) override {
+                CLOG("OBJETO:");
+                serializeJsonPretty(ingr, Serial);
+                
+                for (const char *selec: this -> lista) {
+                    if (!(this -> objetoContieneClave(ingr, selec))) {
+                        CLOG("El objeto no contiene esta clave:", selec);
+                        return false;
+                    }
+                }
+                
+                return true;
             }
 
             /**
