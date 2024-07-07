@@ -20,12 +20,12 @@
                 : hijo(hijo)
             {}
 
-            virtual bool puedeValidar(const T_IDENTIFICADOR ingr) {
+            virtual bool puedeValidar([[maybe_unused]] const T_IDENTIFICADOR ingr) {
                 LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::puedeValidar(const T_IDENTIFICADOR)");
                 return false;
             };
             
-            virtual bool varianteContieneTodas(const T_VARIANTE &ingr) {
+            virtual bool varianteContieneTodas([[maybe_unused]] const T_VARIANTE &ingr) {
                 LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::varianteContieneTodas(const T_VARIANTE)");
                 return false;
             };

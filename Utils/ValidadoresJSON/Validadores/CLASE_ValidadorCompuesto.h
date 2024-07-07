@@ -27,7 +27,7 @@
                 return true;
             }
         
-            bool esValido(JsonVariant &variante, const T_CONDICION ingr, const char *nombreIngr) {
+            bool esValido(JsonVariant &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr) {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> puedeValidar(ingr))) {
                         continue;
