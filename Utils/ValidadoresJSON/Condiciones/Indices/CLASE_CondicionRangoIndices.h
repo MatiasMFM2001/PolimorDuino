@@ -7,7 +7,7 @@
 #ifndef CONDICION_RANGO_INDICES
 #define CONDICION_RANGO_INDICES
 
-#define EXTREMO_INFINITO (-1)
+#define EXTREMO_INFINITO ((size_t) -1)
 
 #include "../CLASE_CondicionValidador.h"
 #include "../../../FuncionesGlobales.h"
