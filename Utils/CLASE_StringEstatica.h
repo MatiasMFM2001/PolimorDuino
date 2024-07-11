@@ -32,6 +32,13 @@
                 this -> agregarFinal(contenidoInicial);
             }
             
+            StringEstatica(char caracterInicial)
+                : contenido(Array<char, MAX_CAPACIDAD + 1>())
+            {
+                this -> contenido.push_back(caracterInicial);
+                this -> contenido.push_back('\0');
+            }
+            
             size_t getLongitud(void) {
                 if (this -> contenido.empty()) {
                     return 0;
