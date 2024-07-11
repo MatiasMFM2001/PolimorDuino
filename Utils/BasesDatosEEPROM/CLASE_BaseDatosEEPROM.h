@@ -186,14 +186,14 @@
                 return this -> documento[clave];
             }
             
-            bool guardar(void) {
+            bool guardar(Print *salida = nullptr) {
                 if (this -> estaCorrupta) {
-                    FLOGS("ADVERTENCIA: Se accedió a BaseDatosEEPROM::guardar() con la BD corrupta");
+                    CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se accedió a BaseDatosEEPROM::guardar() con la BD corrupta");
                     return false;
                 }
                 
                 //EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);
-                LOG("DIRECCION_DOCUMENTO = %d, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1 = %d", DIRECCION_DOCUMENTO, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
+                CLOG_PUNTERO_IMPRESORA(salida, "DIRECCION_DOCUMENTO =", DIRECCION_DOCUMENTO, "this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1 =", this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
                 EepromStream escritor(DIRECCION_DOCUMENTO, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
                 size_t tamanioEscrito = serializeMsgPack(this -> documento, escritor);
                 
@@ -204,7 +204,7 @@
                 size_t numBytesUsadosReleido;
                 this -> eeprom -> get(DIRECCION_NUM_BYTES, numBytesUsadosReleido);
                 
-                LOG("BaseDatosEEPROM::guardar() - numBytesUsadosReleido = %d", numBytesUsadosReleido);
+                CLOG_PUNTERO_IMPRESORA(salida, "BaseDatosEEPROM::guardar() - numBytesUsadosReleido =", numBytesUsadosReleido);
                 
                 if (numBytesUsadosReleido > (this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1)) {
                     LOG("ERROR: La cantidad de bytes releidos es mayor a la posible de almacenar en la EEPROM");
@@ -216,20 +216,20 @@
                 DeserializationError retorno = deserializeMsgPack(this -> documento, escritor);
                 
                 if (retorno != DeserializationError::Ok) {
-                    LOG("ERROR: Re-deserializar el MessagePack de la EEPROM falló con el error %d", retorno);
+                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Re-deserializar el MessagePack de la EEPROM falló con el error", retorno.c_str());
                     this -> estaCorrupta = true;
                     
                     return false;
                 }
                 
                 if (!(this -> documento.template is<JsonObject>())) {
-                    FLOGS("ERROR: El documento releido no es un objeto JSON");
+                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: El documento releido no es un objeto JSON");
                     this -> estaCorrupta = true;
                     
                     return false;
                 }
                 
-                LOG("BaseDatosEEPROM::guardar() - Guardados %d/%d bytes correctamente", tamanioEscrito, this -> eeprom -> length());
+                CLOG_PUNTERO_IMPRESORA(salida, "BaseDatosEEPROM::guardar() - Guardados", tamanioEscrito, '/', this -> eeprom -> length(), "bytes correctamente");
                 return true;
             }
             
