@@ -30,7 +30,7 @@
                 return true;
             }
             
-            virtual T_RESULTADO getResultado() = 0;
+            virtual T_RESULTADO getResultado(void) = 0;
             
             /**
              * @brief Obtiene el resultado y finaliza la medición actual.
