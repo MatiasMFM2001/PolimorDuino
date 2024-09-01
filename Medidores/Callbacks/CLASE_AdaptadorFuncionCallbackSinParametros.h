@@ -12,10 +12,10 @@
     template <typename... T>
     class AdaptadorFuncionCallbackSinParametros: public CallbackResultado<T...> {
         private:
-            bool (*funcion)(void);
+            void (*funcion)(void);
         
         public:
-            AdaptadorFuncionCallback(bool (*funcion)(void))
+            AdaptadorFuncionCallback(void (*funcion)(void))
                 : funcion(funcion)
             {}
             
