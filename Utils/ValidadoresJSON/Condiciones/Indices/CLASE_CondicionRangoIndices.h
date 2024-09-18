@@ -11,7 +11,7 @@
 
 #include "../CLASE_CondicionValidador.h"
 #include "../../../FuncionesGlobales.h"
-    class CondicionRangoIndices : public CondicionValidador<size_t, JsonArray> {
+    class CondicionRangoIndices : public CondicionValidador<size_t, JsonArrayConst> {
         size_t indiceMin;
         size_t indiceMax;
         
@@ -20,7 +20,7 @@
             CondicionRangoIndices(ValidadorJSON *hijo, size_t indice);
         
             bool puedeValidar(const size_t ingr);
-            bool varianteContieneTodas(const JsonArray &ingr);
+            bool varianteContieneTodas(const JsonArrayConst &ingr);
 
             /**
              * @brief Imprime los valores de las variables de instancia a la

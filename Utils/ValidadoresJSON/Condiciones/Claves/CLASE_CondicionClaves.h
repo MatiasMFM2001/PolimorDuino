@@ -8,13 +8,13 @@
 #define CONDICION_CLAVES
 
 #include "../CLASE_CondicionValidador.h"
-    class CondicionClaves : public CondicionValidador<const char *, JsonObject> {
+    class CondicionClaves : public CondicionValidador<const char *, JsonObjectConst> {
         public:
             CondicionClaves(ValidadorJSON *hijo)
-                : CondicionValidador<const char *, JsonObject>(hijo)
+                : CondicionValidador<const char *, JsonObjectConst>(hijo)
             {}
             
-            virtual bool varianteContieneTodas(const JsonObject &ingr) = 0;
+            virtual bool varianteContieneTodas(const JsonObjectConst &ingr) = 0;
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
@@ -24,7 +24,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "CondicionClaves") + SUPERCLASES_A_JSON(impresora, (CondicionValidador<const char *, JsonObject>));
+                return OBJETO_A_JSON(impresora, "CondicionClaves") + SUPERCLASES_A_JSON(impresora, (CondicionValidador<const char *, JsonObjectConst>));
             }
     };
 #endif

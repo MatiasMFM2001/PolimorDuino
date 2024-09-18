@@ -15,7 +15,7 @@
         private:
             Array<const char *, CAPACIDAD_LISTA> lista;
         
-            bool objetoContieneClave(const JsonObject &ingr, const char *clave) {
+            bool objetoContieneClave(const JsonObjectConst &ingr, const char *clave) {
                 for (JsonPair selec: ingr) {
                     CLOG("COMPARANDO CLAVE", selec.key().c_str(), "Y", clave);
                     if (cadenasIguales(selec.key().c_str(), clave)) {
@@ -37,7 +37,7 @@
                 return contiene<const char *, CAPACIDAD_LISTA>(this -> lista, ingr, &cadenasIguales);
             }
             
-            bool varianteContieneTodas(const JsonObject &ingr) override {
+            bool varianteContieneTodas(const JsonObjectConst &ingr) override {
                 for (const char *selec: this -> lista) {
                     if (!(this -> objetoContieneClave(ingr, selec))) {
                         CLOG("El objeto no contiene esta clave:", selec);

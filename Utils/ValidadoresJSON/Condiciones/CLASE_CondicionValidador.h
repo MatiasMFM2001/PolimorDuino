@@ -11,7 +11,7 @@
 #include "../../../Logger/FuncionesJSON.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
     template <typename T_IDENTIFICADOR, typename T_VARIANTE>
-    class CondicionValidador : public CondicionResultado<JsonVariant> {
+    class CondicionValidador : public CondicionResultado<JsonVariantConst> {
         private:
             ValidadorJSON *hijo;
 
@@ -30,7 +30,7 @@
                 return false;
             };
 
-            bool esValido(JsonVariant &variante) override {
+            bool esValido(const JsonVariantConst &variante) override {
                 return (this -> hijo -> esValido(variante));
             }
 
