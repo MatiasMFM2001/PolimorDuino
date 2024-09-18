@@ -18,7 +18,7 @@
                 : condicion(condicion)
             {}
         
-            bool esValido(T&... resultado) override {
+            bool esValido(const T&... resultado) override {
                 return !(this -> condicion -> esValido(resultado...));
             }
             

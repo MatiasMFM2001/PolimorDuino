@@ -27,14 +27,14 @@
                 return WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>(this -> bot);
             }
             
-            bool esValido(WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>> &resultado) override {
+            bool esValido(const WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>> &resultado) override {
                 bool retorno = resultado.getDato().conectarseATelegram();
                 CLOG_REFERENCIA_IMPRESORA(Serial, "ESTADO DE INICIACIÓN =", retorno ? "true" : "false");
                 
                 return retorno;
             }
             
-            bool esValido(IniciadorTareas &resultado) override {
+            bool esValido(const IniciadorTareas &resultado) override {
                 bool retorno = (resultado.getRunCounter() > 1) && (this -> bot -> conectarseATelegram());
                 
                 CLOG_REFERENCIA_IMPRESORA(Serial, "ESTADO DE CONEXION =", retorno ? "true" : "false");

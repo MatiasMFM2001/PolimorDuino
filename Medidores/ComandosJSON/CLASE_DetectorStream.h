@@ -26,7 +26,7 @@
                 return {*(this -> entrada), *(this -> entrada)};
             }
             
-            bool esValido(CanalBidireccional<Stream, Print> &resultado) override {
+            bool esValido(const CanalBidireccional<Stream, Print> &resultado) override {
                 int numBytesDisponibles = resultado.entrada.available();
                 LOG("resultado.entrada.available() = %d", numBytesDisponibles);
 
