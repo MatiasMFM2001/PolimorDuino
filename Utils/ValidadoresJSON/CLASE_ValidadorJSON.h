@@ -9,10 +9,10 @@
 
 #include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
 #include <ArduinoJson.h>
-    class ValidadorJSON : public CondicionResultado<JsonVariant> {
+    class ValidadorJSON : public CondicionResultado<JsonVariantConst> {
         public:
-            bool esValido(JsonDocument &documento);
-
-            using CondicionResultado<JsonVariant>::esValido;
+            bool esValido(const JsonDocument &ingr);
+            
+            using CondicionResultado<JsonVariantConst>::esValido;
     };
 #endif

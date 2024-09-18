@@ -9,18 +9,18 @@
 
 #include "CLASE_ValidadorCompuesto.h"
     template <size_t CAPACIDAD_CONDICIONES>
-    class ValidadorArray : public ValidadorCompuesto<size_t, JsonArray, CAPACIDAD_CONDICIONES> {
+    class ValidadorArray : public ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES> {
         public:
-            ValidadorArray(Array<CondicionValidador<size_t, JsonArray> *, CAPACIDAD_CONDICIONES> condiciones)
-                : ValidadorCompuesto<size_t, JsonArray, CAPACIDAD_CONDICIONES>(condiciones)
+            ValidadorArray(Array<CondicionValidador<size_t, JsonArrayConst> *, CAPACIDAD_CONDICIONES> condiciones)
+                : ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES>(condiciones)
             {}
             
-            bool esValido(JsonVariant &variante) override {
+            bool esValido(const JsonVariantConst &variante) override {
                 if (!variante.is<JsonArray>()) {
                     return false;
                 }
                 
-                JsonArray array = variante.as<JsonArray>();
+                JsonArrayConst array = variante.as<JsonArray>();
                 
                 if (!(this -> contieneTodas(array))) {
                     CLOG("Retornando FALSE porque el array no contiene todas");
@@ -28,7 +28,7 @@
                 }
                 
                 for (size_t cont = 0; cont < array.size(); ++cont) {
-                    JsonVariant valor = array[cont];
+                    JsonVariantConst valor = array[cont];
 
                     if (!(this -> esValido(valor, cont, "la posición"))) {
                         return false;
@@ -46,9 +46,9 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "ValidadorArray") + SUPERCLASES_A_JSON(impresora, (ValidadorCompuesto<size_t, JsonArray, CAPACIDAD_CONDICIONES>));
+                return OBJETO_A_JSON(impresora, "ValidadorArray") + SUPERCLASES_A_JSON(impresora, (ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES>));
             }
 
-            using ValidadorCompuesto<size_t, JsonArray, CAPACIDAD_CONDICIONES>::esValido;
+            using ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES>::esValido;
     };
 #endif

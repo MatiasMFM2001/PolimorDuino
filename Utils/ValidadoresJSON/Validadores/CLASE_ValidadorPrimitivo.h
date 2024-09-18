@@ -11,7 +11,7 @@
     template <typename T>
     class ValidadorPrimitivo : public ValidadorJSON {
         public:
-            bool esValido(JsonVariant &variante) override {
+            bool esValido(const JsonVariantConst &variante) override {
                 return variante.is<T>();
             }
 

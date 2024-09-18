@@ -16,7 +16,7 @@
             Array<CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *, CAPACIDAD_CONDICIONES> condiciones;
         
         protected:
-            bool contieneTodas(T_VARIANTE_CONDICION &variante) {
+            bool contieneTodas(const T_VARIANTE_CONDICION &variante) {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> varianteContieneTodas(variante))) {
                         CLOG("Para esta condicion la variante no contiene todas:", *condicion);
@@ -27,7 +27,7 @@
                 return true;
             }
         
-            bool esValido(JsonVariant &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr) {
+            bool esValido(const JsonVariantConst &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr) {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> puedeValidar(ingr))) {
                         continue;
