@@ -9,17 +9,19 @@
 
 #include "../../../Utils/CLASE_StringEstatica.h"
 #include "../../../Utils/FuncionesGlobales.h"
-    template<size_t CAPACIDAD_NOMBRE>
+#include "../../../Utils/ValidadoresJSON/CLASE_ValidadorJSON.h"
+    template <size_t CAPACIDAD_NOMBRE>
     class Comando : public Printable {
         private:
             StringEstatica<CAPACIDAD_NOMBRE> nombre;
             void (*manejador)(const JsonArray &, size_t, Print &);
             size_t minNumArgumentos;
             size_t maxNumArgumentos;
+            ValidadorJSON *validador;
 
         public:
-            Comando(StringEstatica<CAPACIDAD_NOMBRE> nombre = StringEstatica<CAPACIDAD_NOMBRE>(), void (*manejador)(const JsonArray&, size_t, Print &) = nullptr, size_t minNumArgumentos = 0, size_t maxNumArgumentos = -1)
-                : nombre(nombre), manejador(manejador), minNumArgumentos(minNumArgumentos), maxNumArgumentos(maxNumArgumentos)
+            Comando(StringEstatica<CAPACIDAD_NOMBRE> nombre = StringEstatica<CAPACIDAD_NOMBRE>(), void (*manejador)(const JsonArray&, size_t, Print &) = nullptr, size_t minNumArgumentos = 0, size_t maxNumArgumentos = -1, ValidadorJSON *validador = nullptr)
+                : nombre(nombre), manejador(manejador), minNumArgumentos(minNumArgumentos), maxNumArgumentos(maxNumArgumentos), validador(validador)
             {}
 
             StringEstatica<CAPACIDAD_NOMBRE> &getNombre(void) {
@@ -40,6 +42,12 @@
             
             bool recibeNumArgumentos(size_t ingr) {
                 return enRango(ingr, this -> minNumArgumentos, this -> maxNumArgumentos);
+            }
+            
+            bool validarArgumentos(const JsonArray &ingr) {
+                //const JsonVariant variante = ingr;
+                
+                return (!(this -> validador) || (this -> validador -> esValido(ingr)));
             }
             
             void invocar(const JsonArray &args, size_t numArgs, Print &salida) {
