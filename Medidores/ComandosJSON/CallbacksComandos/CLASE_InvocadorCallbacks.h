@@ -23,7 +23,7 @@
                 : InvocadorCallbacks(Array<Comando<CAPACIDAD_NOMBRE_COMANDOS>, CAPACIDAD_COMANDOS>(comandos))
             {}
 
-            void notificar(CanalBidireccional<JsonDocument, Print> &resultado) override {
+            void notificar(const CanalBidireccional<JsonDocument, Print> &resultado) override {
                 JsonDocument &documento = resultado.entrada;
                 Print &salida = resultado.salida;
 
@@ -38,7 +38,12 @@
                     }
                     
                     if (selec.recibeNumArgumentos(numArgs)) {
-                        selec.invocar(argumentos, numArgs, salida);
+                        if (selec.validarArgumentos(argumentos)) {
+                            selec.invocar(argumentos, numArgs, salida);
+                        }
+                        else {
+                            CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Se ingresó una cantidad válida de argumentos, pero alguno de ellos es inválido");
+                        }
                     }
                     else {
                         CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Se esperaban entre", selec.getMinArgumentos(), 'y', selec.getMaxArgumentos(), "argumentos, pero se ingresaron", numArgs);

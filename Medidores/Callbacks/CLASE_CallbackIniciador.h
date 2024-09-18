@@ -21,7 +21,7 @@
                 : tarea(tarea), accionesAdicionales(accionesAdicionales), nombre(nombre)
             {}
             
-            void notificar(T&... resultado) override {
+            void notificar(const T&... resultado) override {
                 LOG("INICIO CallbackIniciador::notificar('%s')", this -> nombre);
                 
                 if (this -> tarea -> isEnabled()) {

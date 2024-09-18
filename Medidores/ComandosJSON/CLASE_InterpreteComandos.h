@@ -26,7 +26,7 @@
             void iniciarMedicion(void) override {
             }
             
-            void notificar(CanalBidireccional<Stream, Print> &resultado) override {
+            void notificar(const CanalBidireccional<Stream, Print> &resultado) override {
                 CLOG("InterpreteComandos - ESTADO ACTUAL = ", *this);
                 
                 StaticJsonDocument<CAPACIDAD_JSON_FINAL> documentoFinal;

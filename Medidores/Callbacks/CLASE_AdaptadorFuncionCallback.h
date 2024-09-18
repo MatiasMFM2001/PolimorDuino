@@ -19,7 +19,7 @@
                 : funcion(funcion)
             {}
             
-            void notificar(T&... resultado) override {
+            void notificar(const T&... resultado) override {
                 this -> funcion(resultado...);
             }
             
