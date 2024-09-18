@@ -4,25 +4,25 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef EMISOR_DOCUMENTO
-#define EMISOR_DOCUMENTO
+#ifndef TAREA_EMISORA_VARIANTE_JSON
+#define TAREA_EMISORA_VARIANTE_JSON
 
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include <Print.h>
 #include <ArduinoJson.h>
-    template <size_t (*serializador)(const JsonDocument&, Print&)>
-    class EmisorDocumento : public Task {
+    template <typename T_VARIANTE, size_t (*serializador)(const T_VARIANTE&, Print&)>
+    class TareaEmisoraVarianteJSON : public Task {
         private:
             Print &salida;
-            JsonDocument *documento;
+            T_VARIANTE *variante;
 
         public:
-            EmisorDocumento(Print &salida, JsonDocument *documento = nullptr)
-                : salida(salida), documento(documento)
+            TareaEmisoraVarianteJSON(Print &salida, T_VARIANTE *variante = nullptr)
+                : salida(salida), variante(variante)
             {}
 
             bool OnEnable(void) override {
-                serializador(*(this -> documento), this -> salida);
+                serializador(*(this -> variante), this -> salida);
                 return true;
             }
     };
