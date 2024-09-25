@@ -12,6 +12,7 @@
 #include "../Logger/FuncionesLoggers.h"
 #include "../Medidores/Condiciones/CLASE_CompuertaNO.h"
 #include "../Logger/FuncionesJSON.h"
+#include <stdarg.h>
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public Printable {
         private:
@@ -95,6 +96,17 @@
             bool agregarFinal(const char ingr) {
                 char buffer[2] = {ingr, '\0'};
                 return this -> agregarFinal(buffer);
+            }
+            
+            bool agregarFinalPrintf(const char *formato, ...) {
+                va_list argumentos;
+                va_start(argumentos, formato);
+                
+                size_t longitudRestante = this -> getLongitudRestante();
+                int retorno = vsnprintf(this -> getContenido() + this -> getLongitud(), longitudRestante + 1, formato, argumentos);
+                
+                va_end(argumentos);
+                return ((retorno >= 0) && (retorno <= longitudRestante));
             }
             
             size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) {
