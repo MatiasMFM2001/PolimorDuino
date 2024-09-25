@@ -15,14 +15,14 @@
                 : ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES>(condiciones)
             {}
             
-            bool esValido(const JsonVariantConst &variante) override {
+            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
                 if (!variante.is<JsonArray>()) {
                     return false;
                 }
                 
                 JsonArrayConst array = variante.as<JsonArray>();
                 
-                if (!(this -> contieneTodas(array))) {
+                if (!(this -> contieneTodas(array, pilaClaves))) {
                     CLOG("Retornando FALSE porque el array no contiene todas");
                     return false;
                 }

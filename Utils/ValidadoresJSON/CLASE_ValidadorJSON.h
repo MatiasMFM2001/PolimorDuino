@@ -7,12 +7,13 @@
 #ifndef VALIDADOR_JSON
 #define VALIDADOR_JSON
 
-#include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
+//#include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
 #include <ArduinoJson.h>
-    class ValidadorJSON : public CondicionResultado<JsonVariantConst> {
+#include "INTERFAZ_CondicionJSON.h"
+    class ValidadorJSON : public CondicionJSON {
         public:
-            bool esValido(const JsonDocument &ingr);
+            bool esValido(const JsonDocument &ingr, NodoPilaJSON &pilaClaves);
             
-            using CondicionResultado<JsonVariantConst>::esValido;
+            using CondicionJSON::esValido;
     };
 #endif

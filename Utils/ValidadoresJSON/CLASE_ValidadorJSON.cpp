@@ -6,7 +6,7 @@
 
 #include "CLASE_ValidadorJSON.h"
 
-bool ValidadorJSON::esValido(const JsonDocument &ingr) {
+bool ValidadorJSON::esValido(const JsonDocument &ingr, NodoPilaJSON &pilaClaves) {
     const JsonVariantConst variante = ingr.template as<JsonVariantConst>();
-    return (CondicionResultado<JsonVariantConst>::esValido(variante));
+    return (this -> esValido(variante, pilaClaves));
 }

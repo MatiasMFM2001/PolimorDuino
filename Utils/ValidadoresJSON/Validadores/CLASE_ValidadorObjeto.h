@@ -15,7 +15,7 @@
                 : ValidadorCompuesto<const char *, JsonObject, CAPACIDAD_CONDICIONES>(condiciones)
             {}
             
-            bool esValido(const JsonVariantConst &variante) override {
+            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
                 if (!variante.is<JsonObject>()) {
                     return false;
                 }
