@@ -73,6 +73,7 @@
             
             void vaciarContenido(void) {
                 this -> contenido.clear();
+                this -> contenido.push_back('\0');
             }
             
             bool agregarFinal(const char *ingr) {
