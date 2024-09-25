@@ -37,7 +37,7 @@
                 return contiene<const char *, CAPACIDAD_LISTA>(this -> lista, ingr, &cadenasIguales);
             }
             
-            bool varianteContieneTodas(const JsonObjectConst &ingr) override {
+            bool varianteContieneTodas(const JsonObjectConst &ingr, NodoPilaJSON &pilaClaves) override {
                 for (const char *selec: this -> lista) {
                     if (!(this -> objetoContieneClave(ingr, selec))) {
                         CLOG("El objeto no contiene esta clave:", selec);

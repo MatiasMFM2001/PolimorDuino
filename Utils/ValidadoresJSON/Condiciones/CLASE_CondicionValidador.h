@@ -25,7 +25,7 @@
                 return false;
             };
             
-            virtual bool varianteContieneTodas([[maybe_unused]] const T_VARIANTE &ingr) {
+            virtual bool varianteContieneTodas([[maybe_unused]] const T_VARIANTE &ingr, NodoPilaJSON &pilaClaves) {
                 LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::varianteContieneTodas(const T_VARIANTE)");
                 return false;
             };

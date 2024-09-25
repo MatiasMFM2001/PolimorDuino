@@ -19,7 +19,7 @@ bool CondicionRangoIndices::puedeValidar(const size_t ingr) {
     return enRango(ingr, this -> indiceMin, this -> indiceMax);
 }
 
-bool CondicionRangoIndices::varianteContieneTodas(const JsonArrayConst &ingr) {
+bool CondicionRangoIndices::varianteContieneTodas(const JsonArrayConst &ingr, NodoPilaJSON &pilaClaves) {
     size_t limiteSuperior = (ingr.size() - 1);
     bool salida = enRango<size_t>(this -> indiceMin, 0, limiteSuperior);
 

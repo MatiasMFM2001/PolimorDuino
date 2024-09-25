@@ -14,7 +14,7 @@
                 : CondicionValidador<const char *, JsonObjectConst>(hijo)
             {}
             
-            virtual bool varianteContieneTodas(const JsonObjectConst &ingr) = 0;
+            virtual bool varianteContieneTodas(const JsonObjectConst &ingr, NodoPilaJSON &pilaClaves) = 0;
 
             /**
              * @brief Imprime los valores de las variables de instancia a la

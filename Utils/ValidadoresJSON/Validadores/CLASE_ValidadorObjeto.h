@@ -22,7 +22,7 @@
                 
                 JsonObjectConst objeto = variante.as<JsonObjectConst>();
                 
-                if (!(this -> contieneTodas(objeto))) {
+                if (!(this -> contieneTodas(objeto, pilaClaves))) {
                     CLOG("Retornando FALSE porque el objeto no contiene todas");
                     return false;
                 }

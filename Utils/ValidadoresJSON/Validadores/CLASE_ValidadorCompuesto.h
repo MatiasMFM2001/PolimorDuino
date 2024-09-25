@@ -16,10 +16,10 @@
             Array<CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *, CAPACIDAD_CONDICIONES> condiciones;
         
         protected:
-            bool contieneTodas(const T_VARIANTE_CONDICION &variante) {
+            bool contieneTodas(const T_VARIANTE_CONDICION &variante, NodoPilaJSON &pilaClaves) {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
-                    if (!(condicion -> varianteContieneTodas(variante))) {
-                        CLOG("Para esta condicion la variante no contiene todas:", *condicion);
+                    if (!(condicion -> varianteContieneTodas(variante, pilaClaves))) {
+                        CLOG("Para esta condicion la variante no contiene todas: ", *condicion);
                         return false;
                     }
                 }
@@ -27,13 +27,13 @@
                 return true;
             }
         
-            bool esValido(const JsonVariantConst &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr) {
+            bool esValido(const JsonVariantConst &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr, NodoPilaJSON &pilaClaves) {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> puedeValidar(ingr))) {
                         continue;
                     }
                     
-                    return (condicion -> esValido(variante));
+                    return (condicion -> esValido(variante, pilaClaves));
                 }
                 
                 CLOG("ADVERTENCIA: Ninguna condición de este ValidadorCompuesto cubre", nombreIngr, ingr, ". Asumiendo que es inválid@ (retornando false)");

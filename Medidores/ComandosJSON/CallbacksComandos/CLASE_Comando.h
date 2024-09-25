@@ -10,6 +10,7 @@
 #include "../../../Utils/CLASE_StringEstatica.h"
 #include "../../../Utils/FuncionesGlobales.h"
 #include "../../../Utils/ValidadoresJSON/CLASE_ValidadorJSON.h"
+#include "../../../Utils/ValidadoresJSON/NodosPila/INTERFAZ_NodoPilaJSON.h"
     template <size_t CAPACIDAD_NOMBRE>
     class Comando : public Printable {
         private:
@@ -44,10 +45,8 @@
                 return enRango(ingr, this -> minNumArgumentos, this -> maxNumArgumentos);
             }
             
-            bool validarArgumentos(const JsonArray &ingr) {
-                //const JsonVariant variante = ingr;
-                
-                return (!(this -> validador) || (this -> validador -> esValido(ingr)));
+            bool validarArgumentos(const JsonArray &ingr, NodoPilaJSON &pilaClaves) {
+                return (!(this -> validador) || (this -> validador -> esValido(ingr, pilaClaves)));
             }
             
             void invocar(const JsonArray &args, size_t numArgs, Print &salida) {
