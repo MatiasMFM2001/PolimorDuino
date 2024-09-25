@@ -17,5 +17,5 @@
     #define NOMBRE_CALLBACK(nombreComando) callbackComando_ ## nombreComando
     #define DECLARAR_CALLBACK(nombreComando, args, numArgs, salida) void NOMBRE_CALLBACK(nombreComando) ([[maybe_unused]] const JsonArray &args, [[maybe_unused]] size_t numArgs, Print &salida)
     #define DEFINIR_CALLBACK(nombreComando) DECLARAR_CALLBACK(nombreComando, args, numArgs, salida)
-    #define CREAR_COMANDO(capacidadNombre, nombreComando, minArgs, maxArgs) Comando<capacidadNombre>(#nombreComando, &NOMBRE_CALLBACK(nombreComando), minArgs, maxArgs)
+    #define CREAR_COMANDO(capacidadNombre, nombreComando, ...) Comando<capacidadNombre>(#nombreComando, &NOMBRE_CALLBACK(nombreComando), __VA_ARGS__)
 #endif
