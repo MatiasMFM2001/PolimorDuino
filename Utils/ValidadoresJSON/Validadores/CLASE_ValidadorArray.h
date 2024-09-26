@@ -8,11 +8,12 @@
 #define VALIDADOR_ARRAY
 
 #include "CLASE_ValidadorCompuesto.h"
+#include "../NodosPila/CLASE_NodoConcretoPilaJSON.h"
     template <size_t CAPACIDAD_CONDICIONES>
     class ValidadorArray : public ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES> {
         public:
-            ValidadorArray(Array<CondicionValidador<size_t, JsonArrayConst> *, CAPACIDAD_CONDICIONES> condiciones)
-                : ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES>(condiciones)
+            ValidadorArray(Array<CondicionValidador<size_t, JsonArrayConst> *, CAPACIDAD_CONDICIONES> condiciones, bool valorPredeterminado = false)
+                : ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES>(condiciones, valorPredeterminado)
             {}
             
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {

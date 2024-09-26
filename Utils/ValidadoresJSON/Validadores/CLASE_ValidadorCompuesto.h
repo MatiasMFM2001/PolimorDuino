@@ -14,6 +14,7 @@
     class ValidadorCompuesto : public ValidadorJSON {
         private:
             Array<CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *, CAPACIDAD_CONDICIONES> condiciones;
+            bool valorPredeterminado;
         
         protected:
             bool contieneTodas(const T_VARIANTE_CONDICION &variante, NodoPilaJSON &pilaClaves) {
@@ -36,13 +37,13 @@
                     return (condicion -> esValido(variante, pilaClaves));
                 }
                 
-                CLOG("ADVERTENCIA: Ninguna condición de este ValidadorCompuesto cubre", nombreIngr, ingr, ". Asumiendo que es inválid@ (retornando false)");
-                return false;
+                CLOG("ADVERTENCIA: Ninguna condición de este ValidadorCompuesto cubre", nombreIngr, ingr, ". Retornando ", this -> valorPredeterminado);
+                return (this -> valorPredeterminado);
             }
         
         public:
-            ValidadorCompuesto(Array<CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *, CAPACIDAD_CONDICIONES> condiciones)
-                : condiciones(condiciones)
+            ValidadorCompuesto(Array<CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *, CAPACIDAD_CONDICIONES> condiciones, bool valorPredeterminado)
+                : condiciones(condiciones), valorPredeterminado(valorPredeterminado)
             {}
 
             /**

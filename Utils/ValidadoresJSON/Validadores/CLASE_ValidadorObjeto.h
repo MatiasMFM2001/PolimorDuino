@@ -11,8 +11,8 @@
     template <size_t CAPACIDAD_CONDICIONES>
     class ValidadorObjeto : public ValidadorCompuesto<const char *, JsonObjectConst, CAPACIDAD_CONDICIONES> {
         public:
-            ValidadorObjeto(Array<CondicionValidador<const char *, JsonObjectConst> *, CAPACIDAD_CONDICIONES> condiciones)
-                : ValidadorCompuesto<const char *, JsonObject, CAPACIDAD_CONDICIONES>(condiciones)
+            ValidadorObjeto(Array<CondicionValidador<const char *, JsonObjectConst> *, CAPACIDAD_CONDICIONES> condiciones, bool valorPredeterminado = false)
+                : ValidadorCompuesto<const char *, JsonObject, CAPACIDAD_CONDICIONES>(condiciones, valorPredeterminado)
             {}
             
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
