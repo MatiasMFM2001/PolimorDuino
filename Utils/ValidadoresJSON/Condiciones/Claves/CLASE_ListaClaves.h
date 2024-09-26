@@ -16,7 +16,7 @@
             Array<const char *, CAPACIDAD_LISTA> lista;
         
             bool objetoContieneClave(const JsonObjectConst &ingr, const char *clave) {
-                for (JsonPair selec: ingr) {
+                for (JsonPairConst selec: ingr) {
                     CLOG("COMPARANDO CLAVE", selec.key().c_str(), "Y", clave);
                     if (cadenasIguales(selec.key().c_str(), clave)) {
                         CLOG("Son iguales");
@@ -41,6 +41,11 @@
                 for (const char *selec: this -> lista) {
                     if (!(this -> objetoContieneClave(ingr, selec))) {
                         CLOG("El objeto no contiene esta clave:", selec);
+                        
+                        pilaClaves.agregarFinalMensaje("El objeto no contiene la clave '");
+                        pilaClaves.agregarFinalMensaje(selec);
+                        pilaClaves.agregarFinalMensaje("'");
+                        
                         return false;
                     }
                 }
