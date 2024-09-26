@@ -8,6 +8,7 @@
 #define VALIDADOR_PRIMITIVO
 
 #include "../CLASE_ValidadorJSON.h"
+#include "../../NAMESPACE_Conversores.h"
     template <typename T>
     class ValidadorPrimitivo : public ValidadorJSON {
         public:
