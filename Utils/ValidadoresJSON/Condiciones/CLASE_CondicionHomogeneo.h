@@ -8,14 +8,14 @@
 #define CONDICION_HOMOGENEO
 
 #include "CLASE_CondicionValidador.h"
-    template <typename T>
-    class CondicionHomogeneo : public CondicionValidador<T> {
+    template <typename T_IDENTIFICADOR, typename T_VARIANTE>
+    class CondicionHomogeneo : public CondicionValidador<T_IDENTIFICADOR, T_VARIANTE> {
         public:
             CondicionHomogeneo(ValidadorJSON *hijo)
-                : CondicionValidador<T>(hijo)
+                : CondicionValidador<T_IDENTIFICADOR, T_VARIANTE>(hijo)
             {}
         
-            bool puedeValidar(const T ingr) override {
+            bool puedeValidar(const T_IDENTIFICADOR ingr) override {
                 return true;
             }
 
@@ -27,7 +27,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "CondicionValidador") + SUPERCLASES_A_JSON(impresora, CondicionValidador<T>);
+                return OBJETO_A_JSON(impresora, "CondicionHomogeneo") + SUPERCLASES_A_JSON(impresora, (CondicionValidador<T_IDENTIFICADOR, T_VARIANTE>));
             }
     };
 #endif
