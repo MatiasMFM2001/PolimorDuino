@@ -8,11 +8,12 @@
 #define VALIDADOR_OBJETO
 
 #include "CLASE_ValidadorCompuesto.h"
+#include "../NodosPila/CLASE_NodoConcretoPilaJSON.h"
     template <size_t CAPACIDAD_CONDICIONES>
     class ValidadorObjeto : public ValidadorCompuesto<const char *, JsonObjectConst, CAPACIDAD_CONDICIONES> {
         public:
             ValidadorObjeto(Array<CondicionValidador<const char *, JsonObjectConst> *, CAPACIDAD_CONDICIONES> condiciones, bool valorPredeterminado = false)
-                : ValidadorCompuesto<const char *, JsonObject, CAPACIDAD_CONDICIONES>(condiciones, valorPredeterminado)
+                : ValidadorCompuesto<const char *, JsonObjectConst, CAPACIDAD_CONDICIONES>(condiciones, valorPredeterminado)
             {}
             
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
@@ -28,9 +29,11 @@
                 }
                 
                 for (JsonPairConst selec: objeto) {
+                    const char *clave = selec.key().c_str();
                     JsonVariantConst valor = selec.value();
+                    NodoConcretoPilaJSON<const char *> nodo(clave, pilaClaves);
 
-                    if (!(this -> esValido(valor, selec.key().c_str(), "la clave"))) {
+                    if (!(this -> esValido(valor, clave, "la clave", nodo))) {
                         return false;
                     }
                 }

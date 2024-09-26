@@ -21,7 +21,7 @@
                     return false;
                 }
                 
-                JsonArrayConst array = variante.as<JsonArray>();
+                JsonArrayConst array = variante.as<JsonArrayConst>();
                 
                 if (!(this -> contieneTodas(array, pilaClaves))) {
                     CLOG("Retornando FALSE porque el array no contiene todas");
@@ -30,8 +30,9 @@
                 
                 for (size_t cont = 0; cont < array.size(); ++cont) {
                     JsonVariantConst valor = array[cont];
-
-                    if (!(this -> esValido(valor, cont, "la posición"))) {
+                    NodoConcretoPilaJSON<size_t> nodo(cont, pilaClaves);
+                    
+                    if (!(this -> esValido(valor, cont, "la posición", nodo))) {
                         return false;
                     }
                 }
