@@ -20,7 +20,7 @@
             CondicionRangoIndices(ValidadorJSON *hijo, size_t indice);
         
             bool puedeValidar(const size_t ingr);
-            bool varianteContieneTodas(const JsonArrayConst &ingr);
+            bool varianteContieneTodas(const JsonArrayConst &ingr, NodoPilaJSON &pilaClaves);
 
             /**
              * @brief Imprime los valores de las variables de instancia a la
