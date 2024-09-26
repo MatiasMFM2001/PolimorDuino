@@ -9,7 +9,8 @@
 
 #include "../../Callbacks/INTERFAZ_CallbackResultado.h"
 #include "CLASE_Comando.h"
-    template<size_t CAPACIDAD_COMANDOS, size_t CAPACIDAD_NOMBRE_COMANDOS>
+#include "../../../Utils/ValidadoresJSON/NodosPila/CLASE_NodoInicialPilaJSON.h"
+    template<size_t CAPACIDAD_COMANDOS, size_t CAPACIDAD_NOMBRE_COMANDOS, size_t CAPACIDAD_PILA_JSON, size_t CAPACIDAD_MENSAJE_JSON>
     class InvocadorCallbacks : public CallbackResultado<CanalBidireccional<JsonDocument, Print>> {
         private:
             Array<Comando<CAPACIDAD_NOMBRE_COMANDOS>, CAPACIDAD_COMANDOS> comandos;
@@ -38,7 +39,9 @@
                     }
                     
                     if (selec.recibeNumArgumentos(numArgs)) {
-                        if (selec.validarArgumentos(argumentos)) {
+                        NodoInicialPilaJSON<CAPACIDAD_PILA_JSON, CAPACIDAD_MENSAJE_JSON> pilaClaves;
+                        
+                        if (selec.validarArgumentos(argumentos, pilaClaves)) {
                             selec.invocar(argumentos, numArgs, salida);
                         }
                         else {
