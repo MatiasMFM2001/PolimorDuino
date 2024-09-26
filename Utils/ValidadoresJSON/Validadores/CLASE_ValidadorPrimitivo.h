@@ -11,8 +11,16 @@
     template <typename T>
     class ValidadorPrimitivo : public ValidadorJSON {
         public:
-            bool esValido(const JsonVariantConst &variante) override {
-                return variante.is<T>();
+            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
+                bool salida = variante.is<T>();
+                
+                if (!salida) {
+                    pilaClaves.agregarFinalMensaje("El dato no es de tipo '");
+                    pilaClaves.agregarFinalMensaje(conversores::tipoAString<T>());
+                    pilaClaves.agregarFinalMensaje("'");
+                }
+                
+                return salida;
             }
 
             /**
