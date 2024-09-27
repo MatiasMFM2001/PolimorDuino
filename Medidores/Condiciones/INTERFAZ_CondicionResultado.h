@@ -7,11 +7,8 @@
 #ifndef CONDICION_RESULTADO
 #define CONDICION_RESULTADO
 
-#include <Printable.h>
-#include <Print.h>
+#include "INTERFAZ_CondicionResultadoMutable.h"
     template <typename... T>
-    class CondicionResultado : virtual public Printable {
-        public:
-            virtual bool esValido(const T&... resultado) = 0;
+    class CondicionResultado : public CondicionResultadoMutable<const T...> {
     };
 #endif
