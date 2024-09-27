@@ -22,7 +22,7 @@
                 }
             }
 
-            virtual void setNumero(T valor) {
+            virtual void setNumero([[maybe_unused]] T valor) {
                 LOG("Display7Segmentos::setNumero(%d) - METODO NO IMPLEMENTADO EN SUBCLASE", valor);
             }
     };
