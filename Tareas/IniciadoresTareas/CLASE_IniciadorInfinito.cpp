@@ -7,7 +7,7 @@
 #include "CLASE_IniciadorInfinito.h"
 #include "../../Logger/FuncionesJSON.h"
 
-IniciadorInfinito::IniciadorInfinito(const char *nombre, unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea, CondicionResultado<IniciadorTareas> *condicionFin)
+IniciadorInfinito::IniciadorInfinito(const char *nombre, unsigned long msEntreIniciaciones, Scheduler* planif, Task *tarea, CondicionResultadoMutable<IniciadorTareas> *condicionFin)
     : IniciadorTareas(nombre, msEntreIniciaciones, planif, tarea)
     , condicionFin(condicionFin)
 {}
