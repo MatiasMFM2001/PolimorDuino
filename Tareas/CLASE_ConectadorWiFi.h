@@ -7,9 +7,15 @@
 #ifndef CONECTADOR_WIFI
 #define CONECTADOR_WIFI
 
+#ifdef ESP8266
+    #include <ESP8266WiFi.h>
+    typedef ESP8266WiFiClass WiFiClass;
+#else
+    #include <WiFi.h>
+#endif
+
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include "../Utils/INTERFAZ_Inicializable.h"
-#include <WiFi.h>
 #include "../Medidores/Callbacks/INTERFAZ_CallbackResultado.h"
 #include "../Utils/FuncionesGlobales.h"
 #include "../Utils/CLASE_StringEstatica.h"
