@@ -62,6 +62,10 @@
             void setCallback(CallbackResultado<T_RESULTADO> *ingr) {
                 this -> callback = ingr;
             }
+            
+            void setNombre(const __FlashStringHelper *ingr) {
+                this -> nombre = ingr;
+            }
         
             virtual void iniciarMedicion(void) = 0;
 
