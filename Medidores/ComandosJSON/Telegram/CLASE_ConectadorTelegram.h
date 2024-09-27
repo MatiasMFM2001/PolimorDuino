@@ -9,11 +9,12 @@
 
 #include "../../Instantaneos/CLASE_MedidorInstantaneo.h"
 #include "CLASE_ClienteTelegram.h"
+#include "../../Condiciones/INTERFAZ_CondicionResultadoMutable.h"
     /**
      * @brief 
      */
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER_CLIENTE)(CanalBidireccional<Stream, Print>&) = nullptr, void (*F_LOGGER)(WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>&) = nullptr>
-    class ConectadorTelegram : public MedidorInstantaneo<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>, F_LOGGER>, public CondicionResultado<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>>, public CondicionResultado<IniciadorTareas> {
+    class ConectadorTelegram : public MedidorInstantaneo<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>, F_LOGGER>, public CondicionResultado<WrapperPuntero<ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE>>>, public CondicionResultadoMutable<IniciadorTareas> {
         private:
             ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE> *bot;
         
@@ -34,7 +35,7 @@
                 return retorno;
             }
             
-            bool esValido(const IniciadorTareas &resultado) override {
+            bool esValido(IniciadorTareas &resultado) override {
                 bool retorno = (resultado.getRunCounter() > 1) && (this -> bot -> conectarseATelegram());
                 
                 CLOG_REFERENCIA_IMPRESORA(Serial, "ESTADO DE CONEXION =", retorno ? "true" : "false");
