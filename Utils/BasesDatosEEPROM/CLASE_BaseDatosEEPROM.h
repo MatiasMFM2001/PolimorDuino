@@ -111,7 +111,7 @@
                 LOG("BaseDatosEEPROM::inicializar() - numBytesUsados = %d", numBytesUsados);
                 
                 if (numBytesUsados > (this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1)) {
-                    LOG("ERROR: La cantidad de bytes leidos es mayor a la posible de almacenar en la EEPROM");
+                    FLOGS("ERROR: La cantidad de bytes leidos es mayor a la posible de almacenar en la EEPROM");
                     this -> estaCorrupta = true;
                     
                     return;
