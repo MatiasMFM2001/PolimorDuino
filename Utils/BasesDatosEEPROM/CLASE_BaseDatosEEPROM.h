@@ -12,21 +12,21 @@
 
 #define CLAVE_VERSION "VERSION"
 
-#define GET_VALOR(clave) \
+#define GET_VALOR(clave, salida) \
     if (this -> estaCorrupta) { \
-        LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValor('%s') con la BD corrupta. Se retornará el valor indeterminado", clave); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValor('", clave, "') con la BD corrupta. Se retornará el valor indeterminado"); \
  \
         if (this -> documento.containsKey(clave)) { \
-            FLOGS("ADVERTENCIA: Se retornará el valor previamente almacenado en esa clave."); \
+            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor previamente almacenado en esa clave."); \
         } \
         else { \
-            FLOGS("ADVERTENCIA: Se retornará el valor predeterminado para ese tipo de datos."); \
+            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor predeterminado para ese tipo de datos."); \
         } \
     }
 
-#define GET_VALOR_SETTEANDO(clave, valorPredeterminado) \
+#define GET_VALOR_SETTEANDO(clave, valorPredeterminado, salida) \
     if (this -> estaCorrupta) { \
-        LOG("ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValorSetteando('%s') con la BD corrupta. Se retornará el valor predeterminado", clave); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatosEEPROM::getValorSetteando('", clave, "') con la BD corrupta. Se retornará el valor predeterminado"); \
         return valorPredeterminado; \
     } \
  \
@@ -35,30 +35,30 @@
     } \
  \
     if (this -> estaCorrupta) { \
-        LOG("ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatosEEPROM::getValorSetteando('%s')", clave); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatosEEPROM::getValorSetteando('", clave, "')"); \
  \
         if (!(this -> documento.containsKey(clave))) { \
-            FLOGS("ADVERTENCIA: Se retornará el valor predeterminado"); \
+            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor predeterminado"); \
             return valorPredeterminado; \
         } \
     }
 
-#define SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS) \
+#define SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS, salida) \
     if (this -> estaCorrupta) { \
-        LOG("ADVERTENCIA: Se accedió a BaseDatosEEPROM::setValor('%s') con la BD corrupta", clave); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatosEEPROM::setValor('", clave, "') con la BD corrupta"); \
         return false; \
     } \
  \
     StringEstatica<CAPACIDAD_STRINGS> copiaClave(clave); \
  \
-    LOG("Escribiendo BaseDatosEEPROM::setValor('%s') = %s", clave, copiaClave.getContenido()); \
+    CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatosEEPROM::setValor('%s') = %s", clave, copiaClave.getContenido()); \
  \
     this -> documento.garbageCollect(); \
     this -> documento[copiaClave.getContenido()] = copiaValor; \
     this -> documento.garbageCollect(); \
  \
     if (this -> documento.overflowed()) { \
-        LOG("ERROR: Al intentar insertar la clave '%s', falló porque el StaticJsonDocument<%d> se llenó", clave, CAPACIDAD_JSON); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Al intentar insertar la clave '", clave, "', falló porque el StaticJsonDocument<", CAPACIDAD_JSON, "> se llenó"); \
         this -> estaCorrupta = true; \
         return false; \
     } \
@@ -67,12 +67,12 @@
     size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1); \
  \
     if (tamanioSerializado > tamanioEEPROM) { \
-        LOG("ADVERTENCIA: Tras insertar la clave '%s', el documento serializado queda de tamaño %d y no entra en la EEPROM (de capacidad %d)", clave, tamanioSerializado, tamanioEEPROM); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Tras insertar la clave '", clave, "', el documento serializado queda de tamaño ", tamanioSerializado, " y no entra en la EEPROM (de capacidad ", tamanioEEPROM, ')'); \
         this -> estaCorrupta = true; \
         return false; \
     } \
  \
-    LOG("BaseDatosEEPROM::setValor('%s') finalizó correctamente", clave); \
+    CLOG_PUNTERO_IMPRESORA(salida, "BaseDatosEEPROM::setValor('", clave, "') finalizó correctamente"); \
     return true; \
 
 #include <ArduinoJson.h>
