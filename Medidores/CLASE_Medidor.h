@@ -51,7 +51,10 @@
                 }
                 
                 LOG("MEDIDOR \"%S\" - Callback ejecutado por resultado válido.", this -> nombre);
-                this -> callback -> notificar(ingr);
+                
+                if (this -> callback) {
+                    this -> callback -> notificar(ingr);
+                }
             }
         
         public:
