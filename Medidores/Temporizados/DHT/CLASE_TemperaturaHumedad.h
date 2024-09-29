@@ -17,18 +17,18 @@
             float temperatura;
             float humedad;
         
-            bool esValida(float ingr);
+            bool esValida(const float ingr) const;
         
         public:
             TemperaturaHumedad(float temperatura = NO_DEFINIDA, float humedad = NO_DEFINIDA);
             
             void setTemperatura(float ingr);
-            float getTemperatura(void);
-            bool tieneTemperatura(void);
+            float getTemperatura(void) const;
+            bool tieneTemperatura(void) const;
             
             void setHumedad(float ingr);
-            float getHumedad(void);
-            bool tieneHumedad(void);
+            float getHumedad(void) const;
+            bool tieneHumedad(void) const;
             
             /**
              * @brief Imprime los valores de las variables de instancia a la
