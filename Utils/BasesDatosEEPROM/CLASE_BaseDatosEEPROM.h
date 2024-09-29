@@ -151,38 +151,39 @@
             }
             
             template <typename T>
-            T getValor(const char *clave) {
-                GET_VALOR(clave);
+            T getValor(const char *clave, Print *salida = nullptr) {
+                GET_VALOR(clave, salida);
                 return this -> documento[clave];
             }
             
             template <typename T>
-            const T &getValor(const char *clave) const {
-                GET_VALOR(clave);
+            const T &getValor(const char *clave, Print *salida = nullptr) const {
+                GET_VALOR(clave, salida);
                 return this -> documento[clave];
             }
             
             template <typename T>
-            bool setValor(const char *clave, const T valor) {
+            bool setValor(const char *clave, const T valor, Print *salida = nullptr) {
                 T copiaValor = valor;
-                SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS);
+                CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatosEEPROM::setValor('", clave, "', ", valor, ')');
+                SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS, salida);
             }
             
-            bool setValor(const char *clave, const char *valor) {
+            bool setValor(const char *clave, const char *valor, Print *salida = nullptr) {
                 StringEstatica<CAPACIDAD_STRINGS> copiaValor(valor);
-                LOG("Escribiendo BaseDatosEEPROM::setValor('%s', '%s') = %s", clave, valor, copiaValor.getContenido()); \
-                SET_VALOR(clave, copiaValor.getContenido(), CAPACIDAD_STRINGS);
+                CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatosEEPROM::setValor('", clave, "', '", valor, "')");
+                SET_VALOR(clave, copiaValor.getContenido(), CAPACIDAD_STRINGS, salida);
             }
             
             template <typename T>
-            const T getValorSetteando(const char *clave, const T valorPredeterminado) const {
-                GET_VALOR_SETTEANDO(clave, valorPredeterminado);
+            const T getValorSetteando(const char *clave, const T valorPredeterminado, Print *salida = nullptr) const {
+                GET_VALOR_SETTEANDO(clave, valorPredeterminado, salida);
                 return this -> documento[clave];
             }
             
             template <typename T>
-            T getValorSetteando(const char *clave, T valorPredeterminado) {
-                GET_VALOR_SETTEANDO(clave, valorPredeterminado);
+            T getValorSetteando(const char *clave, T valorPredeterminado, Print *salida = nullptr) {
+                GET_VALOR_SETTEANDO(clave, valorPredeterminado, salida);
                 return this -> documento[clave];
             }
             
