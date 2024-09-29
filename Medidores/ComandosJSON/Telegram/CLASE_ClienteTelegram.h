@@ -15,6 +15,7 @@
 #include <LoopbackStream.h>
 #include <DEVNULL.h>
 #include "CLASE_ImpresoraTelegram.h"
+#include "../../Callbacks/INTERFAZ_CallbackResultadoMutable.h"
     template <size_t CAPACIDAD_CANALES_PERMITIDOS, size_t CAPACIDAD_MENSAJE, void (*F_LOGGER)(CanalBidireccional<Stream, Print>&) = nullptr>
     class ClienteTelegram : public MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>, public CondicionResultado<CanalBidireccional<Stream, Print>> {
         private:
@@ -87,7 +88,7 @@
             }
             
             template <typename... T_ARGUMENTOS>
-            void enviarMensajeCanalesPermitidos(CallbackResultado<ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>, T_ARGUMENTOS...> &enviador, T_ARGUMENTOS&... argumentos) {
+            void enviarMensajeCanalesPermitidos(CallbackResultadoMutable<ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>, T_ARGUMENTOS...> &enviador, T_ARGUMENTOS&... argumentos) {
                 for (int64_t selec: this -> canalesPermitidos) {
                     ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER> impresora(this, selec);
                     enviador.notificar(impresora, argumentos...);
