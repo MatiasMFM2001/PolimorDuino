@@ -9,6 +9,7 @@
 
 #include <Printable.h>
 #include "../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
+#include <Stream.h>
     class StringAbstracta : public Printable {
         public:
             virtual size_t actualizarLongitudMidiendo(void) = 0;
