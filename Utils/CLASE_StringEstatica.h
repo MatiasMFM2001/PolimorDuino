@@ -7,14 +7,14 @@
 #ifndef STRING_ESTATICA
 #define STRING_ESTATICA
 
-#include <Printable.h>
+#include "INTERFAZ_StringAbstracta.h"
 #include "../Logger/FuncionesLoggers.h"
 #include "../Medidores/Condiciones/CLASE_CompuertaNO.h"
 #include "../Logger/FuncionesJSON.h"
 #include <stdarg.h>
 #include "CLASE_Contador.h"
     template <size_t MAX_CAPACIDAD>
-    class StringEstatica : public Printable {
+    class StringEstatica : public StringAbstracta {
         private:
             char contenido[MAX_CAPACIDAD + 1];
             Contador<size_t> longitud;
@@ -40,7 +40,7 @@
                 this -> agregarFinal(caracterInicial);
             }
             
-            size_t actualizarLongitudMidiendo(void) {
+            size_t actualizarLongitudMidiendo(void) override {
                 this -> longitud.reiniciar();
                 
                 for (char selec: this -> contenido) {
@@ -54,40 +54,40 @@
                 return (this -> getLongitud());
             }
             
-            size_t getLongitud(void) {
+            size_t getLongitud(void) override {
                 return (this -> longitud.getValor());
             }
             
-            size_t getMaxLongitud(void) {
+            size_t getMaxLongitud(void) override {
                 return MAX_CAPACIDAD;
             }
             
-            size_t getLongitudRestante(void) {
+            size_t getLongitudRestante(void) override {
                 return (MAX_CAPACIDAD - (this -> getLongitud()));
             }
             
-            bool estaLlena(void) {
+            bool estaLlena(void) override {
                 return (this -> getLongitud() >= MAX_CAPACIDAD);
             }
             
-            bool estaVacia(void) {
+            bool estaVacia(void) override {
                 return (this -> getLongitud() == 0);
             }
             
-            char *getContenido(void) {
+            char *getContenido(void) override {
                 return (this -> contenido);
             }
             
-            const char *getContenidoConstante(void) const {
+            const char *getContenidoConstante(void) const override {
                 return (this -> contenido);
             }
 
-            void vaciarContenido(void) {
+            void vaciarContenido(void) override {
                 this -> longitud.reiniciar();
                 this -> escribirCaracterNulo();
             }
             
-            bool agregarFinal(const char *ingr) {
+            bool agregarFinal(const char *ingr) override {
                 if (!ingr || (*ingr == '\0')) {
                     return true;
                 }
@@ -103,12 +103,12 @@
                 return (*ingr == '\0');
             }
             
-            bool agregarFinal(const char ingr) {
+            bool agregarFinal(const char ingr) override {
                 char buffer[2] = {ingr, '\0'};
                 return this -> agregarFinal(buffer);
             }
             
-            bool agregarFinalPrintf(const char *formato, ...) {
+            bool agregarFinalPrintf(const char *formato, ...) override {
                 va_list argumentos;
                 
                 va_start(argumentos, formato);                
@@ -125,7 +125,7 @@
                 return true;
             }
             
-            size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) {
+            size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) override {
                 size_t longitudInicial = (this -> getLongitud());
                 
                 int datoLeido = stream.read();
@@ -144,7 +144,7 @@
                 return (this -> getLongitud()) - longitudInicial;
             }
             
-            size_t agregarCaracteresHasta(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) {
+            size_t agregarCaracteresHasta(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) override {
                 CompuertaNO<int> negador(&condicion);
                 return this -> agregarCaracteresMientras(stream, negador, terminarSiCaracterInvalido);
             }
