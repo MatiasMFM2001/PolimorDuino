@@ -8,44 +8,54 @@
 #define STRING_ESTATICA
 
 #include <Printable.h>
-#include <Array.h>
 #include "../Logger/FuncionesLoggers.h"
 #include "../Medidores/Condiciones/CLASE_CompuertaNO.h"
 #include "../Logger/FuncionesJSON.h"
 #include <stdarg.h>
+#include "CLASE_Contador.h"
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public Printable {
         private:
-            Array<char, MAX_CAPACIDAD + 1> contenido;
+            char contenido[MAX_CAPACIDAD + 1];
+            Contador<size_t> longitud;
+        
+            void escribirCaracterNulo(void) {
+                this -> contenido[this -> getLongitud()] = '\0';
+            }
         
         public:
             StringEstatica(const char *contenidoInicial = nullptr)
-                : contenido(Array<char, MAX_CAPACIDAD + 1>())
+                : contenido(), longitud(Contador<size_t>(0))
             {
-                this -> contenido.push_back('\0');
                 this -> agregarFinal(contenidoInicial);
             }
             
             StringEstatica(char *contenidoInicial)
-                : contenido(Array<char, MAX_CAPACIDAD + 1>())
-            {
-                this -> contenido.push_back('\0');
-                this -> agregarFinal(contenidoInicial);
-            }
+                : StringEstatica<MAX_CAPACIDAD>(contenidoInicial)
+            {}
             
             StringEstatica(char caracterInicial)
-                : contenido(Array<char, MAX_CAPACIDAD + 1>())
+                : StringEstatica<MAX_CAPACIDAD>()
             {
-                this -> contenido.push_back(caracterInicial);
-                this -> contenido.push_back('\0');
+                this -> agregarFinal(caracterInicial);
+            }
+            
+            size_t actualizarLongitudMidiendo(void) {
+                this -> longitud.reiniciar();
+                
+                for (char selec: this -> contenido) {
+                    if (selec == '\0') {
+                        return (this -> getLongitud());
+                    }
+                    
+                    this -> longitud.incrementar(1);
+                }
+                
+                return (this -> getLongitud());
             }
             
             size_t getLongitud(void) {
-                if (this -> contenido.empty()) {
-                    return 0;
-                }
-                
-                return (this -> contenido.size() - 1);
+                return (this -> longitud.getValor());
             }
             
             size_t getMaxLongitud(void) {
@@ -65,16 +75,16 @@
             }
             
             char *getContenido(void) {
-                return this -> contenido.data();
+                return (this -> contenido);
             }
             
             const char *getContenidoConstante(void) const {
-                return this -> contenido.data();
+                return (this -> contenido);
             }
-            
+
             void vaciarContenido(void) {
-                this -> contenido.clear();
-                this -> contenido.push_back('\0');
+                this -> longitud.reiniciar();
+                this -> escribirCaracterNulo();
             }
             
             bool agregarFinal(const char *ingr) {
@@ -82,14 +92,14 @@
                     return true;
                 }
                 
-                this -> contenido.pop_back();
-                
                 while ((*ingr != '\0') && !(this -> estaLlena())) {
-                    this -> contenido.push_back(*ingr);
+                    this -> contenido[this -> getLongitud()] = *ingr;
+                    
+                    this -> longitud.incrementar(1);
                     ++ingr;
                 }
                 
-                this -> contenido.push_back('\0');
+                this -> escribirCaracterNulo();
                 return (*ingr == '\0');
             }
             
@@ -100,13 +110,19 @@
             
             bool agregarFinalPrintf(const char *formato, ...) {
                 va_list argumentos;
-                va_start(argumentos, formato);
                 
-                size_t longitudRestante = this -> getLongitudRestante();
-                int retorno = vsnprintf(this -> getContenido() + this -> getLongitud(), longitudRestante + 1, formato, argumentos);
-                
+                va_start(argumentos, formato);                
+                    size_t longitudRestante = (this -> getLongitudRestante() + 1);
+                    int retorno = vsnprintf(this -> getContenido() + this -> getLongitud(), longitudRestante, formato, argumentos);
                 va_end(argumentos);
-                return ((retorno >= 0) && (retorno <= longitudRestante));
+                
+                if ((retorno < 0) || (retorno >= longitudRestante)) {
+                    this -> escribirCaracterNulo();
+                    return false;
+                }
+                
+                this -> longitud.incrementar(retorno);
+                return true;
             }
             
             size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) {
