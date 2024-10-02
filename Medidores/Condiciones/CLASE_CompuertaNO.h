@@ -8,6 +8,7 @@
 #define COMPUERTA_NO
 
 #include "INTERFAZ_CondicionResultado.h"
+#include "../../Logger/FuncionesJSON.h"
     template <typename... T>
     class CompuertaNO : public CondicionResultado<T...> {
         private:
