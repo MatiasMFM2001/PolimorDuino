@@ -5,8 +5,14 @@
  */
 
 #include "CLASE_ValidadorJSON.h"
+#include "NodosPila/CLASE_NodoInicialPilaJSON.h"
 
 bool ValidadorJSON::esValido(const JsonDocument &ingr, NodoPilaJSON &pilaClaves) {
     const JsonVariantConst variante = ingr.template as<JsonVariantConst>();
     return (this -> esValido(variante, pilaClaves));
+}
+
+bool ValidadorJSON::esValido(const JsonVariantConst &ingr) {
+    NodoInicialPilaJSON<0, 0> pilaClaves;
+    return (this -> esValido(ingr, pilaClaves));
 }

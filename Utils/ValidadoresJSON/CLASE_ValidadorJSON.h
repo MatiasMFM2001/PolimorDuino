@@ -10,9 +10,11 @@
 //#include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
 #include <ArduinoJson.h>
 #include "INTERFAZ_CondicionJSON.h"
-    class ValidadorJSON : public CondicionJSON {
+#include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
+    class ValidadorJSON : public CondicionJSON, public CondicionResultado<JsonVariantConst> {
         public:
             bool esValido(const JsonDocument &ingr, NodoPilaJSON &pilaClaves);
+            bool esValido(const JsonVariantConst &ingr) override;
             
             using CondicionJSON::esValido;
     };
