@@ -35,7 +35,8 @@
     } \
  \
     if (!(this -> contieneClave(clave))) { \
-        this -> setValor(clave, valorPredeterminado); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: La BD no contiene la clave '", clave, "'. Se setteará el valor predeterminado"); \
+        this -> setValor(clave, valorPredeterminado, salida); \
     } \
  \
     if (this -> estaCorrupta) { \
