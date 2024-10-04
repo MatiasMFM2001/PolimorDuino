@@ -48,15 +48,19 @@
         } \
     }
 
-#define SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS, salida) \
+#define SET_VALOR(clave, copiaValor, MAX_LONGITUD_CLAVES, salida) \
     if (this -> estaCorrupta) { \
         CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::setValor('", clave, "') con la BD corrupta"); \
         return false; \
     } \
  \
-    StringEstatica<CAPACIDAD_STRINGS> copiaClave(clave); \
+    StringEstatica<MAX_LONGITUD_CLAVES> copiaClave; \
  \
-    CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('%s') = %s", clave, copiaClave.getContenido()); \
+    if (!copiaClave.agregarFinal(clave)) { \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se limitó la clave a", MAX_LONGITUD_CLAVES, "caracteres, quedando '", copiaClave.getContenido(), '\''); \
+    } \
+ \
+    CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "') =", copiaClave.getContenido()); \
  \
     if (!(this -> escribirBajoNivel(copiaClave.getContenido(), copiaValor, salida))) { \
         CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Al intentar insertar la clave '", clave, "', falló porque la BaseDatos se llenó"); \
@@ -65,7 +69,7 @@
     } \
  \
     CLOG_PUNTERO_IMPRESORA(salida, "BaseDatos::setValor('", clave, "') finalizó correctamente"); \
-    return true; \
+    return true;
 
 #define DECLARAR_METODO_ABSTRACTO_BD(nombre, retorno, atributosAdicionales, ...) \
     virtual retorno nombre(__VA_ARGS__, Print *salida) atributosAdicionales = 0;
@@ -86,13 +90,13 @@
 #include "../../Logger/FuncionesLoggers.h"
 #include "../MACRO_ForEach.h"
 #include "../INTERFAZ_Inicializable.h"
-    template <size_t CAPACIDAD_STRINGS>
+    template <size_t MAX_LONGITUD_CLAVES, size_t MAX_LONGITUD_STRINGS>
     class BaseDatos : public Inicializable, public Printable {
         private:
             bool leerAlInicializar;
             bool estaCorrupta;
             size_t version;
-            CallbackResultadoMutable<BaseDatos<CAPACIDAD_STRINGS>> *migrador;
+            CallbackResultadoMutable<BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>> *migrador;
         
         protected:
             virtual bool inicializarBajoNivel(void) = 0;
@@ -107,7 +111,7 @@
             virtual bool guardarBajoNivel(Print *salida) = 0;
         
         public:
-            BaseDatos(size_t version, CallbackResultadoMutable<BaseDatos<CAPACIDAD_STRINGS>> *migrador, bool leerAlInicializar)
+            BaseDatos(size_t version, CallbackResultadoMutable<BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>> *migrador, bool leerAlInicializar)
                 : leerAlInicializar(leerAlInicializar), estaCorrupta(false), version(version), migrador(migrador)
             {}
             
@@ -146,13 +150,13 @@
             bool setValor(const char *clave, const T_VALOR valor, Print *salida = nullptr) {
                 T_VALOR copiaValor = valor;
                 CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "', ", valor, ')');
-                SET_VALOR(clave, copiaValor, CAPACIDAD_STRINGS, salida);
+                SET_VALOR(clave, copiaValor, MAX_LONGITUD_CLAVES, salida);
             }
             
             bool setValor(const char *clave, const char *valor, Print *salida = nullptr) {
-                StringEstatica<CAPACIDAD_STRINGS> copiaValor(valor);
+                StringEstatica<MAX_LONGITUD_STRINGS> copiaValor(valor);
                 CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "', '", valor, "')");
-                SET_VALOR(clave, copiaValor.getContenido(), CAPACIDAD_STRINGS, salida);
+                SET_VALOR(clave, copiaValor.getContenido(), MAX_LONGITUD_CLAVES, salida);
             }
             
             template <typename T_VALOR>

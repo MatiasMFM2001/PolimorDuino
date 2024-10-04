@@ -63,8 +63,8 @@
 #include <EEPROM.h>
 #include <StreamUtils.h>
 #include "CLASE_BaseDatos.h"
-    template <size_t CAPACIDAD_JSON, size_t CAPACIDAD_STRINGS, typename T_EEPROM = EEPROMClass>
-    class BaseDatosEEPROM : public BaseDatos<CAPACIDAD_STRINGS> {
+    template <size_t CAPACIDAD_JSON, size_t MAX_LONGITUD_CLAVES, size_t MAX_LONGITUD_STRINGS, typename T_EEPROM = EEPROMClass>
+    class BaseDatosEEPROM : public BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS> {
         private:
             T_EEPROM *eeprom;
             StaticJsonDocument<CAPACIDAD_JSON> documento;
@@ -145,8 +145,8 @@
             }
         
         public:
-            BaseDatosEEPROM(T_EEPROM *eeprom, size_t version, CallbackResultadoMutable<BaseDatos<CAPACIDAD_STRINGS>> *migrador, bool leerAlInicializar = false)
-                : BaseDatos<CAPACIDAD_STRINGS>(version, migrador, leerAlInicializar)
+            BaseDatosEEPROM(T_EEPROM *eeprom, size_t version, CallbackResultadoMutable<BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>> *migrador, bool leerAlInicializar = false)
+                : BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>(version, migrador, leerAlInicializar)
                 , eeprom(eeprom), documento(StaticJsonDocument<CAPACIDAD_JSON>())
             {}
             
@@ -161,7 +161,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "BaseDatosEEPROM") + SUPERCLASES_A_JSON(impresora, BaseDatos<CAPACIDAD_STRINGS>)
+                return OBJETO_A_JSON(impresora, "BaseDatosEEPROM") + SUPERCLASES_A_JSON(impresora, (BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>))
                     + impresora.println()
                     + serializeJsonPretty(this -> documento, impresora);
             }

@@ -67,10 +67,16 @@
         return retorno; \
     }
 
+#ifdef ESP32
+    #include <nvs.h>
+#else
+    #define NVS_KEY_NAME_MAX_SIZE 32
+#endif
+
 #include <Preferences.h>
 #include "CLASE_BaseDatos.h"
-    template <size_t CAPACIDAD_BUFFER_JSON, size_t CAPACIDAD_STRINGS>
-    class BaseDatosPreferencias : public BaseDatos<CAPACIDAD_STRINGS> {
+    template <size_t CAPACIDAD_BUFFER_JSON, size_t MAX_LONGITUD_STRINGS, size_t MAX_LONGITUD_CLAVES = (NVS_KEY_NAME_MAX_SIZE - 1)>
+    class BaseDatosPreferencias : public BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS> {
         private:
             Preferences preferencias;
             const char *nombreEspacio;
@@ -122,8 +128,8 @@
             }
         
         public:
-            BaseDatosPreferencias(size_t version, CallbackResultadoMutable<BaseDatos<CAPACIDAD_STRINGS>> *migrador, const char *nombreEspacio, bool soloLectura, bool leerAlInicializar = false)
-                : BaseDatos<CAPACIDAD_STRINGS>(version, migrador, leerAlInicializar)
+            BaseDatosPreferencias(size_t version, CallbackResultadoMutable<BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>> *migrador, const char *nombreEspacio, bool soloLectura)
+                : BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>(version, migrador, true)
                 , preferencias(Preferences()), nombreEspacio(nombreEspacio), soloLectura(soloLectura)
             {}
             
@@ -134,7 +140,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_A_JSON(impresora, "BaseDatosPreferencias") + SUPERCLASES_A_JSON(impresora, BaseDatos<CAPACIDAD_STRINGS>)
+                return OBJETO_A_JSON(impresora, "BaseDatosPreferencias") + SUPERCLASES_A_JSON(impresora, (BaseDatos<MAX_LONGITUD_CLAVES, MAX_LONGITUD_STRINGS>))
                     + impresora.println()
                     //+ serializeJsonPretty(this -> documento, impresora)
                     ;
