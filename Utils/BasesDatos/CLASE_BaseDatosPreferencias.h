@@ -28,18 +28,19 @@
         size_t retornoLectura = (this -> preferencias.getBytes(clave, bufferMsgPack, numBytesRequeridos)); \
  \
         if (retornoLectura != numBytesRequeridos) { \
+            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: numBytesRequeridos =", numBytesRequeridos, ", pero retornoLectura =", retornoLectura); \
             RETORNAR_ERROR(bufferDocumento, bufferMsgPack); \
         } \
  \
         DeserializationError retornoDeserial = deserializeMsgPack(bufferDocumento, bufferMsgPack, numBytesRequeridos); \
  \
         if (retornoDeserial != DeserializationError::Ok) { \
-            LOG("ERROR: Deserializar el MessagePack del buffer falló con el error %s", retornoDeserial.c_str()); \
+            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Deserializar el MessagePack del buffer falló con el error", retornoDeserial.c_str()); \
             RETORNAR_ERROR(bufferDocumento, bufferMsgPack); \
         } \
  \
         if (!(bufferDocumento.template is<T_VALOR>())) { \
-            FLOGS("ERROR: La variante leída no es del tipo " #T_VALOR); \
+            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: La variante leída no es del tipo " #T_VALOR); \
             RETORNAR_ERROR(bufferDocumento, bufferMsgPack); \
         } \
  \
