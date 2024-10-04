@@ -53,7 +53,15 @@
 
 #define DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(T_VALOR, metodo) \
     DEFINIR_METODO_BD(escribirBajoNivel, bool,, char *copiaClave, T_VALOR copiaValor) { \
-        return ((this -> preferencias.metodo(copiaClave, copiaValor)) > 0); \
+        LOG("Ejecutando BaseDatosPreferencias::escribirBajoNivel<%s>('%s')", #T_VALOR, copiaValor); \
+        size_t retorno = (this -> preferencias.metodo(copiaClave, copiaValor)); \
+ \
+        if (retorno == 0) { \
+            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Se escribieron 0 bytes al guardar la clave '", copiaClave, "' con valor", copiaValor, "de tipo", #T_VALOR); \
+            return false; \
+        } \
+ \
+        return true; \
     }
 
 #define DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS_JSON(T_VALOR) \
