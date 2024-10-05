@@ -6,16 +6,16 @@
 
 #include "../../Medidores/ComandosJSON/CallbacksComandos/FuncionesComandos.h"
 
-#define OBTENER_VALOR_BD_VARIABLE_EXTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, variableASobreescribir, expresionCompletaVariable) \
+#define OBTENER_VALOR_BD_VARIABLE_EXTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, variableASobreescribir, ...) \
     if (baseDatos.getValorSetteando(clave, valorPredeterminado, variableASobreescribir, salida)) { \
-        expresionCompletaVariable; \
+        __VA_ARGS__; \
     } else { \
         CLOG("ERROR: No se pudo obtener el ", nombreValor, " '", clave, '\''); \
     }
 
-#define OBTENER_VALOR_BD_VARIABLE_INTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, tipoDatoVariable, variableASobreescribir, expresionCompletaVariable) \
+#define OBTENER_VALOR_BD_VARIABLE_INTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, tipoDatoVariable, variableASobreescribir, ...) \
     do { \
         tipoDatoVariable variableASobreescribir; \
-        OBTENER_VALOR_BD_VARIABLE_EXTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, variableASobreescribir, expresionCompletaVariable); \
+        OBTENER_VALOR_BD_VARIABLE_EXTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, variableASobreescribir, __VA_ARGS__); \
     } \
     while(false);
