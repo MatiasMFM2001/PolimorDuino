@@ -12,12 +12,15 @@
 #define TIPOS_NATIVOS_BD bool, float, double, signed char, unsigned char, signed int, unsigned int, signed short, unsigned short, signed long, unsigned long, signed long long, unsigned long long
 #define TIPOS_CONVERTIBLES_BD JsonVariant, JsonArray, JsonObject
 
-#define LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida) \
-    StringEstatica<MAX_LONGITUD_CLAVES> copiaClave; \
+#define LIMITAR_STRING(valorOriginal, valorLimitado, MAX_LONGITUD, salida, nombreValor) \
+    StringEstatica<MAX_LONGITUD> valorLimitado; \
  \
-    if (!copiaClave.agregarFinal(clave)) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se limitó la clave a", MAX_LONGITUD_CLAVES, "caracteres, quedando '", copiaClave.getContenido(), '\''); \
+    if (!valorLimitado.agregarFinal(valorOriginal)) { \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se limitó la", nombreValor, 'a', MAX_LONGITUD, "caracteres, quedando '", valorLimitado.getContenido(), '\''); \
     }
+
+#define LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida) \
+    LIMITAR_STRING(clave, copiaClave, MAX_LONGITUD_CLAVES, salida, "clave")
 
 #define GET_VALOR(clave, copiaClave, T, MAX_LONGITUD_CLAVES, salida) \
     LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
