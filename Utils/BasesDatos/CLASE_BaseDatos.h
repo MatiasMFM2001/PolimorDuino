@@ -182,7 +182,9 @@
             }
             
             bool contieneClave(const char *ingr) {
-                return (this -> contieneClaveBajoNivel(ingr));
+                StringEstatica<MAX_LONGITUD_CLAVES> copiaClave(ingr);
+                
+                return (this -> contieneClaveBajoNivel(copiaClave.getContenidoConstante()));
             }
             
             /**
