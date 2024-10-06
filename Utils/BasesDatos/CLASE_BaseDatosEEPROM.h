@@ -101,6 +101,15 @@
             FOR_EACH(DEFINIR_LEER_BAJO_NIVEL_BD_EEPROM, TIPOS_NATIVOS_BD);
             FOR_EACH(DEFINIR_LEER_BAJO_NIVEL_BD_EEPROM, TIPOS_CONVERTIBLES_BD);
             
+            DEFINIR_METODO_BD(leerBajoNivel, bool,, const char *clave, StringAbstracta &variableASobreescribir) {  
+                if (!variableASobreescribir.agregarFinal(this -> documento.template as<const char *>())) {
+                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Se llenó la variableASobreescribir al cargar la String de la clave '", clave, "' al buffer");
+                    return false;
+                }
+                
+                return true;
+            }
+            
             FOR_EACH(DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_EEPROM, TIPOS_NATIVOS_BD);
             FOR_EACH(DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_EEPROM, TIPOS_CONVERTIBLES_BD);
             

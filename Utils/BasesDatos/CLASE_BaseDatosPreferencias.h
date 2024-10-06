@@ -112,6 +112,17 @@
             
             FOR_EACH(DEFINIR_LEER_BAJO_NIVEL_BD_PREFERENCIAS_JSON, TIPOS_CONVERTIBLES_BD);
             
+            DEFINIR_METODO_BD(leerBajoNivel, bool,, const char *clave, StringAbstracta &variableASobreescribir) {
+                char buffer[MAX_LONGITUD_STRINGS + 1];
+                
+                if ((this -> preferencias.getString(clave, buffer, MAX_LONGITUD_STRINGS)) == 0) {
+                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Se leyeron 0 bytes al cargar la String de la clave '", clave, "' al buffer");
+                    return false;
+                }
+                
+                return variableASobreescribir.agregarFinal(buffer);
+            }
+            
             DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(bool, putBool);
             DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(float, putFloat);
             DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(double, putDouble);
