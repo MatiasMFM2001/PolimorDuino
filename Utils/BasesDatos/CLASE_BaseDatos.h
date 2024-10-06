@@ -12,11 +12,20 @@
 #define TIPOS_NATIVOS_BD bool, float, double, signed char, unsigned char, signed int, unsigned int, signed short, unsigned short, signed long, unsigned long, signed long long, unsigned long long
 #define TIPOS_CONVERTIBLES_BD JsonVariant, JsonArray, JsonObject
 
-#define GET_VALOR(clave, T, salida) \
-    if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::getValor('", clave, "') con la BD corrupta. Se retornará el valor indeterminado"); \
+#define LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida) \
+    StringEstatica<MAX_LONGITUD_CLAVES> copiaClave; \
  \
-        if (this -> contieneClave(clave)) { \
+    if (!copiaClave.agregarFinal(clave)) { \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se limitó la clave a", MAX_LONGITUD_CLAVES, "caracteres, quedando '", copiaClave.getContenido(), '\''); \
+    }
+
+#define GET_VALOR(clave, copiaClave, T, MAX_LONGITUD_CLAVES, salida) \
+    LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
+ \
+    if (this -> estaCorrupta) { \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::getValor(", copiaClave, ") con la BD corrupta. Se retornará el valor indeterminado"); \
+ \
+        if (this -> contieneClave(copiaClave)) { \
             CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor previamente almacenado en esa clave."); \
         } \
         else { \
@@ -24,51 +33,51 @@
         } \
     } \
  \
-    if (!(this -> contieneClave(clave))) { \
+    if (!(this -> contieneClave(copiaClave))) { \
         return false; \
     }
 
-#define GET_VALOR_SETTEANDO(clave, T, valorPredeterminado, salida) \
+#define GET_VALOR_SETTEANDO(clave, copiaClave, T, MAX_LONGITUD_CLAVES, valorPredeterminado, salida, ...) \
+    LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
+ \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::getValorSetteando('", clave, "') con la BD corrupta. Se retornará el valor predeterminado"); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::getValorSetteando(", copiaClave, ") con la BD corrupta. Se retornará el valor predeterminado"); \
+        __VA_ARGS__; \
+ \
         return false; \
     } \
  \
-    if (!(this -> contieneClave(clave))) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: La BD no contiene la clave '", clave, "'. Se setteará el valor predeterminado"); \
+    if (!(this -> contieneClave(copiaClave))) { \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: La BD no contiene la clave", copiaClave, ". Se setteará el valor predeterminado"); \
         this -> setValor(clave, valorPredeterminado, salida); \
     } \
  \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatos::getValorSetteando('", clave, "')"); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatos::setValor(", copiaClave, ") desde BaseDatos::getValorSetteando()"); \
  \
-        if (!(this -> contieneClave(clave))) { \
+        if (!(this -> contieneClave(copiaClave))) { \
             CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor predeterminado"); \
-            return valorPredeterminado; \
+            __VA_ARGS__; \
+ \
+            return false; \
         } \
     }
 
 #define SET_VALOR(clave, copiaValor, MAX_LONGITUD_CLAVES, salida) \
+    LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
+ \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::setValor('", clave, "') con la BD corrupta"); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::setValor(", copiaClave, ") con la BD corrupta"); \
         return false; \
     } \
  \
-    StringEstatica<MAX_LONGITUD_CLAVES> copiaClave; \
- \
-    if (!copiaClave.agregarFinal(clave)) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se limitó la clave a", MAX_LONGITUD_CLAVES, "caracteres, quedando '", copiaClave.getContenido(), '\''); \
-    } \
- \
-    CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "') =", copiaClave.getContenido()); \
- \
     if (!(this -> escribirBajoNivel(copiaClave.getContenido(), copiaValor, salida))) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Al intentar insertar la clave '", clave, "', falló porque la BaseDatos se llenó"); \
+        CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Al intentar insertar la clave", copiaClave, ", falló porque la BaseDatos se llenó"); \
         this -> estaCorrupta = true; \
         return false; \
     } \
  \
-    CLOG_PUNTERO_IMPRESORA(salida, "BaseDatos::setValor('", clave, "') finalizó correctamente"); \
+    CLOG_PUNTERO_IMPRESORA(salida, "BaseDatos::setValor(", copiaClave, ") finalizó correctamente"); \
     return true;
 
 #define DECLARAR_METODO_ABSTRACTO_BD(nombre, retorno, atributosAdicionales, ...) \
@@ -143,8 +152,8 @@
             
             template <typename T_VALOR>
             bool getValor(const char *clave, T_VALOR &variableASobreescribir, Print *salida = nullptr) {
-                GET_VALOR(clave, T_VALOR, salida);
-                return (this -> leerBajoNivel(clave, variableASobreescribir, salida));
+                GET_VALOR(clave, copiaClave, T_VALOR, MAX_LONGITUD_CLAVES, salida);
+                return (this -> leerBajoNivel(copiaClave.getContenidoConstante(), variableASobreescribir, salida));
             }
             
             template <typename T_VALOR>
@@ -162,8 +171,9 @@
             
             template <typename T_VALOR>
             bool getValorSetteando(const char *clave, T_VALOR valorPredeterminado, T_VALOR &variableASobreescribir, Print *salida = nullptr) {
-                GET_VALOR_SETTEANDO(clave, T_VALOR, valorPredeterminado, salida);
-                return (this -> leerBajoNivel(clave, variableASobreescribir, salida));
+                GET_VALOR_SETTEANDO(clave, copiaClave, T_VALOR, MAX_LONGITUD_CLAVES, valorPredeterminado, salida, variableASobreescribir = valorPredeterminado);
+                return (this -> leerBajoNivel(copiaClave.getContenidoConstante(), variableASobreescribir, salida));
+            }
             }
             
             bool guardar(Print *salida = nullptr) {
@@ -181,10 +191,13 @@
                 return true;
             }
             
+            bool contieneClave(const StringEstatica<MAX_LONGITUD_CLAVES> &ingr) {
+                return (this -> contieneClaveBajoNivel(ingr.getContenidoConstante()));
+            }
+            
             bool contieneClave(const char *ingr) {
-                StringEstatica<MAX_LONGITUD_CLAVES> copiaClave(ingr);
-                
-                return (this -> contieneClaveBajoNivel(copiaClave.getContenidoConstante()));
+                LIMITAR_CLAVE(ingr, copiaClave, MAX_LONGITUD_CLAVES, _log4arduino_target);
+                return (this -> contieneClave(copiaClave));
             }
             
             /**
