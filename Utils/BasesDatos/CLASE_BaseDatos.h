@@ -167,10 +167,18 @@
                 SET_VALOR(clave, copiaValor, MAX_LONGITUD_CLAVES, salida);
             }
             
-            bool setValor(const char *clave, const char *valor, Print *salida = nullptr) {
-                StringEstatica<MAX_LONGITUD_STRINGS> copiaValor(valor);
+            bool setValor(const char *clave, StringEstatica<MAX_LONGITUD_STRINGS> &valor, Print *salida = nullptr) {
                 CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "', '", valor, "')");
-                SET_VALOR(clave, copiaValor.getContenido(), MAX_LONGITUD_CLAVES, salida);
+                SET_VALOR(clave, valor.getContenido(), MAX_LONGITUD_CLAVES, salida);
+            }
+            
+            bool setValor(const char *clave, const char *valor, Print *salida = nullptr) {
+                LIMITAR_STRING(valor, copiaValor, MAX_LONGITUD_STRINGS, salida, "String a settear")
+                return (this -> setValor(clave, copiaValor, salida));
+            }
+            
+            bool setValor(const char *clave, const StringAbstracta &valor, Print *salida = nullptr) {
+                return (this -> setValor(clave, valor.getContenidoConstante(), salida));
             }
             
             template <typename T_VALOR>
@@ -178,6 +186,10 @@
                 GET_VALOR_SETTEANDO(clave, copiaClave, T_VALOR, MAX_LONGITUD_CLAVES, valorPredeterminado, salida, variableASobreescribir = valorPredeterminado);
                 return (this -> leerBajoNivel(copiaClave.getContenidoConstante(), variableASobreescribir, salida));
             }
+            
+            bool getValorSetteando(const char *clave, const char *valorPredeterminado, StringAbstracta &variableASobreescribir, Print *salida = nullptr) {
+                GET_VALOR_SETTEANDO(clave, copiaClave, T_VALOR, MAX_LONGITUD_CLAVES, valorPredeterminado, salida, variableASobreescribir.agregarFinal(valorPredeterminado));
+                return (this -> leerBajoNivel(copiaClave.getContenidoConstante(), variableASobreescribir, salida));
             }
             
             bool guardar(Print *salida = nullptr) {
