@@ -53,7 +53,7 @@
 
 #define DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(T_VALOR, metodo) \
     DEFINIR_METODO_BD(escribirBajoNivel, bool,, char *copiaClave, T_VALOR copiaValor) { \
-        LOG("Ejecutando BaseDatosPreferencias::escribirBajoNivel<%s>('%s')", #T_VALOR, copiaValor); \
+        LOG("Ejecutando BaseDatosPreferencias::escribirBajoNivel<%s>('%s')", #T_VALOR, copiaClave); \
         size_t retorno = (this -> preferencias.metodo(copiaClave, copiaValor)); \
  \
         if (retorno == 0) { \
@@ -66,6 +66,7 @@
 
 #define DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS_JSON(T_VALOR) \
     DEFINIR_METODO_BD(escribirBajoNivel, bool,, char *copiaClave, T_VALOR copiaValor) { \
+        LOG("Ejecutando BaseDatosPreferencias::escribirBajoNivel<%s>('%s')", #T_VALOR, copiaClave); \
         size_t numBytesRequeridos = measureMsgPack(copiaValor); \
         char *bufferMsgPack = new char[numBytesRequeridos + 1]; \
  \
