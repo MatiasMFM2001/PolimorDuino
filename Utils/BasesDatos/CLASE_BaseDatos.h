@@ -119,6 +119,7 @@
             
             FOR_EACH(DECLARAR_ESCRIBIR_BAJO_NIVEL_ABSTRACTO_BD, TIPOS_NATIVOS_BD);
             FOR_EACH(DECLARAR_ESCRIBIR_BAJO_NIVEL_ABSTRACTO_BD, TIPOS_CONVERTIBLES_BD);
+            DECLARAR_ESCRIBIR_BAJO_NIVEL_ABSTRACTO_BD(char *);
             
             virtual bool contieneClaveBajoNivel(const char *ingr) = 0;
             virtual bool guardarBajoNivel(Print *salida) = 0;

@@ -112,6 +112,7 @@
             
             FOR_EACH(DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_EEPROM, TIPOS_NATIVOS_BD);
             FOR_EACH(DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_EEPROM, TIPOS_CONVERTIBLES_BD);
+            DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_EEPROM(char *);
             
             bool guardarBajoNivel(Print *salida) override {
                 //EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);

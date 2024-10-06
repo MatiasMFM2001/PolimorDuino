@@ -137,6 +137,7 @@
             DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(unsigned long, putULong);
             DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(signed long long, putLong64);
             DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(unsigned long long, putULong64);
+            DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS(char *, putString);
             
             FOR_EACH(DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS_JSON, TIPOS_CONVERTIBLES_BD);
             
