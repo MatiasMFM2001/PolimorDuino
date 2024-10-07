@@ -5,6 +5,7 @@
  */
 
 #include "CLASE_CondicionRangoIndices.h"
+#include "../../../CLASE_StringEstatica.h"
 
 CondicionRangoIndices::CondicionRangoIndices(ValidadorJSON *hijo, size_t indiceMin, size_t indiceMax)
     : CondicionValidador<size_t, JsonArrayConst>(hijo)
@@ -25,6 +26,22 @@ bool CondicionRangoIndices::varianteContieneTodas(const JsonArrayConst &ingr, No
 
     if ((this -> indiceMax) != EXTREMO_INFINITO) {
         salida &= enRango<size_t>(this -> indiceMax, 0, limiteSuperior);
+    }
+
+    if (!salida) {
+        StringEstatica<16> bufferNumeros;
+        bufferNumeros.agregarFinalPrintf("%lu", this -> indiceMin);
+        
+        pilaClaves.agregarFinalMensaje("El array no contiene las posiciones en el rango [");
+        pilaClaves.agregarFinalMensaje(bufferNumeros.getContenidoConstante());
+        pilaClaves.agregarFinalMensaje(", ");
+        
+        bufferNumeros.vaciarContenido();
+        bufferNumeros.agregarFinalPrintf("%lu", this -> indiceMax);
+        
+        pilaClaves.agregarFinalMensaje(bufferNumeros.getContenidoConstante());
+        pilaClaves.agregarFinalMensaje("]");
+        pilaClaves.setDatoErroneo(ingr);
     }
 
     return salida;
