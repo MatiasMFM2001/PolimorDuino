@@ -46,6 +46,7 @@
                         }
                         else {
                             CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Se ingresó una cantidad válida de argumentos, pero alguno de ellos es inválido");
+                            pilaClaves.imprimirResultadoErroneo(salida, "argumentos");
                         }
                     }
                     else {
