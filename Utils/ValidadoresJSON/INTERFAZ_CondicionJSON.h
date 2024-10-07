@@ -10,8 +10,9 @@
 #include <ArduinoJson.h>
 #include <Printable.h>
 #include "NodosPila/INTERFAZ_NodoPilaJSON.h"
+    template <typename T_DATO = JsonVariantConst>
     class CondicionJSON : virtual public Printable {
         public:
-            virtual bool esValido(const JsonVariantConst &ingr, NodoPilaJSON &pilaClaves) = 0;
+            virtual bool esValido(const T_DATO &ingr, NodoPilaJSON &pilaClaves) = 0;
     };
 #endif

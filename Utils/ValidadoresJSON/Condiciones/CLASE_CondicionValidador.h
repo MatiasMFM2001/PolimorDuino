@@ -11,7 +11,7 @@
 #include "../../../Logger/FuncionesJSON.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
     template <typename T_IDENTIFICADOR, typename T_VARIANTE>
-    class CondicionValidador : public CondicionJSON {
+    class CondicionValidador : public CondicionJSON<> {
         private:
             ValidadorJSON *hijo;
 
