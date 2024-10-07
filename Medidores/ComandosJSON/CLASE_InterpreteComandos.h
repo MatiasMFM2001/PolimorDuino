@@ -13,7 +13,7 @@
 #include "../CLASE_Medidor.h"
 #include "../Condiciones/CLASE_AdaptadorFuncionCondicion.h"
 #include "STRUCT_CanalBidireccional.h"
-#include "../../Utils/CLASE_StringEstatica.h"
+#include "../../Utils/FuncionesGlobales.h"
     /**
      * @brief 
      */
