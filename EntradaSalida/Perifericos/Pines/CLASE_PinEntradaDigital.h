@@ -102,6 +102,8 @@
 
                 #ifdef __AVR__
                     enablePinChangeInterrupt(this -> getNumPCINT());
+                #else
+                    FLOGS("ADVERTENCIA: En esta plataforma no hacía falta invocar a este método");
                 #endif
             }
             
@@ -113,6 +115,8 @@
 
                 #ifdef __AVR__
                     disablePinChangeInterrupt(this -> getNumPCINT());
+                #else
+                    FLOGS("ADVERTENCIA: En esta plataforma no hacía falta invocar a este método");
                 #endif
             }
 
