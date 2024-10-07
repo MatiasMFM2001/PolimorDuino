@@ -212,6 +212,10 @@
             }
             
             bool contieneClave(const char *ingr) {
+                #ifndef ENABLE_LOG4ARDUINO
+                    Print *_log4arduino_target = nullptr;
+                #endif
+                
                 LIMITAR_CLAVE(ingr, copiaClave, MAX_LONGITUD_CLAVES, _log4arduino_target);
                 return (this -> contieneClave(copiaClave));
             }
