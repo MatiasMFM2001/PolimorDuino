@@ -42,7 +42,7 @@
                 salida += impresora.print("- RUTA: ");
                 salida += impresora.print(nombreVariable);
                 
-                for (JsonVariant selec: this -> pilaClaves) {
+                for (JsonVariantConst selec: (this -> pilaClaves.template as<JsonArrayConst>())) {
                     salida += impresora.print('[');
                     salida += serializeJson(selec, impresora);
                     salida += impresora.print(']');
