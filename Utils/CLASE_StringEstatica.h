@@ -116,7 +116,7 @@
                     int retorno = vsnprintf(this -> getContenido() + this -> getLongitud(), longitudRestante, formato, argumentos);
                 va_end(argumentos);
                 
-                if ((retorno < 0) || (retorno >= longitudRestante)) {
+                if ((retorno < 0) || (((size_t) retorno) >= longitudRestante)) {
                     this -> escribirCaracterNulo();
                     return false;
                 }
