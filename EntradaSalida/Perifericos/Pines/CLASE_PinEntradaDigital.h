@@ -10,6 +10,10 @@
 #include "CLASE_Pin.h"
 #include "../../Entradas/CLASE_EntradaDigital.h"
 
+#ifdef __AVR__
+    #include <PinChangeInterrupt.h>
+#endif
+
 #if !(defined(ARDUINO_ARCH_RP2040) && !defined(__MBED__))
     typedef void(*voidFuncPtr)(void);
     typedef byte PinStatus;

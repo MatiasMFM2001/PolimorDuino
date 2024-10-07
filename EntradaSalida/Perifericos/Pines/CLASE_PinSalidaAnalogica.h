@@ -8,7 +8,6 @@
 #define PIN_SALIDA_ANALOGICA
 
 #include "CLASE_Pin.h"
-#include <PinChangeInterrupt.h>
     /**
      * @brief Permite encapsular en un objeto, un pin de Salida analógica.
      */
