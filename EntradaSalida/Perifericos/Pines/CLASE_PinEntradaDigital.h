@@ -69,7 +69,7 @@
              * @param modo El modo de detección de flancos.
              */
             void vincularFuncionPCINT(voidFuncPtr funcion, PinStatus modo) {
-                LOG("EJECUTANDO PinEntrada::vincularFuncionPCINT(%d, %p, %d)", this -> numPin, funcion, modo);
+                LOG("EJECUTANDO PinEntradaDigital::vincularFuncionPCINT(%d, %p, %d)", this -> numPin, funcion, modo);
 
                 #ifdef __AVR__
                     attachPinChangeInterrupt
@@ -84,7 +84,7 @@
              *  interrupciones por flanco emitidas por este pin.
              */
             void desvincularFuncionPCINT(void) {
-                LOG("EJECUTANDO PinEntrada::desvincularFuncionPCINT(%d)", this -> numPin);
+                LOG("EJECUTANDO PinEntradaDigital::desvincularFuncionPCINT(%d)", this -> numPin);
 
                 #ifdef __AVR__
                     detachPinChangeInterrupt
@@ -98,7 +98,7 @@
              * @brief Permite que este pin emita interrupciones por flanco.
              */
             void habilitarInterrupcion(void) {
-                LOG("EJECUTANDO PinEntrada::habilitarInterrupcion(%d)", this -> numPin);
+                LOG("EJECUTANDO PinEntradaDigital::habilitarInterrupcion(%d)", this -> numPin);
 
                 #ifdef __AVR__
                     enablePinChangeInterrupt(this -> getNumPCINT());
@@ -109,7 +109,7 @@
              * @brief Deniega que este pin emita interrupciones por flanco.
              */
             void deshabilitarInterrupcion(void) {
-                LOG("EJECUTANDO PinEntrada::deshabilitarInterrupcion(%d)", this -> numPin);
+                LOG("EJECUTANDO PinEntradaDigital::deshabilitarInterrupcion(%d)", this -> numPin);
 
                 #ifdef __AVR__
                     disablePinChangeInterrupt(this -> getNumPCINT());
