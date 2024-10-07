@@ -18,6 +18,6 @@
         public:
             virtual JsonArray copiarLista(void) = 0;
             virtual bool agregarFinalMensaje(const char *ingr) = 0;
-            virtual void setDatoErroneo(JsonVariant ingr) = 0;
+            virtual void setDatoErroneo(const JsonVariantConst ingr) = 0;
     };
 #endif

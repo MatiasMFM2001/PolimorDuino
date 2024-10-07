@@ -12,7 +12,7 @@
     class NodoInicialPilaJSON : public NodoPilaJSON {
         private:
             StaticJsonDocument<CAPACIDAD_PILA_JSON> pilaClaves;
-            JsonVariant datoErroneo;
+            JsonVariantConst datoErroneo;
             StringEstatica<CAPACIDAD_MENSAJE> mensaje;
         
         public:
@@ -28,7 +28,7 @@
                 return (this -> mensaje.agregarFinal(ingr));
             }
             
-            void setDatoErroneo(JsonVariant ingr) override {
+            void setDatoErroneo(const JsonVariantConst ingr) override {
                 this -> datoErroneo = ingr;
             }
             

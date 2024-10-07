@@ -30,7 +30,7 @@
                 return (this -> anterior.agregarFinalMensaje(ingr));
             }
             
-            void setDatoErroneo(JsonVariant ingr) override {
+            void setDatoErroneo(const JsonVariantConst ingr) override {
                 this -> anterior.setDatoErroneo(ingr);
             }
             
