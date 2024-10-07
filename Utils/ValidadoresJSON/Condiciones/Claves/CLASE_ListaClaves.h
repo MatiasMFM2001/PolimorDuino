@@ -46,6 +46,7 @@
                         pilaClaves.agregarFinalMensaje(selec);
                         pilaClaves.agregarFinalMensaje("'");
                         
+                        pilaClaves.setDatoErroneo(ingr);
                         return false;
                     }
                 }

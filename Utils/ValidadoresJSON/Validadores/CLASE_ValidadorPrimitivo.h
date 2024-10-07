@@ -19,6 +19,8 @@
                     pilaClaves.agregarFinalMensaje("El dato no es de tipo '");
                     pilaClaves.agregarFinalMensaje(conversores::tipoAString<T>());
                     pilaClaves.agregarFinalMensaje("'");
+
+                    pilaClaves.setDatoErroneo(variante);
                 }
                 
                 return salida;
