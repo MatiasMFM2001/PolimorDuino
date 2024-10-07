@@ -11,19 +11,32 @@
 #include "../../NAMESPACE_Conversores.h"
     template <typename T>
     class ValidadorPrimitivo : public ValidadorJSON {
+        private:
+            CondicionJSON<T> *condicionExtra;
+        
         public:
+            ValidadorPrimitivo(CondicionJSON<T> *condicionExtra = nullptr)
+                : condicionExtra(condicionExtra)
+            {}
+        
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
-                bool salida = variante.is<T>();
-                
-                if (!salida) {
+                if (!variante.is<T>()) {
                     pilaClaves.agregarFinalMensaje("El dato no es de tipo '");
                     pilaClaves.agregarFinalMensaje(conversores::tipoAString<T>());
                     pilaClaves.agregarFinalMensaje("'");
 
                     pilaClaves.setDatoErroneo(variante);
+                    return false;
                 }
                 
-                return salida;
+                const T dato = (variante.template as<T>());
+                
+                if ((this -> condicionExtra) && !(this -> condicionExtra -> esValido(dato, pilaClaves))) {
+                    pilaClaves.setDatoErroneo(variante);
+                    return false;
+                }
+                
+                return true;
             }
 
             /**
@@ -34,7 +47,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "ValidadorPrimitivo");
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "ValidadorPrimitivo", condicionExtra);
             }
     };
 #endif
