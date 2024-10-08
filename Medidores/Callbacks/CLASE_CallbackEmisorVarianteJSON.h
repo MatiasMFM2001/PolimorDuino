@@ -10,18 +10,29 @@
 #include <Print.h>
 #include <ArduinoJson.h>
 #include "INTERFAZ_CallbackResultado.h"
-    template <typename T_VARIANTE, size_t (*serializador)(const T_VARIANTE, Print&)>
+    template <typename T_VARIANTE>
     class CallbackEmisorVarianteJSON : public CallbackResultado<T_VARIANTE> {
         private:
             Print &salida;
+            size_t (*serializador)(const T_VARIANTE, Print&);
 
         public:
-            CallbackEmisorVarianteJSON(Print &salida)
-                : salida(salida)
+            CallbackEmisorVarianteJSON(Print &salida, size_t (*serializador)(const T_VARIANTE, Print&))
+                : salida(salida), serializador(serializador)
             {}
 
             void notificar(const T_VARIANTE &resultado) override {
-                serializador(resultado, this -> salida);
+                if (this -> serializador) {
+                    this -> serializador(resultado, this -> salida);
+                }
+            }
+            
+            void setSalida(Print &ingr) {
+                this -> salida = ingr;
+            }
+            
+            void setSerializador(size_t (*ingr)(const T_VARIANTE, Print&)) {
+                this -> serializador = ingr;
             }
             
             /**
