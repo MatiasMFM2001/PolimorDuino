@@ -21,7 +21,7 @@
     if (cadenasIguales(punteroTipoDato, #tipoDato)) { \
         VALIDAR_DATO_JSON(tipoDato, "El valor", valor, salida,); \
         baseDatos.setValor(clave, valor.as<tipoDato>(), &Serial); \
-        salida.println("Valor guardado correctamente"); \
+        CLOG_REFERENCIA_IMPRESORA(salida, "Valor de tipo", #tipoDato, "guardado correctamente"); \
     }
 
 #define DECLARAR_CALLBACKS_BD(baseDatos, nombreSettearBD, nombreVerBD, nombreGuardarBD) \
