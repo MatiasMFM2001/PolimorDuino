@@ -5,6 +5,7 @@
  */
 
 #include "../../Medidores/ComandosJSON/CallbacksComandos/FuncionesComandos.h"
+#include "../FuncionesGlobales.h"
 
 #define CREAR_CALLBACKS_BD(nombreSettearBD, nombreVerBD, nombreGuardarBD) \
     CREAR_COMANDO(CAPACIDAD_NOMBRES_INVC, nombreSettearBD, 3, 3), \
@@ -17,7 +18,7 @@
     DEFINIR_CALLBACK(nombreGuardarBD);
 
 #define GUARDAR_DATO(baseDatos, punteroTipoDato, clave, tipoDato, valor, salida) \
-    if (strcmp(punteroTipoDato, #tipoDato) == 0) { \
+    if (cadenasIguales(punteroTipoDato, #tipoDato)) { \
         VALIDAR_DATO_JSON(tipoDato, "El valor", valor, salida,); \
         baseDatos.setValor(clave, valor.as<tipoDato>(), &Serial); \
         salida.println("Valor guardado correctamente"); \
