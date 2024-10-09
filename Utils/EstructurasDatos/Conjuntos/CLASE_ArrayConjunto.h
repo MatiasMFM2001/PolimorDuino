@@ -86,6 +86,17 @@
                 return ((this -> getLongitud()) - cantidadActual);
             }
             
+            template <size_t MAX_CAPACIDAD_INGR>
+            size_t agregarTodos(const ArrayConjunto<T_DATOS, MAX_CAPACIDAD_INGR> &ingr) {
+                size_t cantidadActual = (this -> getLongitud());
+                
+                for (const T_DATOS &selec: ingr) {
+                    this -> agregar(selec);
+                }
+                
+                return ((this -> getLongitud()) - cantidadActual);
+            }
+            
             ArrayIterator<T_DATOS> begin(void) {
                 return (this -> datos.begin());
             }
