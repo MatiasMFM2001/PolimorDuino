@@ -192,8 +192,7 @@
     }
     
     /**
-     * @brief Agrega el valor especificado al array múltiples veces, según la
-     *  capacidad restante y la cantidad máxima especificada.
+     * @brief Determina si el array especificado contiene al valor ingresado.
      *
      * @tparam T El tipo de dato de los valores almacenados en el array.
      * @tparam S La cantidad máxima de elementos del array a procesar.
