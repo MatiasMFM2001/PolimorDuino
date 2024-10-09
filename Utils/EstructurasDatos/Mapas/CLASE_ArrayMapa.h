@@ -68,14 +68,6 @@
                 return (this -> datos.agregarTodos(ingr));
             }
             
-            ArrayIterator<ElementoMapa<T_CLAVES, T_VALORES>> begin(void) {
-                return (this -> datos.begin());
-            }
-            
-            ArrayIterator<ElementoMapa<T_CLAVES, T_VALORES>> end(void) {
-                return (this -> datos.end());
-            }
-            
             ArrayIterator<const ElementoMapa<T_CLAVES, T_VALORES>> begin(void) const {
                 return (this -> datos.begin());
             }

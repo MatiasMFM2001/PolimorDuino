@@ -97,14 +97,6 @@
                 return ((this -> getLongitud()) - cantidadActual);
             }
             
-            ArrayIterator<T_DATOS> begin(void) {
-                return (this -> datos.begin());
-            }
-            
-            ArrayIterator<T_DATOS> end(void) {
-                return (this -> datos.end());
-            }
-            
             ArrayIterator<const T_DATOS> begin(void) const {
                 return (this -> datos.begin());
             }
