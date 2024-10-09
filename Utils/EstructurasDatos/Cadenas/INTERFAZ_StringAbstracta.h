@@ -8,7 +8,7 @@
 #define STRING_ABSTRACTA
 
 #include <Printable.h>
-#include "../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
+#include "../../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
 #include <Stream.h>
     class StringAbstracta : public Printable {
         public:

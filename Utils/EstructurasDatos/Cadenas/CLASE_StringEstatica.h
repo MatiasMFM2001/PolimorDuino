@@ -8,11 +8,11 @@
 #define STRING_ESTATICA
 
 #include "INTERFAZ_StringAbstracta.h"
-#include "../Logger/FuncionesLoggers.h"
-#include "../Medidores/Condiciones/CLASE_CompuertaNO.h"
-#include "../Logger/FuncionesJSON.h"
+#include "../../../Logger/FuncionesLoggers.h"
+#include "../../../Medidores/Condiciones/CLASE_CompuertaNO.h"
+#include "../../../Logger/FuncionesJSON.h"
 #include <stdarg.h>
-#include "CLASE_Contador.h"
+#include "../../CLASE_Contador.h"
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public StringAbstracta {
         private:

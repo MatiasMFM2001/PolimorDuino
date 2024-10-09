@@ -9,7 +9,7 @@
 
 #include <Array.h>
 #include "../Medidores/Condiciones/CLASE_AdaptadorFuncionCondicion.h"
-#include "CLASE_StringEstatica.h"
+#include "EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
     /**
      * @brief Determina si el valor ingresado está dentro de los límites
      *  (inclusivos) especificados.

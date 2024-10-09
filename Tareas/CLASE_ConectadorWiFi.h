@@ -18,7 +18,7 @@
 #include "../Utils/INTERFAZ_Inicializable.h"
 #include "../Medidores/Callbacks/INTERFAZ_CallbackResultado.h"
 #include "../Utils/FuncionesGlobales.h"
-#include "../Utils/CLASE_StringEstatica.h"
+#include "../Utils/EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
     template <size_t TAMANIO_NOMBRE = 32, size_t TAMANIO_CONTRASENIA = 32>
     class ConectadorWiFi : public Task, public Inicializable {
         private:

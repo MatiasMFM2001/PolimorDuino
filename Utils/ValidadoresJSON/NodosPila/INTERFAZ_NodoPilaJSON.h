@@ -13,7 +13,7 @@
 
 #include <Printable.h>
 #include <ArduinoJson.h>
-#include "../../CLASE_StringEstatica.h"
+#include "../../EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
     class NodoPilaJSON : public Printable {
         public:
             virtual JsonArray copiarLista(void) = 0;

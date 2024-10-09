@@ -7,7 +7,7 @@
 #ifndef MENSAJE_TELEGRAM
 #define MENSAJE_TELEGRAM
 
-#include "../../../Utils/CLASE_StringEstatica.h"
+#include "../../../Utils/EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
 #include <Printable.h>
     template <size_t CAPACIDAD_CONTENIDO>
     class MensajeTelegram : public Printable {

@@ -7,7 +7,7 @@
 #ifndef COMANDO
 #define COMANDO
 
-#include "../../../Utils/CLASE_StringEstatica.h"
+#include "../../../Utils/EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
 #include "../../../Utils/FuncionesGlobales.h"
 #include "../../../Utils/ValidadoresJSON/CLASE_ValidadorJSON.h"
 #include "../../../Utils/ValidadoresJSON/NodosPila/INTERFAZ_NodoPilaJSON.h"

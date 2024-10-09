@@ -98,7 +98,7 @@
 #include <ArduinoJson.h>
 #include "../FuncionesGlobales.h"
 #include "../../Medidores/Callbacks/INTERFAZ_CallbackResultadoMutable.h"
-#include "../CLASE_StringEstatica.h"
+#include "../EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
 #include "../../Logger/FuncionesLoggers.h"
 #include "../MACRO_ForEach.h"
 #include "../INTERFAZ_Inicializable.h"

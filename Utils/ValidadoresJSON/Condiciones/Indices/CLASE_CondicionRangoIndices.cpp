@@ -5,7 +5,7 @@
  */
 
 #include "CLASE_CondicionRangoIndices.h"
-#include "../../../CLASE_StringEstatica.h"
+#include "../../../EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
 
 CondicionRangoIndices::CondicionRangoIndices(ValidadorJSON *hijo, size_t indiceMin, size_t indiceMax)
     : CondicionValidador<size_t, JsonArrayConst>(hijo)
