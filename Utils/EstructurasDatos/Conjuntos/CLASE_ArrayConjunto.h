@@ -9,16 +9,16 @@
 
 #include <Array.h>
 #include <Printable.h>
-#include "../../FuncionesGlobales.h"
+#include "INTERFAZ_ComparadorIgualdad.h"
 #include "../../../Logger/FuncionesJSON.h"
     template <typename T_DATOS, size_t MAX_CAPACIDAD>
     class ArrayConjunto : public Printable {
         private:
             Array<T_DATOS, MAX_CAPACIDAD> datos;
-            bool (*comparador)(const T &, const T &);
+            ComparadorIgualdad<T_DATOS> *comparador;
         
         public:
-            ArrayConjunto(Array<T_DATOS, MAX_CAPACIDAD> datos = Array<T_DATOS, MAX_CAPACIDAD>(), bool (*comparador)(const T &, const T &) = &iguales)
+            ArrayConjunto(ComparadorIgualdad<T_DATOS> *comparador, Array<T_DATOS, MAX_CAPACIDAD> datos = Array<T_DATOS, MAX_CAPACIDAD>())
                 : datos(Array<T_DATOS, MAX_CAPACIDAD>()), comparador(comparador)
             {
                 this -> agregarTodos(datos);
@@ -57,7 +57,13 @@
             }
             
             bool contiene(const T_DATOS ingr) {
-                return contiene(this -> datos, ingr, this -> comparador);
+                for (const T_DATOS selec: *this) {
+                    if (this -> comparador.sonIguales(selec, ingr)) {
+                        return true;
+                    }
+                }
+
+                return false;
             }
             
             bool agregar(const T_DATOS ingr) {
