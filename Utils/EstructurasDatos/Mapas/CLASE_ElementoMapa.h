@@ -19,11 +19,11 @@
                 : clave(clave), valor(valor)
             {}
             
-            T_CLAVES getClave(void) const {
+            const T_CLAVES &getClave(void) const {
                 return (this -> clave);
             }
             
-            T_CLAVES getValor(void) const {
+            const T_CLAVES &getValor(void) const {
                 return (this -> valor);
             }
             

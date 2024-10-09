@@ -10,14 +10,15 @@
 #include "../Conjuntos/CLASE_ArrayConjunto.h"
 #include "CLASE_ElementoMapa.h"
 #include "CLASE_ComparadorIgualdadElementos.h"
+#include "../../../Logger/CLASE_WrapperPuntero.h"
     template <typename T_CLAVES, typename T_VALORES, size_t MAX_CAPACIDAD>
     class ArrayMapa : public Printable {
         private:
-            ComparadorIgualdadElementos<T_CLAVES, T_VALORES> comparadorElementos;
+            const ComparadorIgualdadElementos<T_CLAVES, T_VALORES> comparadorElementos;
             ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD> datos;
         
         public:
-            ArrayMapa(ComparadorIgualdad<T_CLAVES> *comparadorClaves, ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD> datos = ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD>(nullptr))
+            ArrayMapa(const ComparadorIgualdad<T_CLAVES> *comparadorClaves, ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD> datos = ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD>(nullptr))
                 : comparadorElementos(ComparadorIgualdadElementos<T_CLAVES, T_VALORES>(comparadorClaves)), datos(ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD>(&(this -> comparadorElementos)))
             {
                 this -> agregarTodos(datos);

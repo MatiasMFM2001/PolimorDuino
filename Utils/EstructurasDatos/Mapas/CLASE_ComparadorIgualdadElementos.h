@@ -12,14 +12,14 @@
     template <typename T_CLAVES, typename T_VALORES>
     class ComparadorIgualdadElementos : public ComparadorIgualdad<ElementoMapa<T_CLAVES, T_VALORES>> {
         private:
-            ComparadorIgualdad<T_CLAVES> *comparadorClaves;
+            const ComparadorIgualdad<T_CLAVES> *comparadorClaves;
         
         public:
-            ComparadorIgualdadElementos(ComparadorIgualdad<T_CLAVES> *comparadorClaves)
+            ComparadorIgualdadElementos(const ComparadorIgualdad<T_CLAVES> *comparadorClaves)
                 : comparadorClaves(comparadorClaves)
             {}
         
-            bool sonIguales(const ElementoMapa<T_CLAVES, T_VALORES> &elem1, const ElementoMapa<T_CLAVES, T_VALORES> &elem2) override {
+            bool sonIguales(const ElementoMapa<T_CLAVES, T_VALORES> &elem1, const ElementoMapa<T_CLAVES, T_VALORES> &elem2) const override {
                 return (this -> comparadorClaves -> sonIguales(elem1.getClave(), elem2.getClave()));
             }
     };

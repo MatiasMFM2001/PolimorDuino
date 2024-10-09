@@ -18,7 +18,7 @@
                 : funcion(funcion)
             {}
         
-            bool sonIguales(const T &valor1, const T &valor2) override {
+            bool sonIguales(const T &valor1, const T &valor2) const override {
                 return (this -> funcion(valor1, valor2));
             }
     };

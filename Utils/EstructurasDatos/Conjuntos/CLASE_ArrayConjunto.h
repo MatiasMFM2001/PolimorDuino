@@ -15,10 +15,10 @@
     class ArrayConjunto : public Printable {
         private:
             Array<T_DATOS, MAX_CAPACIDAD> datos;
-            ComparadorIgualdad<T_DATOS> *comparador;
+            const ComparadorIgualdad<T_DATOS> *comparador;
         
         public:
-            ArrayConjunto(ComparadorIgualdad<T_DATOS> *comparador, Array<T_DATOS, MAX_CAPACIDAD> datos = Array<T_DATOS, MAX_CAPACIDAD>())
+            ArrayConjunto(const ComparadorIgualdad<T_DATOS> *comparador, Array<T_DATOS, MAX_CAPACIDAD> datos = Array<T_DATOS, MAX_CAPACIDAD>())
                 : datos(Array<T_DATOS, MAX_CAPACIDAD>()), comparador(comparador)
             {
                 this -> agregarTodos(datos);

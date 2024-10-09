@@ -9,6 +9,6 @@
     template <typename T>
     class ComparadorIgualdad {
         public:
-            virtual bool sonIguales(const T &valor1, const T &valor2) = 0;
+            virtual bool sonIguales(const T &valor1, const T &valor2) const = 0;
     };
 #endif
