@@ -44,10 +44,6 @@
                 return (this -> datos.empty());
             }
             
-            T_DATOS *getContenido(void) {
-                return (this -> contenido.data());
-            }
-            
             const T_DATOS *getContenidoConstante(void) const {
                 return (this -> contenido.data());
             }
