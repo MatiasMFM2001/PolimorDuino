@@ -57,8 +57,8 @@
             }
             
             bool contiene(const T_DATOS ingr) {
-                for (const T_DATOS selec: *this) {
-                    if (this -> comparador.sonIguales(selec, ingr)) {
+                for (const T_DATOS &selec: *this) {
+                    if (this -> comparador -> sonIguales(selec, ingr)) {
                         return true;
                     }
                 }
@@ -79,26 +79,26 @@
             size_t agregarTodos(const Array<T_DATOS, MAX_CAPACIDAD_INGR> &ingr) {
                 size_t cantidadActual = (this -> getLongitud());
                 
-                for (const T_DATOS selec: ingr) {
+                for (const T_DATOS &selec: ingr) {
                     this -> agregar(selec);
                 }
                 
                 return ((this -> getLongitud()) - cantidadActual);
             }
             
-            ArrayIterator<T> begin(void) {
+            ArrayIterator<T_DATOS> begin(void) {
                 return (this -> datos.begin());
             }
             
-            ArrayIterator<T> end(void) {
+            ArrayIterator<T_DATOS> end(void) {
                 return (this -> datos.end());
             }
             
-            ArrayIterator<const T> begin(void) {
+            ArrayIterator<const T_DATOS> begin(void) const {
                 return (this -> datos.begin());
             }
             
-            ArrayIterator<const T> end(void) {
+            ArrayIterator<const T_DATOS> end(void) const {
                 return (this -> datos.end());
             }
             

@@ -8,22 +8,22 @@
 #define ELEMENTO_MAPA
 
 #include "../../../Logger/FuncionesJSON.h"
-    template <typename T_CLAVES, T_VALORES>
+    template <typename T_CLAVES, typename T_VALORES>
     class ElementoMapa : public Printable {
         private:
             T_CLAVES clave;
             T_VALORES valor;
         
         public:
-            ElementoMapa(T_CLAVES clave, T_VALORES valor)
+            ElementoMapa(T_CLAVES clave = {}, T_VALORES valor = {})
                 : clave(clave), valor(valor)
             {}
             
-            T_CLAVES getClave(void) {
+            T_CLAVES getClave(void) const {
                 return (this -> clave);
             }
             
-            T_CLAVES getValor(void) {
+            T_CLAVES getValor(void) const {
                 return (this -> valor);
             }
             
