@@ -69,6 +69,18 @@
                 return (this -> datos.agregarTodos(ingr));
             }
             
+            const T_VALORES *getValorDe(const T_CLAVES clave, const T_VALORES valorEjemplo = {}) const {
+                ElementoMapa<T_CLAVES, T_VALORES> ingr(clave, valorEjemplo);
+                
+                for (const ElementoMapa<T_CLAVES, T_VALORES> &selec: *this) {
+                    if (this -> comparadorElementos.sonIguales(selec, ingr)) {
+                        return &selec.getValor();
+                    }
+                }
+                
+                return nullptr;
+            }
+            
             ArrayIterator<const ElementoMapa<T_CLAVES, T_VALORES>> begin(void) const {
                 return (this -> datos.begin());
             }
