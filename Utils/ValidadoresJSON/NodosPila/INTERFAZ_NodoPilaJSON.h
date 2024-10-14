@@ -13,11 +13,13 @@
 
 #include <Printable.h>
 #include <ArduinoJson.h>
-#include "../../EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
+#include "../../EstructurasDatos/Cadenas/CLASE_AdaptadorStringImpresora.h"
     class NodoPilaJSON : public Printable {
         public:
             virtual JsonArray copiarLista(void) = 0;
-            virtual bool agregarFinalMensaje(const char *ingr) = 0;
             virtual void setDatoErroneo(const JsonVariantConst ingr) = 0;
+            
+            virtual bool agregarFinalMensaje(const char *ingr) = 0;
+            virtual AdaptadorStringImpresora getAdaptadorMensaje(void) = 0;
     };
 #endif

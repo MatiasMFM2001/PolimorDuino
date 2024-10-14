@@ -26,12 +26,16 @@
                 return salida;
             }
             
+            void setDatoErroneo(const JsonVariantConst ingr) override {
+                this -> anterior.setDatoErroneo(ingr);
+            }
+            
             bool agregarFinalMensaje(const char *ingr) override {
                 return (this -> anterior.agregarFinalMensaje(ingr));
             }
             
-            void setDatoErroneo(const JsonVariantConst ingr) override {
-                this -> anterior.setDatoErroneo(ingr);
+            AdaptadorStringImpresora getAdaptadorMensaje(void) override {
+                return (this -> anterior.getAdaptadorMensaje());
             }
             
             /**

@@ -24,12 +24,16 @@
                 return (this -> pilaClaves.template to<JsonArray>());
             }
             
+            void setDatoErroneo(const JsonVariantConst ingr) override {
+                this -> datoErroneo = ingr;
+            }
+            
             bool agregarFinalMensaje(const char *ingr) override {
                 return (this -> mensaje.agregarFinal(ingr));
             }
             
-            void setDatoErroneo(const JsonVariantConst ingr) override {
-                this -> datoErroneo = ingr;
+            AdaptadorStringImpresora getAdaptadorMensaje(void) override {
+                return AdaptadorStringImpresora(&(this -> mensaje));
             }
             
             size_t imprimirResultadoErroneo(Print &impresora, const char *nombreVariable) {
