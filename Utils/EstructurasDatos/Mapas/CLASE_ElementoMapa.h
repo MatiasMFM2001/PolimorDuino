@@ -23,7 +23,7 @@
                 return (this -> clave);
             }
             
-            const T_CLAVES &getValor(void) const {
+            const T_VALORES &getValor(void) const {
                 return (this -> valor);
             }
             
