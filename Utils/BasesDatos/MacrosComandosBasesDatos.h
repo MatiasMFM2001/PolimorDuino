@@ -7,8 +7,8 @@
 #include "../../Medidores/ComandosJSON/CallbacksComandos/FuncionesComandos.h"
 #include "../FuncionesGlobales.h"
 
-#define CREAR_CALLBACKS_BD(nombreSettearBD, nombreVerBD, nombreGuardarBD) \
-    CREAR_COMANDO(CAPACIDAD_NOMBRES_INVC, nombreSettearBD, 3, 3), \
+#define CREAR_CALLBACKS_BD(validadorSettearBD, nombreSettearBD, nombreVerBD, nombreGuardarBD) \
+    CREAR_COMANDO(CAPACIDAD_NOMBRES_INVC, nombreSettearBD, 3, 3, validadorSettearBD), \
     CREAR_COMANDO(CAPACIDAD_NOMBRES_INVC, nombreVerBD, 0, 0), \
     CREAR_COMANDO(CAPACIDAD_NOMBRES_INVC, nombreGuardarBD, 0, 0)
 
