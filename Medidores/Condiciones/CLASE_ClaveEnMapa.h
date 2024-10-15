@@ -7,11 +7,12 @@
 #ifndef CLAVE_EN_MAPA
 #define CLAVE_EN_MAPA
 
-#include "INTERFAZ_CondicionResultado.h"
+#include "../../Utils/ValidadoresJSON/CLASE_CondicionResultadoJSON.h"
 #include "../../Logger/FuncionesJSON.h"
 #include "../../Utils/EstructurasDatos/Mapas/CLASE_ArrayMapa.h"
+#include "../../Logger/FuncionesLoggers.h"
     template <typename T_CLAVES, typename T_VALORES, size_t MAX_CAPACIDAD_MAPA>
-    class ClaveEnMapa : public CondicionResultado<T_CLAVES> {
+    class ClaveEnMapa : public CondicionResultadoJSON<T_CLAVES> {
         private:
             ArrayMapa<T_CLAVES, T_VALORES, MAX_CAPACIDAD_MAPA> *mapa;
             T_VALORES valorEjemplo;
@@ -23,6 +24,10 @@
         
             bool esValido(const T_CLAVES &resultado) const override {
                 return (this -> mapa -> contieneClave(resultado, this -> valorEjemplo));
+            }
+            
+            void settearMensajeInvalido(const T_CLAVES &ingr, Print &salida) const override {
+                CLOG_REFERENCIA_IMPRESORA(salida, "La clave", ingr, "no está en el mapa", *(this -> mapa));
             }
             
             /**

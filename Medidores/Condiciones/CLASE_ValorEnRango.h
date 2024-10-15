@@ -7,11 +7,12 @@
 #ifndef VALOR_EN_RANGO
 #define VALOR_EN_RANGO
 
-#include "INTERFAZ_CondicionResultado.h"
+#include "../../Utils/ValidadoresJSON/CLASE_CondicionResultadoJSON.h"
 #include "../../Logger/FuncionesJSON.h"
 #include "../../Utils/FuncionesGlobales.h"
+#include "../../Logger/FuncionesLoggers.h"
     template <typename T>
-    class ValorEnRango : public CondicionResultado<T> {
+    class ValorEnRango : public CondicionResultadoJSON<T> {
         private:
             T minimoInclusivo;
             T maximoInclusivo;
@@ -31,6 +32,10 @@
         
             bool esValido(const T &resultado) const override {
                 return enRango(resultado, this -> minimoInclusivo, this -> maximoInclusivo);
+            }
+            
+            void settearMensajeInvalido(const T &ingr, Print &salida) const override {
+                CLOG_REFERENCIA_IMPRESORA(salida, "El valor", ingr, "no está en el rango [", this -> minimoInclusivo, ", ", this -> maximoInclusivo, ']');
             }
             
             /**

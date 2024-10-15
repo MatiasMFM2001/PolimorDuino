@@ -7,10 +7,11 @@
 #ifndef VALOR_EN_CONJUNTO
 #define VALOR_EN_CONJUNTO
 
-#include "INTERFAZ_CondicionResultado.h"
+#include "../../Utils/ValidadoresJSON/CLASE_CondicionResultadoJSON.h"
 #include "../../Utils/EstructurasDatos/Conjuntos/CLASE_ArrayConjunto.h"
+#include "../../Logger/FuncionesLoggers.h"
     template <typename T_DATOS, size_t MAX_CAPACIDAD_CONJUNTO>
-    class ValorEnConjunto : public CondicionResultado<T_DATOS> {
+    class ValorEnConjunto : public CondicionResultadoJSON<T_DATOS> {
         private:
             ArrayConjunto<T_DATOS, MAX_CAPACIDAD_CONJUNTO> *conjunto;
         
@@ -21,6 +22,10 @@
         
             bool esValido(const T_DATOS &resultado) const override {
                 return (this -> conjunto -> contiene(resultado));
+            }
+            
+            void settearMensajeInvalido(const T_DATOS &ingr, Print &salida) const override {
+                CLOG_REFERENCIA_IMPRESORA(salida, "El valor", ingr, "no está en el conjunto", *(this -> conjunto));
             }
             
             /**
