@@ -11,7 +11,7 @@ AdaptadorStringImpresora::AdaptadorStringImpresora(StringAbstracta *cadena)
     , cadena(cadena)
 {}
 
-size_t AdaptadorStringImpresora::write(byte ingr) override {
+size_t AdaptadorStringImpresora::write(byte ingr) {
     if ((ingr == 0) || (this -> cadena -> estaLlena())) {
         return 0;
     }
