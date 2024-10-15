@@ -13,8 +13,8 @@
 #include "../../Medidores/Condiciones/INTERFAZ_CondicionResultado.h"
     class ValidadorJSON : public CondicionJSON<>, public CondicionResultado<JsonVariantConst> {
         public:
-            bool esValido(const JsonDocument &ingr, NodoPilaJSON &pilaClaves);
-            bool esValido(const JsonVariantConst &ingr) override;
+            bool esValido(const JsonDocument &ingr, NodoPilaJSON &pilaClaves) const;
+            bool esValido(const JsonVariantConst &ingr) const override;
             
             using CondicionJSON<>::esValido;
     };

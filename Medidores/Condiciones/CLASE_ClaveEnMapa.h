@@ -21,7 +21,7 @@
                 : mapa(mapa), valorEjemplo(valorEjemplo)
             {}
         
-            bool esValido(const T_CLAVES &resultado) override {
+            bool esValido(const T_CLAVES &resultado) const override {
                 return (this -> mapa -> contieneClave(resultado, this -> valorEjemplo));
             }
             

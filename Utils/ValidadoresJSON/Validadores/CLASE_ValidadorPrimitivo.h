@@ -19,7 +19,7 @@
                 : condicionExtra(condicionExtra)
             {}
         
-            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
+            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
                 if (!variante.is<T>()) {
                     pilaClaves.agregarFinalMensaje("El dato no es de tipo '");
                     pilaClaves.agregarFinalMensaje(conversores::tipoAString<T>());

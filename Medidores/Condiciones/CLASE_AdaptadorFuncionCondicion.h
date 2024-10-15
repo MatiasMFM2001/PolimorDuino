@@ -19,7 +19,7 @@
                 : condicion(condicion)
             {}
         
-            bool esValido(const T&... resultado) override {
+            bool esValido(const T&... resultado) const override {
                 return (this -> condicion(resultado...));
             }
             

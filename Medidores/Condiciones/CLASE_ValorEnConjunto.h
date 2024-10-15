@@ -19,7 +19,7 @@
                 : conjunto(conjunto)
             {}
         
-            bool esValido(const T_DATOS &resultado) override {
+            bool esValido(const T_DATOS &resultado) const override {
                 return (this -> conjunto -> contiene(resultado));
             }
             

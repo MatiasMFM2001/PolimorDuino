@@ -12,6 +12,6 @@
     template <typename... T>
     class CondicionResultadoMutable : virtual public Printable {
         public:
-            virtual bool esValido(T&... resultado) = 0;
+            virtual bool esValido(T&... resultado) const = 0;
     };
 #endif

@@ -21,7 +21,7 @@
                 : mapa(mapa), valorPredeterminado(valorPredeterminado)
             {}
         
-            bool esValido(const T_CLAVES &clave, const T_VALORES &valor) override {
+            bool esValido(const T_CLAVES &clave, const T_VALORES &valor) const override {
                 CondicionResultado<T_VALORES> *condicionAsociada;
                 
                 if (!(this -> mapa -> getValorDe(clave, condicionAsociada, nullptr))) {

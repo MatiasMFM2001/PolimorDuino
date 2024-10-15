@@ -17,7 +17,7 @@
             bool valorPredeterminado;
         
         protected:
-            bool contieneTodas(const T_VARIANTE_CONDICION &variante, NodoPilaJSON &pilaClaves) {
+            bool contieneTodas(const T_VARIANTE_CONDICION &variante, NodoPilaJSON &pilaClaves) const {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> varianteContieneTodas(variante, pilaClaves))) {
                         CLOG("Para esta condicion la variante no contiene todas: ", *condicion);
@@ -28,7 +28,7 @@
                 return true;
             }
         
-            bool esValido(const JsonVariantConst &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr, NodoPilaJSON &pilaClaves) {
+            bool esValido(const JsonVariantConst &variante, const T_CONDICION ingr, [[maybe_unused]] const char *nombreIngr, NodoPilaJSON &pilaClaves) const {
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> puedeValidar(ingr))) {
                         continue;

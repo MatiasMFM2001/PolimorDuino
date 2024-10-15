@@ -72,7 +72,7 @@
                 return {this -> stream, this -> impresora};
             }
             
-            bool esValido(const CanalBidireccional<Stream, Print> &resultado) override {
+            bool esValido(const CanalBidireccional<Stream, Print> &resultado) const override {
                 int numBytesDisponibles = resultado.entrada.available();
                 LOG("resultado.entrada.available() = %d", numBytesDisponibles);
 

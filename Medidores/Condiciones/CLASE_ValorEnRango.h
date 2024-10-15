@@ -29,7 +29,7 @@
                 this -> maximoInclusivo = ingr;
             }
         
-            bool esValido(const T &resultado) override {
+            bool esValido(const T &resultado) const override {
                 return enRango(resultado, this -> minimoInclusivo, this -> maximoInclusivo);
             }
             

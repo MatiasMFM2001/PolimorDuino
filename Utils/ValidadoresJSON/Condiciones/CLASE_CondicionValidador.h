@@ -30,7 +30,7 @@
                 return false;
             };
 
-            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) override {
+            bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
                 return (this -> hijo -> esValido(variante, pilaClaves));
             }
 
