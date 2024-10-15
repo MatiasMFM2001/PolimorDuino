@@ -18,7 +18,7 @@
             ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD> datos;
         
         public:
-            ArrayMapa(const ComparadorIgualdad<T_CLAVES> *comparadorClaves, ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD> datos = ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD>(nullptr))
+            ArrayMapa(const ComparadorIgualdad<T_CLAVES> *comparadorClaves, const Array<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD> datos = Array<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD>())
                 : comparadorElementos(ComparadorIgualdadElementos<T_CLAVES, T_VALORES>(comparadorClaves)), datos(ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD>(&(this -> comparadorElementos)))
             {
                 this -> agregarTodos(datos);
