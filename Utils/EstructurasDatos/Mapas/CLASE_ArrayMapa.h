@@ -65,6 +65,11 @@
             }
             
             template <size_t MAX_CAPACIDAD_INGR>
+            size_t agregarTodos(const Array<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD_INGR> &ingr) {
+                return (this -> datos.agregarTodos(ingr));
+            }
+            
+            template <size_t MAX_CAPACIDAD_INGR>
             size_t agregarTodos(const ArrayConjunto<ElementoMapa<T_CLAVES, T_VALORES>, MAX_CAPACIDAD_INGR> &ingr) {
                 return (this -> datos.agregarTodos(ingr));
             }
@@ -79,6 +84,17 @@
                 }
                 
                 return nullptr;
+            }
+            
+            bool getValorDe(const T_CLAVES clave, T_VALORES &variableASobreescribir, const T_VALORES valorEjemplo = {}) {
+                const T_VALORES *punteroValor = (this -> getValorDe(clave, valorEjemplo));
+                
+                if (!punteroValor) {
+                    return false;
+                }
+                
+                variableASobreescribir = *punteroValor;
+                return true;
             }
             
             ArrayIterator<const ElementoMapa<T_CLAVES, T_VALORES>> begin(void) const {
