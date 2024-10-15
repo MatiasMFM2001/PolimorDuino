@@ -9,6 +9,7 @@
 
 #include "CLASE_ValidadorCompuesto.h"
 #include "../NodosPila/CLASE_NodoConcretoPilaJSON.h"
+#include "../../../Logger/FuncionesLoggers.h"
     template <size_t CAPACIDAD_CONDICIONES>
     class ValidadorArray : public ValidadorCompuesto<size_t, JsonArrayConst, CAPACIDAD_CONDICIONES> {
         public:

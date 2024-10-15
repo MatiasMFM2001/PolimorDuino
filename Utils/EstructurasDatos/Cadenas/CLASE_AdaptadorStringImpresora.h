@@ -9,6 +9,7 @@
 
 #include <Print.h>
 #include "INTERFAZ_StringAbstracta.h"
+#include <Arduino.h>
     /**
      * @brief Permite almacenar los bytes que serían impresos por una instancia
      *  de @c Print, en un objeto que implemente @c StringAbstracta.

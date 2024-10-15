@@ -8,6 +8,7 @@
 #define NODO_INICIAL_PILA_JSON
 
 #include "INTERFAZ_NodoPilaJSON.h"
+#include "../../EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
     template <size_t CAPACIDAD_PILA_JSON, size_t CAPACIDAD_MENSAJE>
     class NodoInicialPilaJSON : public NodoPilaJSON {
         private:

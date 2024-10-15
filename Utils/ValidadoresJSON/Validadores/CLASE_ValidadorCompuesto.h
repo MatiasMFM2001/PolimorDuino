@@ -10,6 +10,7 @@
 #include "../CLASE_ValidadorJSON.h"
 #include <Array.h>
 #include "../Condiciones/CLASE_CondicionValidador.h"
+#include "../../../Logger/FuncionesLoggers.h"
     template <typename T_CONDICION, typename T_VARIANTE_CONDICION, size_t CAPACIDAD_CONDICIONES>
     class ValidadorCompuesto : public ValidadorJSON {
         private:
