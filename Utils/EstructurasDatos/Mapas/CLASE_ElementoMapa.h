@@ -27,6 +27,14 @@
                 return (this -> valor);
             }
             
+            const T_CLAVES *getPunteroClave(void) const {
+                return &(this -> clave);
+            }
+            
+            const T_VALORES *getPunteroValor(void) const {
+                return &(this -> valor);
+            }
+            
             /**
              * @brief Imprime el dato apuntado a la impresora especificada.
              *
@@ -34,7 +42,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return IMPRIMIR_VARIABLE_JSON(impresora, this -> clave, this -> valor);
+                return (imprimirDatoJSON(impresora, this -> clave) + impresora.print(JSON_VARIABLE) + imprimirDatoJSON(impresora, this -> valor));
             }
     };
 #endif
