@@ -17,6 +17,9 @@
     template <size_t CAPACIDAD_TIPOS_DATOS>
     class OpcionSettearBD : public ValidadorJSON {
         private:
+            ValidadorPrimitivo<const char *> validadorClave;
+            CondicionRangoIndices condicionClave;
+            
             AdaptadorFuncionComparadorIgualdad<const char *> adaptadorIgualdad;
             ArrayConjunto<const char *, CAPACIDAD_TIPOS_DATOS> tiposDatosPermitidos;
             ValorEnConjunto<const char *, CAPACIDAD_TIPOS_DATOS> condicionValidezTipoDato;
@@ -30,7 +33,10 @@
         
         public:
             OpcionSettearBD(ValidadorJSON *validadorValor, Array<const char *, CAPACIDAD_TIPOS_DATOS> tiposDatosPermitidos)
-                : adaptadorIgualdad(AdaptadorFuncionComparadorIgualdad<const char *>(&cadenasIguales))
+                : validadorClave(ValidadorPrimitivo<const char *>())
+                , condicionClave(CondicionRangoIndices(&(this -> validadorClave), 0))
+                
+                , adaptadorIgualdad(AdaptadorFuncionComparadorIgualdad<const char *>(&cadenasIguales))
                 , tiposDatosPermitidos(ArrayConjunto<const char *, CAPACIDAD_TIPOS_DATOS>(&(this -> adaptadorIgualdad), tiposDatosPermitidos))
                 , condicionValidezTipoDato(ValorEnConjunto<const char *, CAPACIDAD_TIPOS_DATOS>(&(this -> tiposDatosPermitidos)))
                 , validadorTipoDato(ValidadorPrimitivo<const char *>(&(this -> condicionValidezTipoDato)))
@@ -39,7 +45,7 @@
                 , validadorValor(validadorValor)
                 , condicionValor(CondicionRangoIndices(this -> validadorValor, 2))
                 
-                , validadorElementos(ValidadorArray<3>(Array<CondicionValidador<size_t, JsonArrayConst> *, 3>({&(this -> condicionTipoDato), &(this -> condicionValor)}), true))
+                , validadorElementos(ValidadorArray<3>(Array<CondicionValidador<size_t, JsonArrayConst> *, 3>({&(this -> condicionClave), &(this -> condicionTipoDato), &(this -> condicionValor)})))
             {}
             
             OpcionSettearBD(ValidadorJSON *validadorValor = nullptr, const char *tipoDato = "")
