@@ -79,10 +79,12 @@
                 
                 for (const ElementoMapa<T_CLAVES, T_VALORES> &selec: *this) {
                     if (this -> comparadorElementos.sonIguales(selec, ingr)) {
-                        return &selec.getValor();
+                        CLOG("ArrayMapa::getValorDe(", clave, ") - ENCONTRADO");
+                        return selec.getPunteroValor();
                     }
                 }
                 
+                CLOG("ArrayMapa::getValorDe(", clave, ") - NO ENCONTRADO");
                 return nullptr;
             }
             

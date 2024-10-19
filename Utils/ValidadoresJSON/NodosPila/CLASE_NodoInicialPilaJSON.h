@@ -22,14 +22,17 @@
             {}
 
             JsonArray guardarNodosPila(void) override {
+                FLOGS("Se llamó a NodoInicialPilaJSON::guardarNodosPila()");
                 return (this -> pilaClaves.template to<JsonArray>());
             }
             
             void setDatoErroneo(const JsonVariantConst ingr) override {
+                FLOGS("Se llamó a NodoInicialPilaJSON::setDatoErroneo()");
                 this -> datoErroneo = ingr;
             }
             
             bool agregarFinalMensaje(const char *ingr) override {
+                CLOG("Se llamó a NodoInicialPilaJSON::guardarNodosPila(", ingr, ")");
                 return (this -> mensaje.agregarFinal(ingr));
             }
             
@@ -38,6 +41,8 @@
             }
             
             size_t imprimirResultadoErroneo(Print &impresora, const char *nombreVariable) {
+                FLOGS("Se llamó a NodoInicialPilaJSON::imprimirResultadoErroneo()");
+                
                 if ((this -> pilaClaves.size()) == 0) {
                     impresora.println("ADVERTENCIA: Se llamó a NodoInicialPilaJSON::imprimirResultadoErroneo() pero la pila está vacía");
                     return 0;

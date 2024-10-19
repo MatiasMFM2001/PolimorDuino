@@ -10,6 +10,7 @@
 #include "../CLASE_ValidadorJSON.h"
 #include "../../../Logger/FuncionesJSON.h"
 #include "../../../Inclusiones/InclusionLog4Arduino.h"
+#include "../../../Logger/FuncionesLoggers.h"
     template <typename T_IDENTIFICADOR, typename T_VARIANTE>
     class CondicionValidador : public CondicionJSON<> {
         private:
@@ -22,11 +23,13 @@
 
             virtual bool puedeValidar([[maybe_unused]] const T_IDENTIFICADOR ingr) {
                 LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::puedeValidar(const T_IDENTIFICADOR)");
+                FLOGS("Ejecutando CondicionValidador::puedeValidar()");
                 return false;
             };
             
             virtual bool varianteContieneTodas([[maybe_unused]] const T_VARIANTE &ingr, [[maybe_unused]] NodoPilaJSON &pilaClaves) {
                 LOG("ADVERTENCIA: No se debería estar ejecutando CondicionValidador::varianteContieneTodas(const T_VARIANTE &, NodoPilaJSON &)");
+                FLOGS("Ejecutando CondicionValidador::varianteContieneTodas()");
                 return false;
             };
 

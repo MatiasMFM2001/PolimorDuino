@@ -18,7 +18,10 @@
             {}
             
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
-                if (!variante.is<JsonArray>()) {
+                FLOGS("Ejecutando ValidadorArray::esValido()");
+                
+                if (!variante.is<JsonArrayConst>()) {
+                    FLOGS("ValidadorArray::esValido() - El dato no es un array");
                     return false;
                 }
                 

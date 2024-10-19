@@ -53,6 +53,7 @@
             {}
             
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
+                FLOGS("Ejecutando OpcionSettearBD::esValido()");
                 return (this -> validadorElementos.esValido(variante, pilaClaves));
             }
 

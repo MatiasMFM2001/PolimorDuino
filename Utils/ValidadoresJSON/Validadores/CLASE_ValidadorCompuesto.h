@@ -20,7 +20,14 @@
         
         protected:
             bool contieneTodas(const T_VARIANTE_CONDICION &variante, NodoPilaJSON &pilaClaves) const {
+                FLOGS("Ejecutando ValidadorCompuesto::contieneTodas()");
+
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
+                    if (!condicion) {
+                        FLOGS("ValidadorCompuesto::contieneTodas() - ERROR: Condicion nula. Skippeando...");
+                        continue;
+                    }
+                    
                     if (!(condicion -> varianteContieneTodas(variante, pilaClaves))) {
                         CLOG("Para esta condicion la variante no contiene todas: ", *condicion);
 

@@ -29,7 +29,10 @@
             {}
         
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
+                FLOGS("Ejecutando ValidadorSettearBD::esValido()");
+                
                 if (!(this -> validadorArray.esValido(variante, pilaClaves))) {
+                    FLOGS("ValidadorSettearBD::esValido() - La variante no es valida")
                     return false;
                 }
                 
@@ -37,13 +40,17 @@
                 const JsonVariantConst claveVariante = array[0];
                 
                 if (!(this -> validadorClave.esValido(claveVariante, pilaClaves))) {
+                    FLOGS("ValidadorSettearBD::esValido() - La clave no es valida")
                     return false;
                 }
                 
                 const char *clave = (claveVariante.template as<const char *>());
+                CLOG("ValidadorSettearBD::esValido() - Obtenida clave:", clave);
                 const OpcionSettearBD<CAPACIDAD_TIPOS_DATOS_OPCIONES> *opcion = (this -> mapaOpciones.getValorDe(clave));
                 
                 if (!opcion) {
+                    FLOGS("ValidadorSettearBD::esValido() - OPCION NULA");
+                    
                     pilaClaves.agregarFinalMensaje("ERROR: Se obtuvo un puntero a opción nulo, cuando no debería haber pasado. Retornando false");
                     pilaClaves.setDatoErroneo(variante);
                     pilaClaves.guardarNodosPila();
@@ -51,6 +58,7 @@
                     return false;
                 }
                 
+                FLOGS("ValidadorSettearBD::esValido() - OPCION NO NULA");
                 return (opcion -> esValido(variante, pilaClaves));
             }
             

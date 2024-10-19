@@ -38,6 +38,8 @@
             }
             
             bool varianteContieneTodas(const JsonObjectConst &ingr, NodoPilaJSON &pilaClaves) override {
+                FLOGS("Ejecutando ListaClaves::varianteContieneTodas()");
+
                 for (const char *selec: this -> lista) {
                     if (!(this -> objetoContieneClave(ingr, selec))) {
                         CLOG("El objeto no contiene esta clave:", selec);

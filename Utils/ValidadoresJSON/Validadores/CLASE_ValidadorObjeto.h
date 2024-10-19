@@ -17,7 +17,10 @@
             {}
             
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
-                if (!variante.is<JsonObject>()) {
+                FLOGS("Ejecutando ValidadorObjeto::esValido()");
+                
+                if (!variante.is<JsonObjectConst>()) {
+                    FLOGS("ValidadorObjeto::esValido() - El dato no es un objeto");
                     return false;
                 }
                 

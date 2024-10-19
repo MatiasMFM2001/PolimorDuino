@@ -20,7 +20,11 @@
             {}
         
             bool esValido(const JsonVariantConst &variante, NodoPilaJSON &pilaClaves) const override {
+                CLOG("Ejecutando ValidadorPrimitivo<", conversores::tipoAString<T>(), ">::esValido()");
+                
                 if (!variante.is<T>()) {
+                    CLOG("ValidadorPrimitivo::esValido() - El dato no es de tipo", conversores::tipoAString<T>());
+                    
                     pilaClaves.agregarFinalMensaje("El dato no es de tipo '");
                     pilaClaves.agregarFinalMensaje(conversores::tipoAString<T>());
                     pilaClaves.agregarFinalMensaje("'");
@@ -34,6 +38,8 @@
                 const T dato = (variante.template as<T>());
                 
                 if ((this -> condicionExtra) && !(this -> condicionExtra -> esValido(dato, pilaClaves))) {
+                    FLOGS("ValidadorPrimitivo::esValido() - El dato no cumple la condicion");
+                    
                     pilaClaves.setDatoErroneo(variante);
                     pilaClaves.guardarNodosPila();
 
