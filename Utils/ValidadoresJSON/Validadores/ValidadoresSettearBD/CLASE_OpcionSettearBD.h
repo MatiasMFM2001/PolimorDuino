@@ -64,7 +64,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             virtual size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "OpcionSettearBD");
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "OpcionSettearBD", validadorClave, condicionClave, tiposDatosPermitidos, condicionValidezTipoDato, validadorTipoDato, condicionTipoDato, validadorValor, condicionValor, validadorElementos);
             }
 
             using ValidadorJSON::esValido;

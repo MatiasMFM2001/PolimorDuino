@@ -61,7 +61,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "ValidadorSettearBD", mapaOpciones);
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "ValidadorSettearBD", mapaOpciones, condicionValidezClave, validadorClave, validadorArray);
             }
     };
 #endif
