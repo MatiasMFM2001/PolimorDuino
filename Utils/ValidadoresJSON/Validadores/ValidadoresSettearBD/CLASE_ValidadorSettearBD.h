@@ -44,9 +44,9 @@
                 const OpcionSettearBD<CAPACIDAD_TIPOS_DATOS_OPCIONES> *opcion = (this -> mapaOpciones.getValorDe(clave));
                 
                 if (!opcion) {
-                    pilaClaves.agregarFinalMensaje("ERROR: Para la clave '");
-                    pilaClaves.agregarFinalMensaje(clave);
-                    pilaClaves.agregarFinalMensaje("' se obtuvo un puntero a opción nulo, cuando no debería haber pasado. Retornando false");
+                    pilaClaves.agregarFinalMensaje("ERROR: Se obtuvo un puntero a opción nulo, cuando no debería haber pasado. Retornando false");
+                    pilaClaves.setDatoErroneo(variante);
+                    pilaClaves.guardarNodosPila();
                     
                     return false;
                 }

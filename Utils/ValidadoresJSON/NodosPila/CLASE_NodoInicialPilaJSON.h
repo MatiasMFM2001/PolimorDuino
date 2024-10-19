@@ -39,6 +39,7 @@
             
             size_t imprimirResultadoErroneo(Print &impresora, const char *nombreVariable) {
                 if ((this -> pilaClaves.size()) == 0) {
+                    impresora.println("ADVERTENCIA: Se llamó a NodoInicialPilaJSON::imprimirResultadoErroneo() pero la pila está vacía");
                     return 0;
                 }
                 

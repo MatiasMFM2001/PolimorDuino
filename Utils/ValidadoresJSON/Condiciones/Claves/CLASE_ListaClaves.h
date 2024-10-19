@@ -47,6 +47,8 @@
                         pilaClaves.agregarFinalMensaje("'");
                         
                         pilaClaves.setDatoErroneo(ingr);
+                        pilaClaves.guardarNodosPila();
+
                         return false;
                     }
                 }

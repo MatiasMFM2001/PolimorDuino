@@ -41,7 +41,9 @@ bool CondicionRangoIndices::varianteContieneTodas(const JsonArrayConst &ingr, No
         
         pilaClaves.agregarFinalMensaje(bufferNumeros.getContenidoConstante());
         pilaClaves.agregarFinalMensaje("]");
+
         pilaClaves.setDatoErroneo(ingr);
+        pilaClaves.guardarNodosPila();
     }
 
     return salida;

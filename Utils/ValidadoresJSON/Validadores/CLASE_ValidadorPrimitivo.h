@@ -26,6 +26,8 @@
                     pilaClaves.agregarFinalMensaje("'");
 
                     pilaClaves.setDatoErroneo(variante);
+                    pilaClaves.guardarNodosPila();
+
                     return false;
                 }
                 
@@ -33,6 +35,8 @@
                 
                 if ((this -> condicionExtra) && !(this -> condicionExtra -> esValido(dato, pilaClaves))) {
                     pilaClaves.setDatoErroneo(variante);
+                    pilaClaves.guardarNodosPila();
+
                     return false;
                 }
                 

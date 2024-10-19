@@ -11,6 +11,7 @@
 #include <Array.h>
 #include "../Condiciones/CLASE_CondicionValidador.h"
 #include "../../../Logger/FuncionesLoggers.h"
+#include "../../NAMESPACE_Conversores.h"
     template <typename T_CONDICION, typename T_VARIANTE_CONDICION, size_t CAPACIDAD_CONDICIONES>
     class ValidadorCompuesto : public ValidadorJSON {
         private:
@@ -22,6 +23,14 @@
                 for (CondicionValidador<T_CONDICION, T_VARIANTE_CONDICION> *condicion: this -> condiciones) {
                     if (!(condicion -> varianteContieneTodas(variante, pilaClaves))) {
                         CLOG("Para esta condicion la variante no contiene todas: ", *condicion);
+
+                        pilaClaves.agregarFinalMensaje("La variante compuesta de tipo '");
+                        pilaClaves.agregarFinalMensaje(conversores::tipoAString<T_VARIANTE_CONDICION>());
+                        pilaClaves.agregarFinalMensaje("' no contiene todas las claves/índices requeridos");
+
+                        pilaClaves.setDatoErroneo(variante);
+                        pilaClaves.guardarNodosPila();
+
                         return false;
                     }
                 }
