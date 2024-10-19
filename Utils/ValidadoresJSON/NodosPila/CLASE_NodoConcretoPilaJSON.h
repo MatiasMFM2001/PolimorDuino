@@ -19,8 +19,8 @@
                 : dato(dato), anterior(anterior)
             {}
 
-            JsonArray copiarLista(void) override {
-                JsonArray salida = (this -> anterior.copiarLista());
+            JsonArray guardarNodosPila(void) override {
+                JsonArray salida = (this -> anterior.guardarNodosPila());
                 salida.add(this -> dato);
                 
                 return salida;
@@ -31,6 +31,7 @@
             }
             
             bool agregarFinalMensaje(const char *ingr) override {
+                CLOG("Se llamó a NodoConcretoPilaJSON::guardarNodosPila(", ingr, ")");
                 return (this -> anterior.agregarFinalMensaje(ingr));
             }
             

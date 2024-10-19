@@ -21,7 +21,7 @@
                 : pilaClaves(StaticJsonDocument<CAPACIDAD_PILA_JSON>()), datoErroneo(JsonVariant()), mensaje(StringEstatica<CAPACIDAD_MENSAJE>())
             {}
 
-            JsonArray copiarLista(void) override {
+            JsonArray guardarNodosPila(void) override {
                 return (this -> pilaClaves.template to<JsonArray>());
             }
             
