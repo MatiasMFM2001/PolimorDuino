@@ -141,7 +141,7 @@
             
             FOR_EACH(DEFINIR_ESCRIBIR_BAJO_NIVEL_BD_PREFERENCIAS_JSON, TIPOS_CONVERTIBLES_BD);
             
-            bool guardarBajoNivel(Print *salida) override {
+            bool guardarBajoNivel([[maybe_unused]] Print *salida) override {
                 return true;
             }
             

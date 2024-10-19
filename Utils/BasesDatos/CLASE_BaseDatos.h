@@ -93,7 +93,7 @@
     DECLARAR_METODO_ABSTRACTO_BD(escribirBajoNivel, bool,, char *copiaClave, T_VALOR copiaValor);
 
 #define DEFINIR_METODO_BD(nombre, retorno, atributosAdicionales, ...) \
-    retorno nombre(__VA_ARGS__, Print *salida) atributosAdicionales override
+    retorno nombre(__VA_ARGS__, [[maybe_unused]] Print *salida) atributosAdicionales override
 
 #include <ArduinoJson.h>
 #include "../FuncionesGlobales.h"
