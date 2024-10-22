@@ -74,6 +74,7 @@
     }
     
     bool cadenasIguales(const char* const &valor1, const char* const &valor2);
+    bool cadenasIguales(const char *valor1, const __FlashStringHelper* const &valor2);
 
     /**
      * @brief Determina si el número ingresado es par.
