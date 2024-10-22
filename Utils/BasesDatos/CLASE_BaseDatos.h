@@ -16,7 +16,7 @@
     StringEstatica<MAX_LONGITUD> valorLimitado; \
  \
     if (!valorLimitado.agregarFinal(valorOriginal)) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se limitó la", nombreValor, 'a', MAX_LONGITUD, "caracteres, quedando '", valorLimitado.getContenido(), '\''); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se limitó la"), F(nombreValor), 'a', MAX_LONGITUD, F("caracteres, quedando '"), valorLimitado.getContenido(), '\''); \
     }
 
 #define LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida) \
@@ -26,13 +26,13 @@
     LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
  \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::getValor(", copiaClave, ") con la BD corrupta. Se retornará el valor indeterminado"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se ejecutó BaseDatos::getValor("), copiaClave, F(") con la BD corrupta. Se retornará el valor indeterminado")); \
  \
         if (this -> contieneClave(copiaClave)) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor previamente almacenado en esa clave."); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se retornará el valor previamente almacenado en esa clave.")); \
         } \
         else { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor predeterminado para ese tipo de datos."); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se retornará el valor predeterminado para ese tipo de datos.")); \
         } \
     } \
  \
@@ -44,22 +44,22 @@
     LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
  \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::getValorSetteando(", copiaClave, ") con la BD corrupta. Se retornará el valor predeterminado"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se ejecutó BaseDatos::getValorSetteando("), copiaClave, F(") con la BD corrupta. Se retornará el valor predeterminado")); \
         __VA_ARGS__; \
  \
         return false; \
     } \
  \
     if (!(this -> contieneClave(copiaClave))) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: La BD no contiene la clave", copiaClave, ". Se setteará el valor predeterminado"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: La BD no contiene la clave"), copiaClave, F(". Se setteará el valor predeterminado")); \
         this -> setValor(clave, valorPredeterminado, salida); \
     } \
  \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatos::setValor(", copiaClave, ") desde BaseDatos::getValorSetteando()"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se corrompió la BD tras ejecutar BaseDatos::setValor("), copiaClave, F(") desde BaseDatos::getValorSetteando()")); \
  \
         if (!(this -> contieneClave(copiaClave))) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se retornará el valor predeterminado"); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se retornará el valor predeterminado")); \
             __VA_ARGS__; \
  \
             return false; \
@@ -70,17 +70,17 @@
     LIMITAR_CLAVE(clave, copiaClave, MAX_LONGITUD_CLAVES, salida); \
  \
     if (this -> estaCorrupta) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se ejecutó BaseDatos::setValor(", copiaClave, ") con la BD corrupta"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se ejecutó BaseDatos::setValor("), copiaClave, F(") con la BD corrupta")); \
         return false; \
     } \
  \
     if (!(this -> escribirBajoNivel(copiaClave.getContenido(), copiaValor, salida))) { \
-        CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Al intentar insertar la clave", copiaClave, ", falló porque la BaseDatos se llenó"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Al intentar insertar la clave"), copiaClave, F(", falló porque la BaseDatos se llenó")); \
         this -> estaCorrupta = true; \
         return false; \
     } \
  \
-    CLOG_PUNTERO_IMPRESORA(salida, "BaseDatos::setValor(", copiaClave, ") finalizó correctamente"); \
+    CLOG_PUNTERO_IMPRESORA(salida, F("BaseDatos::setValor("), copiaClave, F(") finalizó correctamente")); \
     return true;
 
 #define DECLARAR_METODO_ABSTRACTO_BD(nombre, retorno, atributosAdicionales, ...) \
@@ -163,12 +163,12 @@
             template <typename T_VALOR>
             bool setValor(const char *clave, const T_VALOR valor, Print *salida = nullptr) {
                 T_VALOR copiaValor = valor;
-                CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "', ", valor, ')');
+                CLOG_PUNTERO_IMPRESORA(salida, F("Escribiendo BaseDatos::setValor('"), clave, F("', "), valor, ')');
                 SET_VALOR(clave, copiaValor, MAX_LONGITUD_CLAVES, salida);
             }
             
             bool setValor(const char *clave, StringEstatica<MAX_LONGITUD_STRINGS> &valor, Print *salida = nullptr) {
-                CLOG_PUNTERO_IMPRESORA(salida, "Escribiendo BaseDatos::setValor('", clave, "', '", valor, "')");
+                CLOG_PUNTERO_IMPRESORA(salida, F("Escribiendo BaseDatos::setValor('"), clave, F("', '"), valor, F("')"));
                 SET_VALOR(clave, valor.getContenido(), MAX_LONGITUD_CLAVES, salida);
             }
             
@@ -194,7 +194,7 @@
             
             bool guardar(Print *salida = nullptr) {
                 if (this -> estaCorrupta) {
-                    CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Se accedió a BaseDatos::guardar() con la BD corrupta");
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Se accedió a BaseDatos::guardar() con la BD corrupta"));
                     return false;
                 }
                 
@@ -203,7 +203,7 @@
                     return false;
                 }
                 
-                CLOG_PUNTERO_IMPRESORA(salida, "BaseDatos::guardar() - Entradas guardadas correctamente");
+                CLOG_PUNTERO_IMPRESORA(salida, F("BaseDatos::guardar() - Entradas guardadas correctamente"));
                 return true;
             }
             

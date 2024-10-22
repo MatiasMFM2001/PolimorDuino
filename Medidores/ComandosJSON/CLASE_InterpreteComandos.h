@@ -7,8 +7,8 @@
 #ifndef INTERPRETE_COMANDOS
 #define INTERPRETE_COMANDOS
 
-#define CLAVE_COMANDO "COMANDO"
-#define CLAVE_ARGS "ARGS"
+#define CLAVE_COMANDO F("COMANDO")
+#define CLAVE_ARGS F("ARGS")
 
 #include "../CLASE_Medidor.h"
 #include "../Condiciones/CLASE_AdaptadorFuncionCondicion.h"
@@ -28,7 +28,7 @@
             }
             
             void notificar(const CanalBidireccional<Stream, Print> &resultado) override {
-                CLOG("InterpreteComandos - ESTADO ACTUAL = ", *this);
+                CLOG(F("InterpreteComandos - ESTADO ACTUAL = "), *this);
                 
                 StaticJsonDocument<CAPACIDAD_JSON_FINAL> documentoFinal;
                 Stream &stream = resultado.entrada;
@@ -67,7 +67,7 @@
                         parseadoCorrectamente = parsearArgumento<CAPACIDAD_STRING_NUMERO>(stream, documentoIntermedio);
                     }
                 
-                    CLOG("DOCUMENTO FINAL:");
+                    FLOGS("DOCUMENTO FINAL:");
                     imprimir(documentoFinal);
                     
                     CanalBidireccional<JsonDocument, Print> salida = {documentoFinal, resultado.salida};

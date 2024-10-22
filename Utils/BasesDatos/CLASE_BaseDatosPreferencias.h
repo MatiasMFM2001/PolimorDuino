@@ -28,19 +28,19 @@
         size_t retornoLectura = (this -> preferencias.getBytes(clave, bufferMsgPack, numBytesRequeridos)); \
  \
         if (retornoLectura != numBytesRequeridos) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: numBytesRequeridos =", numBytesRequeridos, ", pero retornoLectura =", retornoLectura); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: numBytesRequeridos ="), numBytesRequeridos, F(", pero retornoLectura ="), retornoLectura); \
             RETORNAR_ERROR(bufferDocumento, bufferMsgPack); \
         } \
  \
         DeserializationError retornoDeserial = deserializeMsgPack(bufferDocumento, bufferMsgPack, numBytesRequeridos); \
  \
         if (retornoDeserial != DeserializationError::Ok) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Deserializar el MessagePack del buffer falló con el error", retornoDeserial.c_str()); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Deserializar el MessagePack del buffer falló con el error"), retornoDeserial.c_str()); \
             RETORNAR_ERROR(bufferDocumento, bufferMsgPack); \
         } \
  \
         if (!(bufferDocumento.template is<T_VALOR>())) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: La variante leída no es del tipo " #T_VALOR); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: La variante leída no es del tipo " #T_VALOR)); \
             RETORNAR_ERROR(bufferDocumento, bufferMsgPack); \
         } \
  \
@@ -57,7 +57,7 @@
         size_t retorno = (this -> preferencias.metodo(copiaClave, copiaValor)); \
  \
         if (retorno == 0) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Se escribieron 0 bytes al guardar la clave '", copiaClave, "' con valor", copiaValor, "de tipo", #T_VALOR); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Se escribieron 0 bytes al guardar la clave '"), copiaClave, F("' con valor"), copiaValor, F("de tipo"), #T_VALOR); \
             return false; \
         } \
  \
@@ -117,7 +117,7 @@
                 char buffer[MAX_LONGITUD_STRINGS + 1];
                 
                 if ((this -> preferencias.getString(clave, buffer, MAX_LONGITUD_STRINGS)) == 0) {
-                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Se leyeron 0 bytes al cargar la String de la clave '", clave, "' al buffer");
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Se leyeron 0 bytes al cargar la String de la clave '"), clave, F("' al buffer"));
                     return false;
                 }
                 

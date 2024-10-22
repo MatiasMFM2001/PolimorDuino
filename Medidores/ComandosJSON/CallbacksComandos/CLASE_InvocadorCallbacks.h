@@ -45,19 +45,19 @@
                             selec.invocar(argumentos, numArgs, salida);
                         }
                         else {
-                            CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Se ingresó una cantidad válida de argumentos, pero alguno de ellos es inválido");
+                            CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR: Se ingresó una cantidad válida de argumentos, pero alguno de ellos es inválido"));
                             pilaClaves.imprimirResultadoErroneo(salida, "argumentos");
                         }
                     }
                     else {
-                        CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Se esperaban entre", selec.getMinArgumentos(), 'y', selec.getMaxArgumentos(), "argumentos, pero se ingresaron", numArgs);
+                        CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR: Se esperaban entre"), selec.getMinArgumentos(), 'y', selec.getMaxArgumentos(), F("argumentos, pero se ingresaron"), numArgs);
                     }
                     
                     return;
                 }
                 
-                CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: Comando inválido:", comando);
-                CLOG_REFERENCIA_IMPRESORA(salida, "Los comandos disponibles son:");
+                CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR: Comando inválido:"), comando);
+                CLOG_REFERENCIA_IMPRESORA(salida, F("Los comandos disponibles son:"));
                 
                 for (Comando<CAPACIDAD_NOMBRE_COMANDOS> &selec: this -> comandos) {
                     CLOG_REFERENCIA_IMPRESORA(salida, '-', selec.getNombre().getContenidoConstante());

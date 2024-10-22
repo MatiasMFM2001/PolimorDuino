@@ -35,7 +35,7 @@
             }
             
             void settearMensajeInvalido(const T &ingr, Print &salida) const override {
-                CLOG_REFERENCIA_IMPRESORA(salida, "El valor", ingr, "no está en el rango [", this -> minimoInclusivo, ", ", this -> maximoInclusivo, ']');
+                CLOG_REFERENCIA_IMPRESORA(salida, F("El valor"), ingr, F("no está en el rango ["), this -> minimoInclusivo, F(", "), this -> maximoInclusivo, ']');
             }
             
             /**

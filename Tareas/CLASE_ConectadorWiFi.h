@@ -67,10 +67,10 @@
              *  "productiva".
              */
             bool Callback(void) override {
-                CLOG_REFERENCIA_IMPRESORA(Serial, "EJECUTANDO ConectadorWiFi::Callback()");
+                CLOG_REFERENCIA_IMPRESORA(Serial, F("EJECUTANDO ConectadorWiFi::Callback()"));
                 
                 if (WiFi.status() == WL_CONNECTED) {
-                    CLOG_REFERENCIA_IMPRESORA(Serial, "ConectadorWiFi::Callback() - Conexión exitosa a la red", this -> nombreRed.getContenido(), "con IP:", WiFi.localIP());
+                    CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión exitosa a la red"), this -> nombreRed.getContenido(), F("con IP:"), WiFi.localIP());
                     
                     this -> notificadorConexionExitosa -> notificar(WiFi);
                     Task::disable();

@@ -9,15 +9,15 @@
 
 #define INSTANCIAR_TIPO_A_STRING(T) \
     template <> \
-    inline const char* tipoAString<T>(void) { \
-        return #T ; \
+    inline const __FlashStringHelper* tipoAString<T>(void) { \
+        return F(#T); \
     }
 
 #include <ArduinoJson.h>
     namespace conversores {
         template <typename T>
-        inline const char *tipoAString(void) {
-            return "TIPO DESCONOCIDO";
+        inline const __FlashStringHelper *tipoAString(void) {
+            return F("TIPO DESCONOCIDO");
         }
         
         INSTANCIAR_TIPO_A_STRING(bool)

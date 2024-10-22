@@ -42,7 +42,7 @@
         this -> documento.garbageCollect(); \
  \
         if (this -> documento.overflowed()) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Al intentar insertar la clave '", copiaClave, "', falló porque el StaticJsonDocument<", CAPACIDAD_JSON, "> se llenó"); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Al intentar insertar la clave '"), copiaClave, F("', falló porque el StaticJsonDocument<"), CAPACIDAD_JSON, F("> se llenó")); \
             return false; \
         } \
  \
@@ -50,11 +50,11 @@
         size_t tamanioEEPROM = (this -> eeprom -> length() - DIRECCION_DOCUMENTO + 1); \
  \
         if (tamanioSerializado > tamanioEEPROM) { \
-            CLOG_PUNTERO_IMPRESORA(salida, "ADVERTENCIA: Tras insertar la clave '", copiaClave, "', el documento serializado queda de tamaño ", tamanioSerializado, " y no entra en la EEPROM (de capacidad ", tamanioEEPROM, ')'); \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ADVERTENCIA: Tras insertar la clave '"), copiaClave, F("', el documento serializado queda de tamaño "), tamanioSerializado, F(" y no entra en la EEPROM (de capacidad "), tamanioEEPROM, ')'); \
             return false; \
         } \
  \
-        CLOG_PUNTERO_IMPRESORA(salida, "BaseDatosEEPROM::escribirBajoNivel('", copiaClave, "') finalizó correctamente"); \
+        CLOG_PUNTERO_IMPRESORA(salida, F("BaseDatosEEPROM::escribirBajoNivel('"), copiaClave, F("') finalizó correctamente")); \
         return true; \
     }
 
@@ -103,7 +103,7 @@
             
             DEFINIR_METODO_BD(leerBajoNivel, bool,, const char *clave, StringAbstracta &variableASobreescribir) {  
                 if (!variableASobreescribir.agregarFinal(this -> documento.template as<const char *>())) {
-                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Se llenó la variableASobreescribir al cargar la String de la clave '", clave, "' al buffer");
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Se llenó la variableASobreescribir al cargar la String de la clave '"), clave, F("' al buffer"));
                     return false;
                 }
                 
@@ -116,7 +116,7 @@
             
             bool guardarBajoNivel(Print *salida) override {
                 //EscritorEEPROM escritor(DIRECCION_DOCUMENTO, this -> eeprom);
-                CLOG_PUNTERO_IMPRESORA(salida, "DIRECCION_DOCUMENTO = ", DIRECCION_DOCUMENTO, "; this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1 = ", this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
+                CLOG_PUNTERO_IMPRESORA(salida, F("DIRECCION_DOCUMENTO = "), DIRECCION_DOCUMENTO, F("; this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1 = "), this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
                 EepromStream escritor(DIRECCION_DOCUMENTO, this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1);
                 size_t tamanioEscrito = serializeMsgPack(this -> documento, escritor);
                 
@@ -127,26 +127,26 @@
                 size_t numBytesUsadosReleido;
                 this -> eeprom -> get(DIRECCION_NUM_BYTES, numBytesUsadosReleido);
                 
-                CLOG_PUNTERO_IMPRESORA(salida, "BaseDatosEEPROM::guardarBajoNivel() - numBytesUsadosReleido = ", numBytesUsadosReleido);
+                CLOG_PUNTERO_IMPRESORA(salida, F("BaseDatosEEPROM::guardarBajoNivel() - numBytesUsadosReleido = "), numBytesUsadosReleido);
                 
                 if (numBytesUsadosReleido > (this -> eeprom -> length() - DIRECCION_DOCUMENTO - 1)) {
-                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: La cantidad de bytes releidos es mayor a la posible de almacenar en la EEPROM");
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: La cantidad de bytes releidos es mayor a la posible de almacenar en la EEPROM"));
                     return false;
                 }
 
                 DeserializationError retorno = deserializeMsgPack(this -> documento, escritor);
                 
                 if (retorno != DeserializationError::Ok) {
-                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: Re-deserializar el MessagePack de la EEPROM falló con el error", retorno.c_str());
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Re-deserializar el MessagePack de la EEPROM falló con el error"), retorno.c_str());
                     return false;
                 }
                 
                 if (!(this -> documento.template is<JsonObject>())) {
-                    CLOG_PUNTERO_IMPRESORA(salida, "ERROR: El documento releido no es un objeto JSON");
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: El documento releido no es un objeto JSON"));
                     return false;
                 }
                 
-                CLOG_PUNTERO_IMPRESORA(salida, "BaseDatosEEPROM::guardarBajoNivel() - Guardados", tamanioEscrito, '/', this -> eeprom -> length(), "bytes correctamente");
+                CLOG_PUNTERO_IMPRESORA(salida, F("BaseDatosEEPROM::guardarBajoNivel() - Guardados"), tamanioEscrito, '/', this -> eeprom -> length(), F("bytes correctamente"));
                 return true;
             }
             

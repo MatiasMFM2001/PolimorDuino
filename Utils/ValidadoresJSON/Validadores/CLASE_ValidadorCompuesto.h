@@ -29,11 +29,13 @@
                     }
                     
                     if (!(condicion -> varianteContieneTodas(variante, pilaClaves))) {
-                        CLOG("Para esta condicion la variante no contiene todas: ", *condicion);
+                        CLOG(F("Para esta condicion la variante no contiene todas: "), *condicion);
 
-                        pilaClaves.agregarFinalMensaje("La variante compuesta de tipo '");
-                        pilaClaves.agregarFinalMensaje(conversores::tipoAString<T_VARIANTE_CONDICION>());
-                        pilaClaves.agregarFinalMensaje("' no contiene todas las claves/índices requeridos");
+                        AdaptadorStringImpresora salida = pilaClaves.getAdaptadorMensaje();
+
+                        salida.print(F("La variante compuesta de tipo '"));
+                        salida.print(conversores::tipoAString<T_VARIANTE_CONDICION>());
+                        salida.print(F("' no contiene todas las claves/índices requeridos"));
 
                         pilaClaves.setDatoErroneo(variante);
                         pilaClaves.guardarNodosPila();
@@ -54,7 +56,7 @@
                     return (condicion -> esValido(variante, pilaClaves));
                 }
                 
-                CLOG("ADVERTENCIA: Ninguna condición de este ValidadorCompuesto cubre", nombreIngr, ingr, ". Retornando ", this -> valorPredeterminado);
+                CLOG(F("ADVERTENCIA: Ninguna condición de este ValidadorCompuesto cubre"), nombreIngr, ingr, F(". Retornando "), this -> valorPredeterminado);
                 return (this -> valorPredeterminado);
             }
         

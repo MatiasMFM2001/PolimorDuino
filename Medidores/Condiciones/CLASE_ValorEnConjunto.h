@@ -25,7 +25,7 @@
             }
             
             void settearMensajeInvalido(const T_DATOS &ingr, Print &salida) const override {
-                CLOG_REFERENCIA_IMPRESORA(salida, "El valor", ingr, "no está en el conjunto", *(this -> conjunto));
+                CLOG_REFERENCIA_IMPRESORA(salida, F("El valor"), ingr, F("no está en el conjunto"), *(this -> conjunto));
             }
             
             /**

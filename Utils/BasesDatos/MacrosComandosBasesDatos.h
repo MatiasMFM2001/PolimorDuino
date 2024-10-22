@@ -18,10 +18,10 @@
     DEFINIR_CALLBACK(nombreGuardarBD);
 
 #define GUARDAR_DATO(baseDatos, punteroTipoDato, clave, tipoDato, valor, salida) \
-    if (cadenasIguales(punteroTipoDato, #tipoDato)) { \
+    if (cadenasIguales(punteroTipoDato, F(#tipoDato))) { \
         VALIDAR_DATO_JSON(tipoDato, "El valor", valor, salida,); \
         baseDatos.setValor(clave, valor.as<tipoDato>(), &Serial); \
-        CLOG_REFERENCIA_IMPRESORA(salida, "Valor de tipo", #tipoDato, "guardado correctamente"); \
+        CLOG_REFERENCIA_IMPRESORA(salida, F("Valor de tipo"), F(#tipoDato), F("guardado correctamente")); \
     }
 
 #define DECLARAR_CALLBACKS_BD(baseDatos, nombreSettearBD, nombreVerBD, nombreGuardarBD) \
@@ -29,7 +29,7 @@
         const char *clave = args[0]; \
  \
         if (clave[0] == '\0') { \
-            CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: La clave ingresada es vacía"); \
+            CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR: La clave ingresada es vacía")); \
             return; \
         } \
  \
@@ -51,9 +51,9 @@
  \
     DECLARAR_CALLBACK(nombreGuardarBD, args, numArgs, salida) { \
         if (baseDatos.guardar(&salida)) { \
-            CLOG_REFERENCIA_IMPRESORA(salida, "BD guardada correctamente"); \
+            CLOG_REFERENCIA_IMPRESORA(salida, F("BD guardada correctamente")); \
         } \
         else { \
-            CLOG_REFERENCIA_IMPRESORA(salida, "ERROR: No se pudo guardar el contenido de la BD"); \
+            CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR: No se pudo guardar el contenido de la BD")); \
         } \
     }

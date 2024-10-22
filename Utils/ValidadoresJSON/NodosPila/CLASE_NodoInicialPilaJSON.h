@@ -32,7 +32,7 @@
             }
             
             bool agregarFinalMensaje(const char *ingr) override {
-                CLOG("Se llamó a NodoInicialPilaJSON::guardarNodosPila(", ingr, ")");
+                CLOG(F("Se llamó a NodoInicialPilaJSON::guardarNodosPila("), ingr, ')');
                 return (this -> mensaje.agregarFinal(ingr));
             }
             
@@ -44,13 +44,13 @@
                 FLOGS("Se llamó a NodoInicialPilaJSON::imprimirResultadoErroneo()");
                 
                 if ((this -> pilaClaves.size()) == 0) {
-                    impresora.println("ADVERTENCIA: Se llamó a NodoInicialPilaJSON::imprimirResultadoErroneo() pero la pila está vacía");
+                    impresora.println(F("ADVERTENCIA: Se llamó a NodoInicialPilaJSON::imprimirResultadoErroneo() pero la pila está vacía"));
                     return 0;
                 }
                 
                 size_t salida = impresora.println(this -> mensaje.getContenidoConstante());
                 
-                salida += impresora.print("- RUTA: ");
+                salida += impresora.print(F("- RUTA: "));
                 salida += impresora.print(nombreVariable);
                 
                 for (JsonVariantConst selec: (this -> pilaClaves.template as<JsonArrayConst>())) {
@@ -59,7 +59,7 @@
                     salida += impresora.print(']');
                 }
                 
-                salida += impresora.print(" = ");
+                salida += impresora.print(F(" = "));
                 salida += serializeJson(this -> datoErroneo, impresora);
                 salida += impresora.println();
                 

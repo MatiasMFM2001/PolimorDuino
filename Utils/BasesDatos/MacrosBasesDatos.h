@@ -10,7 +10,7 @@
     if (baseDatos.getValorSetteando(clave, valorPredeterminado, variableASobreescribir, salida)) { \
         __VA_ARGS__; \
     } else { \
-        CLOG("ERROR: No se pudo obtener el ", nombreValor, " '", clave, '\''); \
+        CLOG(F("ERROR: No se pudo obtener el "), nombreValor, F(" '"), clave, '\''); \
     }
 
 #define OBTENER_VALOR_BD_VARIABLE_INTERNA(baseDatos, salida, clave, valorPredeterminado, nombreValor, tipoDatoVariable, variableASobreescribir, ...) \

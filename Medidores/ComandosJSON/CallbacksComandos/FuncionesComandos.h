@@ -10,7 +10,7 @@
 #include "CLASE_Comando.h"
     #define VALIDAR_DATO_JSON(tipoDato, descripcion, valor, salida, valorRetorno) \
         if (!valor.is<tipoDato>()) { \
-            CLOG_REFERENCIA_IMPRESORA(salida, "ERROR:", descripcion, "ingresad@ no es del tipo de datos '", #tipoDato, '\''); \
+            CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR:"), F(descripcion), F("ingresad@ no es del tipo de datos '"), F(#tipoDato), '\''); \
             return valorRetorno; \
         } \
 

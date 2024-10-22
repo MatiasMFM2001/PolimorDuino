@@ -49,7 +49,7 @@
                     return MensajeTelegram<CAPACIDAD_MENSAJE>();
                 }
                 
-                return MensajeTelegram<CAPACIDAD_MENSAJE>(mensaje.text.c_str(), idCanal, (mensaje.type == "message"));
+                return MensajeTelegram<CAPACIDAD_MENSAJE>(mensaje.text.c_str(), idCanal, (mensaje.type == F("message")));
             }
             
             bool enviarMensaje(MensajeTelegram<CAPACIDAD_MENSAJE> &ingr) override {

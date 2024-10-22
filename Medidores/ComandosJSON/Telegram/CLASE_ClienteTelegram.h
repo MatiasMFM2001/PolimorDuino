@@ -44,14 +44,14 @@
                 }
                 
                 if (!mensaje.esMensajeTexto()) {
-                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, "ADVERTENCIA: Se descartó el mensaje recibido, porque no es de texto");
+                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, F("ADVERTENCIA: Se descartó el mensaje recibido, porque no es de texto"));
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
                 int64_t idCanal = mensaje.getIDCanal();
                 
                 if (!contiene(this -> canalesPermitidos, idCanal)) {
-                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, "ADVERTENCIA: Se descartó el mensaje recibido, porque el canal", idCanal, "no está en el conjunto de canales permitidos");
+                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, F("ADVERTENCIA: Se descartó el mensaje recibido, porque el canal"), idCanal, F("no está en el conjunto de canales permitidos"));
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
@@ -62,7 +62,7 @@
                 size_t tamanioBuffer = (this -> stream.availableForWrite());
                 
                 if (tamanioTexto > tamanioBuffer) {
-                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, "ERROR: La cadena leida (de", tamanioTexto, "caracteres) no entra en el LoopbackStream de", tamanioBuffer, "caracteres");
+                    CLOG_REFERENCIA_IMPRESORA(this -> impresora, F("ERROR: La cadena leida (de"), tamanioTexto, F("caracteres) no entra en el LoopbackStream de"), tamanioBuffer, F("caracteres"));
                     return {this -> streamNulo, this -> streamNulo};
                 }
                 
