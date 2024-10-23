@@ -68,10 +68,10 @@
     DEFINIR_METODO_BD(escribirBajoNivel, bool,, char *copiaClave, T_VALOR copiaValor) { \
         LOG("Ejecutando BaseDatosPreferencias::escribirBajoNivel<%s>('%s')", #T_VALOR, copiaClave); \
         size_t numBytesRequeridos = measureMsgPack(copiaValor); \
-        char *bufferMsgPack = new char[numBytesRequeridos + 1]; \
+        byte *bufferMsgPack = new byte[numBytesRequeridos + 1]; \
  \
         serializeMsgPack(copiaValor, bufferMsgPack, numBytesRequeridos); \
-        bool retorno = ((this -> preferencias.putBytes(copiaClave, bufferMsgPack, copiaValor)) == numBytesRequeridos); \
+        bool retorno = ((this -> preferencias.putBytes(copiaClave, bufferMsgPack, numBytesRequeridos)) == numBytesRequeridos); \
  \
         delete[] bufferMsgPack; \
         return retorno; \
