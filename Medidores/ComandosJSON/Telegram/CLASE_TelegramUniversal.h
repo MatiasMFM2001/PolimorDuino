@@ -42,7 +42,7 @@
                 this -> posArrayMensajes.incrementar(1);
                 
                 char *posBufferFinal;
-                int64_t idCanal = strtol(mensaje.chat_id.c_str(), &posBufferFinal, 0);
+                int64_t idCanal = strtoll(mensaje.chat_id.c_str(), &posBufferFinal, 0);
                 
                 if (*posBufferFinal != '\0') {
                     LOG("ERROR: La ID de mensaje '%s' no es un entero válido", mensaje.chat_id.c_str());
