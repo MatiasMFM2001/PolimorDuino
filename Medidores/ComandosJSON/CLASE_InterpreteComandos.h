@@ -72,6 +72,7 @@
                     
                     CanalBidireccional<JsonDocument, Print> salida = {documentoFinal, resultado.salida};
                     this -> finalizarMedicion(salida);
+                    resultado.salida.flush();
             }
             
             /**
