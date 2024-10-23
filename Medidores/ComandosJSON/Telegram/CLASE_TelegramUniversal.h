@@ -18,8 +18,8 @@
             size_t numMensajesRecibidos;
             
         public:
-            TelegramUniversal(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, UniversalTelegramBot *bot, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
-                : ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(nombre, callback, planif, capacidadBuffer)
+            TelegramUniversal(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, UniversalTelegramBot *bot, byte byteEnvioAutomatico = '\n', bool enviarRespuestasSiByteIgualA = true, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
+                : ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(nombre, callback, planif, capacidadBuffer, enviarRespuestasSiByteIgualA, byteEnvioAutomatico)
                 , bot(bot), posArrayMensajes(Contador<size_t>(0)), numMensajesRecibidos(0)
             {}
             

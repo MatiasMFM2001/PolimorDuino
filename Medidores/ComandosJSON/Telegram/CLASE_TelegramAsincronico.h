@@ -15,8 +15,8 @@
             AsyncTelegram2 *bot;
             
         public:
-            TelegramAsincronico(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, AsyncTelegram2 *bot, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
-                : ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(nombre, callback, planif, capacidadBuffer)
+            TelegramAsincronico(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, AsyncTelegram2 *bot, byte byteEnvioAutomatico = '\n', bool enviarRespuestasSiByteIgualA = true, size_t capacidadBuffer = LoopbackStream::DEFAULT_SIZE)
+                : ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(nombre, callback, planif, capacidadBuffer, enviarRespuestasSiByteIgualA, byteEnvioAutomatico)
                 , bot(bot)
             {}
             

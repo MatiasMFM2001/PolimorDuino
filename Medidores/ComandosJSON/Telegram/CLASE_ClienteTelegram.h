@@ -25,9 +25,9 @@
             DEVNULL streamNulo;
             
         public:
-            ClienteTelegram(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, size_t capacidadBuffer)
+            ClienteTelegram(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<Stream, Print>> *callback, Scheduler *planif, size_t capacidadBuffer, bool enviarRespuestasSiByteIgualA, byte byteEnvioAutomatico)
                 : MedidorInstantaneo<CanalBidireccional<Stream, Print>, F_LOGGER>(nombre, callback, planif, this)
-                , canalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS>()), stream(LoopbackStream(capacidadBuffer)), impresora(ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(this, 0))
+                , canalesPermitidos(Array<int64_t, CAPACIDAD_CANALES_PERMITIDOS>()), stream(LoopbackStream(capacidadBuffer)), impresora(ImpresoraTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER>(this, 0, enviarRespuestasSiByteIgualA, byteEnvioAutomatico))
             {}
             
             virtual MensajeTelegram<CAPACIDAD_MENSAJE> recibirMensaje(void) = 0;
