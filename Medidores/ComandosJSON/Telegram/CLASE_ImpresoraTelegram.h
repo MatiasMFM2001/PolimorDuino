@@ -21,6 +21,9 @@ class ClienteTelegram;
             ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE> *cliente;
             MensajeTelegram<CAPACIDAD_MENSAJE> buffer;
             
+            bool enviarRespuestasSiByteIgualA;
+            byte byteEnvioAutomatico;
+            
         public:
             /**
              * @brief Construye un BufferDatos, con el array vacío y la
@@ -28,9 +31,9 @@ class ClienteTelegram;
              * 
              * @param salida La impresora especificada (que puede ser nula).
              */
-            ImpresoraTelegram(ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE> *cliente, int64_t idCanal)
+            ImpresoraTelegram(ClienteTelegram<CAPACIDAD_CANALES_PERMITIDOS, CAPACIDAD_MENSAJE, F_LOGGER_CLIENTE> *cliente, int64_t idCanal, bool enviarRespuestasSiByteIgualA, byte byteEnvioAutomatico)
                 : Print()
-                , cliente(cliente)
+                , cliente(cliente), enviarRespuestasSiByteIgualA(enviarRespuestasSiByteIgualA), byteEnvioAutomatico(byteEnvioAutomatico)
             {
                 this -> reiniciarBuffer(idCanal);
             }
@@ -46,7 +49,7 @@ class ClienteTelegram;
                     return 0;
                 }
                 
-                if (ingr == '\n') {
+                if ((this -> enviarRespuestasSiByteIgualA) && (ingr == (this -> byteEnvioAutomatico))) {
                     this -> flush();
                     return 1;
                 }
