@@ -24,6 +24,7 @@
             void notificar(const T_VARIANTE &resultado) override {
                 if (this -> serializador) {
                     this -> serializador(resultado, this -> salida);
+                    this -> salida.flush();
                 }
             }
             
