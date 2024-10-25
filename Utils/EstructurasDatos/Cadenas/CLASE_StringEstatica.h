@@ -106,7 +106,11 @@
             
             bool agregarFinal(const char ingr) override {
                 char buffer[2] = {ingr, '\0'};
-                return this -> agregarFinal(buffer);
+                return (this -> agregarFinal(buffer));
+            }
+            
+            bool agregarFinal(const String &ingr) override {
+                return (this -> agregarFinal(ingr.c_str()));
             }
             
             bool agregarFinalPrintf(const char *formato, ...) override {

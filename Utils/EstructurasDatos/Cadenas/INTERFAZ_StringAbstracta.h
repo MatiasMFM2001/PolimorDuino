@@ -27,6 +27,7 @@
             
             virtual bool agregarFinal(const char *ingr) = 0;            
             virtual bool agregarFinal(const char ingr) = 0;
+            virtual bool agregarFinal(const String &ingr) = 0;
             virtual bool agregarFinalPrintf(const char *formato, ...) = 0;
             
             virtual size_t agregarCaracteresMientras(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) = 0;
