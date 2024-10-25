@@ -13,6 +13,7 @@
 #include "../../../Logger/FuncionesJSON.h"
 #include <stdarg.h>
 #include "../../CLASE_Contador.h"
+#include "CLASE_AdaptadorStringImpresora.h"
     template <size_t MAX_CAPACIDAD>
     class StringEstatica : public StringAbstracta {
         private:
@@ -147,6 +148,10 @@
             size_t agregarCaracteresHasta(Stream& stream, CondicionResultado<int> &condicion, bool terminarSiCaracterInvalido = true) override {
                 CompuertaNO<int> negador(&condicion);
                 return this -> agregarCaracteresMientras(stream, negador, terminarSiCaracterInvalido);
+            }
+            
+            AdaptadorStringImpresora getAdaptador(void) {
+                return AdaptadorStringImpresora(this);
             }
             
             /**
