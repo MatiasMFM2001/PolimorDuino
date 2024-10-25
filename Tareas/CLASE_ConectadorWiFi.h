@@ -72,7 +72,10 @@
                 if (WiFi.status() == WL_CONNECTED) {
                     CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión exitosa a la red"), this -> nombreRed.getContenido(), F("con IP:"), WiFi.localIP());
                     
-                    this -> notificadorConexionExitosa -> notificar(WiFi);
+                    if (this -> notificadorConexionExitosa) {
+                        this -> notificadorConexionExitosa -> notificar(WiFi);
+                    }
+                    
                     Task::disable();
                 }
 
