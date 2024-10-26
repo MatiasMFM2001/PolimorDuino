@@ -7,8 +7,7 @@
 #ifndef BUFFER_DATOS
 #define BUFFER_DATOS
 
-#include <Print.h>
-#include <Array.h>
+#include "CLASE_BufferImpresora.h"
     /**
      * @brief Permite almacenar temporalmente los bytes que serán impresos por
      *  una instancia de @c Print, cuando ésta requiere tener las
@@ -18,11 +17,8 @@
      * @tparam N_NUM_BYTES La capacidad del buffer, en bytes.
      */
     template <size_t N_NUM_BYTES>
-    class BufferDatos: public Print {
+    class BufferDatos: public BufferImpresora<N_NUM_BYTES> {
         private:
-            /** @brief Estructura que almacena los bytes del buffer. */
-            Array<byte, N_NUM_BYTES> datos;
-            
             /** @brief Instancia que imprimirá los bytes del buffer. */
             Print *salida;
         
@@ -34,24 +30,9 @@
              * @param salida La impresora especificada (que puede ser nula).
              */
             BufferDatos(Print *salida = nullptr)
-                : Print()
+                : BufferImpresora<N_NUM_BYTES>()
                 , salida(salida)
             {}
-        
-            /**
-             * @brief Escribe un byte en el buffer, si hay capacidad suficiente.
-             * 
-             * @param ingr El byte a escribir.
-             * @returns @c 1 si hay capacidad, @c 0 en caso contrario.
-             */
-            size_t write(byte ingr) override {
-                if (this -> datos.full()) {
-                    return 0;
-                }
-                
-                this -> datos.push_back(ingr);
-                return 1;
-            }
             
             /**
              * @brief Si la impresora no es nula, le envía todos los datos
@@ -62,8 +43,8 @@
                     return;
                 }
                 
-                this -> salida -> write(this -> datos.data(), this -> datos.size());
-                this -> datos.clear();
+                this -> salida -> write(this -> getContenidoConstante(), this -> getLongitud());
+                this -> vaciarContenido();
             }
     };
 #endif
