@@ -16,13 +16,13 @@
 
 #include "../Inclusiones/InclusionTaskSchedulerDeclarations.h"
 #include "../Utils/INTERFAZ_Inicializable.h"
-#include "../Medidores/Callbacks/INTERFAZ_CallbackResultado.h"
+#include "../Utils/Pulsables/CLASE_Pulsable.h"
 #include "../Utils/FuncionesGlobales.h"
 #include "../Utils/EstructurasDatos/Cadenas/CLASE_StringEstatica.h"
     template <size_t TAMANIO_NOMBRE = 32, size_t TAMANIO_CONTRASENIA = 32>
     class ConectadorWiFi : public Task, public Inicializable {
         private:
-            CallbackResultado<WiFiClass> *notificadorConexionExitosa;
+            Pulsable *notificadorEstadosConexion;
             StringEstatica<TAMANIO_NOMBRE> nombreRed;
             StringEstatica<TAMANIO_CONTRASENIA> contrasenia;
         
@@ -30,9 +30,9 @@
             /**
              * @brief Construye un ConectadorWiFi...
              */
-            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, CallbackResultado<WiFiClass> *notificadorConexionExitosa)
+            ConectadorWiFi(long msEntreLlamados, Scheduler *planif, Pulsable *notificadorEstadosConexion)
                 : Task(msEntreLlamados, TASK_FOREVER, planif, false)
-                , notificadorConexionExitosa(notificadorConexionExitosa), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>())
+                , notificadorEstadosConexion(notificadorEstadosConexion), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>())
             {}
         
             void inicializar(void) override {
@@ -46,8 +46,7 @@
                     cyw43_wifi_pm(&cyw43_state, CYW43_PERFORMANCE_PM);
                 #endif
                 
-                WiFi.begin(this -> nombreRed.getContenido(), this -> contrasenia.getContenido());
-                
+                WiFi.begin(this -> nombreRed.getContenido(), this -> contrasenia.getContenido()); 
                 Task::enable();
             }
             
@@ -61,7 +60,7 @@
             }
         
             /**
-             * @brief Ejecuta la impresión periódica.
+             * @brief Ejecuta la comprobación periódica.
              *
              * @returns @c true para indicar que la ejecución de la tarea fue
              *  "productiva".
@@ -69,14 +68,42 @@
             bool Callback(void) override {
                 CLOG_REFERENCIA_IMPRESORA(Serial, F("EJECUTANDO ConectadorWiFi::Callback()"));
                 
-                if (WiFi.status() == WL_CONNECTED) {
-                    CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión exitosa a la red"), this -> nombreRed.getContenido(), F("con IP:"), WiFi.localIP());
+                switch (WiFi.status()) {
+                    case WL_NO_SHIELD:
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - No hay placas WiFi conectadas. Deshabilitando tarea"));
+                        
+                        Task::disable();
+                        break;
+                        
+                    case WL_NO_SSID_AVAIL:
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - No hay redes disponibles"));
+                        break;
                     
-                    if (this -> notificadorConexionExitosa) {
-                        this -> notificadorConexionExitosa -> notificar(WiFi);
-                    }
-                    
-                    Task::disable();
+                    case WL_CONNECTED:
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión exitosa a la red"), this -> nombreRed.getContenido(), F("con IP:"), WiFi.localIP());
+                        
+                        if (this -> notificadorEstadosConexion) {
+                            this -> notificadorEstadosConexion -> encender();
+                        }
+                        
+                        break;
+                        
+                    case WL_CONNECT_FAILED:
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión fallida a la red"), this -> nombreRed.getContenido());
+                        break;
+                        
+                    case WL_CONNECTION_LOST:
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión perdida a la red"), this -> nombreRed.getContenido());
+                        
+                        if (this -> notificadorEstadosConexion) {
+                            this -> notificadorEstadosConexion -> apagar();
+                        }
+                        
+                        break;
+                        
+                    case WL_DISCONNECTED:
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Desconectado"));
+                        break;
                 }
 
                 return true;
