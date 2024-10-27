@@ -42,7 +42,7 @@
     size_t imprimirDatoJSON(Print &impresora, const Array<T_VALOR, S> &array) {
         size_t salida = impresora.print(JSON_APERTURA_ARRAY);
         
-        if (!array.empty()) {
+        if ((S > 0) && !array.empty()) {
             size_t ultPos = array.size() - 1;
             
             for (size_t cont = 0; cont < ultPos; ++cont) {
