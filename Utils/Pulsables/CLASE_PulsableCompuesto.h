@@ -4,27 +4,30 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef CALLBACK_COMPUESTO
-#define CALLBACK_COMPUESTO   
+#ifndef PULSABLE_COMPUESTO
+#define PULSABLE_COMPUESTO   
 
 #include <Array.h>
-    template <size_t CAPACIDAD_HIJOS, typename... T>
-    class CallbackCompuesto : public CallbackResultado<T...> {
+    template <size_t CAPACIDAD_HIJOS>
+    class PulsableCompuesto : public Pulsable {
         private:
-            Array<CallbackResultado<T...> *, CAPACIDAD_HIJOS> hijos;
+            Array<Pulsable *, CAPACIDAD_HIJOS> hijos;
         
         public:
-            CallbackCompuesto(Array<CallbackResultado<T...> *, CAPACIDAD_HIJOS> hijos)
-                : hijos(hijos)
+            PulsableCompuesto(bool estadoInicial, Array<Pulsable *, CAPACIDAD_HIJOS> hijos)
+                : Pulsable(estadoInicial, false)
+                , hijos(hijos)
             {}
             
-            void notificar(const T&... resultado) override {
-                for (CallbackResultado<T...> *selec: this -> hijos) {
+            void setEstado(bool ingr) override {
+                this -> setEstadoActual(ingr);
+
+                for (Pulsable *selec: this -> hijos) {
                     if (!selec) {
                         continue;
                     }
                     
-                    selec -> notificar(resultado...);
+                    selec -> setEstado(ingr);
                 }
             }
             
@@ -36,7 +39,7 @@
              * @returns La cantidad de bytes escritos a la impresora.
              */
             size_t printTo(Print &impresora) const override {
-                return OBJETO_SIN_SUPER_A_JSON(impresora, "CallbackCompuesto", hijos);
+                return OBJETO_SIN_SUPER_A_JSON(impresora, "PulsableCompuesto", hijos);
             }
     };
 #endif

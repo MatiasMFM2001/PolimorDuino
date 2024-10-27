@@ -14,7 +14,7 @@
      * @brief Permite almacenar los bytes que serían impresos por una instancia
      *  de @c Print, en un objeto que implemente @c StringAbstracta.
      */
-    class AdaptadorStringImpresora: public Print {
+    class AdaptadorStringImpresora : public Print {
         private:
             /** @brief Estructura que almacena los caracteres. */
             StringAbstracta *cadena;

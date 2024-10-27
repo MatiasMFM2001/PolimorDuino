@@ -9,7 +9,7 @@
 
 #include "CLASE_LedRGBW.h"
 #include <Adafruit_NeoPixel.h>
-    class LedWS2812: public LedRGBW {
+    class LedWS2812 : public LedRGBW {
         private:
             Adafruit_NeoPixel *tiraRGBW;
             size_t indiceTira;

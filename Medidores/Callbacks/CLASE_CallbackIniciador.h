@@ -10,7 +10,7 @@
 #include <Printable.h>
 #include "../../Inclusiones/InclusionLog4Arduino.h"
     template <typename... T>
-    class CallbackIniciador: public CallbackResultado<T...> {
+    class CallbackIniciador : public CallbackResultado<T...> {
         private:
             Task *tarea;
             CallbackResultado<T...> *accionesAdicionales;

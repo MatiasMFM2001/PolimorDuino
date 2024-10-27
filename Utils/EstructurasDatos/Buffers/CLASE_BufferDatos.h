@@ -17,7 +17,7 @@
      * @tparam N_NUM_BYTES La capacidad del buffer, en bytes.
      */
     template <size_t N_NUM_BYTES>
-    class BufferDatos: public BufferImpresora<N_NUM_BYTES> {
+    class BufferDatos : public BufferImpresora<N_NUM_BYTES> {
         private:
             /** @brief Instancia que imprimirá los bytes del buffer. */
             Print *salida;

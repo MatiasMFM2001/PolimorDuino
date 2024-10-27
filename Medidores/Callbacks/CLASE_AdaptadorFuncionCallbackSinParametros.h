@@ -10,7 +10,7 @@
 #include "INTERFAZ_CallbackResultado.h"
 #include "../../Logger/FuncionesJSON.h"
     template <typename... T>
-    class AdaptadorFuncionCallbackSinParametros: public CallbackResultado<T...> {
+    class AdaptadorFuncionCallbackSinParametros : public CallbackResultado<T...> {
         private:
             void (*funcion)(void);
         

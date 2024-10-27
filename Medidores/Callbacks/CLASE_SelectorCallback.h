@@ -9,7 +9,7 @@
 
 #include <Array.h>
     template <size_t CAPACIDAD_HIJOS, typename... T>
-    class SelectorCallback: public CallbackResultado<T...> {
+    class SelectorCallback : public CallbackResultado<T...> {
         private:
             Array<CallbackResultado<T...> *, CAPACIDAD_HIJOS> hijos;
             size_t posActual;

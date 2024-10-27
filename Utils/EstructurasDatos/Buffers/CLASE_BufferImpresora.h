@@ -16,7 +16,7 @@
      * @tparam T_DATOS El tipo de datos de los elementos a guardar en el buffer.
      */
     template <size_t N_NUM_BYTES, typename T_DATOS = byte>
-    class BufferImpresora: public Print {
+    class BufferImpresora : public Print {
         protected:
             /** @brief Estructura que almacena los bytes del buffer. */
             Array<T_DATOS, N_NUM_BYTES> datos;
