@@ -23,6 +23,8 @@
     class ConectadorWiFi : public Task, public Inicializable {
         private:
             Pulsable *notificadorEstadosConexion;
+            bool conexionNotificada;
+            
             StringEstatica<TAMANIO_NOMBRE> nombreRed;
             StringEstatica<TAMANIO_CONTRASENIA> contrasenia;
         
@@ -32,7 +34,7 @@
              */
             ConectadorWiFi(long msEntreLlamados, Scheduler *planif, Pulsable *notificadorEstadosConexion)
                 : Task(msEntreLlamados, TASK_FOREVER, planif, false)
-                , notificadorEstadosConexion(notificadorEstadosConexion), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>())
+                , notificadorEstadosConexion(notificadorEstadosConexion), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>()), conexionNotificada(false)
             {}
         
             void inicializar(void) override {
@@ -82,8 +84,9 @@
                     case WL_CONNECTED:
                         CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión exitosa a la red"), this -> nombreRed.getContenido(), F("con IP:"), WiFi.localIP());
                         
-                        if (this -> notificadorEstadosConexion) {
+                        if (!(this -> conexionNotificada) && (this -> notificadorEstadosConexion)) {
                             this -> notificadorEstadosConexion -> encender();
+                            this -> conexionNotificada = true;
                         }
                         
                         break;
@@ -97,6 +100,7 @@
                         
                         if (this -> notificadorEstadosConexion) {
                             this -> notificadorEstadosConexion -> apagar();
+                            this -> conexionNotificada = false;
                         }
                         
                         break;
