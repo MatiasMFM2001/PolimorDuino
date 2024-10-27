@@ -76,7 +76,7 @@
                         break;
                         
                     case WL_NO_SSID_AVAIL:
-                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - No hay redes disponibles"));
+                        CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - No se encontró la red"), this -> nombreRed.getContenido());
                         break;
                     
                     case WL_CONNECTED:
