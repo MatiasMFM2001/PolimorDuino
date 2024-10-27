@@ -26,6 +26,10 @@
             {}
             
             size_t write(byte ingr) override {
+                if (!(this -> getEstado())) {
+                    return 0;
+                }
+                
                 return (this -> buffer.write(ingr));
             }
             
