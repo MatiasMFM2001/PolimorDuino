@@ -104,6 +104,9 @@
                     case WL_DISCONNECTED:
                         CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Desconectado"));
                         break;
+                    
+                    default:
+                        break;
                 }
 
                 return true;
