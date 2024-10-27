@@ -4,37 +4,33 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#ifndef ADAPTADOR_PULSABLE_TAREA
-#define ADAPTADOR_PULSABLE_TAREA
+#ifndef PULSABLE_DETENEDOR
+#define PULSABLE_DETENEDOR
 
-#include "CLASE_Pulsable.h"
-#include "../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
+#include "CLASE_PulsableTarea.h"
+#include "../../../Inclusiones/InclusionTaskSchedulerDeclarations.h"
     /**
-     * @brief Decorador que permite activar o desactivar una tarea como si
-     *  @c Task fuera subclase de @c Pulsable.
+     * @brief Decorador que permite detener la ejecución de una tarea al llamar
+     *  a @c apagar(), pero no hacer nada al @c encender().
      */
-    class AdaptadorPulsableTarea : public Pulsable {
-        private:
-            /** @brief Puntero a la tarea adaptada. */
-            Task *tarea;
-
+    class PulsableDetenedor : public PulsableTarea {
         public:
             /**
-             * @brief Construye un AdaptadorPulsableTarea, con el estado inicial
+             * @brief Construye un PulsableDetenedor, con el estado inicial
              *  y la tarea especificados.
              *
              * @param estadoInicial @c true para iniciar el programa con
              *  el objeto decorado encendido, @c false para el caso contrario.
              */
-            AdaptadorPulsableTarea(bool estadoInicial, Task *tarea);
+            PulsableDetenedor(bool estadoInicial, Task *tarea);
 
             /**
-             * @brief Reinicia la tarea adaptada.
+             * @brief No hace nada.
              */
             void encender(void) override;
 
             /**
-             * @brief Deshabilita la tarea adaptada.
+             * @brief Detiene la ejecución de la tarea.
              */
             void apagar(void) override;
 

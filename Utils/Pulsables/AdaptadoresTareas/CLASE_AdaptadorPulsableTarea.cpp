@@ -5,23 +5,16 @@
  */
 
 #include "CLASE_AdaptadorPulsableTarea.h"
-#include "../../Logger/FuncionesJSON.h"
+#include "../../../Logger/FuncionesJSON.h"
 
 AdaptadorPulsableTarea::AdaptadorPulsableTarea(bool estadoInicial, Task *tarea)
-    : Pulsable(estadoInicial, false)
-    , tarea(tarea)
-{
-    this -> setEstado(estadoInicial);
-}
-
-void AdaptadorPulsableTarea::encender(void) {
-    this -> tarea -> restart();
-}
+    : PulsableIniciador(estadoInicial, tarea)
+{}
 
 void AdaptadorPulsableTarea::apagar(void) {
     this -> tarea -> disable();
 } 
 
 size_t AdaptadorPulsableTarea::printTo(Print& impresora) const {
-    return OBJETO_SIN_SUPER_A_JSON(impresora, "AdaptadorPulsableTarea");
+    return OBJETO_A_JSON(impresora, "AdaptadorPulsableTarea") + SUPERCLASES_A_JSON(impresora, PulsableIniciador);
 }
