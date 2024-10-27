@@ -16,10 +16,10 @@
 #include "../EstructurasDatos/Mapas/CLASE_ArrayMapa.h"
 #include "../../Medidores/Callbacks/INTERFAZ_CallbackResultado.h"
 #include <UrlEncode.h>
-#include "../../Logger/FuncionesLoggers.h"
+#include "../Pulsables/CLASE_Pulsable.h"
 #include "../EstructurasDatos/Conjuntos/CLASE_AdaptadorFuncionComparadorIgualdad.h"
     template <size_t CAPACIDAD_MAPA_ARGUMENTOS, size_t CAPACIDAD_MAPA_ENCABEZADOS, size_t CAPACIDAD_URI_COMPLETA>
-    class SolicitudSinPayload {
+    class SolicitudSinPayload : public Pulsable {
         private:
             NetworkClient &clienteRed;
             CallbackResultado<HTTPClient, int> *callbackRecepcionRespuesta;
@@ -42,7 +42,8 @@
         
         public:
             SolicitudSinPayload(NetworkClient &clienteRed, CallbackResultado<HTTPClient, int> *callbackRecepcionRespuesta)
-                : clienteRed(clienteRed)
+                : Pulsable(false, false)
+                , clienteRed(clienteRed)
                 , callbackRecepcionRespuesta(callbackRecepcionRespuesta)
                 
                 , adaptadorIgualdad(AdaptadorFuncionComparadorIgualdad<const __FlashStringHelper *>(&iguales))
@@ -79,6 +80,10 @@
             }
             
             bool enviar(void) {
+                if (!(this -> getEstado())) {
+                    return false;
+                }
+                
                 HTTPClient cliente;
                 StringEstatica<CAPACIDAD_URI_COMPLETA> uriCompleta;
                 
@@ -115,6 +120,10 @@
                 
                 this -> callbackRecepcionRespuesta -> notificar(cliente, retorno);
                 return true;
+            }
+            
+            void setEstado(bool valor) override {
+                this -> setEstadoActual(valor);
             }
     };
 #endif
