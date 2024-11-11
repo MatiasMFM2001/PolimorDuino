@@ -9,7 +9,9 @@
 
 #include <Print.h>
 #include <ArduinoJson.h>
+
 #include "INTERFAZ_CallbackResultado.h"
+#include "../../Logger/FuncionesJSON.h"
     template <typename T_VARIANTE>
     class CallbackEmisorVarianteJSON : public CallbackResultado<T_VARIANTE> {
         private:
