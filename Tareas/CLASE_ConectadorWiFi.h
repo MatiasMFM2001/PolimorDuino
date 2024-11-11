@@ -34,7 +34,7 @@
              */
             ConectadorWiFi(long msEntreLlamados, Scheduler *planif, Pulsable *notificadorEstadosConexion)
                 : Task(msEntreLlamados, TASK_FOREVER, planif, false)
-                , notificadorEstadosConexion(notificadorEstadosConexion), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>()), conexionNotificada(false)
+                , notificadorEstadosConexion(notificadorEstadosConexion), conexionNotificada(false), nombreRed(StringEstatica<TAMANIO_NOMBRE>()), contrasenia(StringEstatica<TAMANIO_CONTRASENIA>())
             {}
         
             void inicializar(void) override {
