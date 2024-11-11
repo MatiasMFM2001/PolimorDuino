@@ -60,9 +60,13 @@
             }
 
             void inicializar(void) override {
-                if (this -> pinValido) {
-                    pinMode(numPin, MODO_PIN);
+                if (!(this -> pinValido)) {
+                    LOG("Pin::inicializar(%d, %d) - No se pudo inicializar porque el pin es inválido", this -> numPin, MODO_PIN);
+                    return;
                 }
+                
+                LOG("Pin::inicializar(%d, %d) - Inicializando por pin válido", this -> numPin, MODO_PIN);
+                pinMode(numPin, MODO_PIN);
             }
     };
 #endif

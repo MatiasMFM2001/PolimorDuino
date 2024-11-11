@@ -71,6 +71,11 @@
             void vincularFuncionPCINT(voidFuncPtr funcion, PinStatus modo) {
                 LOG("EJECUTANDO PinEntradaDigital::vincularFuncionPCINT(%d, %p, %d)", this -> numPin, funcion, modo);
 
+                if (!(this -> pinValido)) {
+                    LOG("PinEntradaDigital::vincularFuncionPCINT(%d, %p, %d) - Saliendo porque el pin no es válido", this -> numPin, funcion, modo);
+                    return;
+                }
+
                 #ifdef __AVR__
                     attachPinChangeInterrupt
                 #else
@@ -85,6 +90,11 @@
              */
             void desvincularFuncionPCINT(void) {
                 LOG("EJECUTANDO PinEntradaDigital::desvincularFuncionPCINT(%d)", this -> numPin);
+                
+                if (!(this -> pinValido)) {
+                    LOG("PinEntradaDigital::desvincularFuncionPCINT(%d) - Saliendo porque el pin no es válido", this -> numPin);
+                    return;
+                }
 
                 #ifdef __AVR__
                     detachPinChangeInterrupt
@@ -100,6 +110,11 @@
             void habilitarInterrupcion(void) {
                 LOG("EJECUTANDO PinEntradaDigital::habilitarInterrupcion(%d)", this -> numPin);
 
+                if (!(this -> pinValido)) {
+                    LOG("PinEntradaDigital::habilitarInterrupcion(%d) - Saliendo porque el pin no es válido", this -> numPin);
+                    return;
+                }
+
                 #ifdef __AVR__
                     enablePinChangeInterrupt(this -> getNumPCINT());
                 #else
@@ -112,6 +127,11 @@
              */
             void deshabilitarInterrupcion(void) {
                 LOG("EJECUTANDO PinEntradaDigital::deshabilitarInterrupcion(%d)", this -> numPin);
+                
+                if (!(this -> pinValido)) {
+                    LOG("PinEntradaDigital::deshabilitarInterrupcion(%d) - Saliendo porque el pin no es válido", this -> numPin);
+                    return;
+                }
 
                 #ifdef __AVR__
                     disablePinChangeInterrupt(this -> getNumPCINT());
