@@ -12,6 +12,7 @@ SalidaDigital::SalidaDigital(bool invertir, bool estadoInicial, bool settearEsta
 {}
 
 void SalidaDigital::setEstado(bool valor) {
+    this -> setEstadoActual(valor);
     this -> escribir(valor);
 }
 
