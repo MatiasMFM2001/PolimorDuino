@@ -31,7 +31,14 @@
 
 #define DEFINIR_LEER_BAJO_NIVEL_BD_EEPROM(T_VALOR) \
     DEFINIR_METODO_BD(leerBajoNivel, bool,, const char *clave, T_VALOR &variableASobreescribir) { \
-        variableASobreescribir = (this -> documento[clave]); \
+        JsonVariant variante = (this -> documento[clave]); \
+ \
+        if (!(variante.template is<T_VALOR>())) { \
+            CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: La variante leída no es del tipo " #T_VALOR)); \
+            return false; \
+        } \
+ \
+        variableASobreescribir = (variante.template as<T_VALOR>()); \
         return true; \
     }
 
@@ -101,8 +108,15 @@
             FOR_EACH(DEFINIR_LEER_BAJO_NIVEL_BD_EEPROM, TIPOS_NATIVOS_BD);
             FOR_EACH(DEFINIR_LEER_BAJO_NIVEL_BD_EEPROM, TIPOS_CONVERTIBLES_BD);
             
-            DEFINIR_METODO_BD(leerBajoNivel, bool,, const char *clave, StringAbstracta &variableASobreescribir) {  
-                if (!variableASobreescribir.agregarFinal(this -> documento.template as<const char *>())) {
+            DEFINIR_METODO_BD(leerBajoNivel, bool,, const char *clave, StringAbstracta &variableASobreescribir) {
+                JsonVariant variante = (this -> documento[clave]);
+                
+                if (!(variante.template is<const char *>())) {
+                    CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: La variante leída no es del tipo const char *"));
+                    return false;
+                }
+                
+                if (!variableASobreescribir.agregarFinal(variante.template as<const char *>())) {
                     CLOG_PUNTERO_IMPRESORA(salida, F("ERROR: Se llenó la variableASobreescribir al cargar la String de la clave '"), clave, F("' al buffer"));
                     return false;
                 }
