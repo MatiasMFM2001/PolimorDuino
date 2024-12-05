@@ -82,13 +82,17 @@
                         break;
                     
                     case WL_CONNECTED:
+                        if (this -> conexionNotificada) {
+                            return true;
+                        }
+                    
                         CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión exitosa a la red"), this -> nombreRed.getContenido(), F("con IP:"), WiFi.localIP());
                         
-                        if (!(this -> conexionNotificada) && (this -> notificadorEstadosConexion)) {
+                        if (this -> notificadorEstadosConexion) {
                             this -> notificadorEstadosConexion -> encender();
-                            this -> conexionNotificada = true;
                         }
                         
+                        this -> conexionNotificada = true;
                         break;
                         
                     case WL_CONNECT_FAILED:
@@ -96,13 +100,17 @@
                         break;
                         
                     case WL_CONNECTION_LOST:
+                        if (!(this -> conexionNotificada)) {
+                            return true;
+                        }
+                    
                         CLOG_REFERENCIA_IMPRESORA(Serial, F("ConectadorWiFi::Callback() - Conexión perdida a la red"), this -> nombreRed.getContenido());
                         
                         if (this -> notificadorEstadosConexion) {
                             this -> notificadorEstadosConexion -> apagar();
-                            this -> conexionNotificada = false;
                         }
                         
+                        this -> conexionNotificada = false;
                         break;
                         
                     case WL_DISCONNECTED:
