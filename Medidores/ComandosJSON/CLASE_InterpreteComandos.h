@@ -19,9 +19,13 @@
      */
     template <size_t CAPACIDAD_JSON_FINAL, size_t CAPACIDAD_JSON_INTERMEDIO, size_t CAPACIDAD_STRING_COMANDO, size_t CAPACIDAD_STRING_NUMERO, void (*F_LOGGER)(CanalBidireccional<JsonDocument, Print>&) = nullptr>
     class InterpreteComandos : public Medidor<CanalBidireccional<JsonDocument, Print>, F_LOGGER>, public CallbackResultado<CanalBidireccional<Stream, Print>> {
+        private:
+            Pulsable *notificadorComandoEjecutandose;
+        
         public:
-            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<JsonDocument, Print>> *callback, CondicionResultado<CanalBidireccional<JsonDocument, Print>> *verificador = nullptr)
+            InterpreteComandos(const __FlashStringHelper *nombre, CallbackResultado<CanalBidireccional<JsonDocument, Print>> *callback, Pulsable *notificadorComandoEjecutandose = nullptr, CondicionResultado<CanalBidireccional<JsonDocument, Print>> *verificador = nullptr)
                 : Medidor<CanalBidireccional<JsonDocument, Print>, F_LOGGER>(nombre, callback, verificador)
+                , notificadorComandoEjecutandose(notificadorComandoEjecutandose)
             {}
             
             void iniciarMedicion(void) override {
@@ -70,9 +74,17 @@
                     FLOGS("DOCUMENTO FINAL:");
                     imprimir(documentoFinal);
                     
+                    if (this -> notificadorComandoEjecutandose) {
+                        this -> notificadorComandoEjecutandose -> encender();
+                    }
+                    
                     CanalBidireccional<JsonDocument, Print> salida = {documentoFinal, resultado.salida};
                     this -> finalizarMedicion(salida);
                     resultado.salida.flush();
+                    
+                    if (this -> notificadorComandoEjecutandose) {
+                        this -> notificadorComandoEjecutandose -> apagar();
+                    }
             }
             
             /**
