@@ -9,6 +9,7 @@
 
 #ifdef ESP8266
     #include <ESP8266HTTPClient.h>
+    typedef WiFiClient NetworkClient;
 #else
     #include <HTTPClient.h>
 #endif
@@ -79,14 +80,16 @@
                 return (this -> encabezados.agregar(clave, valor));
             }
             
-            bool enviar(void) {
+            bool enviar(Print *salida = nullptr) {
                 if (!(this -> getEstado())) {
+                    CLOG_PUNTERO_IMPRESORA(salida, "SolicitudSinPayload::enviar() - Retornando false porque mi estado actual es FALSE");
                     return false;
                 }
                 
                 HTTPClient cliente;
-                StringEstatica<CAPACIDAD_URI_COMPLETA> uriCompleta;
+                cliente.setReuse(false);
                 
+                StringEstatica<CAPACIDAD_URI_COMPLETA> uriCompleta;
                 uriCompleta.agregarFinal(this -> uriRecurso);
                 uriCompleta.agregarFinal('?');
                 
@@ -98,12 +101,14 @@
                     uriCompleta.agregarFinal('&');
                 }
                 
+                CLOG_PUNTERO_IMPRESORA(salida, "SolicitudSinPayload::enviar() - URI completa =", uriCompleta);
+                
                 for (const ElementoMapa<const __FlashStringHelper *, const __FlashStringHelper *> &selec: this -> encabezados) {
                     cliente.addHeader(selec.getClave(), selec.getValor());
                 }
                 
                 if (!cliente.begin(this -> clienteRed, this -> dominio, this -> puertoTCP, uriCompleta.getContenidoConstante(), this -> usarHTTPs)) {
-                    FLOGS("ERROR: No se pudo iniciar el cliente HTTP(s)");
+                    CLOG_PUNTERO_IMPRESORA(salida, "SolicitudSinPayload::enviar() - ERROR: No se pudo iniciar el cliente HTTP(s)");
                     return false;
                 }
                 
@@ -111,14 +116,18 @@
                 AdaptadorStringImpresora adaptadorMetodo(&metodoCopiado);
                 
                 adaptadorMetodo.print(this -> metodoHTTP);
+                CLOG_PUNTERO_IMPRESORA(salida, "SolicitudSinPayload::enviar() - metodoCopiado =", metodoCopiado);
                 int retorno = (this -> enviarSolicitudBajoNivel(cliente, metodoCopiado.getContenidoConstante()));
                 
                 if (retorno < 0) {
-                    CLOG("ERROR: Al enviar la solicitud, se obtuvo el valor", retorno, '=', cliente.errorToString(retorno));
+                    CLOG_PUNTERO_IMPRESORA(salida, "SolicitudSinPayload::enviar() - ERROR: Al enviar la solicitud, se obtuvo el valor", retorno, '=', cliente.errorToString(retorno));
                     return false;
                 }
                 
-                this -> callbackRecepcionRespuesta -> notificar(cliente, retorno);
+                if (this -> callbackRecepcionRespuesta) {
+                    this -> callbackRecepcionRespuesta -> notificar(cliente, retorno);
+                }
+                
                 return true;
             }
             
