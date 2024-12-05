@@ -136,14 +136,21 @@
                 
                 if (!(this -> inicializarBajoNivel())) {
                     FLOGS("BaseDatos::inicializar() - No se pudo inicializar correctamente");
+                    this -> estaCorrupta = true;
+                    
                     return;
                 }
                 
                 size_t versionDocumento;
-                this -> getValorSetteando(CLAVE_VERSION, 1U, versionDocumento);
                 
-                LOG("BaseDatos::inicializar() - MessagePack deserializado correctamente, de versión = %d", versionDocumento);
-                //imprimir(this -> documento);
+                if (!(this -> getValorSetteando(CLAVE_VERSION, 1U, versionDocumento))) {
+                    FLOGS("BaseDatos::inicializar() - No se pudo obtener setteando la versión de la BD");
+                    this -> estaCorrupta = true;
+                    
+                    return;
+                }
+                
+                LOG("BaseDatos::inicializar() - BD inicializada correctamente, de versión = %d", versionDocumento);
                 
                 if ((versionDocumento >= (this -> version)) || !(this -> migrador)) {
                     return;
