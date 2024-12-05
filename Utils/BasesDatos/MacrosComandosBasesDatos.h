@@ -6,6 +6,7 @@
 
 #include "../../Medidores/ComandosJSON/CallbacksComandos/FuncionesComandos.h"
 #include "../FuncionesGlobales.h"
+#include "../MACRO_ForEach.h"
 
 #define CREAR_CALLBACKS_BD(validadorSettearBD, nombreSettearBD, nombreVerBD, nombreGuardarBD) \
     CREAR_COMANDO(CAPACIDAD_NOMBRES_INVC, nombreSettearBD, 3, 3, validadorSettearBD), \
@@ -24,7 +25,10 @@
         CLOG_REFERENCIA_IMPRESORA(salida, F("Valor de tipo"), F(#tipoDato), F("guardado correctamente")); \
     }
 
-#define DECLARAR_CALLBACKS_BD(baseDatos, nombreSettearBD, nombreVerBD, nombreGuardarBD) \
+#define GUARDAR_DATO_TIPO(T) \
+    GUARDAR_DATO(baseDatos, tipoDato, clave, T, valor, salida);
+
+#define DECLARAR_CALLBACKS_BD(baseDatos, nombreSettearBD, nombreVerBD, nombreGuardarBD, ...) \
     DECLARAR_CALLBACK(nombreSettearBD, args, numArgs, salida) { \
         const char *clave = args[0]; \
  \
@@ -36,13 +40,7 @@
         const char *tipoDato = args[1]; \
         const JsonVariant &valor = args[2]; \
  \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, int, valor, salida); \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, size_t, valor, salida); \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, float, valor, salida); \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, const char *, valor, salida); \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, bool, valor, salida); \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, JsonArray, valor, salida); \
-        GUARDAR_DATO(baseDatos, tipoDato, clave, JsonObject, valor, salida); \
+        FOR_EACH(GUARDAR_DATO_TIPO, __VA_ARGS__); \
     } \
  \
     DECLARAR_CALLBACK(nombreVerBD, args, numArgs, salida) { \
@@ -57,3 +55,11 @@
             CLOG_REFERENCIA_IMPRESORA(salida, F("ERROR: No se pudo guardar el contenido de la BD")); \
         } \
     }
+
+#define DECLARAR_CALLBACKS_BD_TODOS_TIPOS(baseDatos, nombreSettearBD, nombreVerBD, nombreGuardarBD) \
+    DECLARAR_CALLBACKS_BD(baseDatos, nombreSettearBD, nombreVerBD, nombreGuardarBD, \
+        bool, float, double, const char *, char, signed char, unsigned char, \
+        int, signed int, unsigned int, short, signed short, unsigned short, \
+        long, signed long, unsigned long, long long, signed long long, \
+        unsigned long long, JsonVariant, JsonArray, JsonObject \
+    )
