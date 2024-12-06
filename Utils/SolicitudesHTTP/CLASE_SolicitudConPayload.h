@@ -9,8 +9,8 @@
 
 #include "CLASE_SolicitudSinPayload.h"
 #include "../EstructurasDatos/Buffers/CLASE_BufferImpresora.h"
-    template <size_t CAPACIDAD_MAPA_ARGUMENTOS, size_t CAPACIDAD_MAPA_ENCABEZADOS, size_t CAPACIDAD_URI_COMPLETA, size_t CAPACIDAD_BUFFER_PAYLOAD>
-    class SolicitudConPayload : public SolicitudSinPayload<CAPACIDAD_MAPA_ARGUMENTOS, CAPACIDAD_MAPA_ENCABEZADOS, CAPACIDAD_URI_COMPLETA>, public Print {
+    template <size_t CAPACIDAD_MAPA_ARGUMENTOS, size_t CAPACIDAD_MAPA_ENCABEZADOS, size_t CAPACIDAD_URI_COMPLETA, size_t CAPACIDAD_BUFFER_PAYLOAD, typename T_CADENAS = __FlashStringHelper>
+    class SolicitudConPayload : public SolicitudSinPayload<CAPACIDAD_MAPA_ARGUMENTOS, CAPACIDAD_MAPA_ENCABEZADOS, CAPACIDAD_URI_COMPLETA, T_CADENAS>, public Print {
         private:
             BufferImpresora<CAPACIDAD_BUFFER_PAYLOAD, uint8_t> buffer;
         
@@ -21,7 +21,7 @@
         
         public:
             SolicitudConPayload(NetworkClient &clienteRed, CallbackResultado<HTTPClient, int> *callbackRecepcionRespuesta)
-                : SolicitudSinPayload<CAPACIDAD_MAPA_ARGUMENTOS, CAPACIDAD_MAPA_ENCABEZADOS, CAPACIDAD_URI_COMPLETA>(clienteRed, callbackRecepcionRespuesta)
+                : SolicitudSinPayload<CAPACIDAD_MAPA_ARGUMENTOS, CAPACIDAD_MAPA_ENCABEZADOS, CAPACIDAD_URI_COMPLETA, T_CADENAS>(clienteRed, callbackRecepcionRespuesta)
                 , buffer(BufferImpresora<CAPACIDAD_BUFFER_PAYLOAD>())
             {}
             

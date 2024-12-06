@@ -19,22 +19,22 @@
 #include <UrlEncode.h>
 #include "../Pulsables/CLASE_Pulsable.h"
 #include "../EstructurasDatos/Conjuntos/CLASE_AdaptadorFuncionComparadorIgualdad.h"
-    template <size_t CAPACIDAD_MAPA_ARGUMENTOS, size_t CAPACIDAD_MAPA_ENCABEZADOS, size_t CAPACIDAD_URI_COMPLETA>
+    template <size_t CAPACIDAD_MAPA_ARGUMENTOS, size_t CAPACIDAD_MAPA_ENCABEZADOS, size_t CAPACIDAD_URI_COMPLETA, typename T_CADENAS = __FlashStringHelper>
     class SolicitudSinPayload : public Pulsable {
         private:
             NetworkClient &clienteRed;
             CallbackResultado<HTTPClient, int> *callbackRecepcionRespuesta;
             
-            const __FlashStringHelper *dominio;
+            const T_CADENAS *dominio;
             uint16_t puertoTCP;
-            const __FlashStringHelper *uriRecurso;
+            const T_CADENAS *uriRecurso;
             bool usarHTTPs;
             
-            const __FlashStringHelper *metodoHTTP;
+            const T_CADENAS *metodoHTTP;
             
-            AdaptadorFuncionComparadorIgualdad<const __FlashStringHelper *> adaptadorIgualdad;
-            ArrayMapa<const __FlashStringHelper *, const __FlashStringHelper *, CAPACIDAD_MAPA_ARGUMENTOS> argumentos;
-            ArrayMapa<const __FlashStringHelper *, const __FlashStringHelper *, CAPACIDAD_MAPA_ENCABEZADOS> encabezados;
+            AdaptadorFuncionComparadorIgualdad<const T_CADENAS *> adaptadorIgualdad;
+            ArrayMapa<const T_CADENAS *, const T_CADENAS *, CAPACIDAD_MAPA_ARGUMENTOS> argumentos;
+            ArrayMapa<const T_CADENAS *, const T_CADENAS *, CAPACIDAD_MAPA_ENCABEZADOS> encabezados;
         
         protected:
             virtual int enviarSolicitudBajoNivel(HTTPClient &cliente, const char *metodoCopiado) {
@@ -47,12 +47,12 @@
                 , clienteRed(clienteRed)
                 , callbackRecepcionRespuesta(callbackRecepcionRespuesta)
                 
-                , adaptadorIgualdad(AdaptadorFuncionComparadorIgualdad<const __FlashStringHelper *>(&iguales))
-                , argumentos(ArrayMapa<const __FlashStringHelper *, const __FlashStringHelper *, CAPACIDAD_MAPA_ARGUMENTOS>(&adaptadorIgualdad))
-                , encabezados(ArrayMapa<const __FlashStringHelper *, const __FlashStringHelper *, CAPACIDAD_MAPA_ARGUMENTOS>(&adaptadorIgualdad))
+                , adaptadorIgualdad(AdaptadorFuncionComparadorIgualdad<const T_CADENAS *>(&iguales))
+                , argumentos(ArrayMapa<const T_CADENAS *, const T_CADENAS *, CAPACIDAD_MAPA_ARGUMENTOS>(&adaptadorIgualdad))
+                , encabezados(ArrayMapa<const T_CADENAS *, const T_CADENAS *, CAPACIDAD_MAPA_ARGUMENTOS>(&adaptadorIgualdad))
             {}
             
-            void settearDominio(const __FlashStringHelper *ingr) {
+            void settearDominio(const T_CADENAS *ingr) {
                 this -> dominio = ingr;
             }
             
@@ -60,7 +60,7 @@
                 this -> puertoTCP = ingr;
             }
             
-            void settearURI(const __FlashStringHelper *ingr) {
+            void settearURI(const T_CADENAS *ingr) {
                 this -> uriRecurso = ingr;
             }
             
@@ -68,15 +68,15 @@
                 this -> usarHTTPs = ingr;
             }
             
-            void settearMetodo(const __FlashStringHelper *ingr) {
+            void settearMetodo(const T_CADENAS *ingr) {
                 this -> metodoHTTP = ingr;
             }
             
-            bool agregarArgumento(const __FlashStringHelper *clave, const __FlashStringHelper *valor) {
+            bool agregarArgumento(const T_CADENAS *clave, const T_CADENAS *valor) {
                 return (this -> argumentos.agregar(clave, valor));
             }
             
-            bool agregarEncabezado(const __FlashStringHelper *clave, const __FlashStringHelper *valor) {
+            bool agregarEncabezado(const T_CADENAS *clave, const T_CADENAS *valor) {
                 return (this -> encabezados.agregar(clave, valor));
             }
             
@@ -93,7 +93,7 @@
                 uriCompleta.agregarFinal(this -> uriRecurso);
                 uriCompleta.agregarFinal('?');
                 
-                for (const ElementoMapa<const __FlashStringHelper *, const __FlashStringHelper *> &selec: this -> argumentos) {
+                for (const ElementoMapa<const T_CADENAS *, const T_CADENAS *> &selec: this -> argumentos) {
                     uriCompleta.agregarFinal(urlEncode(selec.getClave()));
                     uriCompleta.agregarFinal('=');
                     uriCompleta.agregarFinal(urlEncode(selec.getValor()));
@@ -103,7 +103,7 @@
                 
                 CLOG_PUNTERO_IMPRESORA(salida, "SolicitudSinPayload::enviar() - URI completa =", uriCompleta);
                 
-                for (const ElementoMapa<const __FlashStringHelper *, const __FlashStringHelper *> &selec: this -> encabezados) {
+                for (const ElementoMapa<const T_CADENAS *, const T_CADENAS *> &selec: this -> encabezados) {
                     cliente.addHeader(selec.getClave(), selec.getValor());
                 }
                 
