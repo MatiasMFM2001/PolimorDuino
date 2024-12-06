@@ -13,6 +13,7 @@
     class SolicitudConPayload : public SolicitudSinPayload<CAPACIDAD_MAPA_ARGUMENTOS, CAPACIDAD_MAPA_ENCABEZADOS, CAPACIDAD_URI_COMPLETA, T_CADENAS>, public Print {
         private:
             BufferImpresora<CAPACIDAD_BUFFER_PAYLOAD, uint8_t> buffer;
+            Print *notificadorEnvios;
         
         protected:
             virtual int enviarSolicitudBajoNivel(HTTPClient &cliente, const char *metodoCopiado) override {
@@ -20,7 +21,7 @@
             }
         
         public:
-            SolicitudConPayload(NetworkClient &clienteRed, CallbackResultado<HTTPClient, int> *callbackRecepcionRespuesta)
+            SolicitudConPayload(NetworkClient &clienteRed, CallbackResultado<HTTPClient, int> *callbackRecepcionRespuesta, Print *notificadorEnvios = nullptr)
                 : SolicitudSinPayload<CAPACIDAD_MAPA_ARGUMENTOS, CAPACIDAD_MAPA_ENCABEZADOS, CAPACIDAD_URI_COMPLETA, T_CADENAS>(clienteRed, callbackRecepcionRespuesta)
                 , buffer(BufferImpresora<CAPACIDAD_BUFFER_PAYLOAD>())
             {}
@@ -34,7 +35,7 @@
             }
             
             void flush(void) override {
-                this -> enviar();
+                this -> enviar(this -> notificadorEnvios);
                 this -> buffer.vaciarContenido();
             }
     };
